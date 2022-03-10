@@ -1,0 +1,10 @@
+{
+  "required": true,
+  "minVersion": "0.7.11",
+  "package": "com.falsepattern.endlessids.mixin.mixins",
+  "plugin": "com.falsepattern.endlessids.mixin.plugin.MixinPlugin",
+  "refmap": "mixins.endlessids.refmap.json",
+  "target": "@env(DEFAULT)",
+  "compatibilityLevel": "JAVA_8"
+}
+
