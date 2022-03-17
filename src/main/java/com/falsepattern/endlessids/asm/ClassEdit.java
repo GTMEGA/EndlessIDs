@@ -9,7 +9,6 @@ import com.falsepattern.endlessids.asm.transformer.CofhBlockHelper;
 import com.falsepattern.endlessids.asm.transformer.FmlRegistry;
 import com.falsepattern.endlessids.asm.transformer.VanillaItemInWorldManager;
 import com.falsepattern.endlessids.asm.transformer.VanillaPlayerControllerMP;
-import com.falsepattern.endlessids.asm.transformer.VanillaRenderGlobal;
 import com.falsepattern.endlessids.asm.transformer.VanillaS26PacketMapChunkBulk;
 import com.falsepattern.endlessids.asm.transformer.VanillaS24PacketBlockActivation;
 import com.falsepattern.endlessids.asm.transformer.VanillaS22PacketMultiBlockChange;
@@ -29,7 +28,7 @@ public enum ClassEdit
     VanillaS22PacketMultiBlockChange(new VanillaS22PacketMultiBlockChange(), new String[] { "net.minecraft.network.play.server.S22PacketMultiBlockChange" }), 
     VanillaS24PacketBlockActivation(new VanillaS24PacketBlockActivation(), new String[] { "net.minecraft.network.play.server.S24PacketBlockAction" }), 
     VanillaS26PacketMapChunkBulk(new VanillaS26PacketMapChunkBulk(), new String[] { "net.minecraft.network.play.server.S26PacketMapChunkBulk" }), 
-    VanillaRenderGlobal(new VanillaRenderGlobal(), new String[] { "net.minecraft.client.renderer.RenderGlobal" }), 
+    //VanillaRenderGlobal(new VanillaRenderGlobal(), new String[] { "net.minecraft.client.renderer.RenderGlobal" }),
     VanillaPlayerControllerMP(new VanillaPlayerControllerMP(), new String[] { "net.minecraft.client.multiplayer.PlayerControllerMP" }), 
     VanillaItemInWorldManager(new VanillaItemInWorldManager(), new String[] { "net.minecraft.server.management.ItemInWorldManager" }), 
     //VanillaWorld(new VanillaWorld(), new String[] { "net.minecraft.world.World" }),
