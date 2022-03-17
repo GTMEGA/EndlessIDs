@@ -7,7 +7,6 @@ import com.falsepattern.endlessids.asm.transformer.UndergroundBiomesBiomeUndergr
 import com.falsepattern.endlessids.asm.transformer.UndergroundBiomesOreUBifier;
 import com.falsepattern.endlessids.asm.transformer.CofhBlockHelper;
 import com.falsepattern.endlessids.asm.transformer.FmlRegistry;
-import com.falsepattern.endlessids.asm.transformer.VanillaItemInWorldManager;
 import java.util.Map;
 
 public enum ClassEdit
@@ -26,7 +25,7 @@ public enum ClassEdit
     //VanillaS26PacketMapChunkBulk(new VanillaS26PacketMapChunkBulk(), new String[] { "net.minecraft.network.play.server.S26PacketMapChunkBulk" }),
     //VanillaRenderGlobal(new VanillaRenderGlobal(), new String[] { "net.minecraft.client.renderer.RenderGlobal" }),
     //VanillaPlayerControllerMP(new VanillaPlayerControllerMP(), new String[] { "net.minecraft.client.multiplayer.PlayerControllerMP" }),
-    VanillaItemInWorldManager(new VanillaItemInWorldManager(), new String[] { "net.minecraft.server.management.ItemInWorldManager" }), 
+    //VanillaItemInWorldManager(new VanillaItemInWorldManager(), new String[] { "net.minecraft.server.management.ItemInWorldManager" }),
     //VanillaWorld(new VanillaWorld(), new String[] { "net.minecraft.world.World" }),
     FmlRegistry(new FmlRegistry(), new String[] { "cpw.mods.fml.common.registry.GameData", "cpw.mods.fml.common.registry.FMLControlledNamespacedRegistry" }), 
     CofhBlockHelper(new CofhBlockHelper(), new String[] { "cofh.lib.util.helpers.BlockHelper" }), 

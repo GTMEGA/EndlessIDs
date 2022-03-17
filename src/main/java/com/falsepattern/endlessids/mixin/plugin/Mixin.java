@@ -21,6 +21,7 @@ public enum Mixin {
     S24PacketBlockActionMixin(builder(Side.COMMON).mixin("S24PacketBlockActionMixin")),
     S26PacketMapChunkBulkMixin(builder(Side.COMMON).mixin("S26PacketMapChunkBulkMixin")),
     PlayerControllerMPMixin(builder(Side.COMMON).mixin("PlayerControllerMPMixin")),
+    ItemInWorldManagerMixin(builder(Side.COMMON).mixin("ItemInWorldManagerMixin")),
     NetHandlerPlayClientMixin(builder(Side.CLIENT).mixin("NetHandlerPlayClientMixin")),
     RenderGlobalMixin(builder(Side.CLIENT).mixin("RenderGlobalMixin")),
     ;
