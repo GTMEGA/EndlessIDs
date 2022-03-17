@@ -7,6 +7,11 @@ import java.util.List;
 import java.util.Set;
 
 public enum Mixin {
+    AnvilChunkLoaderMixin(builder(Side.COMMON).mixin("AnvilChunkLoaderMixin")),
+    ChunkMixin(builder(Side.COMMON).mixin("ChunkMixin")),
+    WorldMixin(builder(Side.COMMON).mixin("WorldMixin")),
+    ExtendedBlockStorageMixin(builder(Side.COMMON).mixin("ExtendedBlockStorageMixin")),
+    S21PacketChunkDataMixin(builder(Side.COMMON).mixin("S21PacketChunkDataMixin")),
     ;
 
     public final String mixin;
