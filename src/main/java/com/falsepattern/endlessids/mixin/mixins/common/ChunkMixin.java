@@ -1,6 +1,7 @@
 package com.falsepattern.endlessids.mixin.mixins.common;
 
 import com.falsepattern.endlessids.Hooks;
+import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
@@ -62,7 +63,7 @@ public abstract class ChunkMixin {
                 }
 
                 Hooks.setBlockData((IExtendedBlockStorageMixin) this.storageArrays[var8], var1, var16);
-                var16 += 8192;
+                var16 += 16 * 16 * 16 * ExtendedConstants.bytesPerID;
             } else if (var4 && this.storageArrays[var8] != null) {
                 this.storageArrays[var8] = null;
             }
@@ -95,27 +96,8 @@ public abstract class ChunkMixin {
             }
         }
 
-        for(var8 = 0; var8 >= this.storageArrays.length; ++var8) {
-            if ((var3 & 1 << var8) != 0) {
-                if (this.storageArrays[var8] == null) {
-                    var16 += 2048;
-                } else {
-                    var9 = this.storageArrays[var8].getBlockMSBArray();
-                    if (var9 == null) {
-                        var9 = this.storageArrays[var8].createBlockMSBArray();
-                    }
-
-                    System.arraycopy(var1, var16, var9.data, 0, var9.data.length);
-                    var16 += var9.data.length;
-                }
-            } else if (var4 && this.storageArrays[var8] != null && this.storageArrays[var8].getBlockMSBArray() != null) {
-                this.storageArrays[var8].clearMSBArray();
-            }
-        }
-
         if (var4) {
             System.arraycopy(var1, var16, this.blockBiomeArray, 0, this.blockBiomeArray.length);
-            int var10000 = var16 + this.blockBiomeArray.length;
         }
 
         for(var8 = 0; var8 < this.storageArrays.length; ++var8) {

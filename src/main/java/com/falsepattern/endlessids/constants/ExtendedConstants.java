@@ -2,9 +2,9 @@ package com.falsepattern.endlessids.constants;
 
 public class ExtendedConstants {
     //Tunables
-    public static final int bitsPerID = 16;
+    public static final int bitsPerID = 24;
     public static final int bitsPerMetadata = 4;
-    public static final int countCorrectionBits = 1;
+    public static final int countCorrectionBits = 0;
 
     public static final int watchableBits = 7;
 

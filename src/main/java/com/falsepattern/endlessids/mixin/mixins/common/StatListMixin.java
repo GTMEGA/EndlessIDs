@@ -10,9 +10,10 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 @Mixin(StatList.class)
 public abstract class StatListMixin {
     @ModifyConstant(method = "<clinit>",
-                    constant = @Constant(intValue = VanillaConstants.blockIDCount),
-                    require = 1)
+                    constant = {@Constant(intValue = VanillaConstants.blockIDCount), @Constant(intValue = 32000)},
+                    require = 4)
     private static int modifyMineBlockStatArraySize(int constant) {
         return ExtendedConstants.blockIDCount;
     }
+
 }

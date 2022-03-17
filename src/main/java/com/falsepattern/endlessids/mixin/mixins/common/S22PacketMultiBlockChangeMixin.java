@@ -19,7 +19,7 @@ public abstract class S22PacketMultiBlockChangeMixin {
                     constant = @Constant(intValue = 4, ordinal = 0),
                     require = 1)
     private int extend1(int constant) {
-        return 5;
+        return 6;
     }
 
     private int id;
@@ -41,7 +41,8 @@ public abstract class S22PacketMultiBlockChangeMixin {
                        ordinal = 1),
               require = 1)
     private void hackWrite(DataOutputStream instance, int value) throws IOException {
-        instance.writeShort(id);
+        instance.writeShort(id & 0xFFFF);
+        instance.writeByte((id >>> 16) & 0xFF);
         instance.writeByte(meta);
     }
 }

@@ -16,7 +16,7 @@ public class IDExtender
 
     @Mod.EventHandler
     public void test(final FMLPreInitializationEvent event) {
-//        for(int i = 0; i < 31658; i++){
+//        for(int i = 0; i < 65536; i++){
 //        	Block shield = new BlockIce().setBlockName(".shield" + i);
 //        	GameRegistry.registerBlock(shield, i + "ShieldBlock");
 //        	shield.setCreativeTab(CreativeTabs.tabFood);

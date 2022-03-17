@@ -49,9 +49,6 @@ public abstract class AnvilChunkLoaderMixin {
                 var11 = new NBTTagCompound();
                 var11.setByte("Y", (byte)(var10.getYLocation() >> 4 & 255));
                 Hooks.writeChunkToNbt(var11, (IExtendedBlockStorageMixin) var10);
-                if (var10.getBlockMSBArray() != null) {
-                    var11.setByteArray("Add", var10.getBlockMSBArray().data);
-                }
 
                 var11.setByteArray("Data", var10.getMetadataArray().data);
                 var11.setByteArray("BlockLight", var10.getBlocklightArray().data);

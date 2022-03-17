@@ -31,12 +31,12 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
 
     @Override
     public short[] getLSB() {
-        return new short[0];
+        return lsbArray;
     }
 
     @Override
     public byte[] getMSB() {
-        return new byte[0];
+        return msbArray;
     }
 
     @Inject(method = "<init>",
@@ -94,7 +94,6 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
 
         int blockID = Hooks.getIdFromBlockWithCheck(newBlock, oldBlock);
         setID(x, y, z, blockID);
-        Hooks.setBlockId(this, x, y, z, blockID);
     }
 
     /**
