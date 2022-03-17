@@ -20,6 +20,7 @@ public enum Mixin {
     S22PacketMultiBlockChangeMixin(builder(Side.COMMON).mixin("S22PacketMultiBlockChangeMixin")),
     S24PacketBlockActionMixin(builder(Side.COMMON).mixin("S24PacketBlockActionMixin")),
     S26PacketMapChunkBulkMixin(builder(Side.COMMON).mixin("S26PacketMapChunkBulkMixin")),
+    PlayerControllerMPMixin(builder(Side.COMMON).mixin("PlayerControllerMPMixin")),
     NetHandlerPlayClientMixin(builder(Side.CLIENT).mixin("NetHandlerPlayClientMixin")),
     RenderGlobalMixin(builder(Side.CLIENT).mixin("RenderGlobalMixin")),
     ;
