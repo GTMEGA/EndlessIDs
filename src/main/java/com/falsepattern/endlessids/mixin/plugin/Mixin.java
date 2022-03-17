@@ -18,6 +18,7 @@ public enum Mixin {
     ExtendedBlockStorageMixin(builder(Side.COMMON).mixin("ExtendedBlockStorageMixin")),
     S21PacketChunkDataMixin(builder(Side.COMMON).mixin("S21PacketChunkDataMixin")),
     S22PacketMultiBlockChangeMixin(builder(Side.COMMON).mixin("S22PacketMultiBlockChangeMixin")),
+    S24PacketBlockActionMixin(builder(Side.COMMON).mixin("S24PacketBlockActionMixin")),
     NetHandlerPlayClientMixin(builder(Side.CLIENT).mixin("NetHandlerPlayClientMixin")),
     RenderGlobalMixin(builder(Side.CLIENT).mixin("RenderGlobalMixin")),
     ;
