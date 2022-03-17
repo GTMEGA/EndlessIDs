@@ -9,6 +9,7 @@ import java.util.Set;
 public enum Mixin {
     AnvilChunkLoaderMixin(builder(Side.COMMON).mixin("AnvilChunkLoaderMixin")),
     ChunkMixin(builder(Side.COMMON).mixin("ChunkMixin")),
+    StatListMixin(builder(Side.COMMON).mixin("StatListMixin")),
     BlockFireMixin(builder(Side.COMMON).mixin("BlockFireMixin")),
     WorldMixin(builder(Side.COMMON).mixin("WorldMixin")),
     ExtendedBlockStorageMixin(builder(Side.COMMON).mixin("ExtendedBlockStorageMixin")),
