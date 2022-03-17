@@ -13,13 +13,13 @@ public class IDExtender
     public IDExtender() {
         super();
     }
-    
+
     @Mod.EventHandler
     public void test(final FMLPreInitializationEvent event) {
-        for(int i = 0; i < 31658; i++){
-        	Block shield = new BlockIce().setBlockName(".shield" + i);
-        	GameRegistry.registerBlock(shield, i + "ShieldBlock");
-        	shield.setCreativeTab(CreativeTabs.tabFood);
-        }
+//        for(int i = 0; i < 31658; i++){
+//        	Block shield = new BlockIce().setBlockName(".shield" + i);
+//        	GameRegistry.registerBlock(shield, i + "ShieldBlock");
+//        	shield.setCreativeTab(CreativeTabs.tabFood);
+//        }
     }
 }
