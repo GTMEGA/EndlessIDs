@@ -1,8 +1,10 @@
-package com.falsepattern.endlessids.mixin.mixins.common;
+package com.falsepattern.endlessids.mixin.mixins.client;
 
 import com.falsepattern.endlessids.Hooks;
 import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
+@SideOnly(Side.CLIENT)
 @Mixin(Chunk.class)
 public abstract class ChunkMixin {
     @Shadow public Map chunkTileEntityMap;

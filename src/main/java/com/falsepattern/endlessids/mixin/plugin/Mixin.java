@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 
 public enum Mixin {
     AnvilChunkLoaderMixin(builder(Side.COMMON).mixin("AnvilChunkLoaderMixin")),
-    ChunkMixin(builder(Side.COMMON).mixin("ChunkMixin")),
+    ChunkMixin(builder(Side.CLIENT).mixin("ChunkMixin")),
     DataWatcherMixin(builder(Side.COMMON).condition(() -> IEConfig.extendDataWatcher).mixin("DataWatcherMixin")),
     StatListMixin(builder(Side.COMMON).mixin("StatListMixin")),
     BlockFireMixin(builder(Side.COMMON).mixin("BlockFireMixin")),
