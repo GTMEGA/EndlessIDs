@@ -16,13 +16,12 @@ import com.falsepattern.endlessids.asm.transformer.VanillaS22PacketMultiBlockCha
 import com.falsepattern.endlessids.asm.transformer.VanillaNetHandlerPlayClient;
 import com.falsepattern.endlessids.asm.transformer.VanillaDataWatcher;
 import com.falsepattern.endlessids.asm.transformer.VanillaStatList;
-import com.falsepattern.endlessids.asm.transformer.VanillaBlockFire;
 import java.util.Map;
 
 public enum ClassEdit
 {
     //SelfHooks(new SelfHooks(), new String[] { "com.falsepattern.endlessids.Hooks" }),
-    VanillaBlockFire(new VanillaBlockFire(), new String[] { "net.minecraft.block.BlockFire" }), 
+    //VanillaBlockFire(new VanillaBlockFire(), new String[] { "net.minecraft.block.BlockFire" }),
     VanillaStatList(new VanillaStatList(), new String[] { "net.minecraft.stats.StatList" }), 
     //VanillaAnvilChunkLoader(new VanillaAnvilChunkLoader(), new String[] { "net.minecraft.world.chunk.storage.AnvilChunkLoader" }),
     //VanillaChunk(new VanillaChunk(), new String[] { "net.minecraft.world.chunk.Chunk" }),
