@@ -11,7 +11,6 @@ import com.falsepattern.endlessids.asm.transformer.VanillaItemInWorldManager;
 import com.falsepattern.endlessids.asm.transformer.VanillaPlayerControllerMP;
 import com.falsepattern.endlessids.asm.transformer.VanillaS26PacketMapChunkBulk;
 import com.falsepattern.endlessids.asm.transformer.VanillaS24PacketBlockActivation;
-import com.falsepattern.endlessids.asm.transformer.VanillaS22PacketMultiBlockChange;
 import java.util.Map;
 
 public enum ClassEdit
@@ -25,7 +24,7 @@ public enum ClassEdit
     //VanillaDataWatcher(new VanillaDataWatcher(), new String[] { "net.minecraft.entity.DataWatcher" }),
     //VanillaNetHandlerPlayClient(new VanillaNetHandlerPlayClient(), new String[] { "net.minecraft.client.network.NetHandlerPlayClient" }),
     //VanillaS21PacketChunkData(new VanillaS21PacketChunkData(), new String[] { "net.minecraft.network.play.server.S21PacketChunkData" }),
-    VanillaS22PacketMultiBlockChange(new VanillaS22PacketMultiBlockChange(), new String[] { "net.minecraft.network.play.server.S22PacketMultiBlockChange" }), 
+    //VanillaS22PacketMultiBlockChange(new VanillaS22PacketMultiBlockChange(), new String[] { "net.minecraft.network.play.server.S22PacketMultiBlockChange" }),
     VanillaS24PacketBlockActivation(new VanillaS24PacketBlockActivation(), new String[] { "net.minecraft.network.play.server.S24PacketBlockAction" }), 
     VanillaS26PacketMapChunkBulk(new VanillaS26PacketMapChunkBulk(), new String[] { "net.minecraft.network.play.server.S26PacketMapChunkBulk" }), 
     //VanillaRenderGlobal(new VanillaRenderGlobal(), new String[] { "net.minecraft.client.renderer.RenderGlobal" }),
