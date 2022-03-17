@@ -2,6 +2,7 @@ package com.falsepattern.endlessids.asm;
 
 public class Constants
 {
+
     public static final int maxBlockId = 32767;
     public static final int blockIdMask = 65535;
     public static final int ebsIdArrayLength = 4096;
@@ -11,7 +12,11 @@ public class Constants
     public static final int newEbsSize = 14336;
     public static final int newSize = 229632;
     public static final int maxDataWatcherId = 127;
-    
+    public static final int vanillaIDCount = 4096;
+    public static final int newIDCount = 32768;
+    public static final int vanillaIDBits = 12;
+    public static final int newIDBits = 16;
+
     public Constants() {
         super();
     }

@@ -1,5 +1,7 @@
 package com.falsepattern.endlessids.asm.transformer;
 
+import com.falsepattern.endlessids.constants.ExtendedConstants;
+import com.falsepattern.endlessids.constants.VanillaConstants;
 import org.objectweb.asm.tree.FieldNode;
 import com.falsepattern.endlessids.asm.AsmTransformException;
 import org.objectweb.asm.tree.MethodNode;
@@ -17,11 +19,11 @@ public class FmlRegistry implements IClassNodeTransformer
     public void transform(final ClassNode cn, final boolean obfuscated) {
         final FieldNode field = AsmUtil.findField(cn, "MAX_BLOCK_ID", true);
         if (field != null) {
-            field.value = Integer.valueOf(32767);
+            field.value = ExtendedConstants.maxBlockID;
         }
         boolean found = false;
         for (final MethodNode method : cn.methods) {
-            if (AsmUtil.transformInlinedSizeMethod(cn, method, 4095, 32767, true)) {
+            if (AsmUtil.transformInlinedSizeMethod(cn, method, VanillaConstants.maxBlockID, ExtendedConstants.maxBlockID, true)) {
                 found = true;
             }
         }

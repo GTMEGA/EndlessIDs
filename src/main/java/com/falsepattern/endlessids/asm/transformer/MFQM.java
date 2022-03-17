@@ -1,5 +1,7 @@
 package com.falsepattern.endlessids.asm.transformer;
 
+import com.falsepattern.endlessids.constants.ExtendedConstants;
+import com.falsepattern.endlessids.constants.VanillaConstants;
 import org.objectweb.asm.tree.MethodNode;
 import com.falsepattern.endlessids.asm.AsmUtil;
 import com.falsepattern.endlessids.asm.Name;
@@ -17,7 +19,7 @@ public class MFQM implements IClassNodeTransformer
     public void transform(final ClassNode cn, final boolean obfuscated) {
         if (IEConfig.extendDataWatcher) {
             final MethodNode method = AsmUtil.findMethod(cn, Name.MFQM_preInit);
-            AsmUtil.transformInlinedSizeMethod(cn, method, 31, 127);
+            AsmUtil.transformInlinedSizeMethod(cn, method, VanillaConstants.watchableMask, ExtendedConstants.watchableMask);
         }
     }
 }

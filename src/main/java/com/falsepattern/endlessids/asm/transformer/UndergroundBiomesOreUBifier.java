@@ -1,5 +1,7 @@
 package com.falsepattern.endlessids.asm.transformer;
 
+import com.falsepattern.endlessids.constants.ExtendedConstants;
+import com.falsepattern.endlessids.constants.VanillaConstants;
 import org.objectweb.asm.tree.MethodNode;
 import com.falsepattern.endlessids.asm.AsmUtil;
 import org.objectweb.asm.tree.ClassNode;
@@ -14,6 +16,6 @@ public class UndergroundBiomesOreUBifier implements IClassNodeTransformer
     @Override
     public void transform(final ClassNode cn, final boolean obfuscated) {
         final MethodNode method = AsmUtil.findMethod(cn, "renewBlockReplacers");
-        AsmUtil.transformInlinedSizeMethod(cn, method, 4096, 32768, false);
+        AsmUtil.transformInlinedSizeMethod(cn, method, VanillaConstants.blockIDCount, ExtendedConstants.blockIDCount, false);
     }
 }

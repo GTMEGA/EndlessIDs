@@ -14,6 +14,7 @@ import java.io.IOException;
 
 @Mixin(S22PacketMultiBlockChange.class)
 public abstract class S22PacketMultiBlockChangeMixin {
+    //TODO magic number
     @ModifyConstant(method = "<init>(I[SLnet/minecraft/world/chunk/Chunk;)V",
                     constant = @Constant(intValue = 4, ordinal = 0),
                     require = 1)

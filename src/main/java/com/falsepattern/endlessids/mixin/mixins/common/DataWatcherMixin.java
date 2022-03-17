@@ -1,5 +1,7 @@
 package com.falsepattern.endlessids.mixin.mixins.common;
 
+import com.falsepattern.endlessids.constants.ExtendedConstants;
+import com.falsepattern.endlessids.constants.VanillaConstants;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.DataWatcher;
 import net.minecraft.network.PacketBuffer;
@@ -18,24 +20,24 @@ import java.util.List;
 @Mixin(DataWatcher.class)
 public abstract class DataWatcherMixin {
     @ModifyConstant(method = {"addObject", "writeWatchedListToPacketBuffer", "func_151509_a", "writeWatchableObjectToPacketBuffer"},
-                    constant = @Constant(intValue = 31),
+                    constant = @Constant(intValue = VanillaConstants.maxWatchableID),
                     require = 4)
     private static int extend1(int constant) {
-        return 127;
+        return ExtendedConstants.maxWatchableID;
     }
 
     @ModifyConstant(method = "writeWatchableObjectToPacketBuffer",
-                    constant = @Constant(intValue = 5, ordinal = 0),
+                    constant = @Constant(intValue = VanillaConstants.watchableBits, ordinal = 0),
                     require = 1)
     private static int extend2(int constant) {
-        return 7;
+        return ExtendedConstants.watchableBits;
     }
 
     @ModifyConstant(method = "writeWatchableObjectToPacketBuffer",
-                    constant = @Constant(intValue = 255, ordinal = 0),
+                    constant = @Constant(intValue = VanillaConstants.watchableMask, ordinal = 0),
                     require = 1)
     private static int extend3(int constant) {
-        return 1023;
+        return ExtendedConstants.watchableMask;
     }
 
     @Redirect(method = "writeWatchableObjectToPacketBuffer",
@@ -59,33 +61,33 @@ public abstract class DataWatcherMixin {
                 watchables = new ArrayList<>();
             }
 
-            int var3 = (id & 896) >> 7;
-            int var4 = id & 127;
+            int flag = (id >> ExtendedConstants.watchableBits) & 0x7;
+            int watchableID = id & ExtendedConstants.maxWatchableID;
             DataWatcher.WatchableObject watchable = null;
-            switch(var3) {
+            switch(flag) {
                 case 0:
-                    watchable = new DataWatcher.WatchableObject(var3, var4, packet.readByte());
+                    watchable = new DataWatcher.WatchableObject(flag, watchableID, packet.readByte());
                     break;
                 case 1:
-                    watchable = new DataWatcher.WatchableObject(var3, var4, packet.readShort());
+                    watchable = new DataWatcher.WatchableObject(flag, watchableID, packet.readShort());
                     break;
                 case 2:
-                    watchable = new DataWatcher.WatchableObject(var3, var4, packet.readInt());
+                    watchable = new DataWatcher.WatchableObject(flag, watchableID, packet.readInt());
                     break;
                 case 3:
-                    watchable = new DataWatcher.WatchableObject(var3, var4, packet.readFloat());
+                    watchable = new DataWatcher.WatchableObject(flag, watchableID, packet.readFloat());
                     break;
                 case 4:
-                    watchable = new DataWatcher.WatchableObject(var3, var4, packet.readStringFromBuffer(32767));
+                    watchable = new DataWatcher.WatchableObject(flag, watchableID, packet.readStringFromBuffer(32767));
                     break;
                 case 5:
-                    watchable = new DataWatcher.WatchableObject(var3, var4, packet.readItemStackFromBuffer());
+                    watchable = new DataWatcher.WatchableObject(flag, watchableID, packet.readItemStackFromBuffer());
                     break;
                 case 6:
                     int x = packet.readInt();
                     int y = packet.readInt();
                     int z = packet.readInt();
-                    watchable = new DataWatcher.WatchableObject(var3, var4, new ChunkCoordinates(x, y, z));
+                    watchable = new DataWatcher.WatchableObject(flag, watchableID, new ChunkCoordinates(x, y, z));
             }
 
             watchables.add(watchable);

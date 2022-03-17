@@ -1,5 +1,7 @@
 package com.falsepattern.endlessids.asm.transformer;
 
+import com.falsepattern.endlessids.constants.ExtendedConstants;
+import com.falsepattern.endlessids.constants.VanillaConstants;
 import lombok.val;
 import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.MethodNode;
@@ -20,15 +22,15 @@ public class WorldEditBaseBlock implements IClassNodeTransformer
         if (method == null) {
             return;
         }
-        AsmUtil.transformInlinedSizeMethod(cn, method, 4095, 32767);
+        AsmUtil.transformInlinedSizeMethod(cn, method, VanillaConstants.maxBlockID, ExtendedConstants.maxBlockID);
         final InsnList code = method.instructions;
         val iter = code.iterator();
         while (iter.hasNext()) {
             val insn = iter.next();
             if (insn.getType() == 9 && ((LdcInsnNode)insn).cst instanceof String) {
                 final String string = (String)((LdcInsnNode)insn).cst;
-                if (string.contains("4095")) {
-                    ((LdcInsnNode)insn).cst = string.replace("4095", Integer.toString(32767));
+                if (string.contains(Integer.toString(VanillaConstants.maxBlockID))) {
+                    ((LdcInsnNode)insn).cst = string.replace(Integer.toString(VanillaConstants.maxBlockID), Integer.toString(ExtendedConstants.maxBlockID));
                     break;
                 }
             }

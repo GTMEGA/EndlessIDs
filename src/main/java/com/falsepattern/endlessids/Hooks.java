@@ -1,5 +1,6 @@
 package com.falsepattern.endlessids;
 
+import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;
 import net.minecraft.init.Blocks;
 import net.minecraft.block.Block;
@@ -28,11 +29,11 @@ public class Hooks
     public static void writeChunkToNbt(final NBTTagCompound nbt, final IExtendedBlockStorageMixin ebs) {
         nbt.setByteArray("Blocks16", getBlockData(ebs));
         if (IEConfig.postNeidWorldsSupport) {
-            final short[] data = ebs.get16B();
+            final short[] data = ebs.getLSB();
             final byte[] lsbData = new byte[data.length];
             byte[] msbData = null;
             for (int i = 0; i < data.length; ++i) {
-                final int id = data[i] & 0xFFFF;
+                final int id = data[i] & ExtendedConstants.blockIDMask;
                 if (id <= 255) {
                     lsbData[i] = (byte)id;
                 }
@@ -102,6 +103,10 @@ public class Hooks
         return new short[4096];
     }
 
+    public static byte[] create8BArray() {
+        return new byte[4096];
+    }
+
     public static void removeInvalidBlocksHook(final IExtendedBlockStorageMixin ebs) {
         final short[] blkIds = ebs.get16B();
         int cntNonEmpty = 0;
@@ -132,7 +137,7 @@ public class Hooks
         if (IEConfig.catchUnregisteredBlocks && id == -1) {
             throw new IllegalArgumentException("Block " + block + " is not registered. <-- Say about this to the author of this mod, or you can try to enable \"RemoveInvalidBlocks\" option in NEID config.");
         }
-        if (id >= 0 && id <= 32767) {
+        if (id >= 0 && id <= ExtendedConstants.maxBlockID) {
             return id;
         }
         if (id == -1) {

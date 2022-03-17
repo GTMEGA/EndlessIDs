@@ -1,5 +1,7 @@
 package com.falsepattern.endlessids.asm.transformer;
 
+import com.falsepattern.endlessids.constants.ExtendedConstants;
+import com.falsepattern.endlessids.constants.VanillaConstants;
 import org.objectweb.asm.tree.MethodNode;
 import com.falsepattern.endlessids.asm.AsmUtil;
 import org.objectweb.asm.tree.ClassNode;
@@ -14,8 +16,8 @@ public class CofhBlockHelper implements IClassNodeTransformer
     @Override
     public void transform(final ClassNode cn, final boolean obfuscated) {
         final MethodNode method = AsmUtil.findMethod(cn, "<clinit>");
-        if (!AsmUtil.transformInlinedSizeMethod(cn, method, 4096, 32768, true)) {
-            AsmUtil.transformInlinedSizeMethod(cn, method, 1024, 32768);
+        if (!AsmUtil.transformInlinedSizeMethod(cn, method, VanillaConstants.blockIDCount, ExtendedConstants.blockIDCount, true)) {
+            AsmUtil.transformInlinedSizeMethod(cn, method, VanillaConstants.blockIDCount / 4, ExtendedConstants.blockIDCount);
         }
     }
 }

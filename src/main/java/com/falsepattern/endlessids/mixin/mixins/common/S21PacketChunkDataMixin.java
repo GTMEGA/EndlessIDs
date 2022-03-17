@@ -1,6 +1,9 @@
 package com.falsepattern.endlessids.mixin.mixins.common;
 
 import com.falsepattern.endlessids.Hooks;
+import com.falsepattern.endlessids.asm.Constants;
+import com.falsepattern.endlessids.constants.ExtendedConstants;
+import com.falsepattern.endlessids.constants.VanillaConstants;
 import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;
 import net.minecraft.network.play.server.S21PacketChunkData;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
@@ -12,18 +15,19 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(S21PacketChunkData.class)
 public abstract class S21PacketChunkDataMixin {
+
     @ModifyConstant(method = {"<clinit>", "func_149275_c"},
-                    constant = @Constant(intValue = 0x30100),
+                    constant = @Constant(intValue = VanillaConstants.bytesPerChunk),
                     require = 1)
     private static int increasePacketSize(int constant) {
-        return constant + 0x8000;
+        return ExtendedConstants.bytesPerChunk;
     }
 
     @ModifyConstant(method = "readPacketData",
-                    constant = @Constant(intValue = 0x3000),
+                    constant = @Constant(intValue = VanillaConstants.bytesPerEBS),
                     require = 1)
     private int increaseReadSize(int constant) {
-        return constant + 0x800;
+        return ExtendedConstants.bytesPerEBS;
     }
 
     @Redirect(method = "func_149269_a",
