@@ -7,22 +7,16 @@ import com.falsepattern.endlessids.asm.transformer.UndergroundBiomesBiomeUndergr
 import com.falsepattern.endlessids.asm.transformer.UndergroundBiomesOreUBifier;
 import com.falsepattern.endlessids.asm.transformer.CofhBlockHelper;
 import com.falsepattern.endlessids.asm.transformer.FmlRegistry;
-import com.falsepattern.endlessids.asm.transformer.VanillaWorld;
 import com.falsepattern.endlessids.asm.transformer.VanillaItemInWorldManager;
 import com.falsepattern.endlessids.asm.transformer.VanillaPlayerControllerMP;
 import com.falsepattern.endlessids.asm.transformer.VanillaRenderGlobal;
 import com.falsepattern.endlessids.asm.transformer.VanillaS26PacketMapChunkBulk;
 import com.falsepattern.endlessids.asm.transformer.VanillaS24PacketBlockActivation;
 import com.falsepattern.endlessids.asm.transformer.VanillaS22PacketMultiBlockChange;
-import com.falsepattern.endlessids.asm.transformer.VanillaS21PacketChunkData;
 import com.falsepattern.endlessids.asm.transformer.VanillaNetHandlerPlayClient;
 import com.falsepattern.endlessids.asm.transformer.VanillaDataWatcher;
-import com.falsepattern.endlessids.asm.transformer.VanillaExtendedBlockStorage;
-import com.falsepattern.endlessids.asm.transformer.VanillaChunk;
-import com.falsepattern.endlessids.asm.transformer.VanillaAnvilChunkLoader;
 import com.falsepattern.endlessids.asm.transformer.VanillaStatList;
 import com.falsepattern.endlessids.asm.transformer.VanillaBlockFire;
-import com.falsepattern.endlessids.asm.transformer.SelfHooks;
 import java.util.Map;
 
 public enum ClassEdit
