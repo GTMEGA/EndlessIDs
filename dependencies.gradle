@@ -11,4 +11,8 @@ dependencies {
     compileOnly("curse.maven:cofh-lib-220333:2388747") {
         transitive = false
     }
+
+    compileOnly("curse.maven:dragonapi-235591:3574508") {
+        transitive = false
+    }
 }

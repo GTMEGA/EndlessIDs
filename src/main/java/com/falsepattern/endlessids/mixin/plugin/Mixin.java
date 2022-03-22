@@ -43,8 +43,11 @@ public enum Mixin {
         BiomeUndergroundDecoratorMixin(builder(Side.COMMON).target(TargetedMod.UBC).mixin("ubc.BiomeUndergroundDecoratorMixin")),
     //END UBC->common
     //BEGIN CoFHLib->common
-        CofhBlockHelperMixin(builder(Side.COMMON).target(TargetedMod.COFHLIB).mixin("cofhlib.BlockHelperMixin"))
+        CofhBlockHelperMixin(builder(Side.COMMON).target(TargetedMod.COFHLIB).mixin("cofhlib.BlockHelperMixin")),
     //END CoFHLib->common
+    //BEGIN DragonAPI->common
+        BlockPropertiesMixin(builder(Side.COMMON).target(TargetedMod.DRAGONAPI).mixin("dragonapi.BlockPropertiesMixin"))
+    //END DragonAPI->common
     ;
 
     public final String mixin;
