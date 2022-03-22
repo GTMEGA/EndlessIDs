@@ -1,7 +1,6 @@
 package com.falsepattern.endlessids.mixin.mixins.common.vanilla.networking;
 
 import com.falsepattern.endlessids.Hooks;
-import com.falsepattern.endlessids.asm.Constants;
 import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.constants.VanillaConstants;
 import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;

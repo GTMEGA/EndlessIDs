@@ -1,6 +1,5 @@
 package com.falsepattern.endlessids.mixin.mixins.common.vanilla.networking;
 
-import com.falsepattern.endlessids.asm.Constants;
 import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.constants.VanillaConstants;
 import net.minecraft.network.play.server.S24PacketBlockAction;
