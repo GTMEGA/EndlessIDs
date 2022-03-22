@@ -41,9 +41,14 @@ public enum Mixin {
     //BEGIN UBC
         //BEGIN common
             OreUBifierMixin(builder(Side.COMMON).target(TargetedMod.UBC).mixin("ubc.OreUBifierMixin")),
-            BiomeUndergroundDecoratorMixin(builder(Side.COMMON).target(TargetedMod.UBC).mixin("ubc.BiomeUndergroundDecoratorMixin"))
+            BiomeUndergroundDecoratorMixin(builder(Side.COMMON).target(TargetedMod.UBC).mixin("ubc.BiomeUndergroundDecoratorMixin")),
         //END common
-    //END ubc
+    //END UBC
+    //BEGIN CoFHLib
+        //BEGIN common
+            CofhBlockHelperMixin(builder(Side.COMMON).target(TargetedMod.COFHLIB).mixin("cofhlib.BlockHelperMixin"))
+        //END common
+    //END CoFHLib
     ;
 
     public final String mixin;

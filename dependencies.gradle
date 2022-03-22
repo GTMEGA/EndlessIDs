@@ -4,5 +4,11 @@ dependencies {
     }
     annotationProcessor("org.projectlombok:lombok:1.18.22")
 
-    compileOnly("curse.maven:undergroundbiomesconstructs-72744:2304497")
+    compileOnly("curse.maven:undergroundbiomesconstructs-72744:2304497") {
+        transitive = false
+    }
+
+    compileOnly("curse.maven:cofh-lib-220333:2388747") {
+        transitive = false
+    }
 }

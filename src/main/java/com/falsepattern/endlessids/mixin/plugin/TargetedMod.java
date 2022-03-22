@@ -8,7 +8,8 @@ import java.nio.file.Path;
 public enum TargetedMod {
 
     VANILLA("Minecraft", "", "", true),
-    UBC("UndergroundBiomesConstructs", "undergroundbiomesconstructs-1.7.10", "", false);
+    UBC("Underground Biomes Constructs", "undergroundbiomesconstructs-", "", false),
+    COFHLIB("CoFH Lib", "cofhlib-", "", false);
 
     public final String modName;
     public final String jarNamePrefixLowercase;
