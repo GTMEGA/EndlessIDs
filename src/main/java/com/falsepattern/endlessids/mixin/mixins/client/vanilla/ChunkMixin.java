@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
-@SideOnly(Side.CLIENT)
+@SuppressWarnings({"rawtypes", "WhileLoopReplaceableByForEach", "unchecked"})
 @Mixin(Chunk.class)
 public abstract class ChunkMixin {
     @Shadow public Map chunkTileEntityMap;
@@ -44,6 +44,7 @@ public abstract class ChunkMixin {
      * @author FalsePattern
      * @reason Direct port from dumped code
      */
+    @SideOnly(Side.CLIENT)
     @Overwrite
     public void fillChunk(byte[] var1, int var2, int var3, boolean var4) {
         Iterator var5 = this.chunkTileEntityMap.values().iterator();
