@@ -5,7 +5,7 @@ import com.sk89q.worldedit.blocks.BaseBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-@Mixin(BaseBlock.class)
+@Mixin(value = BaseBlock.class, remap = false)
 public abstract class BaseBlockMixin {
     private int idExtended;
 
