@@ -11,7 +11,9 @@ public enum TargetedMod {
     UBC("Underground Biomes Constructs", "undergroundbiomesconstructs-", "", false),
     COFHLIB("CoFH Lib", "cofhlib-", "", false),
     DRAGONAPI("DragonAPI", "dragonapi", "", false),
-    MFQM("More Fun Quicksand Mod", "morefunquicksandmod-", "", false);
+    MFQM("More Fun Quicksand Mod", "morefunquicksandmod-", "", false),
+    WORLDEDIT("WorldEdit", "worldedit-", "", false),
+    ;
 
     public final String modName;
     public final String jarNamePrefixLowercase;

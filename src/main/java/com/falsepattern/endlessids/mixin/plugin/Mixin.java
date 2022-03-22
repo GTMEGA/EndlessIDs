@@ -50,8 +50,11 @@ public enum Mixin {
     //END DragonAPI->common
     //BEGIN MFQM->common
         MFQMMixin(builder(Side.COMMON).target(TargetedMod.MFQM).mixin("mfqm.MFQMMixin")),
-        MFQMDataWatcherMixin(builder(Side.COMMON).target(TargetedMod.MFQM).condition(() -> IEConfig.extendDataWatcher).mixin("mfqm.MFQMDataWatcherMixin"))
+        MFQMDataWatcherMixin(builder(Side.COMMON).target(TargetedMod.MFQM).condition(() -> IEConfig.extendDataWatcher).mixin("mfqm.MFQMDataWatcherMixin")),
     //END MFQM->common
+    //BEGIN WorldEdit->common
+        BaseBlockMixin(builder(Side.COMMON).target(TargetedMod.WORLDEDIT).mixin("worldedit.BaseBlockMixin")),
+    //END WorldEdit->common
     ;
 
     public final String mixin;

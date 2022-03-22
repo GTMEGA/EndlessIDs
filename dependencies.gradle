@@ -12,6 +12,10 @@ dependencies {
         transitive = false
     }
 
+    compileOnly("curse.maven:worldedit-225608:2309699") {
+        transitive = false
+    }
+
     compileOnly("curse.maven:cofh-lib-220333:2388747") {
         transitive = false
     }
