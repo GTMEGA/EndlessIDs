@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
-@Mixin(BlockProperties.class)
+@Mixin(value = BlockProperties.class, remap = false)
 public abstract class BlockPropertiesMixin {
     @ModifyConstant(method = "<clinit>",
                     constant = @Constant(intValue = VanillaConstants.blockIDCount),
