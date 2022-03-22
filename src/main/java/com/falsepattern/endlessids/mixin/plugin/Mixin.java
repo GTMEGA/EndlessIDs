@@ -40,7 +40,8 @@ public enum Mixin {
     //END Minecraft
     //BEGIN UBC
         //BEGIN common
-            OreUBifierMixin(builder(Side.COMMON).target(TargetedMod.UBC).mixin("ubc.OreUBifierMixin"))
+            OreUBifierMixin(builder(Side.COMMON).target(TargetedMod.UBC).mixin("ubc.OreUBifierMixin")),
+            BiomeUndergroundDecoratorMixin(builder(Side.COMMON).target(TargetedMod.UBC).mixin("ubc.BiomeUndergroundDecoratorMixin"))
         //END common
     //END ubc
     ;
