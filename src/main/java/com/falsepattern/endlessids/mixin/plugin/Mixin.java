@@ -17,6 +17,7 @@ public enum Mixin {
                 ItemStackMixin(builder(Side.COMMON).mixin("vanilla.storage.ItemStackMixin")),
             //END storage
             //BEGIN networking
+                PacketBufferMixin(builder(Side.COMMON).mixin("vanilla.networking.PacketBufferMixin")),
                 PlayerControllerMPMixin(builder(Side.COMMON).mixin("vanilla.networking.PlayerControllerMPMixin")),
                 S21PacketChunkDataMixin(builder(Side.COMMON).mixin("vanilla.networking.S21PacketChunkDataMixin")),
                 S22PacketMultiBlockChangeMixin(builder(Side.COMMON).mixin("vanilla.networking.S22PacketMultiBlockChangeMixin")),
@@ -27,7 +28,6 @@ public enum Mixin {
                 BlockFireMixin(builder(Side.COMMON).mixin("vanilla.misc.BlockFireMixin")),
                 DataWatcherMixin(builder(Side.COMMON).condition(() -> IEConfig.extendDataWatcher).mixin("vanilla.misc.DataWatcherMixin")),
                 ItemInWorldManagerMixin(builder(Side.COMMON).mixin("vanilla.misc.ItemInWorldManagerMixin")),
-                PacketBufferMixin(builder(Side.COMMON).mixin("vanilla.misc.PacketBufferMixin")),
                 StatListMixin(builder(Side.COMMON).mixin("vanilla.misc.StatListMixin")),
                 WorldMixin(builder(Side.COMMON).mixin("vanilla.misc.WorldMixin")),
             //END misc
