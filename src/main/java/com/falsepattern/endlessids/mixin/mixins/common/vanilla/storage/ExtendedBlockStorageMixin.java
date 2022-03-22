@@ -1,4 +1,4 @@
-package com.falsepattern.endlessids.mixin.mixins.common;
+package com.falsepattern.endlessids.mixin.mixins.common.vanilla.storage;
 
 import com.falsepattern.endlessids.Hooks;
 import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;

@@ -1,4 +1,4 @@
-package com.falsepattern.endlessids.mixin.mixins.client;
+package com.falsepattern.endlessids.mixin.mixins.client.vanilla;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

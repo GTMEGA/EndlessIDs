@@ -1,4 +1,4 @@
-package com.falsepattern.endlessids.mixin.mixins.common;
+package com.falsepattern.endlessids.mixin.mixins.common.vanilla.networking;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.item.Item;

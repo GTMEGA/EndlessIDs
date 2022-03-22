@@ -1,4 +1,4 @@
-package com.falsepattern.endlessids.mixin.mixins.common;
+package com.falsepattern.endlessids.mixin.mixins.common.vanilla.storage;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

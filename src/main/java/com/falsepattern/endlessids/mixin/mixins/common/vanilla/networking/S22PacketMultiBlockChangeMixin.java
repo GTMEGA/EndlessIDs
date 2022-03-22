@@ -1,4 +1,4 @@
-package com.falsepattern.endlessids.mixin.mixins.common;
+package com.falsepattern.endlessids.mixin.mixins.common.vanilla.networking;
 
 import net.minecraft.block.Block;
 import net.minecraft.network.play.server.S22PacketMultiBlockChange;

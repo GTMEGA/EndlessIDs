@@ -9,24 +9,35 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 public enum Mixin {
-    AnvilChunkLoaderMixin(builder(Side.COMMON).mixin("AnvilChunkLoaderMixin")),
-    BlockFireMixin(builder(Side.COMMON).mixin("BlockFireMixin")),
-    DataWatcherMixin(builder(Side.COMMON).condition(() -> IEConfig.extendDataWatcher).mixin("DataWatcherMixin")),
-    ExtendedBlockStorageMixin(builder(Side.COMMON).mixin("ExtendedBlockStorageMixin")),
-    ItemInWorldManagerMixin(builder(Side.COMMON).mixin("ItemInWorldManagerMixin")),
-    ItemStackMixin(builder(Side.COMMON).mixin("ItemStackMixin")),
-    PacketBufferMixin(builder(Side.COMMON).mixin("PacketBufferMixin")),
-    PlayerControllerMPMixin(builder(Side.COMMON).mixin("PlayerControllerMPMixin")),
-    S21PacketChunkDataMixin(builder(Side.COMMON).mixin("S21PacketChunkDataMixin")),
-    S22PacketMultiBlockChangeMixin(builder(Side.COMMON).mixin("S22PacketMultiBlockChangeMixin")),
-    S24PacketBlockActionMixin(builder(Side.COMMON).mixin("S24PacketBlockActionMixin")),
-    S26PacketMapChunkBulkMixin(builder(Side.COMMON).mixin("S26PacketMapChunkBulkMixin")),
-    StatListMixin(builder(Side.COMMON).mixin("StatListMixin")),
-    WorldMixin(builder(Side.COMMON).mixin("WorldMixin")),
-
-    ChunkMixin(builder(Side.CLIENT).mixin("ChunkMixin")),
-    NetHandlerPlayClientMixin(builder(Side.CLIENT).mixin("NetHandlerPlayClientMixin")),
-    RenderGlobalMixin(builder(Side.CLIENT).mixin("RenderGlobalMixin")),
+    //BEGIN Minecraft
+        //BEGIN common
+            //BEGIN storage
+                AnvilChunkLoaderMixin(builder(Side.COMMON).mixin("vanilla.storage.AnvilChunkLoaderMixin")),
+                ExtendedBlockStorageMixin(builder(Side.COMMON).mixin("vanilla.storage.ExtendedBlockStorageMixin")),
+                ItemStackMixin(builder(Side.COMMON).mixin("vanilla.storage.ItemStackMixin")),
+            //END storage
+            //BEGIN networking
+                PlayerControllerMPMixin(builder(Side.COMMON).mixin("vanilla.networking.PlayerControllerMPMixin")),
+                S21PacketChunkDataMixin(builder(Side.COMMON).mixin("vanilla.networking.S21PacketChunkDataMixin")),
+                S22PacketMultiBlockChangeMixin(builder(Side.COMMON).mixin("vanilla.networking.S22PacketMultiBlockChangeMixin")),
+                S24PacketBlockActionMixin(builder(Side.COMMON).mixin("vanilla.networking.S24PacketBlockActionMixin")),
+                S26PacketMapChunkBulkMixin(builder(Side.COMMON).mixin("vanilla.networking.S26PacketMapChunkBulkMixin")),
+            //END networking
+            //BEGIN misc
+                BlockFireMixin(builder(Side.COMMON).mixin("vanilla.misc.BlockFireMixin")),
+                DataWatcherMixin(builder(Side.COMMON).condition(() -> IEConfig.extendDataWatcher).mixin("vanilla.misc.DataWatcherMixin")),
+                ItemInWorldManagerMixin(builder(Side.COMMON).mixin("vanilla.misc.ItemInWorldManagerMixin")),
+                PacketBufferMixin(builder(Side.COMMON).mixin("vanilla.misc.PacketBufferMixin")),
+                StatListMixin(builder(Side.COMMON).mixin("vanilla.misc.StatListMixin")),
+                WorldMixin(builder(Side.COMMON).mixin("vanilla.misc.WorldMixin")),
+            //END misc
+        //END common
+        //BEGIN client
+            ChunkMixin(builder(Side.CLIENT).mixin("vanilla.ChunkMixin")),
+            NetHandlerPlayClientMixin(builder(Side.CLIENT).mixin("vanilla.NetHandlerPlayClientMixin")),
+            RenderGlobalMixin(builder(Side.CLIENT).mixin("vanilla.RenderGlobalMixin")),
+        //END client
+    //END Minecraft
     ;
 
     public final String mixin;
