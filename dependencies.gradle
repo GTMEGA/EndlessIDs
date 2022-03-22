@@ -3,4 +3,6 @@ dependencies {
         transitive = false
     }
     annotationProcessor("org.projectlombok:lombok:1.18.22")
+
+    compileOnly("curse.maven:undergroundbiomesconstructs-72744:2304497")
 }

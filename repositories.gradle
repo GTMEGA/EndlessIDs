@@ -1,5 +1,11 @@
 // Add any additional repositories for your dependencies here
 
 repositories {
-
+    maven {
+        name = "cursemaven"
+        url = "https://cursemaven.falsepattern.com/"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 }
