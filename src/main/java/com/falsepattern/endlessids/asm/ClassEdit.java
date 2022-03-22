@@ -2,7 +2,6 @@ package com.falsepattern.endlessids.asm;
 
 import java.util.HashMap;
 import com.falsepattern.endlessids.asm.transformer.WorldEditBaseBlock;
-import com.falsepattern.endlessids.asm.transformer.MFQM;
 import com.falsepattern.endlessids.asm.transformer.FmlRegistry;
 import java.util.Map;
 
@@ -28,7 +27,7 @@ public enum ClassEdit
     //CofhBlockHelper(new CofhBlockHelper(), new String[] { "cofh.lib.util.helpers.BlockHelper" }),
     //UndergroundBiomesOreUBifier(new UndergroundBiomesOreUBifier(), new String[] { "exterminatorJeff.undergroundBiomes.worldGen.OreUBifier" }),
     //UndergroundBiomesBiomeUndergroundDecorator(new UndergroundBiomesBiomeUndergroundDecorator(), new String[] { "exterminatorJeff.undergroundBiomes.worldGen.BiomeUndergroundDecorator" }),
-    MFQM(new MFQM(), new String[] { "MoreFunQuicksandMod.main.MFQM" }), 
+    //MFQM(new MFQM(), new String[] { "MoreFunQuicksandMod.main.MFQM" }),
     WorldEditBaseBlock(new WorldEditBaseBlock(), new String[] { "com.sk89q.worldedit.blocks.BaseBlock" });
     
     private static final Map<String, ClassEdit> editMap;

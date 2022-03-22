@@ -10,7 +10,8 @@ public enum TargetedMod {
     VANILLA("Minecraft", "", "", true),
     UBC("Underground Biomes Constructs", "undergroundbiomesconstructs-", "", false),
     COFHLIB("CoFH Lib", "cofhlib-", "", false),
-    DRAGONAPI("DragonAPI", "dragonapi", "", false);
+    DRAGONAPI("DragonAPI", "dragonapi", "", false),
+    MFQM("More Fun Quicksand Mod", "morefunquicksandmod-", "", false);
 
     public final String modName;
     public final String jarNamePrefixLowercase;

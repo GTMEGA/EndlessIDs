@@ -46,8 +46,12 @@ public enum Mixin {
         CofhBlockHelperMixin(builder(Side.COMMON).target(TargetedMod.COFHLIB).mixin("cofhlib.BlockHelperMixin")),
     //END CoFHLib->common
     //BEGIN DragonAPI->common
-        BlockPropertiesMixin(builder(Side.COMMON).target(TargetedMod.DRAGONAPI).mixin("dragonapi.BlockPropertiesMixin"))
+        BlockPropertiesMixin(builder(Side.COMMON).target(TargetedMod.DRAGONAPI).mixin("dragonapi.BlockPropertiesMixin")),
     //END DragonAPI->common
+    //BEGIN MFQM->common
+        MFQMMixin(builder(Side.COMMON).target(TargetedMod.MFQM).mixin("mfqm.MFQMMixin")),
+        MFQMDataWatcherMixin(builder(Side.COMMON).target(TargetedMod.MFQM).condition(() -> IEConfig.extendDataWatcher).mixin("mfqm.MFQMDataWatcherMixin"))
+    //END MFQM->common
     ;
 
     public final String mixin;
