@@ -4,7 +4,6 @@ import java.util.HashMap;
 import com.falsepattern.endlessids.asm.transformer.WorldEditBaseBlock;
 import com.falsepattern.endlessids.asm.transformer.MFQM;
 import com.falsepattern.endlessids.asm.transformer.UndergroundBiomesBiomeUndergroundDecorator;
-import com.falsepattern.endlessids.asm.transformer.UndergroundBiomesOreUBifier;
 import com.falsepattern.endlessids.asm.transformer.CofhBlockHelper;
 import com.falsepattern.endlessids.asm.transformer.FmlRegistry;
 import java.util.Map;
@@ -29,7 +28,7 @@ public enum ClassEdit
     //VanillaWorld(new VanillaWorld(), new String[] { "net.minecraft.world.World" }),
     FmlRegistry(new FmlRegistry(), new String[] { "cpw.mods.fml.common.registry.GameData", "cpw.mods.fml.common.registry.FMLControlledNamespacedRegistry" }), 
     CofhBlockHelper(new CofhBlockHelper(), new String[] { "cofh.lib.util.helpers.BlockHelper" }), 
-    UndergroundBiomesOreUBifier(new UndergroundBiomesOreUBifier(), new String[] { "exterminatorJeff.undergroundBiomes.worldGen.OreUBifier" }), 
+    //UndergroundBiomesOreUBifier(new UndergroundBiomesOreUBifier(), new String[] { "exterminatorJeff.undergroundBiomes.worldGen.OreUBifier" }),
     UndergroundBiomesBiomeUndergroundDecorator(new UndergroundBiomesBiomeUndergroundDecorator(), new String[] { "exterminatorJeff.undergroundBiomes.worldGen.BiomeUndergroundDecorator" }), 
     MFQM(new MFQM(), new String[] { "MoreFunQuicksandMod.main.MFQM" }), 
     WorldEditBaseBlock(new WorldEditBaseBlock(), new String[] { "com.sk89q.worldedit.blocks.BaseBlock" });

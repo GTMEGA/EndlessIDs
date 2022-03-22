@@ -38,6 +38,11 @@ public enum Mixin {
             RenderGlobalMixin(builder(Side.CLIENT).mixin("vanilla.RenderGlobalMixin")),
         //END client
     //END Minecraft
+    //BEGIN UBC
+        //BEGIN common
+            OreUBifierMixin(builder(Side.COMMON).target(TargetedMod.UBC).mixin("ubc.OreUBifierMixin"))
+        //END common
+    //END ubc
     ;
 
     public final String mixin;
