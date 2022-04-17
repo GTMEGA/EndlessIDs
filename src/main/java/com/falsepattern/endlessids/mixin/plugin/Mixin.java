@@ -9,52 +9,52 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 public enum Mixin {
-    //BEGIN Minecraft
-        //BEGIN common
-            //BEGIN storage
+    //region Minecraft
+        //region common
+            //region storage
                 AnvilChunkLoaderMixin(builder(Side.COMMON).mixin("vanilla.storage.AnvilChunkLoaderMixin")),
                 ExtendedBlockStorageMixin(builder(Side.COMMON).mixin("vanilla.storage.ExtendedBlockStorageMixin")),
                 ItemStackMixin(builder(Side.COMMON).mixin("vanilla.storage.ItemStackMixin")),
-            //END storage
-            //BEGIN networking
+            //endregion storage
+            //region networking
                 PacketBufferMixin(builder(Side.COMMON).mixin("vanilla.networking.PacketBufferMixin")),
                 PlayerControllerMPMixin(builder(Side.COMMON).mixin("vanilla.networking.PlayerControllerMPMixin")),
                 S21PacketChunkDataMixin(builder(Side.COMMON).mixin("vanilla.networking.S21PacketChunkDataMixin")),
                 S22PacketMultiBlockChangeMixin(builder(Side.COMMON).mixin("vanilla.networking.S22PacketMultiBlockChangeMixin")),
                 S24PacketBlockActionMixin(builder(Side.COMMON).mixin("vanilla.networking.S24PacketBlockActionMixin")),
                 S26PacketMapChunkBulkMixin(builder(Side.COMMON).mixin("vanilla.networking.S26PacketMapChunkBulkMixin")),
-            //END networking
-            //BEGIN misc
+            //endregion networking
+            //region misc
                 BlockFireMixin(builder(Side.COMMON).mixin("vanilla.misc.BlockFireMixin")),
                 DataWatcherMixin(builder(Side.COMMON).condition(() -> IEConfig.extendDataWatcher).mixin("vanilla.misc.DataWatcherMixin")),
                 ItemInWorldManagerMixin(builder(Side.COMMON).mixin("vanilla.misc.ItemInWorldManagerMixin")),
                 StatListMixin(builder(Side.COMMON).mixin("vanilla.misc.StatListMixin")),
                 WorldMixin(builder(Side.COMMON).mixin("vanilla.misc.WorldMixin")),
-            //END misc
-        //END common
-        //BEGIN client
+            //endregion misc
+        //endregion common
+        //region client
             ChunkMixin(builder(Side.CLIENT).mixin("vanilla.ChunkMixin")),
             NetHandlerPlayClientMixin(builder(Side.CLIENT).mixin("vanilla.NetHandlerPlayClientMixin")),
             RenderGlobalMixin(builder(Side.CLIENT).mixin("vanilla.RenderGlobalMixin")),
-        //END client
-    //END Minecraft
-    //BEGIN UBC->common
+        //endregion client
+    //endregion Minecraft
+    //region UBC->common
         OreUBifierMixin(builder(Side.COMMON).target(TargetedMod.UBC).mixin("ubc.OreUBifierMixin")),
         BiomeUndergroundDecoratorMixin(builder(Side.COMMON).target(TargetedMod.UBC).mixin("ubc.BiomeUndergroundDecoratorMixin")),
-    //END UBC->common
-    //BEGIN CoFHLib->common
+    //endregion UBC->common
+    //region CoFHLib->common
         CofhBlockHelperMixin(builder(Side.COMMON).target(TargetedMod.COFHLIB).mixin("cofhlib.BlockHelperMixin")),
-    //END CoFHLib->common
-    //BEGIN DragonAPI->common
+    //endregion CoFHLib->common
+    //region DragonAPI->common
         BlockPropertiesMixin(builder(Side.COMMON).target(TargetedMod.DRAGONAPI).mixin("dragonapi.BlockPropertiesMixin")),
-    //END DragonAPI->common
-    //BEGIN MFQM->common
+    //endregion DragonAPI->common
+    //region MFQM->common
         MFQMMixin(builder(Side.COMMON).target(TargetedMod.MFQM).mixin("mfqm.MFQMMixin")),
         MFQMDataWatcherMixin(builder(Side.COMMON).target(TargetedMod.MFQM).condition(() -> IEConfig.extendDataWatcher).mixin("mfqm.MFQMDataWatcherMixin")),
-    //END MFQM->common
-    //BEGIN WorldEdit->common
+    //endregion MFQM->common
+    //region WorldEdit->common
         BaseBlockMixin(builder(Side.COMMON).target(TargetedMod.WORLDEDIT).mixin("worldedit.BaseBlockMixin")),
-    //END WorldEdit->common
+    //endregion WorldEdit->common
     ;
 
     public final String mixin;
