@@ -4,6 +4,8 @@ dependencies {
     }
     annotationProcessor("org.projectlombok:lombok:1.18.22")
 
+    compile("com.falsepattern:falsepatternlib-mc1.7.10:0.5.0:dev")
+
     compileOnly("curse.maven:undergroundbiomesconstructs-72744:2304497") {
         transitive = false
     }

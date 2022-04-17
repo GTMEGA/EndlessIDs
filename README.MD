@@ -17,3 +17,7 @@ Mods not listed here may or may not work. A good rule of thumb is that the more 
 it's broken without a patch once the IDs exceed 4096 and 32000.
 
 If you find any crashes or incompatibilities, don't hesitate to open an issue.
+
+## Dependencies
+- [FalsePatternLib](https://www.curseforge.com/minecraft/mc-mods/falsepatternlib)
+- Either [SpongeMixins](https://www.curseforge.com/minecraft/mc-mods/spongemixins) or [Grimoire](https://www.curseforge.com/minecraft/mc-mods/grimoire-api)

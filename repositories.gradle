@@ -8,4 +8,8 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    maven {
+        name = "mavenpattern"
+        url = "https://maven.falsepattern.com/"
+    }
 }
