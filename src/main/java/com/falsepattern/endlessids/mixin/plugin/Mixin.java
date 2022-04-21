@@ -22,7 +22,6 @@ public enum Mixin implements IMixin {
             //endregion storage
             //region networking
                 PacketBufferMixin(Side.COMMON, always(), "vanilla.networking.PacketBufferMixin"),
-                PlayerControllerMPMixin(Side.COMMON, always(), "vanilla.networking.PlayerControllerMPMixin"),
                 S21PacketChunkDataMixin(Side.COMMON, always(), "vanilla.networking.S21PacketChunkDataMixin"),
                 S22PacketMultiBlockChangeMixin(Side.COMMON, always(), "vanilla.networking.S22PacketMultiBlockChangeMixin"),
                 S24PacketBlockActionMixin(Side.COMMON, always(), "vanilla.networking.S24PacketBlockActionMixin"),
@@ -39,6 +38,7 @@ public enum Mixin implements IMixin {
         //region client
             ChunkMixin(Side.CLIENT, always(), "vanilla.ChunkMixin"),
             NetHandlerPlayClientMixin(Side.CLIENT, always(), "vanilla.NetHandlerPlayClientMixin"),
+            PlayerControllerMPMixin(Side.CLIENT, always(), "vanilla.PlayerControllerMPMixin"),
             RenderGlobalMixin(Side.CLIENT, always(), "vanilla.RenderGlobalMixin"),
         //endregion client
     //endregion Minecraft

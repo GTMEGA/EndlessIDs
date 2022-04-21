@@ -1,4 +1,4 @@
-package com.falsepattern.endlessids.mixin.mixins.common.vanilla.networking;
+package com.falsepattern.endlessids.mixin.mixins.client.vanilla;
 
 import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.constants.VanillaConstants;
