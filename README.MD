@@ -19,5 +19,5 @@ it's broken without a patch once the IDs exceed 4096 and 32000.
 If you find any crashes or incompatibilities, don't hesitate to open an issue.
 
 ## Dependencies
-- [FalsePatternLib](https://modrinth.com/mod/fplib)
-- Either [SpongeMixins](https://modrinth.com/mod/spongemixin1710) or [Grimoire](https://github.com/CrucibleMC/Grimoire-legacy)
+- [FalsePatternLib](https://github.com/FalsePattern/FalsePatternLib)
+- [SpongeMixins](https://github.com/TimeConqueror/SpongeMixins)
