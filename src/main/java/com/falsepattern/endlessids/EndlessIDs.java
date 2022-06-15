@@ -6,5 +6,5 @@ import cpw.mods.fml.common.Mod;
      version = Tags.VERSION,
      name = Tags.MODNAME,
      acceptedMinecraftVersions = "[1.7.10]",
-     dependencies = "required-after:falsepatternlib@[0.5.0,);")
+     dependencies = "required-after:falsepatternlib@[0.8.2,);")
 public class EndlessIDs {}
