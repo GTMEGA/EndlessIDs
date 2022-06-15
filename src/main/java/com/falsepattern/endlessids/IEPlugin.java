@@ -1,15 +1,27 @@
 package com.falsepattern.endlessids;
 
-import java.io.File;
 import java.util.Map;
 
 import com.falsepattern.endlessids.asm.IETransformer;
+import com.falsepattern.lib.config.ConfigException;
+import com.falsepattern.lib.config.ConfigurationManager;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 
-@IFMLLoadingPlugin.MCVersion("1.7.10")
-@IFMLLoadingPlugin.TransformerExclusions({ "com.falsepattern.endlessids.asm" })
+import static cpw.mods.fml.relauncher.IFMLLoadingPlugin.*;
+
+@MCVersion("1.7.10")
+@Name(Tags.MODID)
+@TransformerExclusions({ "com.falsepattern.endlessids.asm" })
+@DependsOn("falsepatternlib")
 public class IEPlugin implements IFMLLoadingPlugin
 {
+    static {
+        try {
+            ConfigurationManager.registerConfig(IEConfig.class);
+        } catch (ConfigException e) {
+            System.err.println("Failed to load EndlessIDs config. Using defaults.");
+        }
+    }
     public IEPlugin() {
         super();
     }
@@ -27,7 +39,6 @@ public class IEPlugin implements IFMLLoadingPlugin
     }
     
     public void injectData(final Map<String, Object> data) {
-        IEConfig.init((File) data.get("coremodLocation"));
         IETransformer.isObfuscated = (Boolean) data.get("runtimeDeobfuscationEnabled");
     }
     
