@@ -1,10 +1,12 @@
 package com.falsepattern.endlessids.constants;
 
+import com.falsepattern.endlessids.IEConfig;
+
 public class ExtendedConstants {
     //Tunables
     public static final int bitsPerID = 24;
     public static final int bitsPerMetadata = 4;
-    public static final int countCorrectionBits = 0;
+    public static final int countCorrectionBits = IEConfig.countCorrectionBits;
 
     public static final int watchableBits = 7;
 
