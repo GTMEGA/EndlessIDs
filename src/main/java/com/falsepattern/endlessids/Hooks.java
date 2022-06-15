@@ -124,7 +124,7 @@ public class Hooks {
     public static int getIdFromBlockWithCheck(final Block block, final Block oldBlock) {
         final int id = Block.getIdFromBlock(block);
         if (IEConfig.catchUnregisteredBlocks && id == -1) {
-            throw new IllegalArgumentException("Block " + block + " is not registered. <-- Say about this to the author of this mod, or you can try to enable \"RemoveInvalidBlocks\" option in NEID config.");
+            throw new IllegalArgumentException("Block " + block + " is not registered. <-- Say about this to the author of this mod, or you can try to enable \"RemoveInvalidBlocks\" option in EID config.");
         }
         if (id >= 0 && id <= ExtendedConstants.maxBlockID) {
             return id;
