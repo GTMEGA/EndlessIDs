@@ -1,11 +1,14 @@
 package com.falsepattern.endlessids;
 
 import com.falsepattern.endlessids.constants.ExtendedConstants;
+import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
 import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;
 import lombok.val;
 import net.minecraft.init.Blocks;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.chunk.Chunk;
+
 import java.nio.ShortBuffer;
 import java.nio.ByteBuffer;
 
@@ -134,5 +137,66 @@ public class Hooks {
         }
         throw new IllegalArgumentException("id out of range: " + id);
     }
-    
+
+    //Biome ID Extender Code
+
+    public static byte[] shortToByteArray(short[] shortArray) {
+        byte[] byteArray = new byte[512];
+
+        for(int i = 0; i < 256; ++i) {
+            byteArray[i] = (byte)(shortArray[i] & 255);
+            byteArray[i + 256] = (byte)(shortArray[i] >>> 8);
+        }
+        return byteArray;
+    }
+
+    public static short[] byteToShortArray(byte[] byteArray) {
+        short[] shortArray = new short[256];
+
+        for(int i = 0; i < 256; ++i) {
+            shortArray[i] = (short)(byteArray[i + 256] << 8 | byteArray[i]);
+        }
+
+        return shortArray;
+    }
+
+    public static short[] oldBiomeByteToNewShortArray(byte[] byteArray) {
+        short[] shortArray = new short[256];
+
+        for (int i = 0; i < 256; i++) {
+            shortArray[i] = (short)(byteArray[i] & 0xff);
+        }
+
+        return shortArray;
+    }
+
+    public static int readBiomeArrayFromPacket(Chunk chunk, byte[] array, int offset) {
+        byte[] byteArray = new byte[512];
+        System.arraycopy(array, offset, byteArray, 0, 512);
+        ((IChunkMixin)chunk).setBiomeShortArray(byteToShortArray(byteArray));
+        return byteArray.length;
+    }
+
+    public static int writeBiomeArrayToPacket(Chunk chunk, byte[] array, int offset) {
+        byte[] byteArray = shortToByteArray(((IChunkMixin)chunk).getBiomeShortArray());
+        System.arraycopy(byteArray, 0, array, offset, 512);
+        return byteArray.length;
+    }
+
+    public static void writeChunkBiomeArrayToNbt(Chunk chunk, NBTTagCompound nbt) {
+        byte[] byteArray = shortToByteArray(((IChunkMixin)chunk).getBiomeShortArray());
+        nbt.setByteArray("Biomes16", byteArray);
+    }
+
+    public static void readChunkBiomeArrayFromNbt(Chunk chunk, NBTTagCompound nbt) {
+        short[] data = null;
+        if (nbt.hasKey("Biomes16", 7)) {
+            data = byteToShortArray(nbt.getByteArray("Biomes16"));
+        } else if (nbt.hasKey("Biomes", 7)) {
+            data = oldBiomeByteToNewShortArray(nbt.getByteArray("Biomes"));
+        }
+        if (data != null) {
+            ((IChunkMixin)chunk).setBiomeShortArray(data);
+        }
+    }
 }

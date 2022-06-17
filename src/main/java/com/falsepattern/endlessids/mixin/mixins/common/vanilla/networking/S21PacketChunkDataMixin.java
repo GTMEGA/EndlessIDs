@@ -3,8 +3,10 @@ package com.falsepattern.endlessids.mixin.mixins.common.vanilla.networking;
 import com.falsepattern.endlessids.Hooks;
 import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.constants.VanillaConstants;
+import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
 import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;
 import net.minecraft.network.play.server.S21PacketChunkData;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -35,5 +37,13 @@ public abstract class S21PacketChunkDataMixin {
               require = 1)
     private static byte[] hookGetBlockData(ExtendedBlockStorage instance) {
         return Hooks.getBlockData((IExtendedBlockStorageMixin) instance);
+    }
+
+    @Redirect(method = "func_149269_a",
+              at = @At(value = "INVOKE",
+                       target = "Lnet/minecraft/world/chunk/Chunk;getBiomeArray()[B"),
+              require = 1)
+    private static byte[] getBiomesArrayShort(Chunk instance) {
+        return Hooks.shortToByteArray(((IChunkMixin)instance).getBiomeShortArray());
     }
 }

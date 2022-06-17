@@ -63,7 +63,7 @@ public abstract class AnvilChunkLoaderMixin {
         }
 
         p_75820_3_.setTag("Sections", var5);
-        p_75820_3_.setByteArray("Biomes", p_75820_1_.getBiomeArray());
+        Hooks.writeChunkBiomeArrayToNbt(p_75820_1_, p_75820_3_);
         p_75820_1_.hasEntities = false;
         NBTTagList var21 = new NBTTagList();
 
@@ -150,10 +150,7 @@ public abstract class AnvilChunkLoaderMixin {
         }
 
         var5.setStorageArrays(var8);
-        if (p_75823_2_.hasKey("Biomes", 7)) {
-            var5.setBiomeArray(p_75823_2_.getByteArray("Biomes"));
-        }
-
+        Hooks.readChunkBiomeArrayFromNbt(var5, p_75823_2_);
         return var5;
     }
 }

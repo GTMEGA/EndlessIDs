@@ -9,11 +9,17 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(S26PacketMapChunkBulk.class)
 public abstract class S26PacketMapChunkBulkMixin {
-    //TODO magic number
     @ModifyConstant(method = "readPacketData",
-                    constant = @Constant(intValue = VanillaConstants.bytesPerIDPlusMetadata * 0x1000),
+                    constant = @Constant(intValue = VanillaConstants.bytesPerIDPlusMetadata * 16 * 16 * 16),
                     require = 1)
     private int extend1(int constant) {
-        return ExtendedConstants.bytesPerIDPlusMetadata * 0x1000;
+        return ExtendedConstants.bytesPerIDPlusMetadata * 16 * 16 * 16;
+    }
+
+    @ModifyConstant(method = "readPacketData",
+                    constant = @Constant(intValue = VanillaConstants.bytesPerBiome * 16 * 16),
+                    require = 1)
+    private int extend2(int contant) {
+        return ExtendedConstants.bytesPerBiome * 16 * 16;
     }
 }

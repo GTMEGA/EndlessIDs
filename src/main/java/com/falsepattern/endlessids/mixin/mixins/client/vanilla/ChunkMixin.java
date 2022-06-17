@@ -101,7 +101,7 @@ public abstract class ChunkMixin {
         }
 
         if (var4) {
-            System.arraycopy(var1, var16, this.blockBiomeArray, 0, this.blockBiomeArray.length);
+            var16 += Hooks.readBiomeArrayFromPacket((Chunk)(Object)this, var1, var16);
         }
 
         for(var8 = 0; var8 < this.storageArrays.length; ++var8) {
