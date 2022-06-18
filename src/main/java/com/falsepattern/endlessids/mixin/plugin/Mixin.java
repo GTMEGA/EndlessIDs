@@ -17,6 +17,7 @@ public enum Mixin implements IMixin {
         //region common
             //region storage
                 AnvilChunkLoaderMixin(Side.COMMON, always(), "vanilla.storage.AnvilChunkLoaderMixin"),
+                ChunkMixin(Side.COMMON, always(), "vanilla.storage.ChunkMixin"),
                 ExtendedBlockStorageMixin(Side.COMMON, always(), "vanilla.storage.ExtendedBlockStorageMixin"),
                 ItemStackMixin(Side.COMMON, always(), "vanilla.storage.ItemStackMixin"),
             //endregion storage
@@ -28,15 +29,24 @@ public enum Mixin implements IMixin {
                 S26PacketMapChunkBulkMixin(Side.COMMON, always(), "vanilla.networking.S26PacketMapChunkBulkMixin"),
             //endregion networking
             //region misc
+                BiomeGenBaseMixin(Side.COMMON, always(), "vanilla.misc.BiomeGenBaseMixin"),
                 BlockFireMixin(Side.COMMON, always(), "vanilla.misc.BlockFireMixin"),
                 DataWatcherMixin(Side.COMMON, condition(() -> IEConfig.extendDataWatcher), "vanilla.misc.DataWatcherMixin"),
                 ItemInWorldManagerMixin(Side.COMMON, always(), "vanilla.misc.ItemInWorldManagerMixin"),
                 StatListMixin(Side.COMMON, always(), "vanilla.misc.StatListMixin"),
                 WorldMixin(Side.COMMON, always(), "vanilla.misc.WorldMixin"),
             //endregion misc
+            //region worldgen
+                ChunkProviderEndMixin(Side.COMMON, always(), "vanilla.worldgen.ChunkProviderEndMixin"),
+                ChunkProviderFlatMixin(Side.COMMON, always(), "vanilla.worldgen.ChunkProviderFlatMixin"),
+                ChunkProviderGenerateMixin(Side.COMMON, always(), "vanilla.worldgen.ChunkProviderGenerateMixin"),
+                ChunkProviderHellMixin(Side.COMMON, always(), "vanilla.worldgen.ChunkProviderHellMixin"),
+                GenLayerRiverMixMixin(Side.COMMON, always(), "vanilla.worldgen.GenLayerRiverMixMixin"),
+                GenLayerVoronoiZoomMixin(Side.COMMON, always(), "vanilla.worldgen.GenLayerVoronoiZoomMixin"),
+            //endregion worldgen
         //endregion common
         //region client
-            ChunkMixin(Side.CLIENT, always(), "vanilla.ChunkMixin"),
+            ChunkMixinClient(Side.CLIENT, always(), "vanilla.ChunkMixin"),
             NetHandlerPlayClientMixin(Side.CLIENT, always(), "vanilla.NetHandlerPlayClientMixin"),
             PlayerControllerMPMixin(Side.CLIENT, always(), "vanilla.PlayerControllerMPMixin"),
             RenderGlobalMixin(Side.CLIENT, always(), "vanilla.RenderGlobalMixin"),
