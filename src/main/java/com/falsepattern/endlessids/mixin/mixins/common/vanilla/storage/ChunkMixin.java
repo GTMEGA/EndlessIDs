@@ -73,4 +73,14 @@ public abstract class ChunkMixin implements IChunkMixin {
 
         return BiomeGenBase.getBiome(id) == null ? BiomeGenBase.plains : BiomeGenBase.getBiome(id);
     }
+
+    @Override
+    public short[] getBiomeShortArray() {
+        return blockBiomeShortArray;
+    }
+
+    @Override
+    public void setBiomeShortArray(short[] data) {
+        blockBiomeShortArray = data;
+    }
 }

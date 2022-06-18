@@ -31,22 +31,21 @@ public abstract class ChunkProviderEndMixin {
      * @reason Direct port from decompiled code
      */
     @Overwrite
-    public Chunk provideChunk(int p_73154_1_, int p_73154_2_) {
-        this.endRNG.setSeed((long)p_73154_1_ * 341873128712L + (long)p_73154_2_ * 132897987541L);
-        Block[] var3 = new Block[32768];
-        byte[] var4 = new byte[var3.length];
-        this.biomesForGeneration = this.endWorld.getWorldChunkManager().loadBlockGeneratorData(this.biomesForGeneration, p_73154_1_ * 16, p_73154_2_ * 16, 16, 16);
-        this.func_147420_a(p_73154_1_, p_73154_2_, var3, this.biomesForGeneration);
-        this.replaceBiomeBlocks(p_73154_1_, p_73154_2_, var3, this.biomesForGeneration, var4);
-        Chunk var5 = new Chunk(this.endWorld, var3, var4, p_73154_1_, p_73154_2_);
-        @SuppressWarnings("ConstantConditions") //Mixin moment
-        short[] var6 = ((IChunkMixin)var5).getBiomeShortArray();
+    public Chunk provideChunk(int x, int z) {
+        this.endRNG.setSeed((long)x * 341873128712L + (long)z * 132897987541L);
+        Block[] blocks = new Block[32768];
+        byte[] metadatas = new byte[blocks.length];
+        this.biomesForGeneration = this.endWorld.getWorldChunkManager().loadBlockGeneratorData(this.biomesForGeneration, x * 16, z * 16, 16, 16);
+        this.func_147420_a(x, z, blocks, this.biomesForGeneration);
+        this.replaceBiomeBlocks(x, z, blocks, this.biomesForGeneration, metadatas);
+        Chunk chunk = new Chunk(this.endWorld, blocks, metadatas, x, z);
+        short[] biomes = ((IChunkMixin)chunk).getBiomeShortArray();
 
-        for(int var7 = 0; var7 < var6.length; ++var7) {
-            var6[var7] = (short)this.biomesForGeneration[var7].biomeID;
+        for(int i = 0; i < biomes.length; ++i) {
+            biomes[i] = (short)this.biomesForGeneration[i].biomeID;
         }
 
-        var5.generateSkylightMap();
-        return var5;
+        chunk.generateSkylightMap();
+        return chunk;
     }
 }
