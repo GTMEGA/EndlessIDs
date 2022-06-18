@@ -29,7 +29,8 @@ public class ExtendedConstants {
 
     //BiomeIDs
     public static final int biomeIDCount = 1 << bitsPerBiome;
-    public static final int maxBiomeID = biomeIDCount - 1;
+    public static final int biomeIDMask = biomeIDCount - 1;
+    public static final int biomeIDNull = biomeIDMask;
     public static final int bytesPerBiome = (bitsPerBiome + 7) / 8;
 
     //DataWatcher
