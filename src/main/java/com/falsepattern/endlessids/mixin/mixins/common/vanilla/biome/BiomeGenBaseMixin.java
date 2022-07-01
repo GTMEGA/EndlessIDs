@@ -1,4 +1,4 @@
-package com.falsepattern.endlessids.mixin.mixins.common.vanilla.misc;
+package com.falsepattern.endlessids.mixin.mixins.common.vanilla.biome;
 
 import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.constants.VanillaConstants;

@@ -28,8 +28,10 @@ public enum Mixin implements IMixin {
                 S24PacketBlockActionMixin(Side.COMMON, always(), "vanilla.networking.S24PacketBlockActionMixin"),
                 S26PacketMapChunkBulkMixin(Side.COMMON, always(), "vanilla.networking.S26PacketMapChunkBulkMixin"),
             //endregion networking
+            //region biome
+                BiomeGenBaseMixin(Side.COMMON, always(), "vanilla.biome.BiomeGenBaseMixin"),
+            //endregion biome
             //region misc
-                BiomeGenBaseMixin(Side.COMMON, always(), "vanilla.misc.BiomeGenBaseMixin"),
                 BlockFireMixin(Side.COMMON, always(), "vanilla.misc.BlockFireMixin"),
                 DataWatcherMixin(Side.COMMON, condition(() -> IEConfig.extendDataWatcher), "vanilla.misc.DataWatcherMixin"),
                 ItemInWorldManagerMixin(Side.COMMON, always(), "vanilla.misc.ItemInWorldManagerMixin"),
