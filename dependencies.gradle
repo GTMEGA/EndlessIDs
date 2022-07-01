@@ -9,7 +9,7 @@ dependencies {
     compileOnly(deobfMaven("curse.maven:undergroundbiomesconstructs-72744:2304497")) // 0.8-beta49
     compileOnly(deobfMaven("curse.maven:more-fun-quicksand-mod-321960:2717318")) // 1.0.8.8-fixed
     compileOnly(deobfMaven("curse.maven:worldedit-225608:2309699")) // 6.1.1
-    compileOnly("curse.maven:cofh-lib-220333:2388748") // 1.2.1-185-dev
+    compileOnly(deobfMaven("curse.maven:cofh-lib-220333:2388747")) // 1.2.1-185
     compileOnly(deobfMaven("curse.maven:dragonapi-235591:3574508")) // V31b
 
     compileOnly(deobfMaven("curse.maven:antiidconflict-246288:2308279")) // 1.3.5
