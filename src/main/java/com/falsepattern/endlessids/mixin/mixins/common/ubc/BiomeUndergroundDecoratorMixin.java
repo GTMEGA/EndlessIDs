@@ -16,7 +16,7 @@ public abstract class BiomeUndergroundDecoratorMixin {
 
     @Redirect(method = {"replaceChunkOres(IILnet/minecraft/world/World;)V", "replaceChunkOres(Lnet/minecraft/world/chunk/IChunkProvider;II)V"},
               at = @At(value = "INVOKE",
-                       target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;func_76658_g()[B"),
+                       target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;getBlockLSBArray()[B"),
               require = 2)
     private byte[] returnMSBasLSB(ExtendedBlockStorage instance) {
         if (ebs == null) ebs = new ThreadLocal<>();
@@ -27,7 +27,7 @@ public abstract class BiomeUndergroundDecoratorMixin {
 
     @Redirect(method = {"replaceChunkOres(IILnet/minecraft/world/World;)V", "replaceChunkOres(Lnet/minecraft/world/chunk/IChunkProvider;II)V"},
               at = @At(value = "INVOKE",
-                       target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;func_76660_i()Lnet/minecraft/world/chunk/NibbleArray;"),
+                       target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;getBlockMSBArray()Lnet/minecraft/world/chunk/NibbleArray;"),
               require = 4)
     private NibbleArray returnFakeArray(ExtendedBlockStorage instance) {
         return fakeArray == null ? (fakeArray = new NibbleArray(4096, 4)) : fakeArray;
@@ -35,7 +35,7 @@ public abstract class BiomeUndergroundDecoratorMixin {
 
     @Redirect(method = {"replaceChunkOres(IILnet/minecraft/world/World;)V", "replaceChunkOres(Lnet/minecraft/world/chunk/IChunkProvider;II)V"},
               at = @At(value = "INVOKE",
-                       target = "Lnet/minecraft/world/chunk/NibbleArray;func_76582_a(III)I"),
+                       target = "Lnet/minecraft/world/chunk/NibbleArray;get(III)I"),
               require = 2)
     private int returnRestOfID(NibbleArray instance, int x, int y, int z) {
         return ebs.get().getLSB()[y << 8 | z << 4 | x] & 0xFFFF;

@@ -1,3 +1,10 @@
+def deobfMaven(mavenDep) {
+    String[] parts = mavenDep.split(":")
+    parts[0] = parts[0].replace('.', '/')
+    //If this is down, replace with https://cursemaven.com/
+    return deobf("https://cursemaven.falsepattern.com/" + parts[0] + "/" + parts[1] + "/" + parts[2] + "/" + parts[1] + "-" + parts[2] + ".jar")
+}
+
 dependencies {
     compileOnly("org.projectlombok:lombok:1.18.22") {
         transitive = false
@@ -6,23 +13,9 @@ dependencies {
 
     compile("com.falsepattern:falsepatternlib-mc1.7.10:0.8.2:dev")
 
-    compileOnly("curse.maven:undergroundbiomesconstructs-72744:2304497") {
-        transitive = false
-    }
-
-    compileOnly("curse.maven:more-fun-quicksand-mod-321960:2717318") {
-        transitive = false
-    }
-
-    compileOnly("curse.maven:worldedit-225608:2309699") {
-        transitive = false
-    }
-
-    compileOnly("curse.maven:cofh-lib-220333:2388747") {
-        transitive = false
-    }
-
-    compileOnly("curse.maven:dragonapi-235591:3574508") {
-        transitive = false
-    }
+    compileOnly(deobfMaven("curse.maven:undergroundbiomesconstructs-72744:2304497")) // 0.8-beta49
+    compileOnly(deobfMaven("curse.maven:more-fun-quicksand-mod-321960:2717318")) // 1.0.8.8-fixed
+    compileOnly(deobfMaven("curse.maven:worldedit-225608:2309699")) // 6.1.1
+    compileOnly("curse.maven:cofh-lib-220333:2388748") // 1.2.1-185-dev
+    compileOnly(deobfMaven("curse.maven:dragonapi-235591:3574508")) // V31b
 }
