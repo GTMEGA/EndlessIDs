@@ -11,11 +11,11 @@ import static com.falsepattern.lib.mixin.ITargetedMod.PredicateHelpers.*;
 @RequiredArgsConstructor
 public enum TargetedMod implements ITargetedMod {
 
-    GALACTICRAFTCORE("GalactiCraftCore", false, startsWith("galacticraftcore")),
-    UBC("Underground Biomes Constructs", false, startsWith("undergroundbiomesconstructs-")),
     COFHLIB("CoFH Lib", false, startsWith("cofhlib-")),
     DRAGONAPI("DragonAPI", false, startsWith("dragonapi")),
+    GALACTICRAFTCORE("GalactiCraftCore", false, startsWith("galacticraftcore")),
     MFQM("More Fun Quicksand Mod", false, startsWith("morefunquicksandmod-")),
+    UBC("Underground Biomes Constructs", false, startsWith("undergroundbiomesconstructs-")),
     WORLDEDIT("WorldEdit", false, startsWith("worldedit-")),
     ;
 
