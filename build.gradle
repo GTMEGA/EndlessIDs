@@ -1,4 +1,4 @@
-//version: 1656003793falsepattern25
+//version: 1656003793falsepattern26
 /*
 DO NOT CHANGE THIS FILE!
 
@@ -614,23 +614,18 @@ def getMavenSettingsCredentials = {
 }
 
 def getCredentials = {
-    try {
+    String username = System.getenv("MAVEN_DEPLOY_USER")
+    String password = System.getenv("MAVEN_DEPLOY_PASSWORD")
+    if (username == null || password == null) {
         def entries = getMavenSettingsCredentials()
         for (entry in entries) {
             if (entry."id".text() == repositoryName) {
                 return [username: entry.username.text(), password: entry.password.text()]
             }
         }
-        throw new Exception();
-    } catch (Exception ignored) {
-        //Try from environment variables if file does not exist
-        String username = System.getenv("MAVEN_DEPLOY_USER")
-        String password = System.getenv("MAVEN_DEPLOY_PASSWORD")
-        if (username == null || password == null) {
-            return [username: null, password: null]
-        } else {
-            return [username: username, password: password]
-        }
+        return [username: null, password: null]
+    } else {
+        return [username: username, password: password]
     }
 }
 

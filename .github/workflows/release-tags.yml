@@ -11,9 +11,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      MAVEN_DEPLOY_USER: ${{ secrets.MAVEN_DEPLOY_USER }}
-      MAVEN_DEPLOY_PASSWORD: ${{ secrets.MAVEN_DEPLOY_PASSWORD }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -49,3 +46,6 @@ jobs:
 
       - name: Publish to maven
         run: ./gradlew publish
+        env:
+          MAVEN_DEPLOY_USER: ${{ secrets.MAVEN_DEPLOY_USER }}
+          MAVEN_DEPLOY_PASSWORD: ${{ secrets.MAVEN_DEPLOY_PASSWORD }}
