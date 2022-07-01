@@ -1,4 +1,4 @@
-//version: 1656003793falsepattern24
+//version: 1656003793falsepattern25
 /*
 DO NOT CHANGE THIS FILE!
 
@@ -841,6 +841,19 @@ configure(deobfParams) {
 }
 
 // Dependency Deobfuscation
+
+def deobfMaven(mavenDep) {
+    String[] parts = mavenDep.split(":")
+    parts[0] = parts[0].replace('.', '/')
+    for (ArtifactRepository repository: project.repositories.asList()) {
+        def url = repository.properties.get("url").toString()
+        def jarURL = url + parts[0] + "/" + parts[1] + "/" + parts[2] + "/" + parts[1] + "-" + parts[2] + ".jar"
+        try {
+            return deobf(jarURL)
+        } catch (Exception ignored){}
+    }
+    throw new GradleException("Could not find dependency " + mavenDep + " on any repository!")
+}
 
 def deobf(String sourceURL) {
     try {
