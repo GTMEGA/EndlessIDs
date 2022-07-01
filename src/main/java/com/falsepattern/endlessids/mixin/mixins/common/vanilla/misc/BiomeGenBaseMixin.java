@@ -10,7 +10,8 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 @Mixin(BiomeGenBase.class)
 public abstract class BiomeGenBaseMixin {
     @ModifyConstant(method = "<clinit>",
-                    constant = @Constant(intValue = VanillaConstants.biomeIDCount))
+                    constant = @Constant(intValue = VanillaConstants.biomeIDCount),
+                    require = 1)
     private static int extendBiomeList(int constant) {
         return ExtendedConstants.biomeIDCount;
     }
