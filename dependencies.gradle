@@ -11,4 +11,6 @@ dependencies {
     compileOnly(deobfMaven("curse.maven:worldedit-225608:2309699")) // 6.1.1
     compileOnly("curse.maven:cofh-lib-220333:2388748") // 1.2.1-185-dev
     compileOnly(deobfMaven("curse.maven:dragonapi-235591:3574508")) // V31b
+
+    compileOnly(deobfMaven("curse.maven:antiidconflict-246288:2308279")) // 1.3.5
 }

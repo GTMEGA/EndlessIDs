@@ -7,6 +7,7 @@ EndlessIDs is a modern rewrite of NotEnoughIDs which increases the limit even mo
 
 This mod also contains patches for the following mods:
 
+- AntiIDConflict
 - UndergroundBiomesConstructs
 - More Fun Quicksand Mod
 - WorldEdit
