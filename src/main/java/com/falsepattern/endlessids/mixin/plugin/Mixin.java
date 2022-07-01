@@ -54,6 +54,9 @@ public enum Mixin implements IMixin {
             RenderGlobalMixin(Side.CLIENT, always(), "vanilla.RenderGlobalMixin"),
         //endregion client
     //endregion Minecraft
+    //region GalactiCraftCore->common
+        ConfigManagerCoreMixin(Side.COMMON, require(TargetedMod.GALACTICRAFTCORE), "galacticraft.ConfigManagerCoreMixin"),
+    //endregion GalactiCraftCore->common
     //region UBC->common
         OreUBifierMixin(Side.COMMON, require(TargetedMod.UBC), "ubc.OreUBifierMixin"),
         BiomeUndergroundDecoratorMixin(Side.COMMON, require(TargetedMod.UBC), "ubc.BiomeUndergroundDecoratorMixin"),

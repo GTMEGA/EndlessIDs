@@ -11,6 +11,7 @@ import static com.falsepattern.lib.mixin.ITargetedMod.PredicateHelpers.*;
 @RequiredArgsConstructor
 public enum TargetedMod implements ITargetedMod {
 
+    GALACTICRAFTCORE("GalactiCraftCore", false, startsWith("galacticraftcore")),
     UBC("Underground Biomes Constructs", false, startsWith("undergroundbiomesconstructs-")),
     COFHLIB("CoFH Lib", false, startsWith("cofhlib-")),
     DRAGONAPI("DragonAPI", false, startsWith("dragonapi")),

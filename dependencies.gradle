@@ -13,4 +13,5 @@ dependencies {
     compileOnly(deobfMaven("curse.maven:dragonapi-235591:3574508")) // V31b
 
     compileOnly(deobfMaven("curse.maven:antiidconflict-246288:2308279")) // 1.3.5
+    compileOnly(files("lib/GalacticraftCore-1.7-3.0.12.504-deobf.jar"))
 }
