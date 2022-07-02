@@ -1,4 +1,4 @@
-//version: 1656003793falsepattern26
+//version: 1656003793falsepattern29
 /*
 DO NOT CHANGE THIS FILE!
 
@@ -616,14 +616,16 @@ def getMavenSettingsCredentials = {
 def getCredentials = {
     String username = System.getenv("MAVEN_DEPLOY_USER")
     String password = System.getenv("MAVEN_DEPLOY_PASSWORD")
-    if (username == null || password == null) {
-        def entries = getMavenSettingsCredentials()
-        for (entry in entries) {
-            if (entry."id".text() == repositoryName) {
-                return [username: entry.username.text(), password: entry.password.text()]
+    if (username == null) {
+        try {
+            def entries = getMavenSettingsCredentials()
+            for (entry in entries) {
+                if (entry."id".text() == repositoryName) {
+                    return [username: entry.username.text(), password: entry.password.text()]
+                }
             }
-        }
-        return [username: null, password: null]
+        } catch (Exception ignored){}
+        return [username: "none", password: "none"]
     } else {
         return [username: username, password: password]
     }
@@ -675,8 +677,8 @@ publishing {
                 url = repositoryURL
                 def creds = getCredentials()
                 credentials {
-                    username = creds == null ? "none" : creds.username
-                    password = creds == null ? "none" : creds.password
+                    username = creds?.username ?: "none"
+                    password = creds?.password ?: "none"
                 }
             }
         }
@@ -708,7 +710,7 @@ boolean performBuildScriptUpdate(String projectDir) {
     if (isNewBuildScriptVersionAvailable(projectDir)) {
         def buildscriptFile = getFile("build.gradle")
         availableBuildScriptUrl().withInputStream { i -> buildscriptFile.withOutputStream { it << i } }
-        out.style(Style.Success).print("Build script updated. Please REIMPORT the project or RESTART your IDE!")
+        out.println("Build script updated. Please REIMPORT the project or RESTART your IDE!")
         return true
     }
     return false
@@ -838,16 +840,19 @@ configure(deobfParams) {
 // Dependency Deobfuscation
 
 def deobfMaven(mavenDep) {
+    throw new GradleException("deobfMaven(mavenDep) is deprecated. " +
+            "You must use the new deobfMaven(repoURL, mavenDep) method instead." +
+            "The old method broke the buildscript when used.")
+}
+
+def deobfMaven(String repoURL, String mavenDep) {
+    if (!repoURL.endsWith("/")) {
+        repoURL += "/"
+    }
     String[] parts = mavenDep.split(":")
     parts[0] = parts[0].replace('.', '/')
-    for (ArtifactRepository repository: project.repositories.asList()) {
-        def url = repository.properties.get("url").toString()
-        def jarURL = url + parts[0] + "/" + parts[1] + "/" + parts[2] + "/" + parts[1] + "-" + parts[2] + ".jar"
-        try {
-            return deobf(jarURL)
-        } catch (Exception ignored){}
-    }
-    throw new GradleException("Could not find dependency " + mavenDep + " on any repository!")
+    def jarURL = repoURL + parts[0] + "/" + parts[1] + "/" + parts[2] + "/" + parts[1] + "-" + parts[2] + ".jar"
+    return deobf(jarURL)
 }
 
 def deobf(String sourceURL) {
