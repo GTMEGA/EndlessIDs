@@ -7,12 +7,13 @@ EndlessIDs is a modern rewrite of NotEnoughIDs which increases the limit even mo
 
 This mod also contains patches for the following mods:
 
-- AntiIDConflict
+- Anti ID Conflict
+- Alternate Terrain Generation
 - CoFH Lib
 - DragonAPI
 - GalactiCraft
 - More Fun Quicksand Mod
-- UndergroundBiomesConstructs
+- Underground Biomes Constructs
 - WorldEdit
 
 Mods not listed here may or may not work. A good rule of thumb is that the more invasive a mod is, the higher the chance
