@@ -29,7 +29,9 @@ public enum Mixin implements IMixin {
     S26PacketMapChunkBulkMixin(Side.COMMON, always(), "vanilla.networking.S26PacketMapChunkBulkMixin"),
     //endregion Minecraft->common->networking
     //region Minecraft->common->biome
+    BiomeDictionaryMixin(Side.COMMON, always(), "vanilla.biome.BiomeDictionaryMixin"),
     BiomeGenBaseMixin(Side.COMMON, always(), "vanilla.biome.BiomeGenBaseMixin"),
+    BiomesGenBasePlaceholderMixin(Side.COMMON, avoid(TargetedMod.ANTIIDCONFLICT), "vanilla.biome.BiomeGenBasePlaceholderMixin"),
     //endregion Minecraft->common->biome
     //region Minecraft->common->misc
     BlockFireMixin(Side.COMMON, always(), "vanilla.misc.BlockFireMixin"),
@@ -54,6 +56,10 @@ public enum Mixin implements IMixin {
     RenderGlobalMixin(Side.CLIENT, always(), "vanilla.RenderGlobalMixin"),
     //endregion Minecraft->client
     //endregion Minecraft
+    //region AntiIDConflict->common
+    AIDCBiomesGenBaseMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT), "antiidconflict.BiomeGenBaseMixin"),
+    AIDCBiomesGenBasePlaceholderMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT), "antiidconflict.BiomeGenBasePlaceholderMixin"),
+    //endregion AntiIDConflict->common
     //region CoFHLib->common
     CoFHLibCofhBlockHelperMixin(Side.COMMON, require(TargetedMod.COFHLIB), "cofhlib.BlockHelperMixin"),
     //endregion CoFHLib->common

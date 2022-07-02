@@ -11,6 +11,7 @@ import static com.falsepattern.lib.mixin.ITargetedMod.PredicateHelpers.*;
 @RequiredArgsConstructor
 public enum TargetedMod implements ITargetedMod {
 
+    ANTIIDCONFLICT("Anti ID Conflict", false, startsWith("antiidconflict")),
     COFHLIB("CoFH Lib", false, startsWith("cofhlib-")),
     DRAGONAPI("DragonAPI", false, startsWith("dragonapi")),
     GALACTICRAFTCORE("GalactiCraftCore", false, startsWith("galacticraftcore")),
