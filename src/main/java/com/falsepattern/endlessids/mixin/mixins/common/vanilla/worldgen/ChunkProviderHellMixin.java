@@ -31,7 +31,7 @@ public abstract class ChunkProviderHellMixin implements IChunkProvider {
     @Shadow
     public abstract void func_147419_a(int p_147419_1_, int p_147419_2_, Block[] p_147419_3_);
 
-    @Shadow
+    @Shadow(remap = false)
     public abstract void replaceBiomeBlocks(int p_147418_1_, int p_147418_2_, Block[] p_147418_3_, byte[] meta, BiomeGenBase[] biomes);
 
     /**

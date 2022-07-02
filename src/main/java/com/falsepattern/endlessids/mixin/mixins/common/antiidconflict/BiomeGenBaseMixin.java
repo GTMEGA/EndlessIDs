@@ -8,7 +8,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import sun.reflect.CallerSensitive;
 
 import net.minecraft.world.biome.BiomeGenBase;
 
@@ -18,7 +17,6 @@ public abstract class BiomeGenBaseMixin {
     @Final
     private static BiomeGenBase[] biomeList;
 
-    @CallerSensitive
     @Redirect(method = "getBiomeGenArray",
               at = @At(value = "FIELD",
                        target = "Lnet/minecraft/world/biome/BiomeGenBase;biomeList:[Lnet/minecraft/world/biome/BiomeGenBase;",

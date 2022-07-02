@@ -28,7 +28,7 @@ public abstract class ChunkProviderEndMixin {
     @Shadow
     public abstract void func_147420_a(int p_147420_1_, int p_147420_2_, Block[] p_147420_3_, BiomeGenBase[] p_147420_4_);
 
-    @Shadow
+    @Shadow(remap = false)
     public abstract void replaceBiomeBlocks(int p_147421_1_, int p_147421_2_, Block[] p_147421_3_, BiomeGenBase[] p_147421_4_, byte[] meta);
 
     /**
