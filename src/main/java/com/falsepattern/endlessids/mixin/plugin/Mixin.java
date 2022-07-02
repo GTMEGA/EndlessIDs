@@ -9,7 +9,10 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static com.falsepattern.lib.mixin.IMixin.PredicateHelpers.*;
+import static com.falsepattern.lib.mixin.IMixin.PredicateHelpers.always;
+import static com.falsepattern.lib.mixin.IMixin.PredicateHelpers.avoid;
+import static com.falsepattern.lib.mixin.IMixin.PredicateHelpers.condition;
+import static com.falsepattern.lib.mixin.IMixin.PredicateHelpers.require;
 
 @RequiredArgsConstructor
 public enum Mixin implements IMixin {
@@ -31,7 +34,8 @@ public enum Mixin implements IMixin {
     //region Minecraft->common->biome
     BiomeDictionaryMixin(Side.COMMON, always(), "vanilla.biome.BiomeDictionaryMixin"),
     BiomeGenBaseMixin(Side.COMMON, always(), "vanilla.biome.BiomeGenBaseMixin"),
-    BiomesGenBasePlaceholderMixin(Side.COMMON, avoid(TargetedMod.ANTIIDCONFLICT), "vanilla.biome.BiomeGenBasePlaceholderMixin"),
+    BiomesGenBasePlaceholderMixin(Side.COMMON, avoid(TargetedMod.ANTIIDCONFLICT),
+                                  "vanilla.biome.BiomeGenBasePlaceholderMixin"),
     //endregion Minecraft->common->biome
     //region Minecraft->common->misc
     BlockFireMixin(Side.COMMON, always(), "vanilla.misc.BlockFireMixin"),
@@ -58,7 +62,8 @@ public enum Mixin implements IMixin {
     //endregion Minecraft
     //region AntiIDConflict->common
     AIDCBiomesGenBaseMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT), "antiidconflict.BiomeGenBaseMixin"),
-    AIDCBiomesGenBasePlaceholderMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT), "antiidconflict.BiomeGenBasePlaceholderMixin"),
+    AIDCBiomesGenBasePlaceholderMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT),
+                                      "antiidconflict.BiomeGenBasePlaceholderMixin"),
     //endregion AntiIDConflict->common
     //region ATG->common
     ATGBiomeConfigMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGBiomeConfigMixin"),
@@ -73,14 +78,12 @@ public enum Mixin implements IMixin {
     DragonAPIBlockPropertiesMixin(Side.COMMON, require(TargetedMod.DRAGONAPI), "dragonapi.BlockPropertiesMixin"),
     //endregion DragonAPI->common
     //region GalactiCraftCore->common
-    GalactiCraftCoreConfigManagerCoreMixin(Side.COMMON,
-                                           require(TargetedMod.GALACTICRAFTCORE),
+    GalactiCraftCoreConfigManagerCoreMixin(Side.COMMON, require(TargetedMod.GALACTICRAFTCORE),
                                            "galacticraft.ConfigManagerCoreMixin"),
     //endregion GalactiCraftCore->common
     //region MFQM->common
     MFQMMixin(Side.COMMON, require(TargetedMod.MFQM), "mfqm.MFQMMixin"),
-    MFQMDataWatcherMixin(Side.COMMON,
-                         require(TargetedMod.MFQM).and(condition(() -> IEConfig.extendDataWatcher)),
+    MFQMDataWatcherMixin(Side.COMMON, require(TargetedMod.MFQM).and(condition(() -> IEConfig.extendDataWatcher)),
                          "mfqm.MFQMDataWatcherMixin"),
     //endregion MFQM->common
     //region UBC->common

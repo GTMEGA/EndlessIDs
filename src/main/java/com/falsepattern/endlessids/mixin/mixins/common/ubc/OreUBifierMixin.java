@@ -7,7 +7,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
-@Mixin(value = OreUBifier.class, remap = false)
+@Mixin(value = OreUBifier.class,
+       remap = false)
 public abstract class OreUBifierMixin {
     @ModifyConstant(method = "renewBlockReplacers",
                     constant = @Constant(intValue = VanillaConstants.blockIDCount),

@@ -3,9 +3,6 @@ package com.falsepattern.endlessids.mixin.mixins.common.vanilla.misc;
 import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.constants.VanillaConstants;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.DataWatcher;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ChunkCoordinates;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,13 +10,18 @@ import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+import net.minecraft.entity.DataWatcher;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.ChunkCoordinates;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(DataWatcher.class)
 public abstract class DataWatcherMixin {
-    @ModifyConstant(method = {"addObject", "writeWatchedListToPacketBuffer", "func_151509_a", "writeWatchableObjectToPacketBuffer"},
+    @ModifyConstant(method = {"addObject", "writeWatchedListToPacketBuffer", "func_151509_a",
+                              "writeWatchableObjectToPacketBuffer"},
                     constant = @Constant(intValue = VanillaConstants.maxWatchableID),
                     require = 4)
     private static int extend1(int constant) {
@@ -27,14 +29,16 @@ public abstract class DataWatcherMixin {
     }
 
     @ModifyConstant(method = "writeWatchableObjectToPacketBuffer",
-                    constant = @Constant(intValue = VanillaConstants.watchableBits, ordinal = 0),
+                    constant = @Constant(intValue = VanillaConstants.watchableBits,
+                                         ordinal = 0),
                     require = 1)
     private static int extend2(int constant) {
         return ExtendedConstants.watchableBits;
     }
 
     @ModifyConstant(method = "writeWatchableObjectToPacketBuffer",
-                    constant = @Constant(intValue = VanillaConstants.watchableMask, ordinal = 0),
+                    constant = @Constant(intValue = VanillaConstants.watchableMask,
+                                         ordinal = 0),
                     require = 1)
     private static int extend3(int constant) {
         return ExtendedConstants.watchableMask;
@@ -53,10 +57,11 @@ public abstract class DataWatcherMixin {
      * @reason Direct port from dumped code
      */
     @Overwrite
-    public static List<DataWatcher.WatchableObject> readWatchedListFromPacketBuffer(PacketBuffer packet) throws IOException {
+    public static List<DataWatcher.WatchableObject> readWatchedListFromPacketBuffer(PacketBuffer packet)
+            throws IOException {
         ArrayList<DataWatcher.WatchableObject> watchables = null;
 
-        for(short id = packet.readShort(); id != 32767; id = packet.readShort()) {
+        for (short id = packet.readShort(); id != 32767; id = packet.readShort()) {
             if (watchables == null) {
                 watchables = new ArrayList<>();
             }
@@ -64,7 +69,7 @@ public abstract class DataWatcherMixin {
             int flag = (id >> ExtendedConstants.watchableBits) & 0x7;
             int watchableID = id & ExtendedConstants.maxWatchableID;
             DataWatcher.WatchableObject watchable = null;
-            switch(flag) {
+            switch (flag) {
                 case 0:
                     watchable = new DataWatcher.WatchableObject(flag, watchableID, packet.readByte());
                     break;

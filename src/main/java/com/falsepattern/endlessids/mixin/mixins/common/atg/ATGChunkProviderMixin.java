@@ -17,7 +17,8 @@ import net.minecraft.world.chunk.Chunk;
 @Mixin(value = ATGChunkProvider.class,
        remap = false)
 public abstract class ATGChunkProviderMixin {
-    @Shadow private BiomeGenBase[] biomesForGeneration;
+    @Shadow
+    private BiomeGenBase[] biomesForGeneration;
 
     @Inject(method = "provideChunk",
             at = @At(value = "INVOKE",
@@ -27,7 +28,7 @@ public abstract class ATGChunkProviderMixin {
             locals = LocalCapture.CAPTURE_FAILHARD,
             require = 1)
     private void hijackChunkBiomeSetup(int chunkX, int chunkY, CallbackInfoReturnable<Chunk> cir, Block[] data, byte[] abyte, Chunk chunk) {
-        val chunkBiomes = ((IChunkMixin)chunk).getBiomeShortArray();
+        val chunkBiomes = ((IChunkMixin) chunk).getBiomeShortArray();
         for (int i = 0; i < chunkBiomes.length; i++) {
             chunkBiomes[i] = (short) biomesForGeneration[i].biomeID;
         }

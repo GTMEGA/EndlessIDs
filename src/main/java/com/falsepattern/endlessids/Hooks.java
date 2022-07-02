@@ -4,13 +4,14 @@ import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
 import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;
 import lombok.val;
-import net.minecraft.init.Blocks;
+
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.chunk.Chunk;
 
-import java.nio.ShortBuffer;
 import java.nio.ByteBuffer;
+import java.nio.ShortBuffer;
 
 public class Hooks {
 
@@ -22,7 +23,7 @@ public class Hooks {
         System.arraycopy(msb, 0, ret, lsb.length * 2, lsb.length);
         return ret;
     }
-    
+
     public static void setBlockData(final IExtendedBlockStorageMixin ebs, final byte[] data, final int offset) {
         val lsb = ebs.getLSB();
         val msb = ebs.getMSB();
@@ -47,9 +48,11 @@ public class Hooks {
                 byte3Data[i] = ebsMSB[i];
             }
             val idLSB = (ebsLSB[i] & 0xFFFF);
-            byte1Data[i] = (byte)(idLSB & 0xFF);
+            byte1Data[i] = (byte) (idLSB & 0xFF);
 
-            if (idLSB <= 0xFF) continue;
+            if (idLSB <= 0xFF) {
+                continue;
+            }
             val nibbleIndex = i >> 1;
             val nibbleShift = (i & 1) * 4;
             if (byte2BottomNibbleData == null) {
@@ -57,7 +60,9 @@ public class Hooks {
             }
             byte2BottomNibbleData[nibbleIndex] |= ((idLSB >>> 8) & 0xF) << nibbleShift;
 
-            if (idLSB <= 0xFFF) continue;
+            if (idLSB <= 0xFFF) {
+                continue;
+            }
             if (byte2TopNibbleData == null) {
                 byte2TopNibbleData = new byte[ebsLSB.length / 2];
             }
@@ -65,12 +70,15 @@ public class Hooks {
 
         }
         nbt.setByteArray("Blocks", byte1Data);
-        if (byte2BottomNibbleData != null)
+        if (byte2BottomNibbleData != null) {
             nbt.setByteArray("Add", byte2BottomNibbleData);
-        if (byte2TopNibbleData != null)
+        }
+        if (byte2TopNibbleData != null) {
             nbt.setByteArray("BlocksB2Hi", byte2TopNibbleData);
-        if (byte3Data != null)
+        }
+        if (byte3Data != null) {
             nbt.setByteArray("BlocksB3", byte3Data);
+        }
     }
 
     public static void readChunkFromNbt(final IExtendedBlockStorageMixin ebs, final NBTTagCompound nbt) {
@@ -94,7 +102,7 @@ public class Hooks {
             if (byte2TopNibbleData != null) {
                 id |= ((byte2TopNibbleData[i >> 1] >> nibbleShift) & 0xF) << 12;
             }
-            lsb[i] = (short)id;
+            lsb[i] = (short) id;
         }
     }
 
@@ -104,15 +112,15 @@ public class Hooks {
         int cntNonEmpty = 0;
         int cntTicking = 0;
         for (int off = 0; off < blkIdsLSB.length; ++off) {
-            final int id = ((blkIdsLSB[off] & 0xFFFF) | ((blkIdsMSB[off] & 0xFF) << 16)) & ExtendedConstants.blockIDMask;
+            final int id =
+                    ((blkIdsLSB[off] & 0xFFFF) | ((blkIdsMSB[off] & 0xFF) << 16)) & ExtendedConstants.blockIDMask;
             if (id > 0) {
-                final Block block = (Block)Block.blockRegistry.getObjectById(id);
+                final Block block = (Block) Block.blockRegistry.getObjectById(id);
                 if (block == null) {
                     if (IEConfig.removeInvalidBlocks) {
                         blkIdsLSB[off] = 0;
                     }
-                }
-                else if (block != Blocks.air) {
+                } else if (block != Blocks.air) {
                     ++cntNonEmpty;
                     if (block.getTickRandomly()) {
                         ++cntTicking;
@@ -123,11 +131,12 @@ public class Hooks {
         ebs.setBlockRefCount(cntNonEmpty);
         ebs.setTickRefCount(cntTicking);
     }
-    
+
     public static int getIdFromBlockWithCheck(final Block block, final Block oldBlock) {
         final int id = Block.getIdFromBlock(block);
         if (IEConfig.catchUnregisteredBlocks && id == -1) {
-            throw new IllegalArgumentException("Block " + block + " is not registered. <-- Say about this to the author of this mod, or you can try to enable \"RemoveInvalidBlocks\" option in EID config.");
+            throw new IllegalArgumentException("Block " + block +
+                                               " is not registered. <-- Say about this to the author of this mod, or you can try to enable \"RemoveInvalidBlocks\" option in EID config.");
         }
         if (id >= 0 && id <= ExtendedConstants.maxBlockID) {
             return id;
@@ -143,9 +152,9 @@ public class Hooks {
     public static byte[] shortToByteArray(short[] shortArray) {
         byte[] byteArray = new byte[512];
 
-        for(int i = 0; i < 256; ++i) {
-            byteArray[i] = (byte)(shortArray[i] & 255);
-            byteArray[i + 256] = (byte)(shortArray[i] >>> 8);
+        for (int i = 0; i < 256; ++i) {
+            byteArray[i] = (byte) (shortArray[i] & 255);
+            byteArray[i + 256] = (byte) (shortArray[i] >>> 8);
         }
         return byteArray;
     }
@@ -153,8 +162,8 @@ public class Hooks {
     public static short[] byteToShortArray(byte[] byteArray) {
         short[] shortArray = new short[256];
 
-        for(int i = 0; i < 256; ++i) {
-            shortArray[i] = (short)(byteArray[i + 256] << 8 | byteArray[i]);
+        for (int i = 0; i < 256; ++i) {
+            shortArray[i] = (short) (byteArray[i + 256] << 8 | byteArray[i]);
         }
 
         return shortArray;
@@ -164,7 +173,7 @@ public class Hooks {
         short[] shortArray = new short[256];
 
         for (int i = 0; i < 256; i++) {
-            shortArray[i] = (short)(byteArray[i] & 0xff);
+            shortArray[i] = (short) (byteArray[i] & 0xff);
         }
 
         return shortArray;
@@ -173,18 +182,18 @@ public class Hooks {
     public static int readBiomeArrayFromPacket(Chunk chunk, byte[] array, int offset) {
         byte[] byteArray = new byte[512];
         System.arraycopy(array, offset, byteArray, 0, 512);
-        ((IChunkMixin)chunk).setBiomeShortArray(byteToShortArray(byteArray));
+        ((IChunkMixin) chunk).setBiomeShortArray(byteToShortArray(byteArray));
         return byteArray.length;
     }
 
     public static int writeBiomeArrayToPacket(Chunk chunk, byte[] array, int offset) {
-        byte[] byteArray = shortToByteArray(((IChunkMixin)chunk).getBiomeShortArray());
+        byte[] byteArray = shortToByteArray(((IChunkMixin) chunk).getBiomeShortArray());
         System.arraycopy(byteArray, 0, array, offset, 512);
         return byteArray.length;
     }
 
     public static void writeChunkBiomeArrayToNbt(Chunk chunk, NBTTagCompound nbt) {
-        byte[] byteArray = shortToByteArray(((IChunkMixin)chunk).getBiomeShortArray());
+        byte[] byteArray = shortToByteArray(((IChunkMixin) chunk).getBiomeShortArray());
         nbt.setByteArray("Biomes16", byteArray);
     }
 
@@ -196,7 +205,7 @@ public class Hooks {
             data = oldBiomeByteToNewShortArray(nbt.getByteArray("Biomes"));
         }
         if (data != null) {
-            ((IChunkMixin)chunk).setBiomeShortArray(data);
+            ((IChunkMixin) chunk).setBiomeShortArray(data);
         }
     }
 }

@@ -2,9 +2,6 @@ package com.falsepattern.endlessids.mixin.mixins.common.vanilla.storage;
 
 import com.falsepattern.endlessids.Hooks;
 import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
@@ -12,10 +9,16 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
+
 @Mixin(ExtendedBlockStorage.class)
 public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorageMixin {
-    @Shadow private int blockRefCount;
-    @Shadow private int tickRefCount;
+    @Shadow
+    private int blockRefCount;
+    @Shadow
+    private int tickRefCount;
     private short[] lsbArray;
     private byte[] msbArray;
 
@@ -58,8 +61,8 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
         int index = y << 8 | z << 4 | x;
         int lsb = id & 0xFFFF;
         int msb = (id >>> 16) & 0xFF;
-        lsbArray[index] = (short)lsb;
-        msbArray[index] = (byte)msb;
+        lsbArray[index] = (short) lsb;
+        msbArray[index] = (byte) msb;
     }
 
     /**

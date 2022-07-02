@@ -7,10 +7,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
-@Mixin(value = BlockHelper.class, remap = false)
+@Mixin(value = BlockHelper.class,
+       remap = false)
 public abstract class BlockHelperMixin {
     @ModifyConstant(method = "<clinit>",
-                    constant = {@Constant(intValue = VanillaConstants.blockIDCount), @Constant(intValue = VanillaConstants.blockIDCount / 4)},
+                    constant = {@Constant(intValue = VanillaConstants.blockIDCount),
+                                @Constant(intValue = VanillaConstants.blockIDCount / 4)},
                     require = 1)
     private static int extend(int constant) {
         return ExtendedConstants.blockIDCount;

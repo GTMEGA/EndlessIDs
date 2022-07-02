@@ -2,6 +2,9 @@ package com.falsepattern.endlessids.mixin.mixins.common.vanilla.storage;
 
 import com.falsepattern.endlessids.Hooks;
 import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
@@ -13,8 +16,6 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.NibbleArray;
 import net.minecraft.world.chunk.storage.AnvilChunkLoader;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 
 import java.util.Iterator;
 import java.util.List;
@@ -28,7 +29,7 @@ public abstract class AnvilChunkLoaderMixin {
      */
     @Overwrite
     private void writeChunkToNBT(Chunk p_75820_1_, World p_75820_2_, NBTTagCompound p_75820_3_) {
-        p_75820_3_.setByte("V", (byte)1);
+        p_75820_3_.setByte("V", (byte) 1);
         p_75820_3_.setInteger("xPos", p_75820_1_.xPosition);
         p_75820_3_.setInteger("zPos", p_75820_1_.zPosition);
         p_75820_3_.setLong("LastUpdate", p_75820_2_.getTotalWorldTime());
@@ -43,11 +44,11 @@ public abstract class AnvilChunkLoaderMixin {
         int var8 = var4.length;
 
         NBTTagCompound var11;
-        for(int var9 = 0; var9 < var8; ++var9) {
+        for (int var9 = 0; var9 < var8; ++var9) {
             ExtendedBlockStorage var10 = var7[var9];
             if (var10 != null) {
                 var11 = new NBTTagCompound();
-                var11.setByte("Y", (byte)(var10.getYLocation() >> 4 & 255));
+                var11.setByte("Y", (byte) (var10.getYLocation() >> 4 & 255));
                 Hooks.writeChunkToNbt(var11, (IExtendedBlockStorageMixin) var10);
 
                 var11.setByteArray("Data", var10.getMetadataArray().data);
@@ -68,11 +69,11 @@ public abstract class AnvilChunkLoaderMixin {
         NBTTagList var21 = new NBTTagList();
 
         Iterator var22;
-        for(var8 = 0; var8 < p_75820_1_.entityLists.length; ++var8) {
+        for (var8 = 0; var8 < p_75820_1_.entityLists.length; ++var8) {
             var22 = p_75820_1_.entityLists[var8].iterator();
 
-            while(var22.hasNext()) {
-                Entity var12 = (Entity)var22.next();
+            while (var22.hasNext()) {
+                Entity var12 = (Entity) var22.next();
                 var11 = new NBTTagCompound();
                 if (var12.writeToNBTOptional(var11)) {
                     p_75820_1_.hasEntities = true;
@@ -85,8 +86,8 @@ public abstract class AnvilChunkLoaderMixin {
         NBTTagList var23 = new NBTTagList();
         var22 = p_75820_1_.chunkTileEntityMap.values().iterator();
 
-        while(var22.hasNext()) {
-            TileEntity var13 = (TileEntity)var22.next();
+        while (var22.hasNext()) {
+            TileEntity var13 = (TileEntity) var22.next();
             var11 = new NBTTagCompound();
             var13.writeToNBT(var11);
             var23.appendTag(var11);
@@ -99,14 +100,14 @@ public abstract class AnvilChunkLoaderMixin {
             NBTTagList var17 = new NBTTagList();
             Iterator var18 = var24.iterator();
 
-            while(var18.hasNext()) {
-                NextTickListEntry var19 = (NextTickListEntry)var18.next();
+            while (var18.hasNext()) {
+                NextTickListEntry var19 = (NextTickListEntry) var18.next();
                 NBTTagCompound var20 = new NBTTagCompound();
                 var20.setInteger("i", Block.getIdFromBlock(var19.func_151351_a()));
                 var20.setInteger("x", var19.xCoord);
                 var20.setInteger("y", var19.yCoord);
                 var20.setInteger("z", var19.zCoord);
-                var20.setInteger("t", (int)(var19.scheduledTime - var15));
+                var20.setInteger("t", (int) (var19.scheduledTime - var15));
                 var20.setInteger("p", var19.priority);
                 var17.appendTag(var20);
             }
@@ -134,7 +135,7 @@ public abstract class AnvilChunkLoaderMixin {
         ExtendedBlockStorage[] var8 = new ExtendedBlockStorage[var7];
         boolean var9 = !p_75823_1_.provider.hasNoSky;
 
-        for(int var10 = 0; var10 < var6.tagCount(); ++var10) {
+        for (int var10 = 0; var10 < var6.tagCount(); ++var10) {
             NBTTagCompound var11 = var6.getCompoundTagAt(var10);
             byte var12 = var11.getByte("Y");
             ExtendedBlockStorage var13 = new ExtendedBlockStorage(var12 << 4, var9);

@@ -5,10 +5,6 @@ import com.falsepattern.endlessids.Tags;
 import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
 import lombok.val;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.biome.WorldChunkManager;
-import net.minecraft.world.chunk.Chunk;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -18,13 +14,23 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.WorldChunkManager;
+import net.minecraft.world.chunk.Chunk;
+
 import java.util.Arrays;
 
 @Mixin(Chunk.class)
 public abstract class ChunkMixin implements IChunkMixin {
-    @Shadow private byte[] blockBiomeArray;
-    @Shadow @Final public int xPosition;
-    @Shadow @Final public int zPosition;
+    @Shadow
+    @Final
+    public int xPosition;
+    @Shadow
+    @Final
+    public int zPosition;
+    @Shadow
+    private byte[] blockBiomeArray;
     private short[] blockBiomeShortArray;
 
     @Inject(method = "<init>(Lnet/minecraft/world/World;II)V",
@@ -33,7 +39,7 @@ public abstract class ChunkMixin implements IChunkMixin {
     private void initShortArray(World p_i1995_1_, int p_i1995_2_, int p_i1995_3_, CallbackInfo ci) {
         blockBiomeArray = null;
         blockBiomeShortArray = new short[16 * 16];
-        Arrays.fill(blockBiomeShortArray, (short)-1);
+        Arrays.fill(blockBiomeShortArray, (short) -1);
     }
 
     private void emergencyCrash() {

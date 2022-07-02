@@ -5,7 +5,8 @@ import com.sk89q.worldedit.blocks.BaseBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-@Mixin(value = BaseBlock.class, remap = false)
+@Mixin(value = BaseBlock.class,
+       remap = false)
 public abstract class BaseBlockMixin {
     private int idExtended;
 
@@ -16,7 +17,8 @@ public abstract class BaseBlockMixin {
     @Overwrite
     protected final void internalSetId(int id) {
         if (id > ExtendedConstants.maxBlockID) {
-            throw new IllegalArgumentException("Can't have a block ID above " + ExtendedConstants.maxBlockID + " (" + id + " given)");
+            throw new IllegalArgumentException(
+                    "Can't have a block ID above " + ExtendedConstants.maxBlockID + " (" + id + " given)");
         } else if (id < 0) {
             throw new IllegalArgumentException("Can't have a block ID below 0");
         } else {

@@ -1,14 +1,15 @@
 package com.falsepattern.endlessids.mixin.mixins.client.vanilla;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.network.play.server.S22PacketMultiBlockChange;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -18,7 +19,8 @@ import java.io.IOException;
 @Mixin(NetHandlerPlayClient.class)
 public abstract class NetHandlerPlayClientMixin {
 
-    @Shadow private WorldClient clientWorldController;
+    @Shadow
+    private WorldClient clientWorldController;
 
 
     /**
@@ -32,7 +34,7 @@ public abstract class NetHandlerPlayClientMixin {
         if (packetIn.func_148921_d() != null) {
             DataInputStream dataInput = new DataInputStream(new ByteArrayInputStream(packetIn.func_148921_d()));
 
-            for(int var5 = 0; var5 < packetIn.func_148922_e(); ++var5) {
+            for (int var5 = 0; var5 < packetIn.func_148922_e(); ++var5) {
                 short var6 = dataInput.readShort();
                 short idLSB = dataInput.readShort();
                 byte idMSB = dataInput.readByte();
@@ -41,7 +43,8 @@ public abstract class NetHandlerPlayClientMixin {
                 int var10 = var6 >> 12 & 15;
                 int var11 = var6 >> 8 & 15;
                 int var12 = var6 & 255;
-                this.clientWorldController.func_147492_c(var10 + var2, var12, var11 + var3, Block.getBlockById(id), var9);
+                this.clientWorldController.func_147492_c(var10 + var2, var12, var11 + var3, Block.getBlockById(id),
+                                                         var9);
             }
         }
 

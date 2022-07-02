@@ -1,16 +1,20 @@
 [
-    {
-      "modid": "${modId}",
-      "name": "${modName}",
-      "description": "Extends hardcoded block ID limit even more.",
-      "version": "${modVersion}",
-      "mcversion": "${minecraftVersion}",
-      "url": "https://github.com/FalsePattern/EndlessIDs",
-      "updateUrl": "",
-      "authorList": ["fewizz","Player","FalsePattern"],
-      "credits": "This mod is a modern rewrite of NotEnoughIDs, made by fewizz and Player, which was released under the MIT license.",
-      "logoFile": "",
-      "screenshots": [],
-      "dependencies": []
-    }
+  {
+    "modid": "${modId}",
+    "name": "${modName}",
+    "description": "Extends hardcoded block ID limit even more.",
+    "version": "${modVersion}",
+    "mcversion": "${minecraftVersion}",
+    "url": "https://github.com/FalsePattern/EndlessIDs",
+    "updateUrl": "",
+    "authorList": [
+      "fewizz",
+      "Player",
+      "FalsePattern"
+    ],
+    "credits": "This mod is a modern rewrite of NotEnoughIDs, made by fewizz and Player, which was released under the MIT license.",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
 ]

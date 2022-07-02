@@ -14,7 +14,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 @Mixin(BiomeGenBase.class)
 public abstract class BiomeGenBaseMixin {
-    @Shadow @Final private static BiomeGenBase[] biomeList;
+    @Shadow
+    @Final
+    private static BiomeGenBase[] biomeList;
 
     @CallerSensitive
     @Redirect(method = "getBiomeGenArray",

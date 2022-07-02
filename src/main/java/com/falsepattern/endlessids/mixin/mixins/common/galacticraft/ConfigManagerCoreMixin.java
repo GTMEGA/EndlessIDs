@@ -14,7 +14,8 @@ public abstract class ConfigManagerCoreMixin {
                     constant = @Constant(stringValue = "Biome ID for Moon (Mars will be this + 1, Asteroids + 2 etc). Allowed range 40-250."),
                     require = 1)
     private static String modifyHint(String constant) {
-        return "Biome ID for Moon (Mars will be this + 1, Asteroids + 2 etc). Allowed range 40-" + (ExtendedConstants.biomeIDCount - 6);
+        return "Biome ID for Moon (Mars will be this + 1, Asteroids + 2 etc). Allowed range 40-" +
+               (ExtendedConstants.biomeIDCount - 6);
     }
 
     @ModifyConstant(method = "syncConfig",

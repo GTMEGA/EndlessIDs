@@ -3,8 +3,6 @@ package com.falsepattern.endlessids.mixin.mixins.common.vanilla.biome;
 import com.falsepattern.endlessids.PlaceholderBiome;
 import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.constants.VanillaConstants;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -14,11 +12,17 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import net.minecraft.world.biome.BiomeGenBase;
+
 @Mixin(BiomeGenBase.class)
 public abstract class BiomeGenBaseMixin {
-    @Shadow @Final private static BiomeGenBase[] biomeList;
+    @Shadow
+    @Final
+    private static BiomeGenBase[] biomeList;
 
-    @Shadow @Final public int biomeID;
+    @Shadow
+    @Final
+    public int biomeID;
 
     @ModifyConstant(method = "<clinit>",
                     constant = @Constant(intValue = VanillaConstants.biomeIDCount),
@@ -31,7 +35,9 @@ public abstract class BiomeGenBaseMixin {
             at = @At(value = "RETURN"),
             require = 1)
     private void generatePlaceholders(int p_i1971_1_, boolean register, CallbackInfo ci) {
-        if (((Object)this) instanceof PlaceholderBiome) return;
+        if (((Object) this) instanceof PlaceholderBiome) {
+            return;
+        }
         if (biomeID >= 128 && biomeList[biomeID - 128] == null) {
             new PlaceholderBiome(biomeID - 128, (BiomeGenBase) (Object) this);
         }

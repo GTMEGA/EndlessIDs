@@ -11,9 +11,8 @@ public class VanillaConstants {
 
     //BlockItemIDs
     public static final int nibblesPerID = bitsPerID / 4;
-    public static final int nibblesPerMetadata = bitsPerMetadata / 4;
-
     public static final int bytesPerID = (nibblesPerID + 1) / 2;
+    public static final int nibblesPerMetadata = bitsPerMetadata / 4;
     public static final int bytesPerIDPlusMetadata = (nibblesPerID + nibblesPerMetadata + 1) / 2;
 
     public static final int blockIDMask = (1 << bitsPerID) - 1;
@@ -30,12 +29,10 @@ public class VanillaConstants {
     public static final int biomeIDMask = biomeIDCount - 1;
     public static final int biomeIDNull = biomeIDMask;
     public static final int bytesPerBiome = (bitsPerBiome + 7) / 8;
-
+    //Chunk
+    public static final int bytesPerChunk = bytesPerBiome * 256 + bytesPerEBS * 16;
     //DataWatcher
     public static final int watchableCount = 1 << watchableBits;
     public static final int maxWatchableID = watchableCount - 1;
     public static final int watchableMask = (0x7 << watchableBits) | maxWatchableID;
-
-    //Chunk
-    public static final int bytesPerChunk = bytesPerBiome * 256 + bytesPerEBS * 16;
 }

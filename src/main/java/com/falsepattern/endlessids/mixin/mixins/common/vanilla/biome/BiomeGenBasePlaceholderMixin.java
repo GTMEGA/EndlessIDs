@@ -13,10 +13,14 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 @Mixin(BiomeGenBase.class)
 public abstract class BiomeGenBasePlaceholderMixin {
-    @Shadow @Final private static BiomeGenBase[] biomeList;
+    @Shadow
+    @Final
+    private static BiomeGenBase[] biomeList;
 
     @Mutable
-    @Shadow @Final public int biomeID;
+    @Shadow
+    @Final
+    public int biomeID;
 
     @Redirect(method = "<init>(IZ)V",
               at = @At(value = "FIELD",

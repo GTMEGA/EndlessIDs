@@ -1,29 +1,32 @@
 package com.falsepattern.endlessids.mixin.mixins.common.vanilla.networking;
 
-import net.minecraft.block.Block;
-import net.minecraft.network.play.server.S22PacketMultiBlockChange;
-import net.minecraft.world.chunk.Chunk;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+import net.minecraft.block.Block;
+import net.minecraft.network.play.server.S22PacketMultiBlockChange;
+import net.minecraft.world.chunk.Chunk;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 
 @Mixin(S22PacketMultiBlockChange.class)
 public abstract class S22PacketMultiBlockChangeMixin {
+    private int id;
+    private int meta;
+
     //TODO magic number
     @ModifyConstant(method = "<init>(I[SLnet/minecraft/world/chunk/Chunk;)V",
-                    constant = @Constant(intValue = 4, ordinal = 0),
+                    constant = @Constant(intValue = 4,
+                                         ordinal = 0),
                     require = 1)
     private int extend1(int constant) {
         return 6;
     }
 
-    private int id;
-    private int meta;
     @Redirect(method = "<init>(I[SLnet/minecraft/world/chunk/Chunk;)V",
               at = @At(value = "INVOKE",
                        target = "Lnet/minecraft/world/chunk/Chunk;getBlock(III)Lnet/minecraft/block/Block;"),
