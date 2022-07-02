@@ -10,12 +10,6 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 @Mixin(value = MFQM.class,
        remap = false)
 public abstract class MFQMMixin {
-    @ModifyConstant(method = "preInit",
-                    constant = {@Constant(intValue = VanillaConstants.maxBlockID), @Constant(intValue = 31999)},
-                    require = 2)
-    private int extendWatchableIDLimit(int constant) {
-        return ExtendedConstants.maxBlockID;
-    }
 
     @ModifyConstant(method = "preInit",
                     constant = @Constant(stringValue = "Must be different in range between 20 and 31"),
@@ -23,5 +17,12 @@ public abstract class MFQMMixin {
     private String changeConfigText(String constant) {
         return constant +
                " (Notice from EndlessIDs: If you enable the ExtendDataWatcher config option in the endlessids config file, the maximum value will be 127 instead, same for the other datawatcher ids in this file)";
+    }
+
+    @ModifyConstant(method = "postInit",
+                    constant = {@Constant(intValue = VanillaConstants.maxBlockID), @Constant(intValue = 31999)},
+                    require = 2)
+    private int extendIDs(int constant) {
+        return ExtendedConstants.maxBlockID;
     }
 }
