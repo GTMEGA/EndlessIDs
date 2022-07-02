@@ -1,5 +1,6 @@
 package com.falsepattern.endlessids.mixin.plugin;
 
+import com.falsepattern.endlessids.mixin.util.DragonAPICompat;
 import com.falsepattern.lib.mixin.ITargetedMod;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,10 @@ public enum TargetedMod implements ITargetedMod {
     ATG("Alternate Terrain Generation", true, startsWith("atg")),
     BOP("Biomes O' Plenty", true, startsWith("biomesoplenty-")),
     COFHLIB("CoFH Lib", true, startsWith("cofhlib-")),
-    DRAGONAPI("DragonAPI", false, startsWith("dragonapi")),
+    DRAGONAPI("DragonAPI", false, startsWith("dragonapi").and((x) -> {
+        DragonAPICompat.activate();
+        return true;
+    })),
     GALACTICRAFTCORE("GalactiCraftCore", false, startsWith("galacticraftcore")),
     MFQM("More Fun Quicksand Mod", false, startsWith("morefunquicksandmod-")),
     UBC("Underground Biomes Constructs", false, startsWith("undergroundbiomesconstructs-")),

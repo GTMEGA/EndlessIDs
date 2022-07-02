@@ -8,8 +8,10 @@ import lombok.Getter;
 import org.apache.logging.log4j.Logger;
 
 public class MixinPlugin implements IMixinPlugin {
+    public static final Logger LOG = IMixinPlugin.createLogger(Tags.MODNAME);
+
     @Getter
-    private final Logger logger = IMixinPlugin.createLogger(Tags.MODNAME);
+    private final Logger logger = LOG;
 
     @Override
     public IMixin[] getMixinEnumValues() {
