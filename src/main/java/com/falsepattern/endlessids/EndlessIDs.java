@@ -15,7 +15,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
      version = Tags.VERSION,
      name = Tags.MODNAME,
      acceptedMinecraftVersions = "[1.7.10]",
-     dependencies = "required-after:falsepatternlib@[0.8.2,);after:antiidconflict")
+     dependencies = "required-after:falsepatternlib@[0.9.1,);after:antiidconflict")
 public class EndlessIDs {
     public static final Logger LOG = LogManager.getLogger(Tags.MODNAME);
     public static BiomeGenBase[] fakeBiomeArray;
