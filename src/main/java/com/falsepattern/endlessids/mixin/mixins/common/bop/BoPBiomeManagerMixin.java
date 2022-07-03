@@ -23,11 +23,4 @@ public abstract class BoPBiomeManagerMixin {
     private static int extendIDs2(int constant) {
         return ExtendedConstants.biomeIDCount - 1;
     }
-
-    @ModifyConstant(method = "<clinit>",
-                    constant = @Constant(intValue = 40),
-                    require = 1)
-    private static int moveBOPReallyFar(int constant) {
-        return 20000;
-    }
 }
