@@ -18,6 +18,7 @@ public enum TargetedMod implements ITargetedMod {
     DRAGONAPI("DragonAPI", false, startsWith("dragonapi")),
     GALACTICRAFTCORE("GalactiCraftCore", false, startsWith("galacticraftcore")),
     MFQM("More Fun Quicksand Mod", false, startsWith("morefunquicksandmod-")),
+    NATURESCOMPASS("Nature's Compass", true, startsWith("naturescompass")),
     RTG("Realistic Terrain Generation", true, startsWith("rtg-")),
     UBC("Underground Biomes Constructs", false, startsWith("undergroundbiomesconstructs-")),
     WORLDEDIT("WorldEdit", false, startsWith("worldedit-")),

@@ -94,6 +94,9 @@ public enum Mixin implements IMixin {
     MFQMDataWatcherMixin(Side.COMMON, require(TargetedMod.MFQM).and(condition(() -> IEConfig.extendDataWatcher)),
                          "mfqm.MFQMDataWatcherMixin"),
     //endregion MFQM->common
+    //region NaturesCompass->common
+    NaturesCompassBiomeUtilsMixin(Side.COMMON, require(TargetedMod.NATURESCOMPASS), "naturescompass.BiomeUtilsMixin"),
+    //endregion NaturesCompass->common
     //region RTG->common
     RTGChunkProviderRTGMixin(Side.COMMON, require(TargetedMod.RTG), "rtg.ChunkProviderRTGMixin"),
     RTGLandscapeGeneratorMixin(Side.COMMON, require(TargetedMod.RTG), "rtg.LandscapeGeneratorMixin"),
