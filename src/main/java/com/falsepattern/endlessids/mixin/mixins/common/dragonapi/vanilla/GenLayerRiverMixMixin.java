@@ -12,7 +12,7 @@ import net.minecraft.world.gen.layer.GenLayerRiverMix;
 public abstract class GenLayerRiverMixMixin {
     @ModifyConstant(method = "getInts",
                     constant = @Constant(intValue = VanillaConstants.biomeIDMask),
-                    expect = 0)
+                    expect = -1)
     private int extendTheID(int constant) {
         return ExtendedConstants.biomeIDMask;
     }

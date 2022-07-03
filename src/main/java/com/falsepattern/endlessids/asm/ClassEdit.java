@@ -1,5 +1,6 @@
 package com.falsepattern.endlessids.asm;
 
+import com.falsepattern.endlessids.asm.transformer.DragonAPIModList;
 import com.falsepattern.endlessids.asm.transformer.FmlRegistry;
 
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.Map;
 public enum ClassEdit {
     FmlRegistry(new FmlRegistry(), new String[]{"cpw.mods.fml.common.registry.GameData",
                                                 "cpw.mods.fml.common.registry.FMLControlledNamespacedRegistry"}),
+    DragonAPIModList(new DragonAPIModList(), new String[]{"Reika.DragonAPI.ModList"})
     ;
 
     private static final Map<String, ClassEdit> editMap;
