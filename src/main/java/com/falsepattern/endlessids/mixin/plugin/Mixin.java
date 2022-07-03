@@ -89,6 +89,10 @@ public enum Mixin implements IMixin {
     GalactiCraftCoreConfigManagerCoreMixin(Side.COMMON, require(TargetedMod.GALACTICRAFTCORE),
                                            "galacticraft.ConfigManagerCoreMixin"),
     //endregion GalactiCraftCore->common
+    //region ICG->common
+    ICGMysteriumPatchesFixesCaveMixin(Side.COMMON, require(TargetedMod.ICG),
+                                      "icg.MysteriumPatchesFixesCaveMixin"),
+    //endregion ICG->common
     //region MFQM->common
     MFQMMixin(Side.COMMON, require(TargetedMod.MFQM), "mfqm.MFQMMixin"),
     MFQMDataWatcherMixin(Side.COMMON, require(TargetedMod.MFQM).and(condition(() -> IEConfig.extendDataWatcher)),

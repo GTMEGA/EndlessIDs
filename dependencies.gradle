@@ -19,6 +19,7 @@ dependencies {
     compile(deobfMaven(curseMaven, "curse.maven:rtg-237989:2521557")) // 1.1.1.7
     compile(deobfMaven(curseMaven, "curse.maven:naturescompass-252848:2451823")) // 1.3.1
     compile(deobfMaven(curseMaven, "curse.maven:dynamicsurrounding-238891:2642381")) // 1.0.6.4
+    compile(deobfMaven(curseMaven, "curse.maven:immersivecavegen-521557:3649411")) // 1.2g
     compile(files("lib/archaicfix-mc1.7.10-3d1392f-dev.jar"))
     compileOnly(files("lib/GalacticraftCore-1.7-3.0.12.504-deobf.jar"))
 }

@@ -17,6 +17,7 @@ public enum TargetedMod implements ITargetedMod {
     COFHLIB("CoFH Lib", true, startsWith("cofhlib-")),
     DRAGONAPI("DragonAPI", false, startsWith("dragonapi")),
     GALACTICRAFTCORE("GalactiCraftCore", false, startsWith("galacticraftcore")),
+    ICG("Immersive Cavegen", true, startsWith("immersivecavegen")),
     MFQM("More Fun Quicksand Mod", false, startsWith("morefunquicksandmod-")),
     NATURESCOMPASS("Nature's Compass", true, startsWith("naturescompass")),
     RTG("Realistic Terrain Generation", true, startsWith("rtg-")),

@@ -22,6 +22,7 @@ This mod also contains patches for the following mods:
 - CoFH Lib
 - DragonAPI
 - GalactiCraft
+- Immersive Cavegen
 - More Fun Quicksand Mod
 - Nature's Compass
 - Realistic Terrain Generation
