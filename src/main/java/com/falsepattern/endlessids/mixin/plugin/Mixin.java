@@ -79,7 +79,8 @@ public enum Mixin implements IMixin {
     //endregion CoFHLib->common
     //region DragonAPI->common
     //region DragonAPI->common->vanilla
-    DragonAPIGenLayerRiverMixMixin(Side.COMMON, require(TargetedMod.DRAGONAPI), "dragonapi.vanilla.GenLayerRiverMixMixin"),
+    DragonAPIGenLayerRiverMixMixin(Side.COMMON, require(TargetedMod.DRAGONAPI),
+                                   "dragonapi.vanilla.GenLayerRiverMixMixin"),
     //endregion DragonAPI->common->vanilla
     DragonAPIGenLayerRiverEventMixin(Side.COMMON, require(TargetedMod.DRAGONAPI), "dragonapi.GenLayerRiverEventMixin"),
     DragonAPIBlockPropertiesMixin(Side.COMMON, require(TargetedMod.DRAGONAPI), "dragonapi.BlockPropertiesMixin"),

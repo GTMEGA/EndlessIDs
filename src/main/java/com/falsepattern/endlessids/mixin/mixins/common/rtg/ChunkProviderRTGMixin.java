@@ -13,9 +13,11 @@ import net.minecraft.world.chunk.Chunk;
 @Mixin(value = ChunkProviderRTG.class,
        remap = false)
 public abstract class ChunkProviderRTGMixin {
-    @Shadow private BiomeGenBase[] baseBiomesList;
+    @Shadow
+    private BiomeGenBase[] baseBiomesList;
 
-    @Shadow private int[] xyinverted;
+    @Shadow
+    private int[] xyinverted;
 
     @Redirect(method = "provideChunk",
               at = @At(value = "INVOKE",
@@ -24,9 +26,9 @@ public abstract class ChunkProviderRTGMixin {
               remap = true,
               require = 1)
     private byte[] redictBiomeArrayFillLogic(Chunk chunk) {
-        short[] biomes = ((IChunkMixin)chunk).getBiomeShortArray();
+        short[] biomes = ((IChunkMixin) chunk).getBiomeShortArray();
 
-        for(int i = 0; i < biomes.length; ++i) {
+        for (int i = 0; i < biomes.length; ++i) {
             biomes[i] = (short) baseBiomesList[xyinverted[i]].biomeID;
         }
         return new byte[0];

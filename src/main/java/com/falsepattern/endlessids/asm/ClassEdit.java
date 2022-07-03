@@ -9,8 +9,7 @@ import java.util.Map;
 public enum ClassEdit {
     FmlRegistry(new FmlRegistry(), new String[]{"cpw.mods.fml.common.registry.GameData",
                                                 "cpw.mods.fml.common.registry.FMLControlledNamespacedRegistry"}),
-    DragonAPIModList(new DragonAPIModList(), new String[]{"Reika.DragonAPI.ModList"})
-    ;
+    DragonAPIModList(new DragonAPIModList(), new String[]{"Reika.DragonAPI.ModList"});
 
     private static final Map<String, ClassEdit> editMap;
 

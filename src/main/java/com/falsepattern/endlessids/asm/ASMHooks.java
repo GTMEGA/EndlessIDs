@@ -3,7 +3,6 @@ package com.falsepattern.endlessids.asm;
 import Reika.DragonAPI.Libraries.Java.ReikaJavaLibrary;
 import com.falsepattern.endlessids.asm.stubpackage.Reika.DragonAPI.ModList;
 import lombok.SneakyThrows;
-import lombok.val;
 
 import cpw.mods.fml.common.Loader;
 
@@ -44,5 +43,6 @@ public class ASMHooks {
         return list.condition;
     }
 
-    public static void DragonAPIModListSuppressLogging(Object obj) {}
+    public static void DragonAPIModListSuppressLogging(Object obj) {
+    }
 }
