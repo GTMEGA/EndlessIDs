@@ -21,7 +21,7 @@ import net.minecraft.world.chunk.Chunk;
 
 import java.util.Arrays;
 
-@Mixin(Chunk.class)
+@Mixin(value = Chunk.class, priority = 900)
 public abstract class ChunkMixin implements IChunkMixin {
     @Shadow
     @Final
@@ -31,6 +31,7 @@ public abstract class ChunkMixin implements IChunkMixin {
     public int zPosition;
     @Shadow
     private byte[] blockBiomeArray;
+    @Shadow public World worldObj;
     private short[] blockBiomeShortArray;
 
     @Inject(method = "<init>(Lnet/minecraft/world/World;II)V",
@@ -72,6 +73,10 @@ public abstract class ChunkMixin implements IChunkMixin {
     public BiomeGenBase getBiomeGenForWorldCoords(int x, int z, WorldChunkManager manager) {
         int id = this.blockBiomeShortArray[z << 4 | x] & ExtendedConstants.biomeIDMask;
         if (id == ExtendedConstants.biomeIDNull) {
+            //Source: https://github.com/embeddedt/ArchaicFix/blob/3d1392f4db5a7221534a6f9b00c0c36a49d9be59/src/main/java/org/embeddedt/archaicfix/mixins/common/core/MixinChunk.java#L52
+            if (this.worldObj.isRemote) {
+                return BiomeGenBase.ocean;
+            }
             BiomeGenBase gen = manager.getBiomeGenAt((this.xPosition << 4) + x, (this.zPosition << 4) + z);
             id = gen.biomeID;
             this.blockBiomeShortArray[z << 4 | x] = (short) (id & ExtendedConstants.biomeIDMask);
