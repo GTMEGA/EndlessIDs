@@ -15,8 +15,9 @@ Comparison of the known limits:
 
 This mod also contains patches for the following mods:
 
-- Anti ID Conflict
 - Alternate Terrain Generation
+- Anti ID Conflict
+- ArchaicFix
 - Biomes O' Plenty
 - CoFH Lib
 - DragonAPI
