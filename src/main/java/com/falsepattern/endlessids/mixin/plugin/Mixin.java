@@ -61,7 +61,6 @@ public enum Mixin implements IMixin {
     //endregion Minecraft->client
     //endregion Minecraft
     //region AntiIDConflict->common
-    AIDCBiomesGenBaseMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT), "antiidconflict.BiomeGenBaseMixin"),
     AIDCBiomesGenBasePlaceholderMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT),
                                       "antiidconflict.BiomeGenBasePlaceholderMixin"),
     //endregion AntiIDConflict->common

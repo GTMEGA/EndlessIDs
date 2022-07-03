@@ -21,7 +21,6 @@ public abstract class BiomeDictionaryMixin {
             require = 1)
     private static void cleanupBiomeArray(CallbackInfo ci) {
         val biomes = BiomeGenBase.getBiomeGenArray();
-        EndlessIDs.fakeBiomeArray = Arrays.copyOf(biomes, biomes.length);
         for (int i = 0; i < biomes.length; i++) {
             if (biomes[i] instanceof PlaceholderBiome) {
                 biomes[i] = null;

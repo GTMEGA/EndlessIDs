@@ -18,8 +18,6 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
      dependencies = "required-after:falsepatternlib@[0.9.1,);after:antiidconflict")
 public class EndlessIDs {
     public static final Logger LOG = LogManager.getLogger(Tags.MODNAME);
-    public static BiomeGenBase[] fakeBiomeArray;
-    public static boolean postInitFinished = false;
 
     private static void antiIdConflictLatePatch() {
         BiomesManager.conflicts = new BiomesManager.ConflictingBiomes[ExtendedConstants.biomeIDCount];
@@ -30,11 +28,5 @@ public class EndlessIDs {
         if (Loader.isModLoaded("antiidconflict")) {
             antiIdConflictLatePatch();
         }
-    }
-
-    @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent e) {
-        postInitFinished = true;
-        fakeBiomeArray = null;
     }
 }
