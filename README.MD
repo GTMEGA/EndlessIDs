@@ -14,6 +14,7 @@ This mod also contains patches for the following mods:
 - DragonAPI
 - GalactiCraft
 - More Fun Quicksand Mod
+- Realistic Terrain Generation
 - Underground Biomes Constructs
 - WorldEdit
 
