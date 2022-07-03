@@ -23,8 +23,10 @@ public abstract class BiomeGenBasePlaceholderMixin {
                        remap = false),
               require = 1)
     private int removePlaceholders(int id, boolean register) {
-        if (biomeList[id] instanceof PlaceholderBiome) {
-            biomeList[id] = null;
+        if (register) {
+            if (biomeList[id] instanceof PlaceholderBiome) {
+                biomeList[id] = null;
+            }
         }
         return AsmHooks.getBiomeID(id, register);
     }

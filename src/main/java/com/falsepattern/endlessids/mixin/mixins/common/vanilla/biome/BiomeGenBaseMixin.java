@@ -34,8 +34,8 @@ public abstract class BiomeGenBaseMixin {
     @Inject(method = "<init>(IZ)V",
             at = @At(value = "RETURN"),
             require = 1)
-    private void generatePlaceholders(int p_i1971_1_, boolean register, CallbackInfo ci) {
-        if (((Object) this) instanceof PlaceholderBiome) {
+    private void generatePlaceholders(int id, boolean register, CallbackInfo ci) {
+        if (((Object) this) instanceof PlaceholderBiome || !register) {
             return;
         }
         if (biomeID >= 128 && biomeList[biomeID - 128] == null) {
