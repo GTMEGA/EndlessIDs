@@ -1,10 +1,17 @@
-EndlessIDs is a modern rewrite of NotEnoughIDs which increases the limit even more, up to the maximum 24 bit unsigned integer value.
+EndlessIDs is the unofficial successor of NotEnoughIDs, with more focus on compatibility, stability, and reaching
+new limits.
 
-|           | Vanilla | NotEnoughIDs | EndlessIDs |
-|-----------|---------|--------------|------------|
-| Block IDs | 4096    | 32000        | 16777216   |
-| Item  IDs | 32000   | 32000        | 16777216   |
-| Biome IDs | 256     | 256          | 65536      |
+Comparison of the known limits:
+
+|                 | Vanilla                                            | NotEnoughIDs | EndlessIDs                       |
+|-----------------|----------------------------------------------------|--------------|----------------------------------|
+| Block IDs       | 4,096                                              | 32,000       | 16,777,216                       |
+| Item  IDs       | 32,000                                             | 32,000       | 16,777,216                       |
+| Biome IDs       | 256                                                | 256          | 65,536                           |
+| Entity IDs      | 256                                                | 256          | 256 right now, extension planned |
+| Potion IDs      | 32                                                 | 32           | 32 right now, extension planned  |
+| Enchantment IDs | 256                                                | 256          | 256 right now, extension planned |
+| Dimension IDs   | Theoretically unlimited, 4,294,967,295 in practice | Same         | Same                             |
 
 This mod also contains patches for the following mods:
 
