@@ -23,8 +23,10 @@ public abstract class ATGChunkProviderMixin {
     @Inject(method = "provideChunk",
             at = @At(value = "INVOKE",
                      target = "Lnet/minecraft/world/chunk/Chunk;getBiomeArray()[B",
+                     remap = true,
                      shift = At.Shift.BEFORE),
             cancellable = true,
+            remap = true,
             locals = LocalCapture.CAPTURE_FAILHARD,
             require = 1)
     private void hijackChunkBiomeSetup(int chunkX, int chunkY, CallbackInfoReturnable<Chunk> cir, Block[] data, byte[] abyte, Chunk chunk) {
