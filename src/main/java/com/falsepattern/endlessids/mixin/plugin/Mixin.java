@@ -34,8 +34,6 @@ public enum Mixin implements IMixin {
     //region Minecraft->common->biome
     BiomeDictionaryMixin(Side.COMMON, always(), "vanilla.biome.BiomeDictionaryMixin"),
     BiomeGenBaseMixin(Side.COMMON, always(), "vanilla.biome.BiomeGenBaseMixin"),
-    BiomesGenBasePlaceholderMixin(Side.COMMON, avoid(TargetedMod.ANTIIDCONFLICT),
-                                  "vanilla.biome.BiomeGenBasePlaceholderMixin"),
     //endregion Minecraft->common->biome
     //region Minecraft->common->misc
     BlockFireMixin(Side.COMMON, always(), "vanilla.misc.BlockFireMixin"),
