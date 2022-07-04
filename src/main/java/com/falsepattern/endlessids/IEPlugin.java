@@ -3,10 +3,14 @@ package com.falsepattern.endlessids;
 import com.falsepattern.endlessids.asm.IETransformer;
 import com.falsepattern.lib.config.ConfigException;
 import com.falsepattern.lib.config.ConfigurationManager;
+import lombok.SneakyThrows;
+import lombok.val;
 
+import net.minecraft.launchwrapper.LaunchClassLoader;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 
 import java.util.Map;
+import java.util.Set;
 
 import static cpw.mods.fml.relauncher.IFMLLoadingPlugin.DependsOn;
 import static cpw.mods.fml.relauncher.IFMLLoadingPlugin.MCVersion;
@@ -30,7 +34,19 @@ public class IEPlugin implements IFMLLoadingPlugin {
         super();
     }
 
+    @SneakyThrows
     public String[] getASMTransformerClass() {
+        val cl = ((LaunchClassLoader)this.getClass().getClassLoader());
+        val field = cl.getClass().getDeclaredField("transformerExceptions");
+        field.setAccessible(true);
+        val exceptions = (Set<String>) field.get(cl);
+        if (exceptions.contains("code.elix_x.coremods")) {
+            System.out.println("AntiIDConflict detected!");
+            System.out.println("Removing ASM protections so that we can fix its code.");
+            exceptions.remove("code.elix_x.coremods");
+            exceptions.add("code.elix_x.coremods.antiidconflict.core");
+            exceptions.add("code.elix_x.coremods.antiidconflict.ByteCodeTester");
+        }
         return new String[]{IETransformer.class.getName()};
     }
 

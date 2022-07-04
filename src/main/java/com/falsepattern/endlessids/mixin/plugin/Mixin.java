@@ -59,8 +59,20 @@ public enum Mixin implements IMixin {
     //endregion Minecraft->client
     //endregion Minecraft
     //region AntiIDConflict->common
+    AIDCAntiIdConflictBaseMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT),
+                         "antiidconflict.AntiIdConflictBaseMixin"),
     AIDCBiomesGenBasePlaceholderMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT),
                                       "antiidconflict.BiomeGenBasePlaceholderMixin"),
+    AIDCBiomesManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT),
+                           "antiidconflict.BiomesManagerMixin"),
+    AIDCDimensionsManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT),
+                           "antiidconflict.DimensionsManagerMixin"),
+    AIDCEnchantementsManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT),
+                           "antiidconflict.EnchantementsManagerMixin"),
+    AIDCEntitiesManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT),
+                           "antiidconflict.EntitiesManagerMixin"),
+    AIDCPotionsManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT),
+                           "antiidconflict.PotionsManagerMixin"),
     //endregion AntiIDConflict->common
     //region ATG->common
     ATGBiomeConfigMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGBiomeConfigMixin"),
