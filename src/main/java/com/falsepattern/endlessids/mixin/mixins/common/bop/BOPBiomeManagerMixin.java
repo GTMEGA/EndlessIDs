@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(value = BOPBiomeManager.class,
        remap = false)
-public abstract class BoPBiomeManagerMixin {
+public abstract class BOPBiomeManagerMixin {
     @ModifyConstant(method = "getNextFreeBiomeId",
                     constant = @Constant(intValue = VanillaConstants.biomeIDCount),
                     require = 1)

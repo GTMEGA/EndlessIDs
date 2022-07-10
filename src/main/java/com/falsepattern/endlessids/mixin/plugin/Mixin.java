@@ -81,7 +81,9 @@ public enum Mixin implements IMixin {
     ATGWorldGenRocksMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGWorldGenRocksMixin"),
     //endregion ATG->common
     //region BoP->common
-    BoPBiomeManagerMixin(Side.COMMON, require(TargetedMod.BOP), "bop.BoPBiomeManagerMixin"),
+    BOPBiomeManagerMixin(Side.COMMON, require(TargetedMod.BOP), "bop.BOPBiomeManagerMixin"),
+    ChunkProviderBOPEndMixin(Side.COMMON, require(TargetedMod.BOP), "bop.ChunkProviderBOPEndMixin"),
+    ChunkProviderBOPHellMixin(Side.COMMON, require(TargetedMod.BOP), "bop.ChunkProviderBOPHellMixin"),
     //endregion BoP->common
     //region CoFHLib->common
     CoFHLibCofhBlockHelperMixin(Side.COMMON, require(TargetedMod.COFHLIB), "cofhlib.BlockHelperMixin"),
