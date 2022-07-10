@@ -119,7 +119,8 @@ public enum Mixin implements IMixin {
     RTGRealisticBiomeBaseMixin(Side.COMMON, require(TargetedMod.RTG), "rtg.RealisticBiomeBaseMixin"),
     //endregion RTG->common
     //region TwilightForest->common
-    ChunkProviderTwilightForestMixin(Side.COMMON, require(TargetedMod.TF), "tf.ChunkProviderTwilightForestMixin"),
+    ChunkProviderTwilightForestMixin(Side.COMMON, require(TargetedMod.TWILIGHTFOREST),
+                                     "twilightforest.ChunkProviderTwilightForestMixin"),
     //endregion TwilightForest->common
     //region UBC->common
     UBCOreUBifierMixin(Side.COMMON, require(TargetedMod.UBC), "ubc.OreUBifierMixin"),

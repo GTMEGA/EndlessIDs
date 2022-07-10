@@ -1,4 +1,4 @@
-package com.falsepattern.endlessids.mixin.mixins.common.tf;
+package com.falsepattern.endlessids.mixin.mixins.common.twilightforest;
 
 import com.falsepattern.endlessids.mixin.helpers.BiomePatchHelper;
 import org.spongepowered.asm.mixin.Mixin;
