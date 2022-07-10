@@ -118,6 +118,9 @@ public enum Mixin implements IMixin {
     RTGLandscapeGeneratorMixin(Side.COMMON, require(TargetedMod.RTG), "rtg.LandscapeGeneratorMixin"),
     RTGRealisticBiomeBaseMixin(Side.COMMON, require(TargetedMod.RTG), "rtg.RealisticBiomeBaseMixin"),
     //endregion RTG->common
+    //region Thaumcraft->common
+    ThaumcraftUtilsMixin(Side.COMMON, require(TargetedMod.THAUMCRAFT), "thaumcraft.UtilsMixin"),
+    //endregion Thaumcraft->common
     //region TwilightForest->common
     ChunkProviderTwilightForestMixin(Side.COMMON, require(TargetedMod.TWILIGHTFOREST),
                                      "twilightforest.ChunkProviderTwilightForestMixin"),
