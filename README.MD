@@ -26,6 +26,7 @@ This mod also contains patches for the following mods:
 - More Fun Quicksand Mod
 - Nature's Compass
 - Realistic Terrain Generation
+- Twilight Forest
 - Underground Biomes Constructs
 - WorldEdit
 

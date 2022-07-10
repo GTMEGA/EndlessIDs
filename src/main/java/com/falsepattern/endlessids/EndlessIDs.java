@@ -17,6 +17,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
      acceptedMinecraftVersions = "[1.7.10]",
      dependencies = "required-after:falsepatternlib@[0.9.1,);after:antiidconflict")
 public class EndlessIDs {
+    public static final byte[] BIOME_ARRAY_PLACEHOLDER = new byte[0];
     public static final Logger LOG = LogManager.getLogger(Tags.MODNAME);
 
     private static void antiIdConflictLatePatch() {

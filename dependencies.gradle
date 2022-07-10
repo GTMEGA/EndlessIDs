@@ -20,6 +20,7 @@ dependencies {
     compile(deobfMaven(curseMaven, "curse.maven:naturescompass-252848:2451823")) // 1.3.1
     compile(deobfMaven(curseMaven, "curse.maven:dynamicsurrounding-238891:2642381")) // 1.0.6.4
     compile(deobfMaven(curseMaven, "curse.maven:immersivecavegen-521557:3649411")) // 1.2g
+    compile(deobfMaven(curseMaven, "curse.maven:twilightforest-227639:3039937")) // 2.3.8
     compile("com.github.embeddedt:ArchaicFix:be8666cb2dbf2e0a8b799e88cef3c0d12e5d4911:dev")
     compileOnly(deobf("https://micdoodle8.com/new-builds/GC-1.7/504/GalacticraftCore-1.7-3.0.12.504.jar"))
 }
