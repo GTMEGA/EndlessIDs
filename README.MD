@@ -16,6 +16,7 @@ Comparison of the known limits:
 This mod also contains patches for the following mods:
 
 - Alternate Terrain Generation
+- Antique Atlas
 - Anti ID Conflict
 - ArchaicFix
 - Biomes O' Plenty

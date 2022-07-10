@@ -12,6 +12,7 @@ import static com.falsepattern.lib.mixin.ITargetedMod.PredicateHelpers.startsWit
 public enum TargetedMod implements ITargetedMod {
 
     ANTIIDCONFLICT("Anti ID Conflict", true, startsWith("antiidconflict")),
+    ANTIQUEATLAS("Antique Atlas", true, startsWith("antiqueatlas")),
     ATG("Alternate Terrain Generation", true, startsWith("atg")),
     BOP("Biomes O' Plenty", true, startsWith("biomesoplenty-")),
     COFHLIB("CoFH Lib", true, startsWith("cofhlib-")),

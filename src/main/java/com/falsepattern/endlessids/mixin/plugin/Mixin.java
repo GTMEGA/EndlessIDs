@@ -71,6 +71,10 @@ public enum Mixin implements IMixin {
     AIDCEntitiesManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT), "antiidconflict.EntitiesManagerMixin"),
     AIDCPotionsManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT), "antiidconflict.PotionsManagerMixin"),
     //endregion AntiIDConflict->common
+    //region AntiqueAtlas->commond
+    BiomeDetectorBaseMixin(Side.COMMON, require(TargetedMod.ANTIQUEATLAS), "antiqueatlas.BiomeDetectorBaseMixin"),
+    BiomeDetectorNetherMixin(Side.COMMON, require(TargetedMod.ANTIQUEATLAS), "antiqueatlas.BiomeDetectorNetherMixin"),
+    //endregion AntiqueAtlas->commond
     //region ATG->common
     ATGBiomeConfigMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGBiomeConfigMixin"),
     ATGBiomeManagerMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGBiomeManagerMixin"),
