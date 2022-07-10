@@ -120,6 +120,7 @@ public enum Mixin implements IMixin {
     //region TwilightForest->common
     ChunkProviderTwilightForestMixin(Side.COMMON, require(TargetedMod.TWILIGHTFOREST),
                                      "twilightforest.ChunkProviderTwilightForestMixin"),
+    TFBiomeBaseMixin(Side.COMMON, require(TargetedMod.TWILIGHTFOREST), "twilightforest.TFBiomeBaseMixin"),
     //endregion TwilightForest->common
     //region UBC->common
     UBCOreUBifierMixin(Side.COMMON, require(TargetedMod.UBC), "ubc.OreUBifierMixin"),
