@@ -36,7 +36,7 @@ public class IEPlugin implements IFMLLoadingPlugin {
 
     @SneakyThrows
     public String[] getASMTransformerClass() {
-        val cl = ((LaunchClassLoader)this.getClass().getClassLoader());
+        val cl = ((LaunchClassLoader) this.getClass().getClassLoader());
         val field = cl.getClass().getDeclaredField("transformerExceptions");
         field.setAccessible(true);
         val exceptions = (Set<String>) field.get(cl);

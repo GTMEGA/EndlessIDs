@@ -16,7 +16,8 @@ import java.io.File;
 @Mixin(value = AntiIdConflictBase.class,
        remap = false)
 public abstract class AntiIdConflictBaseMixin {
-    @Shadow public static File mainFolder;
+    @Shadow
+    public static File mainFolder;
 
     @Inject(method = "preinit",
             at = @At("HEAD"),

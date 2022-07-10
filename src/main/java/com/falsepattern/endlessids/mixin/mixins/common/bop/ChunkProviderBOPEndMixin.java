@@ -13,7 +13,8 @@ import net.minecraft.world.chunk.Chunk;
 @Mixin(value = ChunkProviderBOPEnd.class,
        remap = false)
 public abstract class ChunkProviderBOPEndMixin {
-    @Shadow private BiomeGenBase[] biomesForGeneration;
+    @Shadow
+    private BiomeGenBase[] biomesForGeneration;
 
     @Redirect(method = "provideChunk",
               at = @At(value = "INVOKE",

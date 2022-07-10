@@ -13,7 +13,8 @@ import net.minecraft.world.chunk.Chunk;
 @Mixin(value = ChunkProviderTwilightForest.class,
        remap = false)
 public abstract class ChunkProviderTwilightForestMixin {
-    @Shadow private BiomeGenBase[] biomesForGeneration;
+    @Shadow
+    private BiomeGenBase[] biomesForGeneration;
 
     @Redirect(method = "provideChunk",
               at = @At(value = "INVOKE",

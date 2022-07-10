@@ -1,10 +1,7 @@
 package com.falsepattern.endlessids.mixin.mixins.common.vanilla.worldgen;
 
 import com.falsepattern.endlessids.mixin.helpers.BiomePatchHelper;
-import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -12,15 +9,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import net.minecraft.block.Block;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkProviderHell;
-import net.minecraft.world.gen.MapGenBase;
-import net.minecraft.world.gen.structure.MapGenNetherBridge;
-
-import java.util.Random;
 
 @Mixin(ChunkProviderHell.class)
 public abstract class ChunkProviderHellMixin implements IChunkProvider {

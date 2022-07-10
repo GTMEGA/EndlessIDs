@@ -21,7 +21,8 @@ import net.minecraft.world.chunk.Chunk;
 
 import java.util.Arrays;
 
-@Mixin(value = Chunk.class, priority = 900)
+@Mixin(value = Chunk.class,
+       priority = 900)
 public abstract class ChunkMixin implements IChunkMixin {
     @Shadow
     @Final
@@ -30,8 +31,9 @@ public abstract class ChunkMixin implements IChunkMixin {
     @Final
     public int zPosition;
     @Shadow
+    public World worldObj;
+    @Shadow
     private byte[] blockBiomeArray;
-    @Shadow public World worldObj;
     private short[] blockBiomeShortArray;
 
     @Inject(method = "<init>(Lnet/minecraft/world/World;II)V",

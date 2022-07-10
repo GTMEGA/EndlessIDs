@@ -60,19 +60,16 @@ public enum Mixin implements IMixin {
     //endregion Minecraft
     //region AntiIDConflict->common
     AIDCAntiIdConflictBaseMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT),
-                         "antiidconflict.AntiIdConflictBaseMixin"),
+                                "antiidconflict.AntiIdConflictBaseMixin"),
     AIDCBiomesGenBasePlaceholderMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT),
                                       "antiidconflict.BiomeGenBasePlaceholderMixin"),
-    AIDCBiomesManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT),
-                           "antiidconflict.BiomesManagerMixin"),
+    AIDCBiomesManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT), "antiidconflict.BiomesManagerMixin"),
     AIDCDimensionsManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT),
-                           "antiidconflict.DimensionsManagerMixin"),
+                               "antiidconflict.DimensionsManagerMixin"),
     AIDCEnchantementsManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT),
-                           "antiidconflict.EnchantementsManagerMixin"),
-    AIDCEntitiesManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT),
-                           "antiidconflict.EntitiesManagerMixin"),
-    AIDCPotionsManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT),
-                           "antiidconflict.PotionsManagerMixin"),
+                                  "antiidconflict.EnchantementsManagerMixin"),
+    AIDCEntitiesManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT), "antiidconflict.EntitiesManagerMixin"),
+    AIDCPotionsManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT), "antiidconflict.PotionsManagerMixin"),
     //endregion AntiIDConflict->common
     //region ATG->common
     ATGBiomeConfigMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGBiomeConfigMixin"),
@@ -102,8 +99,7 @@ public enum Mixin implements IMixin {
                                            "galacticraft.ConfigManagerCoreMixin"),
     //endregion GalactiCraftCore->common
     //region ICG->common
-    ICGMysteriumPatchesFixesCaveMixin(Side.COMMON, require(TargetedMod.ICG),
-                                      "icg.MysteriumPatchesFixesCaveMixin"),
+    ICGMysteriumPatchesFixesCaveMixin(Side.COMMON, require(TargetedMod.ICG), "icg.MysteriumPatchesFixesCaveMixin"),
     //endregion ICG->common
     //region MFQM->common
     MFQMMixin(Side.COMMON, require(TargetedMod.MFQM), "mfqm.MFQMMixin"),

@@ -10,9 +10,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 import net.minecraft.world.biome.BiomeGenBase;
@@ -25,15 +23,20 @@ import static code.elix_x.coremods.antiidconflict.managers.BiomesManager.conflic
 @Mixin(value = BiomesManager.class,
        remap = false)
 public abstract class BiomesManagerMixin {
-    @Shadow public static String freeBiomeIDs;
+    @Shadow
+    public static String freeBiomeIDs;
 
-    @Shadow public static String occupiedBiomeIDs;
+    @Shadow
+    public static String occupiedBiomeIDs;
 
-    @Shadow public static boolean debug;
+    @Shadow
+    public static boolean debug;
 
-    @Shadow public static int IconflictedIds;
+    @Shadow
+    public static int IconflictedIds;
 
-    @Shadow public static String conflictedIds;
+    @Shadow
+    public static String conflictedIds;
 
     private static String[] getIntervalNaming(int first, int last) {
         if (first == last) {
@@ -44,6 +47,7 @@ public abstract class BiomesManagerMixin {
             return new String[]{first + "-" + last};
         }
     }
+
     @ModifyConstant(method = "<clinit>",
                     constant = @Constant(intValue = VanillaConstants.biomeIDCount),
                     require = 1)
@@ -77,13 +81,13 @@ public abstract class BiomesManagerMixin {
                 ++BiomesManager.freeIds;
             } else if (hasEmpty) {
                 hasEmpty = false;
-                for (val part: getIntervalNaming(emptyRegionStart, i - 1)) {
+                for (val part : getIntervalNaming(emptyRegionStart, i - 1)) {
                     builder.append(part).append('\n');
                 }
             }
         }
         if (hasEmpty) {
-            for (val part: getIntervalNaming(emptyRegionStart, ExtendedConstants.biomeIDCount - 1)) {
+            for (val part : getIntervalNaming(emptyRegionStart, ExtendedConstants.biomeIDCount - 1)) {
                 builder.append(part).append('\n');
             }
         }
@@ -180,13 +184,13 @@ public abstract class BiomesManagerMixin {
         hasEmpty = false;
         emptyRegionStart = 0;
 
-        for(int i = 0; i < biomes.length; ++i) {
+        for (int i = 0; i < biomes.length; ++i) {
             if (!ArrayUtils.isEmpty(conflicts) && conflicts[i] != null) {
                 writer.println(conflicts[i].getCrashMessage());
             } else if (biomes[i] != null) {
                 if (hasEmpty) {
                     hasEmpty = false;
-                    for (val part: getIntervalNaming(emptyRegionStart, i - 1)) {
+                    for (val part : getIntervalNaming(emptyRegionStart, i - 1)) {
                         writer.print(part);
                         writer.println(" is Available");
                     }
@@ -203,7 +207,7 @@ public abstract class BiomesManagerMixin {
             }
         }
         if (hasEmpty) {
-            for (val part: getIntervalNaming(emptyRegionStart, ExtendedConstants.biomeIDCount - 1)) {
+            for (val part : getIntervalNaming(emptyRegionStart, ExtendedConstants.biomeIDCount - 1)) {
                 writer.print(part);
                 writer.println(" is Available");
             }

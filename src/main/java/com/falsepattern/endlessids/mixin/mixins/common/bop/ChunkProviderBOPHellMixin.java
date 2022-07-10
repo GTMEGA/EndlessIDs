@@ -3,7 +3,6 @@ package com.falsepattern.endlessids.mixin.mixins.common.bop;
 import biomesoplenty.common.world.ChunkProviderBOPHell;
 import com.falsepattern.endlessids.mixin.helpers.BiomePatchHelper;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;

@@ -1,6 +1,5 @@
 package com.falsepattern.endlessids.mixin.helpers;
 
-import gnu.trove.function.TIntFunction;
 import lombok.val;
 
 import net.minecraft.world.biome.BiomeGenBase;
@@ -12,18 +11,18 @@ import static com.falsepattern.endlessids.EndlessIDs.BIOME_ARRAY_PLACEHOLDER;
 
 public class BiomePatchHelper {
     public static byte[] getBiomeArrayTweaked(Chunk chunk, IntFunction<BiomeGenBase> biomesForGeneration) {
-        val chunkBiomes = ((IChunkMixin)chunk).getBiomeShortArray();
+        val chunkBiomes = ((IChunkMixin) chunk).getBiomeShortArray();
 
-        for(int i = 0; i < chunkBiomes.length; ++i) {
+        for (int i = 0; i < chunkBiomes.length; ++i) {
             chunkBiomes[i] = (short) biomesForGeneration.apply(i).biomeID;
         }
         return BIOME_ARRAY_PLACEHOLDER;
     }
 
     public static byte[] getBiomeArrayTweaked(Chunk chunk, BiomeGenBase[] biomesForGeneration) {
-        val chunkBiomes = ((IChunkMixin)chunk).getBiomeShortArray();
+        val chunkBiomes = ((IChunkMixin) chunk).getBiomeShortArray();
 
-        for(int i = 0; i < chunkBiomes.length; ++i) {
+        for (int i = 0; i < chunkBiomes.length; ++i) {
             chunkBiomes[i] = (short) biomesForGeneration[i].biomeID;
         }
         return BIOME_ARRAY_PLACEHOLDER;

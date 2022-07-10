@@ -1,6 +1,5 @@
 package com.falsepattern.endlessids.mixin.mixins.common.vanilla.biome;
 
-import com.falsepattern.endlessids.EndlessIDs;
 import com.falsepattern.endlessids.PlaceholderBiome;
 import lombok.val;
 import org.spongepowered.asm.mixin.Mixin;
@@ -10,8 +9,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
-
-import java.util.Arrays;
 
 @Mixin(value = BiomeDictionary.class,
        remap = false)

@@ -1,7 +1,6 @@
 package com.falsepattern.endlessids.mixin.mixins.common.rtg;
 
 import com.falsepattern.endlessids.mixin.helpers.BiomePatchHelper;
-import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;

@@ -24,14 +24,12 @@ public abstract class UtilsMixin {
     public static void setBiomeAt(World world, int x, int z, BiomeGenBase biome) {
         if (biome != null) {
             Chunk chunk = world.getChunkFromBlockCoords(x, z);
-            short[] array = ((IChunkMixin)chunk).getBiomeShortArray();
-            array[(z & 15) << 4 | x & 15] = (short)(biome.biomeID);
+            short[] array = ((IChunkMixin) chunk).getBiomeShortArray();
+            array[(z & 15) << 4 | x & 15] = (short) (biome.biomeID);
             if (!world.isRemote) {
-                PacketHandler.INSTANCE.sendToAllAround(new PacketBiomeChange(x, z, (short)biome.biomeID),
-                                                       new NetworkRegistry.TargetPoint(world.provider.dimensionId,
-                                                                                       x,
-                                                                                       world.getHeightValue(x, z),
-                                                                                       z,
+                PacketHandler.INSTANCE.sendToAllAround(new PacketBiomeChange(x, z, (short) biome.biomeID),
+                                                       new NetworkRegistry.TargetPoint(world.provider.dimensionId, x,
+                                                                                       world.getHeightValue(x, z), z,
                                                                                        32.0));
             }
         }
