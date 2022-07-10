@@ -1,10 +1,17 @@
 package com.falsepattern.endlessids.mixin.mixins.common.vanilla.worldgen;
 
+import com.falsepattern.endlessids.EndlessIDs;
+import com.falsepattern.endlessids.mixin.helpers.BiomePatchHelper;
 import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
@@ -19,63 +26,29 @@ import java.util.List;
 
 @Mixin(ChunkProviderFlat.class)
 public abstract class ChunkProviderFlatMixin implements IChunkProvider {
-    @Shadow
-    private World worldObj;
+    private BiomeGenBase[] bgb;
 
-    @Shadow
-    @Final
-    private Block[] cachedBlockIDs;
+    @Inject(method = "provideChunk",
+            at = @At(value = "INVOKE",
+                     target = "Lnet/minecraft/world/chunk/Chunk;getBiomeArray()[B",
+                     shift = At.Shift.BEFORE),
+            locals = LocalCapture.CAPTURE_FAILHARD,
+            require = 1)
+    private void setBiomesTweaked1(int p_73154_1_, int p_73154_2_, CallbackInfoReturnable<Chunk> cir, Chunk chunk, BiomeGenBase[] abiomegenbase) {
+        bgb = abiomegenbase;
 
-    @Shadow
-    @Final
-    private byte[] cachedBlockMetadata;
+    }
 
-    @Shadow
-    @Final
-    private List structureGenerators;
-
-    /**
-     * @author FalsePattern
-     * @reason Direct port from dumped code
-     */
-    @Overwrite
-    public Chunk provideChunk(int x, int z) {
-        Chunk chunk = new Chunk(this.worldObj, x, z);
-
-        for (int Y = 0; Y < this.cachedBlockIDs.length; ++Y) {
-            Block block = this.cachedBlockIDs[Y];
-            if (block != null) {
-                int ebsID = Y >> 4;
-                ExtendedBlockStorage ebs = chunk.getBlockStorageArray()[ebsID];
-                if (ebs == null) {
-                    ebs = new ExtendedBlockStorage(Y, !this.worldObj.provider.hasNoSky);
-                    chunk.getBlockStorageArray()[ebsID] = ebs;
-                }
-
-                for (int X = 0; X < 16; ++X) {
-                    for (int Z = 0; Z < 16; ++Z) {
-                        ebs.func_150818_a(X, Y & 15, Z, block);
-                        ebs.setExtBlockMetadata(X, Y & 15, Z, this.cachedBlockMetadata[Y]);
-                    }
-                }
-            }
+    @Redirect(method = "provideChunk",
+              at = @At(value = "INVOKE",
+                       target = "Lnet/minecraft/world/chunk/Chunk;getBiomeArray()[B"),
+              require = 1)
+    private byte[] setBiomesTweaked2(Chunk chunk) {
+        try {
+            return BiomePatchHelper.getBiomeArrayTweaked(chunk, bgb);
+        } finally {
+            bgb = null;
         }
-
-        chunk.generateSkylightMap();
-        BiomeGenBase[] bgb = this.worldObj.getWorldChunkManager().loadBlockGeneratorData(null, x * 16, z * 16, 16, 16);
-        short[] biomeArray = ((IChunkMixin) chunk).getBiomeShortArray();
-
-        for (int i = 0; i < biomeArray.length; ++i) {
-            biomeArray[i] = (short) bgb[i].biomeID;
-        }
-
-        for (Object o : this.structureGenerators) {
-            MapGenBase structureGenerator = (MapGenBase) o;
-            structureGenerator.func_151539_a(this, this.worldObj, x, z, null);
-        }
-
-        chunk.generateSkylightMap();
-        return chunk;
     }
 
 }

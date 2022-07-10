@@ -1,5 +1,6 @@
 package com.falsepattern.endlessids.mixin.mixins.common.rtg;
 
+import com.falsepattern.endlessids.mixin.helpers.BiomePatchHelper;
 import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -25,13 +26,8 @@ public abstract class ChunkProviderRTGMixin {
                        remap = true),
               remap = true,
               require = 1)
-    private byte[] redictBiomeArrayFillLogic(Chunk chunk) {
-        short[] biomes = ((IChunkMixin) chunk).getBiomeShortArray();
-
-        for (int i = 0; i < biomes.length; ++i) {
-            biomes[i] = (short) baseBiomesList[xyinverted[i]].biomeID;
-        }
-        return new byte[0];
+    private byte[] setBiomesTweaked(Chunk chunk) {
+        return BiomePatchHelper.getBiomeArrayTweaked(chunk, (i) -> baseBiomesList[xyinverted[i]]);
     }
 
     @Redirect(method = "provideChunk",
