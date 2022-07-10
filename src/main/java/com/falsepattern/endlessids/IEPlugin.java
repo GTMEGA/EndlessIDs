@@ -41,8 +41,8 @@ public class IEPlugin implements IFMLLoadingPlugin {
         field.setAccessible(true);
         val exceptions = (Set<String>) field.get(cl);
         if (exceptions.contains("code.elix_x.coremods")) {
-            System.out.println("AntiIDConflict detected!");
-            System.out.println("Removing ASM protections so that we can fix its code.");
+            IETransformer.logger.info("AntiIDConflict detected!");
+            IETransformer.logger.info("Removing ASM protections so that we can fix its code.");
             exceptions.remove("code.elix_x.coremods");
             exceptions.add("code.elix_x.coremods.antiidconflict.core");
             exceptions.add("code.elix_x.coremods.antiidconflict.ByteCodeTester");
