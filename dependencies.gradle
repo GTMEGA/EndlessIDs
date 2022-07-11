@@ -24,6 +24,7 @@ dependencies {
     compile(deobfMaven(curseMaven, "curse.maven:thaumcraft-223628:2227552")) // 4.2.3.5
     compile(deobfMaven(curseMaven, "curse.maven:baubles-227083:2224857")) // 1.0.1.10, dependency of thaumcraft
     compile(deobfMaven(curseMaven, "curse.maven:antiqueatlas-227795:2454232")) // 4.4.4
+    compile("curse.maven:extrautilities-225561:2264384") // 1.2.12
     compile("com.github.embeddedt:ArchaicFix:be8666cb2dbf2e0a8b799e88cef3c0d12e5d4911:dev")
     compileOnly(deobf("https://micdoodle8.com/new-builds/GC-1.7/504/GalacticraftCore-1.7-3.0.12.504.jar"))
 }

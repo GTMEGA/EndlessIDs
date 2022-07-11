@@ -22,6 +22,7 @@ This mod also contains patches for the following mods:
 - Biomes O' Plenty
 - CoFH Lib
 - DragonAPI
+- Extra Utilities
 - GalactiCraft
 - Immersive Cavegen
 - More Fun Quicksand Mod

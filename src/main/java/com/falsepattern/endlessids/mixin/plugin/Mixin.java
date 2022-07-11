@@ -98,6 +98,10 @@ public enum Mixin implements IMixin {
     DragonAPIBlockPropertiesMixin(Side.COMMON, require(TargetedMod.DRAGONAPI), "dragonapi.BlockPropertiesMixin"),
     DragonAPIIDTypeMixin(Side.COMMON, require(TargetedMod.DRAGONAPI), "dragonapi.IDTypeMixin"),
     //endregion DragonAPI->common
+    //region ExtraUtilities->common
+    ChunkProviderEndOfTimeMixin(Side.COMMON, require(TargetedMod.EXTRAUTILITIES), "extrautilities.ChunkProviderEndOfTimeMixin"),
+    ChunkProviderUnderdarkMixin(Side.COMMON, require(TargetedMod.EXTRAUTILITIES), "extrautilities.ChunkProviderUnderdarkMixin"),
+    //endregion ExtraUtilities->common
     //region GalactiCraftCore->common
     GalactiCraftCoreConfigManagerCoreMixin(Side.COMMON, require(TargetedMod.GALACTICRAFTCORE),
                                            "galacticraft.ConfigManagerCoreMixin"),

@@ -17,6 +17,7 @@ public enum TargetedMod implements ITargetedMod {
     BOP("Biomes O' Plenty", true, startsWith("biomesoplenty-")),
     COFHLIB("CoFH Lib", true, startsWith("cofhlib-")),
     DRAGONAPI("DragonAPI", false, startsWith("dragonapi")),
+    EXTRAUTILITIES("Extra Utilities", true, startsWith("extrautilities-")),
     GALACTICRAFTCORE("GalactiCraftCore", false, startsWith("galacticraftcore")),
     ICG("Immersive Cavegen", true, startsWith("immersivecavegen")),
     MFQM("More Fun Quicksand Mod", false, startsWith("morefunquicksandmod-")),
