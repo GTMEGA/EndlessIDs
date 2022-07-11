@@ -154,7 +154,7 @@ public class Hooks {
 
         for (int i = 0; i < 256; ++i) {
             byteArray[i] = (byte) (shortArray[i] & 255);
-            byteArray[i + 256] = (byte) (shortArray[i] >>> 8);
+            byteArray[i + 256] = (byte) ((shortArray[i] >>> 8) & 255);
         }
         return byteArray;
     }
@@ -163,7 +163,7 @@ public class Hooks {
         short[] shortArray = new short[256];
 
         for (int i = 0; i < 256; ++i) {
-            shortArray[i] = (short) (byteArray[i + 256] << 8 | byteArray[i]);
+            shortArray[i] = (short) (((byteArray[i + 256] << 8) & 255) | (byteArray[i] & 255));
         }
 
         return shortArray;
