@@ -20,6 +20,7 @@ This mod also contains patches for the following mods:
 - Anti ID Conflict
 - ArchaicFix
 - Biomes O' Plenty
+- Biome Wand
 - CoFH Lib
 - DragonAPI
 - Extra Utilities
