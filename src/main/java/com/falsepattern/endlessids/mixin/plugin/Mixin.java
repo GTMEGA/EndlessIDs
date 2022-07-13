@@ -58,6 +58,16 @@ public enum Mixin implements IMixin {
     RenderGlobalMixin(Side.CLIENT, always(), "vanilla.RenderGlobalMixin"),
     //endregion Minecraft->client
     //endregion Minecraft
+    //region ATG->common
+    ATGBiomeConfigMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGBiomeConfigMixin"),
+    ATGBiomeManagerMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGBiomeManagerMixin"),
+    ATGChunkProviderMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGChunkProviderMixin"),
+    ATGWorldGenRocksMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGWorldGenRocksMixin"),
+    //endregion ATG->common
+    //region AntiqueAtlas->commond
+    BiomeDetectorBaseMixin(Side.COMMON, require(TargetedMod.ANTIQUEATLAS), "antiqueatlas.BiomeDetectorBaseMixin"),
+    BiomeDetectorNetherMixin(Side.COMMON, require(TargetedMod.ANTIQUEATLAS), "antiqueatlas.BiomeDetectorNetherMixin"),
+    //endregion AntiqueAtlas->commond
     //region AntiIDConflict->common
     AIDCAntiIdConflictBaseMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT),
                                 "antiidconflict.AntiIdConflictBaseMixin"),
@@ -71,16 +81,11 @@ public enum Mixin implements IMixin {
     AIDCEntitiesManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT), "antiidconflict.EntitiesManagerMixin"),
     AIDCPotionsManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT), "antiidconflict.PotionsManagerMixin"),
     //endregion AntiIDConflict->common
-    //region AntiqueAtlas->commond
-    BiomeDetectorBaseMixin(Side.COMMON, require(TargetedMod.ANTIQUEATLAS), "antiqueatlas.BiomeDetectorBaseMixin"),
-    BiomeDetectorNetherMixin(Side.COMMON, require(TargetedMod.ANTIQUEATLAS), "antiqueatlas.BiomeDetectorNetherMixin"),
-    //endregion AntiqueAtlas->commond
-    //region ATG->common
-    ATGBiomeConfigMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGBiomeConfigMixin"),
-    ATGBiomeManagerMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGBiomeManagerMixin"),
-    ATGChunkProviderMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGChunkProviderMixin"),
-    ATGWorldGenRocksMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGWorldGenRocksMixin"),
-    //endregion ATG->common
+    //region BoP->common
+    BOPBiomeManagerMixin(Side.COMMON, require(TargetedMod.BOP), "bop.BOPBiomeManagerMixin"),
+    ChunkProviderBOPEndMixin(Side.COMMON, require(TargetedMod.BOP), "bop.ChunkProviderBOPEndMixin"),
+    ChunkProviderBOPHellMixin(Side.COMMON, require(TargetedMod.BOP), "bop.ChunkProviderBOPHellMixin"),
+    //endregion BoP->common
     //region Biome Wand
     //region Biome Wand->client
     BiomeWandItemClientMixin(Side.CLIENT, require(TargetedMod.BIOMEWAND), "biomewand.BiomeWandItemMixin"),
@@ -89,11 +94,6 @@ public enum Mixin implements IMixin {
     BiomeWandItemMixin(Side.COMMON, require(TargetedMod.BIOMEWAND), "biomewand.BiomeWandItemMixin"),
     //endregion Biome Wand->common
     //endregion Biome Wand
-    //region BoP->common
-    BOPBiomeManagerMixin(Side.COMMON, require(TargetedMod.BOP), "bop.BOPBiomeManagerMixin"),
-    ChunkProviderBOPEndMixin(Side.COMMON, require(TargetedMod.BOP), "bop.ChunkProviderBOPEndMixin"),
-    ChunkProviderBOPHellMixin(Side.COMMON, require(TargetedMod.BOP), "bop.ChunkProviderBOPHellMixin"),
-    //endregion BoP->common
     //region CoFHLib->common
     CoFHLibCofhBlockHelperMixin(Side.COMMON, require(TargetedMod.COFHLIB), "cofhlib.BlockHelperMixin"),
     //endregion CoFHLib->common

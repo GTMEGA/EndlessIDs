@@ -11,11 +11,11 @@ import static com.falsepattern.lib.mixin.ITargetedMod.PredicateHelpers.startsWit
 @RequiredArgsConstructor
 public enum TargetedMod implements ITargetedMod {
 
-    ANTIIDCONFLICT("Anti ID Conflict", true, startsWith("antiidconflict")),
-    ANTIQUEATLAS("Antique Atlas", true, startsWith("antiqueatlas")),
     ATG("Alternate Terrain Generation", true, startsWith("atg")),
-    BIOMEWAND("Biome Wand", true, startsWith("1.7.10-biome-wand-").or(startsWith("biome-wand"))),
+    ANTIQUEATLAS("Antique Atlas", true, startsWith("antiqueatlas")),
+    ANTIIDCONFLICT("Anti ID Conflict", true, startsWith("antiidconflict")),
     BOP("Biomes O' Plenty", true, startsWith("biomesoplenty-")),
+    BIOMEWAND("Biome Wand", true, startsWith("1.7.10-biome-wand-").or(startsWith("biome-wand"))),
     COFHLIB("CoFH Lib", true, startsWith("cofhlib-")),
     DRAGONAPI("DragonAPI", false, startsWith("dragonapi")),
     EXTRAUTILITIES("Extra Utilities", true, startsWith("extrautilities-")),

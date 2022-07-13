@@ -23,6 +23,7 @@ This mod also contains patches for the following mods:
 - Biome Wand
 - CoFH Lib
 - DragonAPI
+- Dynamic Surroundings
 - Extra Utilities
 - GalactiCraft
 - Immersive Cavegen
