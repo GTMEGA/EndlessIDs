@@ -22,6 +22,7 @@ public enum TargetedMod implements ITargetedMod {
     DRAGONAPI("DragonAPI", false, startsWith("dragonapi")),
     EREBUS("The Erebus", true, startsWith("theerebus")),
     EXTRAUTILITIES("Extra Utilities", true, startsWith("extrautilities-")),
+    FUTUREPACK("Futurepack", true, startsWith("[1.7.10]futurepack").or(startsWith("futurepack-"))),
     GALACTICRAFTCORE("GalactiCraftCore", false, startsWith("galacticraftcore")),
     ICG("Immersive Cavegen", true, startsWith("immersivecavegen")),
     MFQM("More Fun Quicksand Mod", false, startsWith("morefunquicksandmod-")),

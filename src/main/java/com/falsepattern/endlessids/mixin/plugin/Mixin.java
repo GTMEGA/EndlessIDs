@@ -126,6 +126,9 @@ public enum Mixin implements IMixin {
     ChunkProviderEndOfTimeMixin(Side.COMMON, require(TargetedMod.EXTRAUTILITIES), "extrautilities.ChunkProviderEndOfTimeMixin"),
     ChunkProviderUnderdarkMixin(Side.COMMON, require(TargetedMod.EXTRAUTILITIES), "extrautilities.ChunkProviderUnderdarkMixin"),
     //endregion ExtraUtilities->common
+    //region Futurepack->common
+    FuturepackChunkProviderSpaceMixin(Side.COMMON, require(TargetedMod.FUTUREPACK), "futurepack.ChunkProviderSpaceMixin"),
+    //endregion Futurepack->common
     //region GalactiCraftCore->common
     GalactiCraftCoreConfigManagerCoreMixin(Side.COMMON, require(TargetedMod.GALACTICRAFTCORE),
                                            "galacticraft.ConfigManagerCoreMixin"),

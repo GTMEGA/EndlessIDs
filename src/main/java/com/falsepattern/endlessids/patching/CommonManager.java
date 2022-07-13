@@ -1,6 +1,7 @@
 package com.falsepattern.endlessids.patching;
 
 import com.falsepattern.endlessids.EndlessIDs;
+import com.falsepattern.endlessids.patching.patches.common.Futurepack;
 import com.falsepattern.endlessids.patching.patches.common.Tropicraft;
 import lombok.SneakyThrows;
 import lombok.val;
@@ -15,6 +16,7 @@ public class CommonManager {
 
     public CommonManager() {
         patches.add(new Tropicraft());
+        patches.add(new Futurepack());
     }
 
     @SneakyThrows

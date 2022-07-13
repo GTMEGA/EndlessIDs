@@ -59,6 +59,9 @@ dependencies {
     //Extra Utilities 1.2.12
     compile(curse("extrautilities-225561:2264384"))
 
+    //Futurepack v18.7
+    compile(deobfCurse("futurepack-237333:2263966"))
+
     //Galacticraft Core 3.0.12.504
     //Mirrored at: https://maven.falsepattern.com/mirror/mirror/GalacticraftCore-1.7-3.0.12.504.jar
     compileOnly(deobf("https://micdoodle8.com/new-builds/GC-1.7/504/GalacticraftCore-1.7-3.0.12.504.jar"))

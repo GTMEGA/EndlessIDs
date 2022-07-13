@@ -28,6 +28,7 @@ This mod also contains patches for the following mods:
 - Dynamic Surroundings
 - Erebus
 - Extra Utilities
+- Futurepack
 - GalactiCraft
 - Immersive Cavegen
 - More Fun Quicksand Mod
