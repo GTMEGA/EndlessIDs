@@ -19,6 +19,9 @@ dependencies {
 
     ////////////////Patched mods////////////////
 
+    //AbyssalCraft 1.9.1.3-FINAL
+    compile(deobfCurse("abyssalcraft-53686:2311135"))
+
     //Alternate Terrain Generation 0.12.0
     compile(curse("atg-228356:2231155"))
 

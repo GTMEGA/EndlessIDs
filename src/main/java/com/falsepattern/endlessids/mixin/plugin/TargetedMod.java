@@ -11,6 +11,7 @@ import static com.falsepattern.lib.mixin.ITargetedMod.PredicateHelpers.startsWit
 @RequiredArgsConstructor
 public enum TargetedMod implements ITargetedMod {
 
+    ABYSSALCRAFT("AbyssalCraft", true, startsWith("abyssalcraft-")),
     ATG("Alternate Terrain Generation", true, startsWith("atg")),
     ANTIQUEATLAS("Antique Atlas", true, startsWith("antiqueatlas")),
     ANTIIDCONFLICT("Anti ID Conflict", true, startsWith("antiidconflict")),

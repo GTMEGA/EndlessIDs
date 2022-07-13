@@ -15,6 +15,7 @@ Comparison of the known limits:
 
 This mod also contains patches for the following mods:
 
+- AbyssalCraft
 - Alternate Terrain Generation
 - Antique Atlas
 - Anti ID Conflict

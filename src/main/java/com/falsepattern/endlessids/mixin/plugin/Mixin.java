@@ -58,6 +58,15 @@ public enum Mixin implements IMixin {
     RenderGlobalMixin(Side.CLIENT, always(), "vanilla.RenderGlobalMixin"),
     //endregion Minecraft->client
     //endregion Minecraft
+    //region AbyssalCraft->common
+    AbyssalCraftMixin(Side.COMMON, require(TargetedMod.ABYSSALCRAFT), "abyssalcraft.AbyssalCraftMixin"),
+    ChunkProviderAbyssMixin(Side.COMMON, require(TargetedMod.ABYSSALCRAFT), "abyssalcraft.ChunkProviderAbyssMixin"),
+    ChunkProviderDarkRealmMixin(Side.COMMON, require(TargetedMod.ABYSSALCRAFT),
+                                "abyssalcraft.ChunkProviderDarkRealmMixin"),
+    ChunkProviderDreadlandsMixin(Side.COMMON, require(TargetedMod.ABYSSALCRAFT),
+                                 "abyssalcraft.ChunkProviderDreadlandsMixin"),
+    ChunkProviderOmotholMixin(Side.COMMON, require(TargetedMod.ABYSSALCRAFT), "abyssalcraft.ChunkProviderOmotholMixin"),
+    //endregion AbyssalCraft->common
     //region ATG->common
     ATGBiomeConfigMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGBiomeConfigMixin"),
     ATGBiomeManagerMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGBiomeManagerMixin"),
