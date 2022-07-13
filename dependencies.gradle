@@ -49,6 +49,9 @@ dependencies {
     //Dynamic Surroundings 1.0.6.4
     compile(deobfCurse("dynamicsurrounding-238891:2642381"))
 
+    //Erebus 0.4.7
+    compile(deobfCurse("theerebus-220698:2305035"))
+
     //Extra Utilities 1.2.12
     compile(curse("extrautilities-225561:2264384"))
 

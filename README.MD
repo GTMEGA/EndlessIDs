@@ -25,6 +25,7 @@ This mod also contains patches for the following mods:
 - CoFH Lib
 - DragonAPI
 - Dynamic Surroundings
+- Erebus
 - Extra Utilities
 - GalactiCraft
 - Immersive Cavegen
