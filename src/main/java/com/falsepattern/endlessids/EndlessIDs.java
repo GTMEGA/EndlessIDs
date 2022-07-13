@@ -2,11 +2,13 @@ package com.falsepattern.endlessids;
 
 import code.elix_x.coremods.antiidconflict.managers.BiomesManager;
 import com.falsepattern.endlessids.constants.ExtendedConstants;
+import lombok.SneakyThrows;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = Tags.MODID,
@@ -22,10 +24,25 @@ public class EndlessIDs {
         BiomesManager.conflicts = new BiomesManager.ConflictingBiomes[ExtendedConstants.biomeIDCount];
     }
 
+    /**
+     * Trigger earlier biome registration for tropicraft so that it can be caught by AntiIDConflict.
+     */
+    @SneakyThrows
+    private static void tropicraftInitPatch() {
+        Class.forName("net.tropicraft.world.biomes.BiomeGenTropicraft");
+    }
+
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent e) {
         if (Loader.isModLoaded("antiidconflict")) {
             antiIdConflictLatePatch();
+        }
+    }
+
+    @Mod.EventHandler
+    public void init(FMLInitializationEvent e) {
+        if (Loader.isModLoaded("tropicraft")) {
+            tropicraftInitPatch();
         }
     }
 }

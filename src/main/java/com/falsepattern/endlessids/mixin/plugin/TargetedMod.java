@@ -28,6 +28,7 @@ public enum TargetedMod implements ITargetedMod {
     NATURESCOMPASS("Nature's Compass", true, startsWith("naturescompass")),
     RTG("Realistic Terrain Generation", true, startsWith("rtg-")),
     THAUMCRAFT("Thaumcraft", true, startsWith("thaumcraft")),
+    TROPICRAFT("Tropicraft", true, startsWith("tropicraft-")),
     TWILIGHTFOREST("Twilight Forest", true, startsWith("twilightforest")),
     UBC("Underground Biomes Constructs", false, startsWith("undergroundbiomesconstructs-")),
     WORLDEDIT("WorldEdit", false, startsWith("worldedit-")),

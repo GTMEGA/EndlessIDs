@@ -76,6 +76,11 @@ dependencies {
     //Thaumcraft 4.2.3.5
     compile(deobfCurse("thaumcraft-223628:2227552"))
 
+    //Tropicraft 6.0.5
+    //This is from a mirror file, because the file on curseforge is a zip containing other files too.
+    //Source: https://www.curseforge.com/minecraft/mc-mods/tropicraft/files/2353906
+    compile(deobf("https://maven.falsepattern.com/mirror/mirror/tropicraft-6.0.5.jar"))
+
     //Twilight Forest 2.3.8
     compile(deobfCurse("twilightforest-227639:3039937"))
 
@@ -94,4 +99,9 @@ dependencies {
     //Baubles 1.0.1.10
     //needed by: Thaumcraft
     compile(deobfCurse("baubles-227083:2224857"))
+
+    //CoroUtil 1.1.3
+    //needed by: Tropicraft
+    //Same reason for being local as tropicraft
+    compile(deobf("https://maven.falsepattern.com/mirror/mirror/coroutil-1.1.3.jar"))
 }

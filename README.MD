@@ -34,6 +34,7 @@ This mod also contains patches for the following mods:
 - Nature's Compass
 - Realistic Terrain Generation
 - Thaumcraft
+- Tropicraft
 - Twilight Forest
 - Underground Biomes Constructs
 - WorldEdit
