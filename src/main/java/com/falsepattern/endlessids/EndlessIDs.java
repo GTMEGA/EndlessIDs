@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLConstructionEvent;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -23,6 +24,11 @@ public class EndlessIDs {
                 serverSide = Tags.GROUPNAME + ".patching.ServerManager",
                 modId = Tags.MODID)
     private static CommonManager patchManager;
+
+    @Mod.EventHandler
+    public void construct(FMLConstructionEvent e) {
+        patchManager.construct();
+    }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent e) {

@@ -20,6 +20,22 @@ public class CommonManager {
     }
 
     @SneakyThrows
+    public final void construct() {
+        for (val patch : patches) {
+            if (Loader.isModLoaded(patch.modid)) {
+                try {
+                    if (patch.construct()) {
+                        EndlessIDs.LOG.info("Applied preInit patches for " + patch.modid);
+                    }
+                } catch (Exception e) {
+                    EndlessIDs.LOG.fatal("Failed to apply preInit patches for " + patch.modid, e);
+                    throw e;
+                }
+            }
+        }
+    }
+
+    @SneakyThrows
     public final void preInit() {
         for (val patch : patches) {
             if (Loader.isModLoaded(patch.modid)) {

@@ -8,7 +8,7 @@ public class Futurepack extends Patch {
     }
 
     @Override
-    public boolean init() throws Exception {
+    public boolean construct() throws Exception {
         Class.forName("futurepack.common.dim.BiomeGenSpace");
         return true;
     }

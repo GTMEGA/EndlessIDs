@@ -159,6 +159,8 @@ public enum Mixin implements IMixin {
     //region Tropicraft->common
     ChunkProviderTropicraftMixin(Side.COMMON, require(TargetedMod.TROPICRAFT),
                                  "tropicraft.ChunkProviderTropicraftMixin"),
+    GenLayerTropiVoronoiZoomMixin(Side.COMMON, require(TargetedMod.TROPICRAFT),
+                                  "tropicraft.GenLayerTropiVoronoiZoomMixin"),
     //endregion Tropicraft->common
     //region TwilightForest->common
     ChunkProviderTwilightForestMixin(Side.COMMON, require(TargetedMod.TWILIGHTFOREST),

@@ -147,3 +147,11 @@ gradle-app.setting
 
 srgmap.cfg
 !lib/*.jar
+
+# ID configs to make CI run.
+!run/
+run/*
+!run/config/
+run/config/*
+!run/config/Tropicraft_Biomes.cfg
+!run/config/erebus.cfg
