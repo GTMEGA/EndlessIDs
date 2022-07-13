@@ -14,6 +14,7 @@ public enum TargetedMod implements ITargetedMod {
     ATG("Alternate Terrain Generation", true, startsWith("atg")),
     ANTIQUEATLAS("Antique Atlas", true, startsWith("antiqueatlas")),
     ANTIIDCONFLICT("Anti ID Conflict", true, startsWith("antiidconflict")),
+    ATUM("Atum", true, startsWith("atum-")),
     BOP("Biomes O' Plenty", true, startsWith("biomesoplenty-")),
     BIOMEWAND("Biome Wand", true, startsWith("1.7.10-biome-wand-").or(startsWith("biome-wand"))),
     COFHLIB("CoFH Lib", true, startsWith("cofhlib-")),

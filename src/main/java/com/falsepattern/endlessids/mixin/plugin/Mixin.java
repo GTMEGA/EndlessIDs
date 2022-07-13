@@ -81,6 +81,9 @@ public enum Mixin implements IMixin {
     AIDCEntitiesManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT), "antiidconflict.EntitiesManagerMixin"),
     AIDCPotionsManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT), "antiidconflict.PotionsManagerMixin"),
     //endregion AntiIDConflict->common
+    //region Atum->common
+    AtumChunkProviderMixin(Side.COMMON, require(TargetedMod.ATUM), "atum.AtumChunkProviderMixin"),
+    //endregion Atum->common
     //region BoP->common
     BOPBiomeManagerMixin(Side.COMMON, require(TargetedMod.BOP), "bop.BOPBiomeManagerMixin"),
     ChunkProviderBOPEndMixin(Side.COMMON, require(TargetedMod.BOP), "bop.ChunkProviderBOPEndMixin"),

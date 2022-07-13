@@ -19,6 +19,7 @@ This mod also contains patches for the following mods:
 - Antique Atlas
 - Anti ID Conflict
 - ArchaicFix
+- Atum
 - Biomes O' Plenty
 - Biome Wand
 - CoFH Lib

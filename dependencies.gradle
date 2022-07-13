@@ -31,6 +31,9 @@ dependencies {
     //ArchaicFix snapshot
     compile("com.github.embeddedt:ArchaicFix:be8666cb2dbf2e0a8b799e88cef3c0d12e5d4911:dev")
 
+    //Atum 0.6.77
+    compile(deobfCurse("atum-59621:2256356"))
+
     //Biomes O' Plenty 2.1.0.2308
     compile(deobfCurse("biomesoplenty-220318:2499612"))
 
