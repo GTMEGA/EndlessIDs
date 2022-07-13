@@ -130,7 +130,11 @@ public enum Mixin implements IMixin {
     FuturepackChunkProviderSpaceMixin(Side.COMMON, require(TargetedMod.FUTUREPACK), "futurepack.ChunkProviderSpaceMixin"),
     //endregion Futurepack->common
     //region GalactiCraftCore->common
-    GalactiCraftCoreConfigManagerCoreMixin(Side.COMMON, require(TargetedMod.GALACTICRAFTCORE),
+    GalactiCraftChunkProviderOrbitMixin(Side.COMMON, require(TargetedMod.GALACTICRAFTCORE),
+                                        "galacticraft.ChunkProviderOrbitMixin"),
+    GalactiCraftChunkProviderSpaceMixin(Side.COMMON, require(TargetedMod.GALACTICRAFTCORE),
+                                        "galacticraft.ChunkProviderSpaceMixin"),
+    GalactiCraftConfigManagerCoreMixin(Side.COMMON, require(TargetedMod.GALACTICRAFTCORE),
                                            "galacticraft.ConfigManagerCoreMixin"),
     //endregion GalactiCraftCore->common
     //region ICG->common
