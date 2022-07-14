@@ -24,6 +24,7 @@ This mod also contains patches for the following mods:
 - Biomes O' Plenty
 - Biome Wand
 - CoFH Lib
+- Dark World
 - DragonAPI
 - Dynamic Surroundings
 - Erebus
@@ -33,6 +34,7 @@ This mod also contains patches for the following mods:
 - Immersive Cavegen
 - More Fun Quicksand Mod
 - Nature's Compass
+- Netherlicious
 - Realistic Terrain Generation
 - Thaumcraft
 - Tropicraft
