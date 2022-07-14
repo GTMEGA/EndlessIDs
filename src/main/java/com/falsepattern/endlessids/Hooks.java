@@ -147,64 +147,81 @@ public class Hooks {
         throw new IllegalArgumentException("id out of range: " + id);
     }
 
-    //Biome ID Extender Code
+    public static void shortToByteArray(short[] shortArray, int shortOffset, byte[] byteArray, int byteOffset, int shortCount) {
+        for (int i = 0; i < shortCount; i++) {
+            short s = shortArray[shortOffset + i];
+            byteArray[byteOffset + i * 2] = (byte)(s & 255);
+            byteArray[byteOffset + i * 2 + 1] = (byte)((s >>> 8) & 255);
+        }
+    }
+
+    public static void byteToShortArray(byte[] byteArray, int byteOffset, short[] shortArray, int shortOffset, int byteCount) {
+        for (int i = 0; i < byteCount; i++) {
+            byte b = byteArray[byteOffset + i];
+            shortArray[shortOffset + i / 2] = (short) (i % 2 == 0
+                                                       ? (b & 255)
+                                                       : (shortArray[shortOffset + i / 2] | ((b & 255) << 8)));
+        }
+    }
 
     public static byte[] shortToByteArray(short[] shortArray) {
-        byte[] byteArray = new byte[512];
-
-        for (int i = 0; i < 256; ++i) {
-            byteArray[i] = (byte) (shortArray[i] & 255);
-            byteArray[i + 256] = (byte) ((shortArray[i] >>> 8) & 255);
-        }
+        byte[] byteArray = new byte[shortArray.length * 2];
+        shortToByteArray(shortArray, 0, byteArray, 0, shortArray.length);
         return byteArray;
     }
 
     public static short[] byteToShortArray(byte[] byteArray) {
-        short[] shortArray = new short[256];
+        short[] shortArray = new short[(byteArray.length + 1) / 2];
+        byteToShortArray(byteArray, 0, shortArray, 0, byteArray.length);
+        return shortArray;
+    }
 
+    public static void byteToShortArrayLegacy(byte[] byteArray, short[] shortArray) {
         for (int i = 0; i < 256; ++i) {
             shortArray[i] = (short) (((byteArray[i + 256] << 8) & 255) | (byteArray[i] & 255));
         }
-
-        return shortArray;
     }
 
-    public static short[] oldBiomeByteToNewShortArray(byte[] byteArray) {
-        short[] shortArray = new short[256];
-
+    public static void oldBiomeByteToNewShortArray(byte[] byteArray, short[] shortArray) {
         for (int i = 0; i < 256; i++) {
             shortArray[i] = (short) (byteArray[i] & 0xff);
         }
-
-        return shortArray;
     }
 
     public static int readBiomeArrayFromPacket(Chunk chunk, byte[] array, int offset) {
-        byte[] byteArray = new byte[512];
-        System.arraycopy(array, offset, byteArray, 0, 512);
-        ((IChunkMixin) chunk).setBiomeShortArray(byteToShortArray(byteArray));
-        return byteArray.length;
+        short[] biomeArray = ((IChunkMixin)chunk).getBiomeShortArray();
+        byteToShortArray(array, offset, biomeArray, 0, biomeArray.length * 2);
+        return biomeArray.length * 2;
     }
 
     public static int writeBiomeArrayToPacket(Chunk chunk, byte[] array, int offset) {
-        byte[] byteArray = shortToByteArray(((IChunkMixin) chunk).getBiomeShortArray());
-        System.arraycopy(byteArray, 0, array, offset, 512);
-        return byteArray.length;
+        short[] biomeArray = ((IChunkMixin)chunk).getBiomeShortArray();
+        shortToByteArray(biomeArray, 0, array, offset, biomeArray.length);
+        return biomeArray.length * 2;
     }
 
     public static void writeChunkBiomeArrayToNbt(Chunk chunk, NBTTagCompound nbt) {
         byte[] byteArray = shortToByteArray(((IChunkMixin) chunk).getBiomeShortArray());
-        nbt.setByteArray("Biomes16", byteArray);
+        nbt.setByteArray("Biomes16v2", byteArray);
     }
 
     public static void readChunkBiomeArrayFromNbt(Chunk chunk, NBTTagCompound nbt) {
-        short[] data = null;
-        if (nbt.hasKey("Biomes16", 7)) {
-            data = byteToShortArray(nbt.getByteArray("Biomes16"));
-        } else if (nbt.hasKey("Biomes", 7)) {
-            data = oldBiomeByteToNewShortArray(nbt.getByteArray("Biomes"));
+        short[] data = ((IChunkMixin)chunk).getBiomeShortArray();
+        boolean put = false;
+        if (data == null) {
+            data = new short[16 * 16];
+            put = true;
         }
-        if (data != null) {
+        if (nbt.hasKey("Biomes16v2", 7)) {
+            byteToShortArray(nbt.getByteArray("Biomes16v2"), 0, data, 0, data.length * 2);
+        } else if (nbt.hasKey("Biomes16", 7)) {
+            byteToShortArrayLegacy(nbt.getByteArray("Biomes16"), data);
+        } else if (nbt.hasKey("Biomes", 7)) {
+            oldBiomeByteToNewShortArray(nbt.getByteArray("Biomes"), data);
+        } else {
+            put = false;
+        }
+        if (put) {
             ((IChunkMixin) chunk).setBiomeShortArray(data);
         }
     }
