@@ -47,6 +47,20 @@ public abstract class ModBiomesMixin {
     @Shadow
     public static int savannahSubSteppeID;
 
+    @ModifyConstant(method = "<clinit>",
+                    constant = {@Constant(intValue = 100),
+                                @Constant(intValue = 101),
+                                @Constant(intValue = 102),
+                                @Constant(intValue = 103),
+                                @Constant(intValue = 104),
+                                @Constant(intValue = 105),
+                                @Constant(intValue = 106),
+                                @Constant(intValue = 107)},
+                    require = 8)
+    private static int shiftBiomeIDsUp(int id) {
+        return id + 13000;
+    }
+
     @ModifyConstant(method = "init",
                     constant = @Constant(intValue = 128),
                     require = 1)

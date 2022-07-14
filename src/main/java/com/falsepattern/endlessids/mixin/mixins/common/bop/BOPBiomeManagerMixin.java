@@ -10,6 +10,13 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 @Mixin(value = BOPBiomeManager.class,
        remap = false)
 public abstract class BOPBiomeManagerMixin {
+    @ModifyConstant(method = "<clinit>",
+                    constant = @Constant(intValue = 40),
+                    require = 1)
+    private static int shiftBiomeIDsUp(int id) {
+        return id + 14000;
+    }
+
     @ModifyConstant(method = "getNextFreeBiomeId",
                     constant = @Constant(intValue = VanillaConstants.biomeIDCount),
                     require = 1)
