@@ -144,14 +144,3 @@ gradle-app.setting
 .classpath
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij+all,gradle,forgegradle,java
-
-srgmap.cfg
-!lib/*.jar
-
-# ID configs to make CI run.
-!run/
-run/*
-!run/config/
-run/config/*
-!run/config/Tropicraft_Biomes.cfg
-!run/config/erebus.cfg
