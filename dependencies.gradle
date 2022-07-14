@@ -47,6 +47,9 @@ dependencies {
     //CoFH Lib 1.2.1-185
     compile(curse("cofh-lib-220333:2388748"))
 
+    //Dark World 0.2
+    compile(deobfCurse("darkworld-225075:2225172"))
+
     //DragonAPI V31b
     compileOnly(deobfCurse("dragonapi-235591:3574508"))
 

@@ -19,6 +19,7 @@ public enum TargetedMod implements ITargetedMod {
     BOP("Biomes O' Plenty", true, startsWith("biomesoplenty-")),
     BIOMEWAND("Biome Wand", true, startsWith("1.7.10-biome-wand-").or(startsWith("biome-wand"))),
     COFHLIB("CoFH Lib", true, startsWith("cofhlib-")),
+    DARKWORLD("Dark World", true, startsWith("darkworld-")),
     DRAGONAPI("DragonAPI", false, startsWith("dragonapi")),
     EREBUS("The Erebus", true, startsWith("theerebus")),
     EXTRAUTILITIES("Extra Utilities", true, startsWith("extrautilities-")),

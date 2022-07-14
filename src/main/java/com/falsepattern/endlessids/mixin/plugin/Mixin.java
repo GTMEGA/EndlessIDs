@@ -109,6 +109,13 @@ public enum Mixin implements IMixin {
     //region CoFHLib->common
     CoFHLibCofhBlockHelperMixin(Side.COMMON, require(TargetedMod.COFHLIB), "cofhlib.BlockHelperMixin"),
     //endregion CoFHLib->common
+    //region DarkWorld->common
+    ChunkProviderDarkWorldAlphaMixin(Side.COMMON, require(TargetedMod.DARKWORLD),
+                                     "darkworld.ChunkProviderDarkWorldAlphaMixin"),
+    ChunkProviderDarkWorldBetaMixin(Side.COMMON, require(TargetedMod.DARKWORLD),
+                                    "darkworld.ChunkProviderDarkWorldBetaMixin"),
+    DarkWorldModBiomesMixin(Side.COMMON, require(TargetedMod.DARKWORLD), "darkworld.ModBiomesMixin"),
+    //endregion DarkWorld->common
     //region DragonAPI->common
     //region DragonAPI->common->vanilla
     DragonAPIGenLayerRiverMixMixin(Side.COMMON, require(TargetedMod.DRAGONAPI),
