@@ -98,6 +98,9 @@ public enum Mixin implements IMixin {
     ChunkProviderBOPEndMixin(Side.COMMON, require(TargetedMod.BOP), "bop.ChunkProviderBOPEndMixin"),
     ChunkProviderBOPHellMixin(Side.COMMON, require(TargetedMod.BOP), "bop.ChunkProviderBOPHellMixin"),
     //endregion BoP->common
+    //region BiomeTweaker->common
+    BiomeEventHandlerMixin(Side.COMMON, require(TargetedMod.BIOMETWEAKER), "biometweaker.BiomeEventHandlerMixin"),
+    //endregion BiomeTweaker->common
     //region Biome Wand
     //region Biome Wand->client
     BiomeWandItemClientMixin(Side.CLIENT, require(TargetedMod.BIOMEWAND), "biomewand.BiomeWandItemMixin"),

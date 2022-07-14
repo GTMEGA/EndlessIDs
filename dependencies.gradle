@@ -40,6 +40,9 @@ dependencies {
     //Biomes O' Plenty 2.1.0.2308
     compile(deobfCurse("biomesoplenty-220318:2499612"))
 
+    //Biome Tweaker 2.0.182
+    compileOnly(deobfCurse("biometweaker-228895:2279911"))
+
     //Biome Wand 1.1.9
     //Mirrored at: https://maven.falsepattern.com/mirror/mirror/1.7.10-Biome-Wand-1.1.9.jar
     compile(deobf("https://spacechase0.com/wp-content/uploads/2014/10/1.7.10-Biome-Wand-1.1.9.jar"))

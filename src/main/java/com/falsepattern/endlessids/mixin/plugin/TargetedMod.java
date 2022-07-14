@@ -17,6 +17,7 @@ public enum TargetedMod implements ITargetedMod {
     ANTIIDCONFLICT("Anti ID Conflict", true, startsWith("antiidconflict")),
     ATUM("Atum", true, startsWith("atum-")),
     BOP("Biomes O' Plenty", true, startsWith("biomesoplenty-")),
+    BIOMETWEAKER("Biome Tweaker", true, startsWith("biometweaker-")),
     BIOMEWAND("Biome Wand", true, startsWith("1.7.10-biome-wand-").or(startsWith("biome-wand"))),
     COFHLIB("CoFH Lib", true, startsWith("cofhlib-")),
     DARKWORLD("Dark World", true, startsWith("darkworld-")),
