@@ -23,6 +23,7 @@ public abstract class NetherChunkProviderMixin {
                      target = "Lnet/minecraft/world/chunk/Chunk;getBiomeArray()[B",
                      shift = At.Shift.BEFORE,
                      remap = true),
+            remap = true,
             locals = LocalCapture.CAPTURE_FAILHARD,
             require = 1)
     private void setBiomesTweaked1(int par1, int par2, CallbackInfoReturnable<Chunk> cir, byte[] abyte, Block[] blocks, Chunk chunk, BiomeGenBase[] abiomegenbase) {
@@ -34,6 +35,7 @@ public abstract class NetherChunkProviderMixin {
               at = @At(value = "INVOKE",
                        target = "Lnet/minecraft/world/chunk/Chunk;getBiomeArray()[B",
                        remap = true),
+              remap = true,
               require = 1)
     private byte[] setBiomesTweaked2(Chunk chunk) {
         try {
