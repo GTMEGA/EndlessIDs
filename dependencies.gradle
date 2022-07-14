@@ -78,6 +78,9 @@ dependencies {
     //Nature's Compass 1.3.1
     compile(deobfCurse("naturescompass-252848:2451823"))
 
+    //Netherlicious 3.2.3
+    compile(deobfCurse("netherlicious-385860:3858031"))
+
     //Realistic Terrain Generation 1.1.1.7
     compile(deobfCurse("rtg-237989:2521557"))
 

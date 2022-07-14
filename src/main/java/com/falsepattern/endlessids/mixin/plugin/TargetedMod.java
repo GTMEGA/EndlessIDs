@@ -28,6 +28,7 @@ public enum TargetedMod implements ITargetedMod {
     ICG("Immersive Cavegen", true, startsWith("immersivecavegen")),
     MFQM("More Fun Quicksand Mod", false, startsWith("morefunquicksandmod-")),
     NATURESCOMPASS("Nature's Compass", true, startsWith("naturescompass")),
+    NETHERLICIOUS("Netherlicious", true, startsWith("netherlicious-")),
     RTG("Realistic Terrain Generation", true, startsWith("rtg-")),
     THAUMCRAFT("Thaumcraft", true, startsWith("thaumcraft")),
     TROPICRAFT("Tropicraft", true, startsWith("tropicraft-")),
