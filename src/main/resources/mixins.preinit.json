@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.7.11",
+  "package": "com.falsepattern.endlessids.mixin.mixins",
+  "refmap": "mixins.endlessids.refmap.json",
+  "target": "@env(PREINIT)",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "common.dev.spacecore.ModInfoGeneratorMixin"
+  ]
+}
+
