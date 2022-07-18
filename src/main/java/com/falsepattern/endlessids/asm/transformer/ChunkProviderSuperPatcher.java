@@ -37,7 +37,7 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
     private static final String GET_BIOME_ARRAY_METHOD = IETransformer.isObfuscated ? "func_76605_m" : "getBiomeArray";
     private static final Map<Integer, BiFunction<AbstractInsnNode, Memory, Integer>> STATES = new HashMap<>();
     static {
-        STATES.put(0, casting(VarInsnNode.class, 0, (insn, memory) -> {
+        STATES.put(0, casting(VarInsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.ALOAD) {
                 memory.chunkIndex = insn.var;
                 memory.startingInsn = memory.currentInsn;
@@ -45,7 +45,7 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
             }
             return 0;
         }));
-        STATES.put(1, casting(MethodInsnNode.class, 0, (insn, memory) -> {
+        STATES.put(1, casting(MethodInsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.INVOKEVIRTUAL &&
                 insn.owner.equals(CHUNK_CLASS) &&
                 insn.name.equals(GET_BIOME_ARRAY_METHOD) &&
@@ -55,33 +55,31 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
             }
             return 0;
         }));
-        STATES.put(2, casting(VarInsnNode.class, 0, (insn, memory) -> {
+        STATES.put(2, casting(VarInsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.ASTORE) {
                 memory.biomeArrayIndex = insn.var;
                 return 3;
             }
             return 0;
         }));
-        STATES.put(3, casting(LabelNode.class, 0, 4));
-        STATES.put(4, casting(InsnNode.class, 0, (insn) -> insn.getOpcode() == Opcodes.ICONST_0 ? 5 : 0));
-        STATES.put(5, casting(VarInsnNode.class, 0, (insn, memory) -> {
+        STATES.put(3, casting(LabelNode.class, 4));
+        STATES.put(4, casting(InsnNode.class, (insn) ->
+                insn.getOpcode() == Opcodes.ICONST_0
+                ? 5 : 0));
+        STATES.put(5, casting(VarInsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.ISTORE) {
                 memory.iteratorIndex = insn.var;
                 return 6;
             }
             return 0;
         }));
-        STATES.put(6, casting(LabelNode.class, 0, 7));
-        STATES.put(7, casting(FrameNode.class, 0, (insn, memory) -> {
-            //validate chunk, chunk array, and iterator
-            if (memory.locals.get(memory.chunkIndex).equals(CHUNK_CLASS) &&
+        STATES.put(6, casting(LabelNode.class, 7));
+        STATES.put(7, casting(FrameNode.class, (insn, memory) ->
+                memory.locals.get(memory.chunkIndex).equals(CHUNK_CLASS) &&
                 memory.locals.get(memory.biomeArrayIndex).equals("[B") &&
-                memory.locals.get(memory.iteratorIndex).equals(1)) {
-                return 8;
-            }
-            return 0;
-        }));
-        STATES.put(8, casting(VarInsnNode.class, 0, (insn, memory) -> {
+                memory.locals.get(memory.iteratorIndex).equals(1)
+                ? 8 : 0));
+        STATES.put(8, casting(VarInsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.ILOAD &&
                 insn.var == memory.iteratorIndex) {
                 memory.tmp = 1;
@@ -94,7 +92,7 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
             memory.tmp = 0;
             return 0;
         }));
-        STATES.put(9, casting(VarInsnNode.class, 0, (insn, memory) -> {
+        STATES.put(9, casting(VarInsnNode.class, (insn, memory) -> {
             if (memory.tmp == 1) {
                 if (insn.getOpcode() == Opcodes.ALOAD &&
                     insn.var == memory.biomeArrayIndex) {
@@ -109,7 +107,7 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
             memory.tmp = 0;
             return 0;
         }));
-        STATES.put(10, casting(InsnNode.class, 0, (insn, memory) -> {
+        STATES.put(10, casting(InsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.ARRAYLENGTH) {
                 if (memory.tmp == 1) {
                     return 11;
@@ -120,7 +118,7 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
             memory.tmp = 0;
             return 0;
         }));
-        STATES.put(11, casting(JumpInsnNode.class, 0, (insn, memory) -> {
+        STATES.put(11, casting(JumpInsnNode.class, (insn, memory) -> {
             if ((memory.tmp == 1 && insn.getOpcode() == Opcodes.IF_ICMPGE) ||
                 (memory.tmp == 2 && insn.getOpcode() == Opcodes.IF_ICMPLE)) {
                 memory.tmp = 0;
@@ -129,22 +127,16 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
             memory.tmp = 0;
             return 0;
         }));
-        STATES.put(12, casting(LabelNode.class, 0, 13));
-        STATES.put(13, casting(VarInsnNode.class, 0, (insn, memory) -> {
-            if (insn.getOpcode() == Opcodes.ALOAD &&
-                insn.var == memory.biomeArrayIndex) {
-                return 14;
-            }
-            return 0;
-        }));
-        STATES.put(14, casting(VarInsnNode.class, 0, (insn, memory) -> {
-            if (insn.getOpcode() == Opcodes.ILOAD &&
-                insn.var == memory.iteratorIndex) {
-                return 15;
-            }
-            return 0;
-        }));
-        STATES.put(15, casting(VarInsnNode.class, 0, (insn, memory) -> {
+        STATES.put(12, casting(LabelNode.class, 13));
+        STATES.put(13, casting(VarInsnNode.class, (insn, memory) ->
+                insn.getOpcode() == Opcodes.ALOAD &&
+                insn.var == memory.biomeArrayIndex
+                ? 14 : 0));
+        STATES.put(14, casting(VarInsnNode.class, (insn, memory) ->
+                insn.getOpcode() == Opcodes.ILOAD &&
+                insn.var == memory.iteratorIndex
+                ? 15 : 0));
+        STATES.put(15, casting(VarInsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.ALOAD) {
                 if (insn.var == 0) {
                     memory.altFlags = 1;
@@ -157,7 +149,7 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
             }
             return 0;
         }));
-        STATES.put(16, casting(FieldInsnNode.class, 0, (insn, memory) -> {
+        STATES.put(16, casting(FieldInsnNode.class, (insn, memory) -> {
             if ((insn.getOpcode() == Opcodes.GETFIELD || insn.getOpcode() == Opcodes.GETSTATIC) &&
                 insn.desc.equals("[L" + BIOME_GEN_BASE_CLASS + ";")) {
                 memory.biomesForGenerationFieldOwner = insn.owner;
@@ -166,31 +158,27 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
             }
             return 0;
         }));
-        STATES.put(17, casting(VarInsnNode.class, 0, (insn, memory) -> {
-            if (insn.getOpcode() == Opcodes.ILOAD &&
-                insn.var == memory.iteratorIndex) {
-                return 18;
-            }
-            return 0;
-        }));
-        STATES.put(18, casting(InsnNode.class, 0, (insn) -> insn.getOpcode() == Opcodes.AALOAD ? 19 : 0));
-        STATES.put(19, casting(FieldInsnNode.class, 0, (insn) -> {
-            if (insn.getOpcode() == Opcodes.GETFIELD &&
+        STATES.put(17, casting(VarInsnNode.class, (insn, memory) ->
+                insn.getOpcode() == Opcodes.ILOAD &&
+                insn.var == memory.iteratorIndex
+                ? 18 : 0));
+        STATES.put(18, casting(InsnNode.class, (insn) ->
+                insn.getOpcode() == Opcodes.AALOAD
+                ? 19 : 0));
+        STATES.put(19, casting(FieldInsnNode.class, (insn) ->
+                insn.getOpcode() == Opcodes.GETFIELD &&
                 insn.owner.equals(BIOME_GEN_BASE_CLASS) &&
-                insn.name.equals(BIOME_ID_FIELD) &&
-                insn.desc.equals("I")) {
-                return 20;
-            }
-            return 0;
-        }));
-        STATES.put(20, casting(InsnNode.class, 0, (insn, memory) -> {
+                insn.name.equals(BIOME_ID_FIELD) &
+                insn.desc.equals("I")
+                ? 20 : 0));
+        STATES.put(20, casting(InsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.I2B) {
                 memory.castInsn = memory.currentInsn;
                 return 21;
             }
             return 0;
         }));
-        STATES.put(21, casting(InsnNode.class, 0, (insn, memory) -> {
+        STATES.put(21, casting(InsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.BASTORE) {
                 memory.arrayStoreInsn = memory.currentInsn;
                 return -2;
@@ -198,22 +186,22 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
             return 0;
         }));
     }
-    private static <T> BiFunction<AbstractInsnNode, Memory, Integer> casting(Class<T> clazz, int failState, int okState) {
-        return casting(clazz, failState, (insn, memory) -> okState);
+    private static <T> BiFunction<AbstractInsnNode, Memory, Integer> casting(Class<T> clazz, int okState) {
+        return casting(clazz, (insn, memory) -> okState);
     }
 
-    private static <T> BiFunction<AbstractInsnNode, Memory, Integer> casting(Class<T> clazz, int failState, Function<T, Integer> okCode) {
-        return casting(clazz, failState, (insn, memory) -> okCode.apply(insn));
+    private static <T> BiFunction<AbstractInsnNode, Memory, Integer> casting(Class<T> clazz, Function<T, Integer> okCode) {
+        return casting(clazz, (insn, memory) -> okCode.apply(insn));
     }
 
-    private static <T> BiFunction<AbstractInsnNode, Memory, Integer> casting(Class<T> clazz, int failState, BiFunction<T, Memory, Integer> okCode) {
+    private static <T> BiFunction<AbstractInsnNode, Memory, Integer> casting(Class<T> clazz, BiFunction<T, Memory, Integer> okCode) {
         return (insn, memory) -> {
             if (insn instanceof LineNumberNode) {
                 return -1;
             } else if (clazz.isInstance(insn)) {
                 return okCode.apply(clazz.cast(insn), memory);
             } else {
-                return failState;
+                return 0;
             }
         };
     }
@@ -246,11 +234,9 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
             val insn = insnList.get(insnIndex);
             if (insn instanceof FrameNode) {
                 val frame = (FrameNode) insn;
-                switch (frame.type) {
-                    case Opcodes.F_NEW:
-                        memory.locals.clear();
-                        memory.locals.addAll(frame.local);
-                        break;
+                if (frame.type == Opcodes.F_NEW) {
+                    memory.locals.clear();
+                    memory.locals.addAll(frame.local);
                 }
             }
             val newState = STATES.get(state).apply(insn, memory);
@@ -333,7 +319,7 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
         I2B                                                            //Replace with I2S
         BASTORE                                                        //Replace with SASTORE
        L5
-        IINC 8 1
+        IINC k 1
         GOTO L3
        L6
  */
