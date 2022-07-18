@@ -43,10 +43,6 @@ public enum Mixin implements IMixin {
     WorldMixin(Side.COMMON, always(), "vanilla.misc.WorldMixin"),
     //endregion Minecraft->common->misc
     //region Minecraft->common->worldgen
-//    ChunkProviderEndMixin(Side.COMMON, always(), "vanilla.worldgen.ChunkProviderEndMixin"),
-//    ChunkProviderFlatMixin(Side.COMMON, always(), "vanilla.worldgen.ChunkProviderFlatMixin"),
-//    ChunkProviderGenerateMixin(Side.COMMON, always(), "vanilla.worldgen.ChunkProviderGenerateMixin"),
-//    ChunkProviderHellMixin(Side.COMMON, always(), "vanilla.worldgen.ChunkProviderHellMixin"),
     GenLayerRiverMixMixin(Side.COMMON, avoid(TargetedMod.DRAGONAPI), "vanilla.worldgen.GenLayerRiverMixMixin"),
     GenLayerVoronoiZoomMixin(Side.COMMON, always(), "vanilla.worldgen.GenLayerVoronoiZoomMixin"),
     //endregion Minecraft->common->worldgen
@@ -60,17 +56,10 @@ public enum Mixin implements IMixin {
     //endregion Minecraft
     //region AbyssalCraft->common
     AbyssalCraftMixin(Side.COMMON, require(TargetedMod.ABYSSALCRAFT), "abyssalcraft.AbyssalCraftMixin"),
-//    ChunkProviderAbyssMixin(Side.COMMON, require(TargetedMod.ABYSSALCRAFT), "abyssalcraft.ChunkProviderAbyssMixin"),
-//    ChunkProviderDarkRealmMixin(Side.COMMON, require(TargetedMod.ABYSSALCRAFT),
-//                                "abyssalcraft.ChunkProviderDarkRealmMixin"),
-//    ChunkProviderDreadlandsMixin(Side.COMMON, require(TargetedMod.ABYSSALCRAFT),
-//                                 "abyssalcraft.ChunkProviderDreadlandsMixin"),
-//    ChunkProviderOmotholMixin(Side.COMMON, require(TargetedMod.ABYSSALCRAFT), "abyssalcraft.ChunkProviderOmotholMixin"),
     //endregion AbyssalCraft->common
     //region ATG->common
     ATGBiomeConfigMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGBiomeConfigMixin"),
     ATGBiomeManagerMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGBiomeManagerMixin"),
-//    ATGChunkProviderMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGChunkProviderMixin"),
     ATGWorldGenRocksMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGWorldGenRocksMixin"),
     //endregion ATG->common
     //region AntiqueAtlas->commond
@@ -90,13 +79,8 @@ public enum Mixin implements IMixin {
     AIDCEntitiesManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT), "antiidconflict.EntitiesManagerMixin"),
     AIDCPotionsManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT), "antiidconflict.PotionsManagerMixin"),
     //endregion AntiIDConflict->common
-    //region Atum->common
-//    AtumChunkProviderMixin(Side.COMMON, require(TargetedMod.ATUM), "atum.AtumChunkProviderMixin"),
-    //endregion Atum->common
     //region BoP->common
     BOPBiomeManagerMixin(Side.COMMON, require(TargetedMod.BOP), "bop.BOPBiomeManagerMixin"),
-//    ChunkProviderBOPEndMixin(Side.COMMON, require(TargetedMod.BOP), "bop.ChunkProviderBOPEndMixin"),
-//    ChunkProviderBOPHellMixin(Side.COMMON, require(TargetedMod.BOP), "bop.ChunkProviderBOPHellMixin"),
     //endregion BoP->common
     //region BiomeTweaker->common
     BiomeEventHandlerMixin(Side.COMMON, require(TargetedMod.BIOMETWEAKER), "biometweaker.BiomeEventHandlerMixin"),
@@ -113,10 +97,6 @@ public enum Mixin implements IMixin {
     CoFHLibCofhBlockHelperMixin(Side.COMMON, require(TargetedMod.COFHLIB), "cofhlib.BlockHelperMixin"),
     //endregion CoFHLib->common
     //region DarkWorld->common
-//    ChunkProviderDarkWorldAlphaMixin(Side.COMMON, require(TargetedMod.DARKWORLD),
-//                                     "darkworld.ChunkProviderDarkWorldAlphaMixin"),
-//    ChunkProviderDarkWorldBetaMixin(Side.COMMON, require(TargetedMod.DARKWORLD),
-//                                    "darkworld.ChunkProviderDarkWorldBetaMixin"),
     DarkWorldModBiomesMixin(Side.COMMON, require(TargetedMod.DARKWORLD), "darkworld.ModBiomesMixin"),
     //endregion DarkWorld->common
     //region DragonAPI->common
@@ -129,22 +109,17 @@ public enum Mixin implements IMixin {
     DragonAPIIDTypeMixin(Side.COMMON, require(TargetedMod.DRAGONAPI), "dragonapi.IDTypeMixin"),
     //endregion DragonAPI->common
     //region Erebus->common
-//    ChunkProviderErebusMixin(Side.COMMON, require(TargetedMod.EREBUS), "erebus.ChunkProviderErebusMixin"),
     ErebusModBiomesMixin(Side.COMMON, require(TargetedMod.EREBUS), "erebus.ModBiomesMixin"),
     //endregion Erebus->common
     //region ExtraUtilities->common
     ChunkProviderEndOfTimeMixin(Side.COMMON, require(TargetedMod.EXTRAUTILITIES), "extrautilities.ChunkProviderEndOfTimeMixin"),
-//    ChunkProviderUnderdarkMixin(Side.COMMON, require(TargetedMod.EXTRAUTILITIES), "extrautilities.ChunkProviderUnderdarkMixin"),
     //endregion ExtraUtilities->common
     //region Futurepack->common
-//    FuturepackChunkProviderSpaceMixin(Side.COMMON, require(TargetedMod.FUTUREPACK), "futurepack.ChunkProviderSpaceMixin"),
     FuturepackBiomeGenSpaceMixin(Side.COMMON, require(TargetedMod.FUTUREPACK), "futurepack.BiomeGenSpaceMixin"),
     //endregion Futurepack->common
     //region GalactiCraftCore->common
     GalactiCraftChunkProviderOrbitMixin(Side.COMMON, require(TargetedMod.GALACTICRAFTCORE),
                                         "galacticraft.ChunkProviderOrbitMixin"),
-//    GalactiCraftChunkProviderSpaceMixin(Side.COMMON, require(TargetedMod.GALACTICRAFTCORE),
-//                                        "galacticraft.ChunkProviderSpaceMixin"),
     GalactiCraftConfigManagerCoreMixin(Side.COMMON, require(TargetedMod.GALACTICRAFTCORE),
                                            "galacticraft.ConfigManagerCoreMixin"),
     //endregion GalactiCraftCore->common
@@ -162,8 +137,6 @@ public enum Mixin implements IMixin {
     //region Netherlicious->common
     NetherliciousBiomeConfigurationMixin(Side.COMMON, require(TargetedMod.NETHERLICIOUS),
                                          "netherlicious.BiomeConfigurationMixin"),
-//    NetherliciousNetherChunkProviderMixin(Side.COMMON, require(TargetedMod.NETHERLICIOUS),
-//                                         "netherlicious.NetherChunkProviderMixin"),
     //endregion Netherlicious->common
     //region RTG->common
     RTGChunkProviderRTGMixin(Side.COMMON, require(TargetedMod.RTG), "rtg.ChunkProviderRTGMixin"),
@@ -174,14 +147,10 @@ public enum Mixin implements IMixin {
     ThaumcraftUtilsMixin(Side.COMMON, require(TargetedMod.THAUMCRAFT), "thaumcraft.UtilsMixin"),
     //endregion Thaumcraft->common
     //region Tropicraft->common
-//    ChunkProviderTropicraftMixin(Side.COMMON, require(TargetedMod.TROPICRAFT),
-//                                 "tropicraft.ChunkProviderTropicraftMixin"),
     GenLayerTropiVoronoiZoomMixin(Side.COMMON, require(TargetedMod.TROPICRAFT),
                                   "tropicraft.GenLayerTropiVoronoiZoomMixin"),
     //endregion Tropicraft->common
     //region TwilightForest->common
-//    ChunkProviderTwilightForestMixin(Side.COMMON, require(TargetedMod.TWILIGHTFOREST),
-//                                     "twilightforest.ChunkProviderTwilightForestMixin"),
     TFBiomeBaseMixin(Side.COMMON, require(TargetedMod.TWILIGHTFOREST), "twilightforest.TFBiomeBaseMixin"),
     //endregion TwilightForest->common
     //region UBC->common
