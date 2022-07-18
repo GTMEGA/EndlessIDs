@@ -15,12 +15,14 @@ import java.util.Set;
 import static cpw.mods.fml.relauncher.IFMLLoadingPlugin.DependsOn;
 import static cpw.mods.fml.relauncher.IFMLLoadingPlugin.MCVersion;
 import static cpw.mods.fml.relauncher.IFMLLoadingPlugin.Name;
+import static cpw.mods.fml.relauncher.IFMLLoadingPlugin.SortingIndex;
 import static cpw.mods.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
 
 @MCVersion("1.7.10")
 @Name(Tags.MODID)
 @TransformerExclusions({"com.falsepattern.endlessids.asm"})
 @DependsOn("falsepatternlib")
+@SortingIndex(1001)
 public class IEPlugin implements IFMLLoadingPlugin {
     static {
         try {

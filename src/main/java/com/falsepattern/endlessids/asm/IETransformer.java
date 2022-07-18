@@ -1,15 +1,19 @@
 package com.falsepattern.endlessids.asm;
 
 import com.falsepattern.endlessids.Tags;
+import com.falsepattern.endlessids.asm.transformer.ChunkProviderSuperPatcher;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.util.CheckClassAdapter;
 
 import net.minecraft.launchwrapper.IClassTransformer;
+
+import java.util.Arrays;
 
 public class IETransformer implements IClassTransformer {
     public static final Logger logger;
@@ -27,14 +31,18 @@ public class IETransformer implements IClassTransformer {
         if (bytes == null) {
             return bytes;
         }
-        final ClassEdit edit = ClassEdit.get(transformedName);
+        ClassEdit edit = ClassEdit.get(transformedName);
+        final ClassNode cn = new ClassNode(Opcodes.ASM5);
+        final ClassReader reader = new ClassReader(bytes);
+        reader.accept(cn, edit == null ? ClassReader.EXPAND_FRAMES : 0);
         if (edit == null) {
-            return bytes;
+            if (cn.interfaces.contains("net/minecraft/world/chunk/IChunkProvider")) {
+                edit = ClassEdit.ChunkProviderSuperPatcher;
+            } else {
+                return bytes;
+            }
         }
         IETransformer.logger.debug("Patching {} with {}...", transformedName, edit.getName());
-        final ClassNode cn = new ClassNode(327680);
-        final ClassReader reader = new ClassReader(bytes);
-        reader.accept(cn, 0);
         try {
             edit.getTransformer().transform(cn, IETransformer.isObfuscated);
         } catch (AsmTransformException t) {
@@ -46,7 +54,7 @@ public class IETransformer implements IClassTransformer {
                                        t2.getMessage());
             throw new RuntimeException(t2);
         }
-        final ClassWriter writer = new ClassWriter(0);
+        final ClassWriter writer = new ClassWriter(edit == ClassEdit.ChunkProviderSuperPatcher ? ClassWriter.COMPUTE_FRAMES : 0);
         try {
             final ClassVisitor check = new CheckClassAdapter(writer);
             cn.accept(check);
@@ -55,7 +63,7 @@ public class IETransformer implements IClassTransformer {
                                        t3.getMessage());
             throw new RuntimeException(t3);
         }
-        IETransformer.logger.debug("Patched {} successfully.", edit.getName());
+        IETransformer.logger.debug("Patched {} successfully.", transformedName);
         return writer.toByteArray();
     }
 }
