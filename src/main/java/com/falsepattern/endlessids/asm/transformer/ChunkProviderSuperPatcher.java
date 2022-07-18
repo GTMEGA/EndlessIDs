@@ -25,10 +25,57 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
- * This class is the bread and butter of the patching logic from now on. It covers about 90% of cases where manual patching
- * was required, and so with a heavy heart, I (finally) implemented a universal patch.
+ * <p>This class is the bread and butter of the patching logic from now on. It covers about 90% of cases where manual patching
+ * was required, and so with a heavy heart, I (finally) implemented a universal patch.</p>
  *
- * See the end of the file for the 2 possibilities that this transformer handles.
+ * <pre>
+ *     Java form:
+ *         ...
+ *         byte[] abyte = chunk.getBiomeArray(); //replace byte[] with short[] and getBiomeArray with getBiomeShortArray
+ *
+ *         for (int k = 0; k < abyte.length; ++k) {
+ *             //Possibility A:
+ *             abyte[k] = (byte)abiomegenbase[k].biomeID; //from local variable //replace byte cast with short cast
+ *
+ *             //Possibility B:
+ *             abyte[k] = (byte)this.biomesToGenerate[k].biomeID; //from arbitrary field //replace byte cast with short cast
+ *         }
+ *         ...
+ *     In ASM form:
+ *
+ *        L1
+ *         ALOAD chunk
+ *         INVOKEVIRTUAL net/minecraft/world/chunk/Chunk.getBiomeArray ()[B //Replace with INVOKEVIRTUAL net/minecraft/world/chunk/Chunk.getBiomeShortArray ()[S
+ *         ASTORE abyte
+ *        L2
+ *         ICONST_0
+ *         ISTORE k
+ *        L3
+ *        FRAME <snip>
+ *         ILOAD k
+ *         ALOAD abyte
+ *         ARRAYLENGTH
+ *         IF_ICMPGE L6
+ *        L4
+ *         ALOAD abyte
+ *         ILOAD k
+ *
+ *         //Possibility A:
+ *         ALOAD abiomegenbase
+ *         //Possibility B:
+ *         ALOAD <something else, usually 0, so only check for 0>
+ *         GETFIELD classname.fieldname : [Lnet/minecraft/world/biome/BiomeGenBase;
+ *
+ *         ILOAD k
+ *         AALOAD
+ *         GETFIELD net/minecraft/world/biome/BiomeGenBase.biomeID : I
+ *         I2B                                                            //Replace with I2S
+ *         BASTORE                                                        //Replace with SASTORE
+ *        L5
+ *         IINC k 1
+ *         GOTO L3
+ *        L6
+ * </pre>
  */
 public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
     private static final String BIOME_GEN_BASE_CLASS = "net/minecraft/world/biome/BiomeGenBase";
@@ -275,51 +322,3 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
         final List<Object> locals = new ArrayList<>();
     }
 }
-/*
-    Java form:
-        ...
-        byte[] abyte = chunk.getBiomeArray(); //replace byte[] with short[] and getBiomeArray with getBiomeShortArray
-
-        for (int k = 0; k < abyte.length; ++k) {
-            //Possibility A:
-            abyte[k] = (byte)abiomegenbase[k].biomeID; //from local variable //replace byte cast with short cast
-
-            //Possibility B:
-            abyte[k] = (byte)this.biomesToGenerate[k].biomeID; //from arbitrary field //replace byte cast with short cast
-        }
-        ...
-    In ASM form:
-
-       L1
-        ALOAD chunk
-        INVOKEVIRTUAL net/minecraft/world/chunk/Chunk.getBiomeArray ()[B //Replace with INVOKEVIRTUAL net/minecraft/world/chunk/Chunk.getBiomeShortArray ()[S
-        ASTORE abyte
-       L2
-        ICONST_0
-        ISTORE k
-       L3
-       FRAME <snip>
-        ILOAD k
-        ALOAD abyte
-        ARRAYLENGTH
-        IF_ICMPGE L6
-       L4
-        ALOAD abyte
-        ILOAD k
-
-        //Possibility A:
-        ALOAD abiomegenbase
-        //Possibility B:
-        ALOAD <something else, usually 0, so only check for 0>
-        GETFIELD classname.fieldname : [Lnet/minecraft/world/biome/BiomeGenBase;
-
-        ILOAD k
-        AALOAD
-        GETFIELD net/minecraft/world/biome/BiomeGenBase.biomeID : I
-        I2B                                                            //Replace with I2S
-        BASTORE                                                        //Replace with SASTORE
-       L5
-        IINC k 1
-        GOTO L3
-       L6
- */
