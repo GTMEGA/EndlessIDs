@@ -3,15 +3,17 @@ package com.falsepattern.endlessids.asm;
 import com.falsepattern.endlessids.asm.transformer.ChunkProviderSuperPatcher;
 import com.falsepattern.endlessids.asm.transformer.DragonAPIModList;
 import com.falsepattern.endlessids.asm.transformer.FmlRegistry;
+import com.falsepattern.endlessids.asm.transformer.SpaceCoreModInfoGenerator;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public enum ClassEdit {
-    FmlRegistry(new FmlRegistry(), new String[]{"cpw.mods.fml.common.registry.GameData",
-                                                "cpw.mods.fml.common.registry.FMLControlledNamespacedRegistry"}),
-    ChunkProviderSuperPatcher(new ChunkProviderSuperPatcher(), new String[0]),
-    DragonAPIModList(new DragonAPIModList(), new String[]{"Reika.DragonAPI.ModList"});
+    FmlRegistry(new FmlRegistry(),
+                "cpw.mods.fml.common.registry.GameData",
+                "cpw.mods.fml.common.registry.FMLControlledNamespacedRegistry"),
+    ChunkProviderSuperPatcher(new ChunkProviderSuperPatcher()),
+    DragonAPIModList(new DragonAPIModList(), "Reika.DragonAPI.ModList");
 
     private static final Map<String, ClassEdit> editMap;
 
@@ -27,7 +29,7 @@ public enum ClassEdit {
     private final IClassNodeTransformer transformer;
     private final String[] classNames;
 
-    ClassEdit(final IClassNodeTransformer transformer, final String[] classNames) {
+    ClassEdit(final IClassNodeTransformer transformer, final String... classNames) {
         this.transformer = transformer;
         this.classNames = classNames;
     }
