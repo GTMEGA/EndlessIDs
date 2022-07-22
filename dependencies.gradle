@@ -72,8 +72,8 @@ dependencies {
     compile(deobfCurse("futurepack-237333:2263966"))
 
     //Galacticraft Core 3.0.12.504
-    //Mirrored at: https://maven.falsepattern.com/mirror/mirror/GalacticraftCore-1.7-3.0.12.504.jar
-    compileOnly(deobf("https://micdoodle8.com/new-builds/GC-1.7/504/GalacticraftCore-1.7-3.0.12.504.jar"))
+    //micdoodle8.com went down
+    compileOnly(deobf("https://maven.falsepattern.com/mirror/mirror/micdoodle/GalacticraftCore-1.7-3.0.12.504.jar"))
 
     //Highlands 2.2.3
     compile(deobfCurse("highlands-221226:2227924"))
