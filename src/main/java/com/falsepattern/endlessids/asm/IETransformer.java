@@ -36,7 +36,7 @@ public class IETransformer implements IClassTransformer {
         final ClassReader reader = new ClassReader(bytes);
         reader.accept(cn, edit == null ? ClassReader.EXPAND_FRAMES : 0);
         if (edit == null) {
-            if (cn.interfaces.contains("net/minecraft/world/chunk/IChunkProvider")) {
+            if (cn.interfaces.contains("apu") || cn.interfaces.contains("net/minecraft/world/chunk/IChunkProvider")) {
                 edit = ClassEdit.ChunkProviderSuperPatcher;
             } else {
                 return bytes;

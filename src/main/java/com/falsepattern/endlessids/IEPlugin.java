@@ -22,7 +22,6 @@ import static cpw.mods.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
 @Name(Tags.MODID)
 @TransformerExclusions({"com.falsepattern.endlessids.asm"})
 @DependsOn("falsepatternlib")
-@SortingIndex(1001)
 public class IEPlugin implements IFMLLoadingPlugin {
     static {
         try {

@@ -78,11 +78,11 @@ import java.util.function.Function;
  * </pre>
  */
 public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
-    private static final String BIOME_GEN_BASE_CLASS = "net/minecraft/world/biome/BiomeGenBase";
-    private static final String CHUNK_CLASS = "net/minecraft/world/chunk/Chunk";
-    private static final String BIOME_ID_FIELD = IETransformer.isObfuscated ? "field_76756_M" : "biomeID";
-    private static final String GET_BIOME_ARRAY_METHOD = IETransformer.isObfuscated ? "func_76605_m" : "getBiomeArray";
-    private static final Map<Integer, BiFunction<AbstractInsnNode, Memory, Integer>> STATES = new HashMap<>();
+    public static final String CLASS_BiomeGenBase = IETransformer.isObfuscated ? "ahu" : "net/minecraft/world/biome/BiomeGenBase";
+    public static final String CLASS_Chunk = IETransformer.isObfuscated ? "apx" : "net/minecraft/world/chunk/Chunk";
+    public static final String FIELD_biomeID = IETransformer.isObfuscated ? "ay" : "biomeID";
+    public static final String METHOD_getBiomeArray = IETransformer.isObfuscated ? "m" : "getBiomeArray";
+    public static final Map<Integer, BiFunction<AbstractInsnNode, Memory, Integer>> STATES = new HashMap<>();
     static {
         STATES.put(0, casting(VarInsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.ALOAD) {
@@ -94,8 +94,8 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
         }));
         STATES.put(1, casting(MethodInsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.INVOKEVIRTUAL &&
-                insn.owner.equals(CHUNK_CLASS) &&
-                insn.name.equals(GET_BIOME_ARRAY_METHOD) &&
+                insn.owner.equals(CLASS_Chunk) &&
+                insn.name.equals(METHOD_getBiomeArray) &&
                 insn.desc.equals("()[B")) {
                 memory.getBiomeArrayInsn = memory.currentInsn;
                 return 2;
@@ -122,7 +122,7 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
         }));
         STATES.put(6, casting(LabelNode.class, 7));
         STATES.put(7, casting(FrameNode.class, (insn, memory) ->
-                memory.locals.get(memory.chunkIndex).equals(CHUNK_CLASS) &&
+                memory.locals.get(memory.chunkIndex).equals(CLASS_Chunk) &&
                 memory.locals.get(memory.biomeArrayIndex).equals("[B") &&
                 memory.locals.get(memory.iteratorIndex).equals(1)
                 ? 8 : 0));
@@ -188,7 +188,7 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
                 if (insn.var == 0) {
                     memory.altFlags = 1;
                     return 16;
-                } else if (memory.locals.get(insn.var).equals("[L" + BIOME_GEN_BASE_CLASS + ";")) {
+                } else if (memory.locals.get(insn.var).equals("[L" + CLASS_BiomeGenBase + ";")) {
                     memory.altFlags = 0;
                     memory.biomesForGenerationIndex = insn.var;
                     return 17;
@@ -198,7 +198,7 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
         }));
         STATES.put(16, casting(FieldInsnNode.class, (insn, memory) -> {
             if ((insn.getOpcode() == Opcodes.GETFIELD || insn.getOpcode() == Opcodes.GETSTATIC) &&
-                insn.desc.equals("[L" + BIOME_GEN_BASE_CLASS + ";")) {
+                insn.desc.equals("[L" + CLASS_BiomeGenBase + ";")) {
                 memory.biomesForGenerationFieldOwner = insn.owner;
                 memory.biomesForGenerationFieldName = insn.name;
                 return 17;
@@ -214,8 +214,8 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
                 ? 19 : 0));
         STATES.put(19, casting(FieldInsnNode.class, (insn) ->
                 insn.getOpcode() == Opcodes.GETFIELD &&
-                insn.owner.equals(BIOME_GEN_BASE_CLASS) &&
-                insn.name.equals(BIOME_ID_FIELD) &
+                insn.owner.equals(CLASS_BiomeGenBase) &&
+                insn.name.equals(FIELD_biomeID) &
                 insn.desc.equals("I")
                 ? 20 : 0));
         STATES.put(20, casting(InsnNode.class, (insn, memory) -> {
