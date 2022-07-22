@@ -2,6 +2,7 @@ package com.falsepattern.endlessids.asm;
 
 import com.falsepattern.endlessids.Tags;
 import com.falsepattern.endlessids.asm.transformer.ChunkProviderSuperPatcher;
+import com.falsepattern.endlessids.asm.transformer.DevFixer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.ClassReader;
@@ -29,7 +30,7 @@ public class IETransformer implements IClassTransformer {
 
     public byte[] transform(final String name, final String transformedName, final byte[] bytes) {
         if (bytes == null) {
-            return bytes;
+            return null;
         }
         ClassEdit edit = ClassEdit.get(transformedName);
         final ClassNode cn = new ClassNode(Opcodes.ASM5);
@@ -39,8 +40,11 @@ public class IETransformer implements IClassTransformer {
             if (cn.interfaces.contains("apu") || cn.interfaces.contains("net/minecraft/world/chunk/IChunkProvider")) {
                 edit = ClassEdit.ChunkProviderSuperPatcher;
             } else {
-                return bytes;
+                return isObfuscated ? bytes : DevFixer.fixDev(bytes);
             }
+        }
+        if (!isObfuscated) {
+            DevFixer.transform(cn);
         }
         IETransformer.logger.debug("Patching {} with {}...", transformedName, edit.getName());
         try {

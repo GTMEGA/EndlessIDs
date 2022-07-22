@@ -28,14 +28,14 @@ public enum TargetedMod implements ITargetedMod {
     GALACTICRAFTCORE("GalactiCraftCore", false, startsWith("galacticraftcore")),
     ICG("Immersive Cavegen", true, startsWith("immersivecavegen")),
     LOTR("LOTR Mod", false, startsWith("lotrmod")),
-    MFQM("More Fun Quicksand Mod", false, startsWith("morefunquicksandmod-")),
+    MFQM("More Fun Quicksand Mod", true, startsWith("morefunquicksandmod-")),
     NATURESCOMPASS("Nature's Compass", true, startsWith("naturescompass")),
     NETHERLICIOUS("Netherlicious", true, startsWith("netherlicious-")),
     RTG("Realistic Terrain Generation", true, startsWith("rtg-")),
     THAUMCRAFT("Thaumcraft", true, startsWith("thaumcraft")),
     TROPICRAFT("Tropicraft", true, startsWith("tropicraft-")),
     TWILIGHTFOREST("Twilight Forest", true, startsWith("twilightforest")),
-    UBC("Underground Biomes Constructs", false, startsWith("undergroundbiomesconstructs-")),
+    UBC("Underground Biomes Constructs", true, startsWith("undergroundbiomesconstructs-")),
     WORLDEDIT("WorldEdit", false, startsWith("worldedit-")),
     ;
 
