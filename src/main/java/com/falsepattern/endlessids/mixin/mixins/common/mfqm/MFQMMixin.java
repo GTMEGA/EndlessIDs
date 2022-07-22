@@ -3,9 +3,15 @@ package com.falsepattern.endlessids.mixin.mixins.common.mfqm;
 import MoreFunQuicksandMod.main.MFQM;
 import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.constants.VanillaConstants;
+import lombok.val;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.Redirect;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 
 @Mixin(value = MFQM.class,
        remap = false)
@@ -24,5 +30,15 @@ public abstract class MFQMMixin {
                     require = 2)
     private int extendIDs(int constant) {
         return ExtendedConstants.maxBlockID;
+    }
+
+    @Redirect(method = "postInit",
+              at = @At(value = "INVOKE",
+                       target = "Lnet/minecraft/block/Block;getBlockById(I)Lnet/minecraft/block/Block;",
+                       remap = true),
+              require = 1)
+    private Block getBlockByIDNullable(int id) {
+        val block = Block.getBlockById(id);
+        return block == Blocks.air ? null : block;
     }
 }
