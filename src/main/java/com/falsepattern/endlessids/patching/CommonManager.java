@@ -10,7 +10,6 @@ import cpw.mods.fml.common.Loader;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
 public class CommonManager {
     protected final List<Patch> patches = new ArrayList<>();
@@ -40,11 +39,11 @@ public class CommonManager {
         runPatches("postInit", Patch::postInit);
     }
 
-    private void runPatches(String stageName, Function<Patch, Boolean> stageRunner) {
+    private void runPatches(String stageName, Stage stage) throws Exception {
         for (val patch: patches) {
             if (Loader.isModLoaded(patch.modid)) {
                 try {
-                    if (stageRunner.apply(patch)) {
+                    if (stage.run(patch)) {
                         EndlessIDs.LOG.info("Applied patch " + patch.getClass().getSimpleName() + " stage " + stageName + " for " + patch.modid);
                     }
                 } catch (Exception e) {
@@ -53,5 +52,9 @@ public class CommonManager {
                 }
             }
         }
+    }
+
+    public interface Stage {
+        boolean run(Patch patch) throws Exception;
     }
 }
