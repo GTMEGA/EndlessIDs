@@ -26,6 +26,7 @@ public enum TargetedMod implements ITargetedMod {
     FUTUREPACK("Futurepack", true, startsWith("[1.7.10]futurepack").or(startsWith("futurepack-"))),
     GALACTICRAFTCORE("GalactiCraftCore", false, startsWith("galacticraftcore")),
     ICG("Immersive Cavegen", true, startsWith("immersivecavegen")),
+    LOTR("LOTR Mod", false, startsWith("lotrmod")),
     MFQM("More Fun Quicksand Mod", false, startsWith("morefunquicksandmod-")),
     NATURESCOMPASS("Nature's Compass", true, startsWith("naturescompass")),
     NETHERLICIOUS("Netherlicious", true, startsWith("netherlicious-")),

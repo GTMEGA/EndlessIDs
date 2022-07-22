@@ -121,11 +121,19 @@ public enum Mixin implements IMixin {
     GalactiCraftChunkProviderOrbitMixin(Side.COMMON, require(TargetedMod.GALACTICRAFTCORE),
                                         "galacticraft.ChunkProviderOrbitMixin"),
     GalactiCraftConfigManagerCoreMixin(Side.COMMON, require(TargetedMod.GALACTICRAFTCORE),
-                                           "galacticraft.ConfigManagerCoreMixin"),
+                                       "galacticraft.ConfigManagerCoreMixin"),
     //endregion GalactiCraftCore->common
     //region ICG->common
     ICGMysteriumPatchesFixesCaveMixin(Side.COMMON, require(TargetedMod.ICG), "icg.MysteriumPatchesFixesCaveMixin"),
     //endregion ICG->common
+    //region LOTR->common
+    LOTRBiomeVariantStorageMixin(Side.COMMON, require(TargetedMod.LOTR), "lotr.LOTRBiomeVariantStorageMixin"),
+    LOTRChunkProviderMixin(Side.COMMON, require(TargetedMod.LOTR), "lotr.LOTRChunkProviderMixin"),
+    LOTRChunkProviderUtumnoMixin(Side.COMMON, require(TargetedMod.LOTR), "lotr.LOTRChunkProviderUtumnoMixin"),
+    LOTRPacketBiomeVariantsWatchHandlerMixin(Side.COMMON, require(TargetedMod.LOTR),
+                                             "lotr.LOTRPacketBiomeVariantsWatchHandlerMixin"),
+    LOTRWorldChunkManagerMixin(Side.COMMON, require(TargetedMod.LOTR), "lotr.LOTRWorldChunkManagerMixin"),
+    //endregion LOTR->common
     //region MFQM->common
     MFQMMixin(Side.COMMON, require(TargetedMod.MFQM), "mfqm.MFQMMixin"),
     MFQMDataWatcherMixin(Side.COMMON, require(TargetedMod.MFQM).and(condition(() -> IEConfig.extendDataWatcher)),

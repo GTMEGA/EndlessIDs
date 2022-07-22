@@ -75,6 +75,9 @@ dependencies {
     //Immersive Cavegen 1.2g
     compile(deobfCurse("immersivecavegen-521557:3649411"))
 
+    //LOTR Mod 36.14
+    compileOnly(deobfCurse("lotrmod-423748:3646430"))
+
     //More Fun Quicksands Mod 1.0.8.8-fixed
     compileOnly(deobfCurse("more-fun-quicksand-mod-321960:2717318"))
 
