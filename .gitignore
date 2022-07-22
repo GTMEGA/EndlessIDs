@@ -145,3 +145,9 @@ gradle-app.setting
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij+all,gradle,forgegradle,java
 !lib/*.jar
+
+!run
+run/*
+!run/config
+run/config/*
+!run/config/archaicfix.cfg
