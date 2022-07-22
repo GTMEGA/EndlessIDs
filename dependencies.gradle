@@ -59,6 +59,9 @@ dependencies {
     //Dynamic Surroundings 1.0.6.4
     compile(deobfCurse("dynamicsurrounding-238891:2642381"))
 
+    //Enhanced Biomes 2.5
+    compile(deobf("file://${project.rootDir}/lib/Enhanced Biomes 2.5 for MC 1.7.10.jar"))
+
     //Erebus 0.4.7
     compile(deobfCurse("theerebus-220698:2305035"))
 

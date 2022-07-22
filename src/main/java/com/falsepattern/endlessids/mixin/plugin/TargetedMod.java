@@ -21,6 +21,7 @@ public enum TargetedMod implements ITargetedMod {
     COFHLIB("CoFH Lib", true, startsWith("cofhlib-")),
     DARKWORLD("Dark World", true, startsWith("darkworld-")),
     DRAGONAPI("DragonAPI", false, startsWith("dragonapi")),
+    EB("Enhanced Biomes", true, startsWith("Enhanced Biomes").or(startsWith("enhancedbiomes"))),
     EREBUS("The Erebus", true, startsWith("theerebus")),
     EXTRAUTILITIES("Extra Utilities", true, startsWith("extrautilities-")),
     FUTUREPACK("Futurepack", true, startsWith("[1.7.10]futurepack").or(startsWith("futurepack-"))),

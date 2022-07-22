@@ -108,6 +108,13 @@ public enum Mixin implements IMixin {
     DragonAPIBlockPropertiesMixin(Side.COMMON, require(TargetedMod.DRAGONAPI), "dragonapi.BlockPropertiesMixin"),
     DragonAPIIDTypeMixin(Side.COMMON, require(TargetedMod.DRAGONAPI), "dragonapi.IDTypeMixin"),
     //endregion DragonAPI->common
+    //region EnhancedBiomes
+    EBBiomeIDsMixin(Side.COMMON, require(TargetedMod.EB), "eb.BiomeIDsMixin"),
+    EBGenLayerArchipelagoEdgeMixin(Side.COMMON, require(TargetedMod.EB), "eb.GenLayerArchipelagoEdgeMixin"),
+    EBGenLayerEBHillsMixin(Side.COMMON, require(TargetedMod.EB), "eb.GenLayerEBHillsMixin"),
+    EBGenLayerEBRiverMixMixin(Side.COMMON, require(TargetedMod.EB), "eb.GenLayerEBRiverMixMixin"),
+    EBGenLayerEBVoronoiZoomMixin(Side.COMMON, require(TargetedMod.EB), "eb.GenLayerEBVoronoiZoomMixin"),
+    //endregion EnhancedBiomes
     //region Erebus->common
     ErebusModBiomesMixin(Side.COMMON, require(TargetedMod.EREBUS), "erebus.ModBiomesMixin"),
     //endregion Erebus->common
