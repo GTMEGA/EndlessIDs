@@ -9,11 +9,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum ClassEdit {
+    ChunkProviderSuperPatcher(new ChunkProviderSuperPatcher()),
+    DragonAPIModList(new DragonAPIModList(), "Reika.DragonAPI.ModList"),
     FmlRegistry(new FmlRegistry(),
                 "cpw.mods.fml.common.registry.GameData",
                 "cpw.mods.fml.common.registry.FMLControlledNamespacedRegistry"),
-    ChunkProviderSuperPatcher(new ChunkProviderSuperPatcher()),
-    DragonAPIModList(new DragonAPIModList(), "Reika.DragonAPI.ModList");
+    SpaceCoreModInfoGenerator(new SpaceCoreModInfoGenerator(), "com.spacechase0.minecraft.spacecore.mcp.ModInfoGenerator");
 
     private static final Map<String, ClassEdit> editMap;
 

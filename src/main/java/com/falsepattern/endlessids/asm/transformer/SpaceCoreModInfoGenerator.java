@@ -9,6 +9,9 @@ import org.objectweb.asm.tree.InsnNode;
 public class SpaceCoreModInfoGenerator implements IClassNodeTransformer {
     @Override
     public void transform(final ClassNode cn, final boolean obfuscated) {
+        if (obfuscated) {
+            return;
+        }
         for (val method: cn.methods) {
             if (method.name.equals("generate")) {
                 val iterator = method.instructions.iterator();
