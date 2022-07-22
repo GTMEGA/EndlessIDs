@@ -10,6 +10,7 @@ import cpw.mods.fml.common.Loader;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public class CommonManager {
     protected final List<Patch> patches = new ArrayList<>();
@@ -21,67 +22,36 @@ public class CommonManager {
 
     @SneakyThrows
     public final void construct() {
-        for (val patch : patches) {
-            if (Loader.isModLoaded(patch.modid)) {
-                try {
-                    if (patch.construct()) {
-                        EndlessIDs.LOG.info("Applied preInit patches for " + patch.modid);
-                    }
-                } catch (Exception e) {
-                    EndlessIDs.LOG.fatal("Failed to apply preInit patches for " + patch.modid, e);
-                    throw e;
-                }
-            }
-        }
+        runPatches("construct", Patch::construct);
     }
 
     @SneakyThrows
     public final void preInit() {
-        for (val patch : patches) {
-            if (Loader.isModLoaded(patch.modid)) {
-                try {
-                    if (patch.preInit()) {
-                        EndlessIDs.LOG.info("Applied preInit patches for " + patch.modid);
-                    }
-                } catch (Exception e) {
-                    EndlessIDs.LOG.fatal("Failed to apply preInit patches for " + patch.modid, e);
-                    throw e;
-                }
-            }
-        }
+        runPatches("preInit", Patch::preInit);
     }
 
     @SneakyThrows
     public final void init() {
-        for (val patch : patches) {
-            if (Loader.isModLoaded(patch.modid)) {
-                try {
-                    if (patch.init()) {
-                        EndlessIDs.LOG.info("Applied init patches for " + patch.modid);
-                    }
-                } catch (Exception e) {
-                    EndlessIDs.LOG.fatal("Failed to apply init patches for " + patch.modid, e);
-                    throw e;
-                }
-            }
-        }
-
+        runPatches("init", Patch::init);
     }
 
     @SneakyThrows
     public final void postInit() {
-        for (val patch : patches) {
+        runPatches("postInit", Patch::postInit);
+    }
+
+    private void runPatches(String stageName, Function<Patch, Boolean> stageRunner) {
+        for (val patch: patches) {
             if (Loader.isModLoaded(patch.modid)) {
                 try {
-                    if (patch.postInit()) {
-                        EndlessIDs.LOG.info("Applied postInit patches for " + patch.modid);
+                    if (stageRunner.apply(patch)) {
+                        EndlessIDs.LOG.info("Applied patch " + patch.getClass().getSimpleName() + " stage " + stageName + " for " + patch.modid);
                     }
                 } catch (Exception e) {
-                    EndlessIDs.LOG.fatal("Failed to apply postInit patches for " + patch.modid, e);
+                    EndlessIDs.LOG.fatal("Failed to apply patch " + patch.getClass().getSimpleName() + " stage " + stageName + " for " + patch.modid);
                     throw e;
                 }
             }
         }
-
     }
 }
