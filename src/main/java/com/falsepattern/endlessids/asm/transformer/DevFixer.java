@@ -55,6 +55,22 @@ public final class DevFixer {
         if (IETransformer.isObfuscated) {
             return;
         }
+        remapBlocks(cn);
+        if (cn.name.equals("net/minecraft/world/biome/BiomeGenBase")) {
+            biomeTweakerCompat(cn);
+        }
+    }
+
+    private static void biomeTweakerCompat(final ClassNode cn) {
+        for (val field: cn.fields) {
+            if (field.name.startsWith("spawnable")) {
+                field.access &= ~Opcodes.ACC_PROTECTED;
+                field.access |= Opcodes.ACC_PUBLIC;
+            }
+        }
+    }
+
+    private static void remapBlocks(final ClassNode cn) {
         for (val method: cn.methods) {
             val instructions = method.instructions;
             int insnCount = instructions.size();
