@@ -10,6 +10,12 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 @Mixin(value = ConfigManagerCore.class,
        remap = false)
 public abstract class ConfigManagerCoreMixin {
+    @ModifyConstant(method = {"<clinit>", "syncConfig"},
+                    constant = @Constant(intValue = 102),
+                    require = 3)
+    private static int shiftBiomeIDsUp(int id) {
+        return id + 18000;
+    }
     @ModifyConstant(method = "syncConfig",
                     constant = @Constant(stringValue = "Biome ID for Moon (Mars will be this + 1, Asteroids + 2 etc). Allowed range 40-250."),
                     require = 1)
