@@ -60,7 +60,7 @@ dependencies {
     compile(deobfCurse("dynamicsurrounding-238891:2642381"))
 
     //Enhanced Biomes 2.5
-    compile(deobf("file://${project.rootDir}/lib/Enhanced Biomes 2.5 for MC 1.7.10.jar"))
+    compile(deobf("https://maven.falsepattern.com/releases/mirror/mirror/enhancedbiomes-2.5.jar"))
 
     //Erebus 0.4.7
     compile(deobfCurse("theerebus-220698:2305035"))
