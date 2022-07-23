@@ -4,6 +4,7 @@ import com.falsepattern.endlessids.asm.IClassNodeTransformer;
 import com.falsepattern.endlessids.asm.IETransformer;
 import lombok.Data;
 import lombok.val;
+import lombok.var;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
@@ -18,11 +19,10 @@ import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * <p>This class is the bread and butter of the patching logic from now on. It covers about 90% of cases where manual patching
@@ -39,38 +39,76 @@ import java.util.function.Function;
  *
  *             //Possibility B:
  *             abyte[k] = (byte)this.biomesToGenerate[k].biomeID; //from arbitrary field //replace byte cast with short cast
+ *
+ *             //Possibility C:
+ *             abyte[k] = (byte)SomeClass.biome.biomeID; //usually galacticraft and derivatives do this for space stations.
+ *
+ *             //Possibility D:
+ *             abyte[k] = (byte)object.biome.biomeID; //could also happen.
  *         }
  *         ...
  *     In ASM form:
  *
  *        L1
+ *         //state 0
  *         ALOAD chunk
+ *         //state 1
  *         INVOKEVIRTUAL net/minecraft/world/chunk/Chunk.getBiomeArray ()[B //Replace with INVOKEVIRTUAL net/minecraft/world/chunk/Chunk.getBiomeShortArray ()[S
+ *         //state 2
  *         ASTORE abyte
+ *         //state 3
  *        L2
+ *         //state 4
  *         ICONST_0
+ *         //state 5
  *         ISTORE k
+ *         //state 6
  *        L3
+ *         //state 7
  *        FRAME <snip>
+ *         //state 8
  *         ILOAD k
+ *         //state 9
  *         ALOAD abyte
+ *         //state 10
  *         ARRAYLENGTH
+ *         //state 11
  *         IF_ICMPGE L6
+ *         //state 12
  *        L4
+ *         //state 13
  *         ALOAD abyte
+ *         //state 14
  *         ILOAD k
  *
- *         //Possibility A:
+ *         //Branch A | B | C | D
+ *         //A:
  *         ALOAD abiomegenbase
- *         //Possibility B:
- *         ALOAD <something else, usually 0, so only check for 0>
+ *
+ *         //B:
+ *         ALOAD <something else>
  *         GETFIELD classname.fieldname : [Lnet/minecraft/world/biome/BiomeGenBase;
  *
+ *         //C:
+ *         GETSTATIC classname.fieldname : Lnet/minecraft/world/biome/BiomeGenBase;
+ *
+ *         //D:
+ *         ALOAD <something else>
+ *         GETFIELD classname.fieldname : Lnet/minecraft/world/biome/BiomeGenBase;
+ *
+ *         //Join A | B
  *         ILOAD k
  *         AALOAD
+ *
+ *         //Join A,B | C | D
+ *
+ *         //state 15
  *         GETFIELD net/minecraft/world/biome/BiomeGenBase.biomeID : I
+ *         //state 16
  *         I2B                                                            //Replace with I2S
+ *         //state 17
  *         BASTORE                                                        //Replace with SASTORE
+ *         //state final, matched.
  *        L5
  *         IINC k 1
  *         GOTO L3
@@ -82,173 +120,202 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
     public static final String CLASS_Chunk = IETransformer.isObfuscated ? "apx" : "net/minecraft/world/chunk/Chunk";
     public static final String FIELD_biomeID = IETransformer.isObfuscated ? "ay" : "biomeID";
     public static final String METHOD_getBiomeArray = IETransformer.isObfuscated ? "m" : "getBiomeArray";
-    public static final Map<Integer, BiFunction<AbstractInsnNode, Memory, Integer>> STATES = new HashMap<>();
+
+    public interface State<T extends AbstractInsnNode> extends BiFunction<T, Memory, State<AbstractInsnNode>> {}
+
+    private static State<AbstractInsnNode> STATE0 = null;
+    private static State<AbstractInsnNode> STATE1 = null;
+    private static State<AbstractInsnNode> STATE2 = null;
+    private static State<AbstractInsnNode> STATE3 = null;
+    private static State<AbstractInsnNode> STATE4 = null;
+    private static State<AbstractInsnNode> STATE5 = null;
+    private static State<AbstractInsnNode> STATE6 = null;
+    private static State<AbstractInsnNode> STATE7 = null;
+    private static State<AbstractInsnNode> STATE8 = null;
+    private static State<AbstractInsnNode> STATE9 = null;
+    private static State<AbstractInsnNode> STATE10 = null;
+    private static State<AbstractInsnNode> STATE11 = null;
+    private static State<AbstractInsnNode> STATE12 = null;
+    private static State<AbstractInsnNode> STATE13 = null;
+    private static State<AbstractInsnNode> STATE14 = null;
+    private static State<AbstractInsnNode> STATE14_ABD1 = null;
+    private static State<AbstractInsnNode> STATE14_ABD1_BD1 = null;
+    private static State<AbstractInsnNode> STATE14_ABD1_BA2 = null;
+    private static State<AbstractInsnNode> STATE14_ABD1_BA3 = null;
+    private static State<AbstractInsnNode> STATE14_C1 = null;
+    private static State<AbstractInsnNode> STATE15 = null;
+    private static State<AbstractInsnNode> STATE16 = null;
+    private static State<AbstractInsnNode> STATE17 = null;
+    private static State<AbstractInsnNode> STATE_FINAL = null;
     static {
-        STATES.put(0, casting(VarInsnNode.class, (insn, memory) -> {
+        STATE_FINAL = (insn, memory) -> STATE_FINAL;
+
+        STATE0 = casting(VarInsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.ALOAD) {
                 memory.chunkIndex = insn.var;
                 memory.startingInsn = memory.currentInsn;
-                return 1;
+                return STATE1;
             }
-            return 0;
-        }));
-        STATES.put(1, casting(MethodInsnNode.class, (insn, memory) -> {
+            return STATE0;
+        });
+
+        STATE1 = casting(MethodInsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.INVOKEVIRTUAL &&
                 insn.owner.equals(CLASS_Chunk) &&
                 insn.name.equals(METHOD_getBiomeArray) &&
                 insn.desc.equals("()[B")) {
                 memory.getBiomeArrayInsn = memory.currentInsn;
-                return 2;
+                return STATE2;
             }
-            return 0;
-        }));
-        STATES.put(2, casting(VarInsnNode.class, (insn, memory) -> {
+            return STATE0;
+        });
+
+        STATE2 = casting(VarInsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.ASTORE) {
                 memory.biomeArrayIndex = insn.var;
-                return 3;
+                return STATE3;
             }
-            return 0;
-        }));
-        STATES.put(3, casting(LabelNode.class, 4));
-        STATES.put(4, casting(InsnNode.class, (insn) ->
+            return STATE0;
+        });
+
+        STATE3 = typeCheck(LabelNode.class, () -> STATE4);
+
+        STATE4 = casting(InsnNode.class, (insn) ->
                 insn.getOpcode() == Opcodes.ICONST_0
-                ? 5 : 0));
-        STATES.put(5, casting(VarInsnNode.class, (insn, memory) -> {
+                ? STATE5 : STATE0);
+
+        STATE5 = casting(VarInsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.ISTORE) {
                 memory.iteratorIndex = insn.var;
-                return 6;
+                return STATE6;
             }
-            return 0;
-        }));
-        STATES.put(6, casting(LabelNode.class, 7));
-        STATES.put(7, casting(FrameNode.class, (insn, memory) ->
+            return STATE0;
+        });
+
+        STATE6 = typeCheck(LabelNode.class, () -> STATE7);
+
+        STATE7 = casting(FrameNode.class, (insn, memory) ->
                 memory.locals.get(memory.chunkIndex).equals(CLASS_Chunk) &&
                 memory.locals.get(memory.biomeArrayIndex).equals("[B") &&
                 memory.locals.get(memory.iteratorIndex).equals(1)
-                ? 8 : 0));
-        STATES.put(8, casting(VarInsnNode.class, (insn, memory) -> {
-            if (insn.getOpcode() == Opcodes.ILOAD &&
-                insn.var == memory.iteratorIndex) {
-                memory.tmp = 1;
-                return 9;
-            } else if (insn.getOpcode() == Opcodes.ALOAD &&
-                       insn.var == memory.biomeArrayIndex) {
-                memory.tmp = 2;
-                return 10;
-            }
-            memory.tmp = 0;
-            return 0;
-        }));
-        STATES.put(9, casting(VarInsnNode.class, (insn, memory) -> {
-            if (memory.tmp == 1) {
-                if (insn.getOpcode() == Opcodes.ALOAD &&
-                    insn.var == memory.biomeArrayIndex) {
-                    return 10;
-                }
-            } else if (memory.tmp == 2) {
-                if (insn.getOpcode() == Opcodes.ILOAD &&
-                    insn.var == memory.iteratorIndex) {
-                    return 11;
-                }
-            }
-            memory.tmp = 0;
-            return 0;
-        }));
-        STATES.put(10, casting(InsnNode.class, (insn, memory) -> {
-            if (insn.getOpcode() == Opcodes.ARRAYLENGTH) {
-                if (memory.tmp == 1) {
-                    return 11;
-                } else if (memory.tmp == 2) {
-                    return 9;
-                }
-            }
-            memory.tmp = 0;
-            return 0;
-        }));
-        STATES.put(11, casting(JumpInsnNode.class, (insn, memory) -> {
-            if ((memory.tmp == 1 && insn.getOpcode() == Opcodes.IF_ICMPGE) ||
-                (memory.tmp == 2 && insn.getOpcode() == Opcodes.IF_ICMPLE)) {
-                memory.tmp = 0;
-                return 12;
-            }
-            memory.tmp = 0;
-            return 0;
-        }));
-        STATES.put(12, casting(LabelNode.class, 13));
-        STATES.put(13, casting(VarInsnNode.class, (insn, memory) ->
+                ? STATE8 : STATE0);
+
+        STATE8 = casting(VarInsnNode.class, (insn, memory) ->
+                insn.getOpcode() == Opcodes.ILOAD &&
+                insn.var == memory.iteratorIndex
+                ? STATE9 : STATE0);
+
+        STATE9 = casting(VarInsnNode.class, (insn, memory) ->
+                insn.getOpcode() == Opcodes.ALOAD
+                && insn.var == memory.biomeArrayIndex
+                ? STATE10 : STATE0);
+
+        STATE10 = casting(InsnNode.class, (insn) ->
+                insn.getOpcode() == Opcodes.ARRAYLENGTH
+                ? STATE11 : STATE0);
+
+        STATE11 = casting(JumpInsnNode.class, (insn) ->
+                insn.getOpcode() == Opcodes.IF_ICMPGE
+                ? STATE12 : STATE0);
+
+        STATE12 = typeCheck(LabelNode.class, () -> STATE13);
+
+        STATE13 = casting(VarInsnNode.class, (insn, memory) ->
                 insn.getOpcode() == Opcodes.ALOAD &&
                 insn.var == memory.biomeArrayIndex
-                ? 14 : 0));
-        STATES.put(14, casting(VarInsnNode.class, (insn, memory) ->
-                insn.getOpcode() == Opcodes.ILOAD &&
-                insn.var == memory.iteratorIndex
-                ? 15 : 0));
-        STATES.put(15, casting(VarInsnNode.class, (insn, memory) -> {
-            if (insn.getOpcode() == Opcodes.ALOAD) {
-                if (insn.var == 0) {
-                    memory.altFlags = 1;
-                    return 16;
-                } else if (memory.locals.get(insn.var).equals("[L" + CLASS_BiomeGenBase + ";")) {
-                    memory.altFlags = 0;
-                    memory.biomesForGenerationIndex = insn.var;
-                    return 17;
+                ? STATE14 : STATE0);
+
+        STATE14 = casting(VarInsnNode.class, (insn, memory) -> {
+            if (insn.getOpcode() == Opcodes.ILOAD &&
+                insn.var == memory.iteratorIndex) {
+                if (insn.getNext() instanceof FieldInsnNode) {
+                    return STATE14_C1;
+                } else {
+                    return STATE14_ABD1;
                 }
             }
-            return 0;
-        }));
-        STATES.put(16, casting(FieldInsnNode.class, (insn, memory) -> {
-            if ((insn.getOpcode() == Opcodes.GETFIELD || insn.getOpcode() == Opcodes.GETSTATIC) &&
-                insn.desc.equals("[L" + CLASS_BiomeGenBase + ";")) {
-                memory.biomesForGenerationFieldOwner = insn.owner;
-                memory.biomesForGenerationFieldName = insn.name;
-                return 17;
+            return STATE0;
+        });
+
+        STATE14_ABD1 = casting(VarInsnNode.class, (insn, memory) -> {
+            if (insn.getOpcode() == Opcodes.ALOAD) {
+                if (memory.locals.get(insn.var).equals("[L" + CLASS_BiomeGenBase + ";")) {
+                    return STATE14_ABD1_BA2;
+                } else {
+                    return STATE14_ABD1_BD1;
+                }
             }
-            return 0;
-        }));
-        STATES.put(17, casting(VarInsnNode.class, (insn, memory) ->
+            return STATE0;
+        });
+
+        STATE14_ABD1_BD1 = casting(FieldInsnNode.class, (insn, memory) -> {
+            if (insn.getOpcode() == Opcodes.GETFIELD) {
+                if (insn.desc.equals("[L" + CLASS_BiomeGenBase + ";")) {
+                    return STATE14_ABD1_BA2;
+                } else if (insn.desc.equals("L" + CLASS_BiomeGenBase + ";")) {
+                    return STATE15;
+                }
+            }
+            return STATE0;
+        });
+
+        STATE14_ABD1_BA2 = casting(VarInsnNode.class, (insn, memory) ->
                 insn.getOpcode() == Opcodes.ILOAD &&
                 insn.var == memory.iteratorIndex
-                ? 18 : 0));
-        STATES.put(18, casting(InsnNode.class, (insn) ->
+                ? STATE14_ABD1_BA3 : STATE0);
+
+        STATE14_ABD1_BA3 = casting(InsnNode.class, (insn) ->
                 insn.getOpcode() == Opcodes.AALOAD
-                ? 19 : 0));
-        STATES.put(19, casting(FieldInsnNode.class, (insn) ->
+                ? STATE15 : STATE0);
+
+        STATE14_C1 = casting(FieldInsnNode.class, (insn, memory) -> {
+            if (insn.getOpcode() == Opcodes.GETSTATIC &&
+                insn.desc.equals("L" + CLASS_BiomeGenBase + ";")) {
+                return STATE15;
+            }
+            return STATE0;
+        });
+
+        STATE15 = casting(FieldInsnNode.class, (insn) ->
                 insn.getOpcode() == Opcodes.GETFIELD &&
                 insn.owner.equals(CLASS_BiomeGenBase) &&
                 insn.name.equals(FIELD_biomeID) &
                 insn.desc.equals("I")
-                ? 20 : 0));
-        STATES.put(20, casting(InsnNode.class, (insn, memory) -> {
+                ? STATE16 : STATE0);
+
+        STATE16 = casting(InsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.I2B) {
                 memory.castInsn = memory.currentInsn;
-                return 21;
+                return STATE17;
             }
-            return 0;
-        }));
-        STATES.put(21, casting(InsnNode.class, (insn, memory) -> {
+            return STATE0;
+        });
+
+        STATE17 = casting(InsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.BASTORE) {
                 memory.arrayStoreInsn = memory.currentInsn;
-                return -2;
+                return STATE_FINAL;
             }
-            return 0;
-        }));
-    }
-    private static <T> BiFunction<AbstractInsnNode, Memory, Integer> casting(Class<T> clazz, int okState) {
-        return casting(clazz, (insn, memory) -> okState);
+            return STATE0;
+        });
     }
 
-    private static <T> BiFunction<AbstractInsnNode, Memory, Integer> casting(Class<T> clazz, Function<T, Integer> okCode) {
-        return casting(clazz, (insn, memory) -> okCode.apply(insn));
+    private static <T extends AbstractInsnNode> State<AbstractInsnNode> typeCheck(Class<T> clazz, Supplier<State<AbstractInsnNode>> okState) {
+        return casting(clazz, (insn, memory) -> okState.get());
     }
 
-    private static <T> BiFunction<AbstractInsnNode, Memory, Integer> casting(Class<T> clazz, BiFunction<T, Memory, Integer> okCode) {
+    private static <T extends AbstractInsnNode> State<AbstractInsnNode> casting(Class<T> clazz, Function<T, State<AbstractInsnNode>> okState) {
+        return casting(clazz, (insn, memory) -> okState.apply(insn));
+    }
+
+    private static <T extends AbstractInsnNode> State<AbstractInsnNode> casting(Class<T> clazz, State<T> okState) {
         return (insn, memory) -> {
             if (insn instanceof LineNumberNode) {
-                return -1;
+                return null;
             } else if (clazz.isInstance(insn)) {
-                return okCode.apply(clazz.cast(insn), memory);
+                return okState.apply(clazz.cast(insn), memory);
             } else {
-                return 0;
+                return STATE0;
             }
         };
     }
@@ -264,7 +331,7 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
                             node.desc = "[S";
                         }
                     }
-                    insnList.set(insnList.get(memory.getBiomeArrayInsn), new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "net/minecraft/world/chunk/Chunk", "getBiomeShortArray", "()[S", false));
+                    insnList.set(insnList.get(memory.getBiomeArrayInsn), new MethodInsnNode(Opcodes.INVOKEVIRTUAL, CLASS_Chunk, "getBiomeShortArray", "()[S", false));
                     insnList.set(insnList.get(memory.castInsn), new InsnNode(Opcodes.I2S));
                     insnList.set(insnList.get(memory.arrayStoreInsn), new InsnNode(Opcodes.SASTORE));
                 }
@@ -274,7 +341,7 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
 
     private static Memory findTheTarget(MethodNode method) {
         val insnList = method.instructions;
-        int state = 0;
+        var currentState = STATE0;
         val memory = new Memory();
         for (int insnIndex = 0; insnIndex < insnList.size(); insnIndex++) {
             memory.currentInsn = insnIndex;
@@ -286,14 +353,12 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
                     memory.locals.addAll(frame.local);
                 }
             }
-            val newState = STATES.get(state).apply(insn, memory);
-            switch (newState) {
-                case -1:
-                    continue;
-                case -2:
+            val newState = currentState.apply(insn, memory);
+            if (newState != null) {
+                if (newState == STATE_FINAL) {
                     return memory;
-                default:
-                    state = newState;
+                }
+                currentState = newState;
             }
         }
         return null;
@@ -301,6 +366,7 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
 
     @Data
     private static class Memory {
+
         int currentInsn;
 
         int startingInsn;
@@ -311,13 +377,6 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
         int chunkIndex;
         int biomeArrayIndex;
         int iteratorIndex;
-
-        long altFlags;
-        String biomesForGenerationFieldOwner;
-        String biomesForGenerationFieldName;
-        int biomesForGenerationIndex;
-
-        int tmp;
 
         final List<Object> locals = new ArrayList<>();
     }
