@@ -23,14 +23,13 @@ public enum TargetedMod implements ITargetedMod {
     BIOMETWEAKER("Biome Tweaker", true, startsWith("biometweaker-")),
     BIOMEWAND("Biome Wand", true, startsWith("1.7.10-biome-wand-").or(startsWith("biome-wand"))),
     COFHLIB("CoFH Lib", true, startsWith("cofhlib-")),
-    DARKWORLD("Dark World", true, startsWith("darkworld-").and(loadConfig(DarkWorldIDConfig.class))),
+    DARKWORLD("Dark World", true, startsWith("darkworld-")),
     DRAGONAPI("DragonAPI", false, startsWith("dragonapi")),
     EB("Enhanced Biomes", true, startsWith("Enhanced Biomes").or(startsWith("enhancedbiomes"))),
     EREBUS("The Erebus", true, startsWith("theerebus")),
     EXTRAPLANETS("Extra Planets", false, startsWith("extraplanets-")),
     EXTRAUTILITIES("Extra Utilities", true, startsWith("extrautilities-")),
-    FUTUREPACK("Futurepack", true, startsWith("[1.7.10]futurepack").or(startsWith("futurepack-")).and(loadConfig(
-            FuturepackIDConfig.class))),
+    FUTUREPACK("Futurepack", true, startsWith("[1.7.10]futurepack").or(startsWith("futurepack-"))),
     GALACTICRAFTCORE("GalactiCraftCore", false, startsWith("galacticraftcore")),
     HIGHLANDS("Highlands", true, startsWith("highlands")),
     ICG("Immersive Cavegen", true, startsWith("immersivecavegen")),
@@ -45,17 +44,6 @@ public enum TargetedMod implements ITargetedMod {
     UBC("Underground Biomes Constructs", true, startsWith("undergroundbiomesconstructs-")),
     WORLDEDIT("WorldEdit", false, startsWith("worldedit-")),
     ;
-
-    private static Predicate<String> loadConfig(Class<?> configClass) {
-        return (str) -> {
-            try {
-                ConfigurationManager.registerConfig(configClass);
-            } catch (ConfigException e) {
-                e.printStackTrace();
-            }
-            return true;
-        };
-    }
 
     @Getter
     private final String modName;
