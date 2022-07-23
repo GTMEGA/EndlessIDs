@@ -26,7 +26,7 @@ public abstract class ChunkProviderEndOfTimeMixin {
               require = 1)
     private byte[] setBiomesTweaked1(Chunk instance) {
         chunk = instance;
-        return EndlessIDs.BIOME_ARRAY_PLACEHOLDER;
+        return EndlessIDs.ZERO_LENGTH_BIOME_ARRAY_PLACEHOLDER;
     }
 
     @Redirect(method = "provideChunk",

@@ -17,7 +17,8 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
      acceptedMinecraftVersions = "[1.7.10]",
      dependencies = "required-after:falsepatternlib@[0.9.2,);after:antiidconflict")
 public class EndlessIDs {
-    public static final byte[] BIOME_ARRAY_PLACEHOLDER = new byte[0];
+    public static final byte[] ZERO_LENGTH_BIOME_ARRAY_PLACEHOLDER = new byte[0];
+    public static final byte[] FAKE_BIOME_ARRAY_PLACEHOLDER = new byte[256];
     public static final Logger LOG = LogManager.getLogger(Tags.MODNAME);
 
     @SidedProxy(clientSide = Tags.GROUPNAME + ".patching.ClientManager",

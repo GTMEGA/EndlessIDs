@@ -7,7 +7,7 @@ import net.minecraft.world.chunk.Chunk;
 
 import java.util.function.IntFunction;
 
-import static com.falsepattern.endlessids.EndlessIDs.BIOME_ARRAY_PLACEHOLDER;
+import static com.falsepattern.endlessids.EndlessIDs.ZERO_LENGTH_BIOME_ARRAY_PLACEHOLDER;
 
 public class BiomePatchHelper {
     public static byte[] getBiomeArrayTweaked(Chunk chunk, IntFunction<BiomeGenBase> biomesForGeneration) {
@@ -16,7 +16,7 @@ public class BiomePatchHelper {
         for (int i = 0; i < chunkBiomes.length; ++i) {
             chunkBiomes[i] = (short) biomesForGeneration.apply(i).biomeID;
         }
-        return BIOME_ARRAY_PLACEHOLDER;
+        return ZERO_LENGTH_BIOME_ARRAY_PLACEHOLDER;
     }
 
     public static byte[] getBiomeArrayTweaked(Chunk chunk, BiomeGenBase[] biomesForGeneration) {
@@ -25,6 +25,6 @@ public class BiomePatchHelper {
         for (int i = 0; i < chunkBiomes.length; ++i) {
             chunkBiomes[i] = (short) biomesForGeneration[i].biomeID;
         }
-        return BIOME_ARRAY_PLACEHOLDER;
+        return ZERO_LENGTH_BIOME_ARRAY_PLACEHOLDER;
     }
 }
