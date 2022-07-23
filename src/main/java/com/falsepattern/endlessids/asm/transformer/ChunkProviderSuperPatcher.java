@@ -141,15 +141,32 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
         }
     }
 
-    public static boolean isChunkProvider(final ClassNode cn) {
-        return  //100% certain that this is a chunk provider
-                anyMatch(cn.interfaces, CLASS_IChunkProvider) ||
-                //100% certain that this is a chunk provider
-                anyMatch(cn.superName, CLASS_ChunkProviderGenerate) ||
-                //It *might* be a chunk provider given the name, so try patching it.
-                cn.name.contains("ChunkProvider") ||
-                //Look for the specific buggy invocation as a last effort
-                containsBrokenCall(cn);
+    public static boolean shouldPatch(final ClassNode cn) {
+        for (MethodNode method : cn.methods) {
+            if (scanForBrokenCall(method)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean scanForBrokenCall(MethodNode method) {
+        val instructions = method.instructions;
+        val insnCount = instructions.size();
+        for (int i = 0; i < insnCount; i++) {
+            val insn = instructions.get(i);
+            if (insn.getOpcode() != Opcodes.INVOKEVIRTUAL) {
+                continue;
+            }
+            val invoke = (MethodInsnNode) insn;
+
+            if (anyMatch(invoke.owner, CLASS_Chunk) &&
+                anyMatch(invoke.name, METHOD_getBiomeArray) &&
+                invoke.desc.equals("()[B")) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static boolean anyMatch(List<String> str, String[] candidates) {
@@ -176,27 +193,6 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
         for (val candidate: candidates) {
             if (str.equals(prefix + candidate + suffix)) {
                 return true;
-            }
-        }
-        return false;
-    }
-
-    private static boolean containsBrokenCall(final ClassNode cn) {
-        for (val method: cn.methods) {
-            val instructions = method.instructions;
-            val insnCount = instructions.size();
-            for (int i = 0; i < insnCount; i++) {
-                val insn = instructions.get(i);
-                if (insn.getOpcode() != Opcodes.INVOKEVIRTUAL) {
-                    continue;
-                }
-                val invoke = (MethodInsnNode) insn;
-
-                if (anyMatch(invoke.owner, CLASS_Chunk) &&
-                    anyMatch(invoke.name, METHOD_getBiomeArray) &&
-                    invoke.desc.equals("()[B")) {
-                    return true;
-                }
             }
         }
         return false;
@@ -276,7 +272,7 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
         STATE6 = typeCheck(LabelNode.class, () -> STATE7);
 
         STATE7 = casting(FrameNode.class, (insn, memory) ->
-                memory.locals.get(memory.chunkIndex).equals(CLASS_Chunk) &&
+                anyMatch((String)memory.locals.get(memory.chunkIndex), CLASS_Chunk) &&
                 memory.locals.get(memory.biomeArrayIndex).equals("[B") &&
                 memory.locals.get(memory.iteratorIndex).equals(1)
                 ? STATE8 : STATE0);
@@ -320,7 +316,7 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
 
         STATE14_ABD1 = casting(VarInsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.ALOAD) {
-                if (memory.locals.get(insn.var).equals("[L" + CLASS_BiomeGenBase + ";")) {
+                if (anyMatch((String)memory.locals.get(insn.var), CLASS_BiomeGenBase, "[L",  ";")) {
                     return STATE14_ABD1_BA2;
                 } else {
                     return STATE14_ABD1_BD1;
@@ -403,9 +399,12 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
 
     @Override
     public void transform(final ClassNode cn, final boolean obfuscated) {
+        boolean patched = false;
         for (val method: cn.methods) {
                 val memory = findTheTarget(method);
                 if (memory != null) {
+                    patched = true;
+                    IETransformer.logger.debug("[ChunkProvider patcher]: Match found in method " + method.name);
                     val insnList = method.instructions;
                     for (val node: method.localVariables) {
                         if (node.desc.equals("[B") && node.index == memory.biomeArrayIndex) {
@@ -417,6 +416,10 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
                     insnList.set(insnList.get(memory.castInsn), new InsnNode(Opcodes.I2S));
                     insnList.set(insnList.get(memory.arrayStoreInsn), new InsnNode(Opcodes.SASTORE));
                 }
+        }
+        if (!patched) {
+            IETransformer.logger.debug("[ChunkProvider patcher]: No matches found in class! This is not explicitly " +
+                                       "an error, because the patch might be applied by a mixin instead!");
         }
     }
 
