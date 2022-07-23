@@ -36,12 +36,15 @@ public class IETransformer implements IClassTransformer {
         final ClassNode cn = new ClassNode(Opcodes.ASM5);
         final ClassReader reader = new ClassReader(bytes);
         reader.accept(cn, edit == null ? ClassReader.EXPAND_FRAMES : 0);
-        if (edit == null) {
-            if (cn.interfaces.contains("apu") || cn.interfaces.contains("net/minecraft/world/chunk/IChunkProvider")) {
+        if (ChunkProviderSuperPatcher.isChunkProvider(cn)) {
+            if (edit == null) {
                 edit = ClassEdit.ChunkProviderSuperPatcher;
             } else {
-                return isObfuscated ? bytes : DevFixer.fixDev(bytes);
+                ClassEdit.ChunkProviderSuperPatcher.getTransformer().transform(cn, isObfuscated);
             }
+        }
+        if (edit == null) {
+            return isObfuscated ? bytes : DevFixer.fixDev(bytes);
         }
         if (!isObfuscated) {
             DevFixer.transform(cn);

@@ -116,10 +116,91 @@ import java.util.function.Supplier;
  * </pre>
  */
 public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
-    public static final String CLASS_BiomeGenBase = IETransformer.isObfuscated ? "ahu" : "net/minecraft/world/biome/BiomeGenBase";
-    public static final String CLASS_Chunk = IETransformer.isObfuscated ? "apx" : "net/minecraft/world/chunk/Chunk";
-    public static final String FIELD_biomeID = IETransformer.isObfuscated ? "ay" : "biomeID";
-    public static final String METHOD_getBiomeArray = IETransformer.isObfuscated ? "m" : "getBiomeArray";
+    public static final String[] CLASS_BiomeGenBase;
+    public static final String[] CLASS_IChunkProvider;
+    public static final String[] CLASS_ChunkProviderGenerate;
+    public static final String[] CLASS_Chunk;
+    public static final String[] FIELD_biomeID;
+    public static final String[] METHOD_getBiomeArray;
+
+    static {
+        if (IETransformer.isObfuscated) {
+            CLASS_BiomeGenBase = new String[]{"ahu", "net/minecraft/world/biome/BiomeGenBase"};
+            CLASS_IChunkProvider = new String[]{"apu", "net/minecraft/world/chunk/IChunkProvider"};
+            CLASS_ChunkProviderGenerate = new String[]{"aqz", "net/minecraft/world/gen/ChunkProviderGenerate"};
+            CLASS_Chunk = new String[]{"apx", "net/minecraft/world/chunk/Chunk"};
+            FIELD_biomeID = new String[]{"ay", "field_76756_M"};
+            METHOD_getBiomeArray = new String[]{"m", "func_76605_m"};
+        } else {
+            CLASS_BiomeGenBase = new String[]{"net/minecraft/world/biome/BiomeGenBase"};
+            CLASS_IChunkProvider = new String[]{"net/minecraft/world/chunk/IChunkProvider"};
+            CLASS_ChunkProviderGenerate = new String[]{"net/minecraft/world/gen/ChunkProviderGenerate"};
+            CLASS_Chunk = new String[]{"net/minecraft/world/chunk/Chunk"};
+            FIELD_biomeID = new String[]{"biomeID"};
+            METHOD_getBiomeArray = new String[]{"getBiomeArray"};
+        }
+    }
+
+    public static boolean isChunkProvider(final ClassNode cn) {
+        return  //100% certain that this is a chunk provider
+                anyMatch(cn.interfaces, CLASS_IChunkProvider) ||
+                //100% certain that this is a chunk provider
+                anyMatch(cn.superName, CLASS_ChunkProviderGenerate) ||
+                //It *might* be a chunk provider given the name, so try patching it.
+                cn.name.contains("ChunkProvider") ||
+                //Look for the specific buggy invocation as a last effort
+                containsBrokenCall(cn);
+    }
+
+    private static boolean anyMatch(List<String> str, String[] candidates) {
+        for (val s: str) {
+            for (val candidate: candidates) {
+                if (s.equals(candidate)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean anyMatch(String str, String[] candidates) {
+        for (val candidate: candidates) {
+            if (str.equals(candidate)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean anyMatch(String str, String[] candidates, String prefix, String suffix) {
+        for (val candidate: candidates) {
+            if (str.equals(prefix + candidate + suffix)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean containsBrokenCall(final ClassNode cn) {
+        for (val method: cn.methods) {
+            val instructions = method.instructions;
+            val insnCount = instructions.size();
+            for (int i = 0; i < insnCount; i++) {
+                val insn = instructions.get(i);
+                if (insn.getOpcode() != Opcodes.INVOKEVIRTUAL) {
+                    continue;
+                }
+                val invoke = (MethodInsnNode) insn;
+
+                if (anyMatch(invoke.owner, CLASS_Chunk) &&
+                    anyMatch(invoke.name, METHOD_getBiomeArray) &&
+                    invoke.desc.equals("()[B")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     public interface State<T extends AbstractInsnNode> extends BiFunction<T, Memory, State<AbstractInsnNode>> {}
 
@@ -161,8 +242,8 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
 
         STATE1 = casting(MethodInsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.INVOKEVIRTUAL &&
-                insn.owner.equals(CLASS_Chunk) &&
-                insn.name.equals(METHOD_getBiomeArray) &&
+                anyMatch(insn.owner, CLASS_Chunk) &&
+                anyMatch(insn.name, METHOD_getBiomeArray) &&
                 insn.desc.equals("()[B")) {
                 memory.getBiomeArrayInsn = memory.currentInsn;
                 return STATE2;
@@ -250,9 +331,9 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
 
         STATE14_ABD1_BD1 = casting(FieldInsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.GETFIELD) {
-                if (insn.desc.equals("[L" + CLASS_BiomeGenBase + ";")) {
+                if (anyMatch(insn.desc, CLASS_BiomeGenBase, "[L", ";")) {
                     return STATE14_ABD1_BA2;
-                } else if (insn.desc.equals("L" + CLASS_BiomeGenBase + ";")) {
+                } else if (anyMatch(insn.desc, CLASS_BiomeGenBase, "L", ";")) {
                     return STATE15;
                 }
             }
@@ -270,7 +351,7 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
 
         STATE14_C1 = casting(FieldInsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.GETSTATIC &&
-                insn.desc.equals("L" + CLASS_BiomeGenBase + ";")) {
+                anyMatch(insn.desc, CLASS_BiomeGenBase, "L", ";")) {
                 return STATE15;
             }
             return STATE0;
@@ -278,8 +359,8 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
 
         STATE15 = casting(FieldInsnNode.class, (insn) ->
                 insn.getOpcode() == Opcodes.GETFIELD &&
-                insn.owner.equals(CLASS_BiomeGenBase) &&
-                insn.name.equals(FIELD_biomeID) &
+                anyMatch(insn.owner, CLASS_BiomeGenBase) &&
+                anyMatch(insn.name, FIELD_biomeID) &
                 insn.desc.equals("I")
                 ? STATE16 : STATE0);
 
@@ -331,7 +412,8 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
                             node.desc = "[S";
                         }
                     }
-                    insnList.set(insnList.get(memory.getBiomeArrayInsn), new MethodInsnNode(Opcodes.INVOKEVIRTUAL, CLASS_Chunk, "getBiomeShortArray", "()[S", false));
+                    val getBiomeArray = (MethodInsnNode) insnList.get(memory.getBiomeArrayInsn);
+                    insnList.set(getBiomeArray, new MethodInsnNode(Opcodes.INVOKEVIRTUAL, getBiomeArray.owner, "getBiomeShortArray", "()[S", false));
                     insnList.set(insnList.get(memory.castInsn), new InsnNode(Opcodes.I2S));
                     insnList.set(insnList.get(memory.arrayStoreInsn), new InsnNode(Opcodes.SASTORE));
                 }
