@@ -27,6 +27,7 @@ public enum TargetedMod implements ITargetedMod {
     DRAGONAPI("DragonAPI", false, startsWith("dragonapi")),
     EB("Enhanced Biomes", true, startsWith("Enhanced Biomes").or(startsWith("enhancedbiomes"))),
     EREBUS("The Erebus", true, startsWith("theerebus")),
+    EXTRAPLANETS("Extra Planets", false, startsWith("extraplanets-")),
     EXTRAUTILITIES("Extra Utilities", true, startsWith("extrautilities-")),
     FUTUREPACK("Futurepack", true, startsWith("[1.7.10]futurepack").or(startsWith("futurepack-")).and(loadConfig(
             FuturepackIDConfig.class))),

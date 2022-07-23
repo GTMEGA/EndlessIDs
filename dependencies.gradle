@@ -65,6 +65,9 @@ dependencies {
     //Erebus 0.4.7
     compile(deobfCurse("theerebus-220698:2305035"))
 
+    //Extra Planets 2.1.4
+    compileOnly(deobfCurse("extraplanets-241291:3214413"))
+
     //Extra Utilities 1.2.12
     compile(deobfCurse("extrautilities-225561:2264384"))
 

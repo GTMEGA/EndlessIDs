@@ -118,6 +118,9 @@ public enum Mixin implements IMixin {
     //region Erebus->common
     ErebusModBiomesMixin(Side.COMMON, require(TargetedMod.EREBUS), "erebus.ModBiomesMixin"),
     //endregion Erebus->common
+    //region ExtraPlanets->common
+    ExtraPlanetsConfigMixin(Side.COMMON, require(TargetedMod.EXTRAPLANETS), "extraplanets.ConfigMixin"),
+    //endregion ExtraPlanets->common
     //region ExtraUtilities->common
     ChunkProviderEndOfTimeMixin(Side.COMMON, require(TargetedMod.EXTRAUTILITIES), "extrautilities.ChunkProviderEndOfTimeMixin"),
     //endregion ExtraUtilities->common
