@@ -1,5 +1,6 @@
 package com.falsepattern.endlessids;
 
+import com.falsepattern.endlessids.config.GeneralConfig;
 import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
 import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;
@@ -117,7 +118,7 @@ public class Hooks {
             if (id > 0) {
                 final Block block = (Block) Block.blockRegistry.getObjectById(id);
                 if (block == null) {
-                    if (IEConfig.removeInvalidBlocks) {
+                    if (GeneralConfig.removeInvalidBlocks) {
                         blkIdsLSB[off] = 0;
                     }
                 } else if (block != Blocks.air) {
@@ -134,7 +135,7 @@ public class Hooks {
 
     public static int getIdFromBlockWithCheck(final Block block, final Block oldBlock) {
         final int id = Block.getIdFromBlock(block);
-        if (IEConfig.catchUnregisteredBlocks && id == -1) {
+        if (GeneralConfig.catchUnregisteredBlocks && id == -1) {
             throw new IllegalArgumentException("Block " + block +
                                                " is not registered. <-- Say about this to the author of this mod, or you can try to enable \"RemoveInvalidBlocks\" option in EID config.");
         }

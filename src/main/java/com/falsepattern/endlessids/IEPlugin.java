@@ -1,6 +1,7 @@
 package com.falsepattern.endlessids;
 
 import com.falsepattern.endlessids.asm.IETransformer;
+import com.falsepattern.endlessids.config.GeneralConfig;
 import com.falsepattern.lib.config.ConfigException;
 import com.falsepattern.lib.config.ConfigurationManager;
 import lombok.SneakyThrows;
@@ -15,7 +16,6 @@ import java.util.Set;
 import static cpw.mods.fml.relauncher.IFMLLoadingPlugin.DependsOn;
 import static cpw.mods.fml.relauncher.IFMLLoadingPlugin.MCVersion;
 import static cpw.mods.fml.relauncher.IFMLLoadingPlugin.Name;
-import static cpw.mods.fml.relauncher.IFMLLoadingPlugin.SortingIndex;
 import static cpw.mods.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
 
 @MCVersion("1.7.10")
@@ -25,7 +25,7 @@ import static cpw.mods.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
 public class IEPlugin implements IFMLLoadingPlugin {
     static {
         try {
-            ConfigurationManager.registerConfig(IEConfig.class);
+            ConfigurationManager.registerConfig(GeneralConfig.class);
         } catch (ConfigException e) {
             System.err.println("Failed to load EndlessIDs config. Using defaults.");
         }

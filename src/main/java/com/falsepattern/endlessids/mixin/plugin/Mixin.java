@@ -1,6 +1,6 @@
 package com.falsepattern.endlessids.mixin.plugin;
 
-import com.falsepattern.endlessids.IEConfig;
+import com.falsepattern.endlessids.config.GeneralConfig;
 import com.falsepattern.lib.mixin.IMixin;
 import com.falsepattern.lib.mixin.ITargetedMod;
 import lombok.Getter;
@@ -37,7 +37,7 @@ public enum Mixin implements IMixin {
     //endregion Minecraft->common->biome
     //region Minecraft->common->misc
     BlockFireMixin(Side.COMMON, always(), "vanilla.misc.BlockFireMixin"),
-    DataWatcherMixin(Side.COMMON, condition(() -> IEConfig.extendDataWatcher), "vanilla.misc.DataWatcherMixin"),
+    DataWatcherMixin(Side.COMMON, condition(() -> GeneralConfig.extendDataWatcher), "vanilla.misc.DataWatcherMixin"),
     ItemInWorldManagerMixin(Side.COMMON, always(), "vanilla.misc.ItemInWorldManagerMixin"),
     StatListMixin(Side.COMMON, always(), "vanilla.misc.StatListMixin"),
     WorldMixin(Side.COMMON, always(), "vanilla.misc.WorldMixin"),
@@ -144,7 +144,7 @@ public enum Mixin implements IMixin {
     //endregion LOTR->common
     //region MFQM->common
     MFQMMixin(Side.COMMON, require(TargetedMod.MFQM), "mfqm.MFQMMixin"),
-    MFQMDataWatcherMixin(Side.COMMON, require(TargetedMod.MFQM).and(condition(() -> IEConfig.extendDataWatcher)),
+    MFQMDataWatcherMixin(Side.COMMON, require(TargetedMod.MFQM).and(condition(() -> GeneralConfig.extendDataWatcher)),
                          "mfqm.MFQMDataWatcherMixin"),
     //endregion MFQM->common
     //region NaturesCompass->common

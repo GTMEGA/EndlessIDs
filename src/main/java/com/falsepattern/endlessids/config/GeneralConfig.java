@@ -1,9 +1,10 @@
-package com.falsepattern.endlessids;
+package com.falsepattern.endlessids.config;
 
+import com.falsepattern.endlessids.Tags;
 import com.falsepattern.lib.config.Config;
 
 @Config(modid = Tags.MODID)
-public class IEConfig {
+public class GeneralConfig {
     public static boolean catchUnregisteredBlocks = false;
 
     @Config.Comment("Remove invalid (corrupted) blocks from the game.")
