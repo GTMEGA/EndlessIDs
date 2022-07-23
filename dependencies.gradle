@@ -23,7 +23,7 @@ dependencies {
     compile(deobfCurse("abyssalcraft-53686:2311135"))
 
     //Alternate Terrain Generation 0.12.0
-    compile(curse("atg-228356:2231155"))
+    compile(deobfCurse("atg-228356:2231155"))
 
     //Antique Atlas 4.4.4
     compile(deobfCurse("antiqueatlas-227795:2454232"))
@@ -32,7 +32,7 @@ dependencies {
     compile(deobfCurse("antiidconflict-246288:2308279"))
 
     //ArchaicFix snapshot
-    compile("com.github.embeddedt:ArchaicFix:be8666cb2dbf2e0a8b799e88cef3c0d12e5d4911:dev")
+    compileOnly("com.github.embeddedt:ArchaicFix:be8666cb2dbf2e0a8b799e88cef3c0d12e5d4911:dev")
 
     //Atum 0.6.77
     compile(deobfCurse("atum-59621:2256356"))
@@ -48,7 +48,7 @@ dependencies {
     compile(deobf("https://spacechase0.com/wp-content/uploads/2014/10/1.7.10-Biome-Wand-1.1.9.jar"))
 
     //CoFH Lib 1.2.1-185
-    compile(curse("cofh-lib-220333:2388748"))
+    compile(deobfCurse("cofh-lib-220333:2388748"))
 
     //Dark World 0.2
     compile(deobfCurse("darkworld-225075:2225172"))
@@ -66,7 +66,7 @@ dependencies {
     compile(deobfCurse("theerebus-220698:2305035"))
 
     //Extra Utilities 1.2.12
-    compile(curse("extrautilities-225561:2264384"))
+    compile(deobfCurse("extrautilities-225561:2264384"))
 
     //Futurepack v18.7
     compile(deobfCurse("futurepack-237333:2263966"))
