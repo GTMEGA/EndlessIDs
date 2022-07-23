@@ -13,12 +13,18 @@ import org.objectweb.asm.tree.ClassNode;
 
 import net.minecraft.launchwrapper.IClassTransformer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class IETransformer implements IClassTransformer {
     public static final Logger logger;
     public static boolean isObfuscated;
 
+    private static final List<String> blacklist = new ArrayList<>();
+
     static {
         logger = LogManager.getLogger(Tags.MODNAME + " ASM");
+        blacklist.add("net.minecraft.world.chunk.storage.AnvilChunkLoader");
     }
 
     public IETransformer() {
@@ -28,6 +34,9 @@ public class IETransformer implements IClassTransformer {
     public byte[] transform(final String name, final String transformedName, final byte[] bytes) {
         if (bytes == null) {
             return null;
+        }
+        if (blacklist.contains(transformedName)) {
+            return bytes;
         }
         ClassEdit[] edits = new ClassEdit[2];
         edits[0] = ClassEdit.get(transformedName);
