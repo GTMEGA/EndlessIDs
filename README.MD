@@ -27,11 +27,15 @@ This mod also contains patches for the following mods:
 - Dark World
 - DragonAPI
 - Dynamic Surroundings
+- Enhanced Biomes
 - Erebus
+- Extra Planets
 - Extra Utilities
 - Futurepack
 - GalactiCraft
+- Highlands
 - Immersive Cavegen
+- LOTR
 - More Fun Quicksand Mod
 - Nature's Compass
 - Netherlicious
