@@ -125,8 +125,6 @@ public enum Mixin implements IMixin {
     FuturepackBiomeGenSpaceMixin(Side.COMMON, require(TargetedMod.FUTUREPACK), "futurepack.BiomeGenSpaceMixin"),
     //endregion Futurepack->common
     //region GalactiCraftCore->common
-    GalactiCraftChunkProviderOrbitMixin(Side.COMMON, require(TargetedMod.GALACTICRAFTCORE),
-                                        "galacticraft.ChunkProviderOrbitMixin"),
     GalactiCraftConfigManagerCoreMixin(Side.COMMON, require(TargetedMod.GALACTICRAFTCORE),
                                        "galacticraft.ConfigManagerCoreMixin"),
     //endregion GalactiCraftCore->common
