@@ -75,6 +75,9 @@ dependencies {
     //micdoodle8.com went down
     compileOnly(deobf("https://maven.falsepattern.com/mirror/mirror/micdoodle/GalacticraftCore-1.7-3.0.12.504.jar"))
 
+    //Galacticraft Planets 3.0.12.504
+    compileOnly(deobf("https://maven.falsepattern.com/mirror/mirror/micdoodle/Galacticraft-Planets-1.7-3.0.12.504.jar"))
+
     //Highlands 2.2.3
     compile(deobfCurse("highlands-221226:2227924"))
 
