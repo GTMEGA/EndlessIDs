@@ -99,6 +99,9 @@ public enum Mixin implements IMixin {
     //region CoFHLib->common
     CoFHLibCofhBlockHelperMixin(Side.COMMON, require(TargetedMod.COFHLIB), "cofhlib.BlockHelperMixin"),
     //endregion CoFHLib->common
+    //region CompactMachines->common
+    CMCubeToolsMixin(Side.COMMON, require(TargetedMod.COMPACTMACHINES), "compactmachines.CubeToolsMixin"),
+    //endregion CompactMachines->common
     //region DarkWorld->common
     DarkWorldModBiomesMixin(Side.COMMON, require(TargetedMod.DARKWORLD), "darkworld.ModBiomesMixin"),
     //endregion DarkWorld->common

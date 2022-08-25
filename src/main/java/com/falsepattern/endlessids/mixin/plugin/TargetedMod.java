@@ -20,6 +20,7 @@ public enum TargetedMod implements ITargetedMod {
     BIOMEWAND("Biome Wand", true, startsWith("1.7.10-biome-wand-").or(startsWith("biome-wand"))),
     BUILDCRAFT("BuildCraft", true, startsWith("buildcraft-")),
     COFHLIB("CoFH Lib", true, startsWith("cofhlib-")),
+    COMPACTMACHINES("Compact Machines", true, startsWith("compactmachines-")),
     DARKWORLD("Dark World", true, startsWith("darkworld-")),
     DRAGONAPI("DragonAPI", false, startsWith("dragonapi")),
     EB("Enhanced Biomes", true, startsWith("Enhanced Biomes").or(startsWith("enhancedbiomes"))),
