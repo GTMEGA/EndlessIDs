@@ -165,6 +165,10 @@ public enum Mixin implements IMixin {
     NetherliciousBiomeConfigurationMixin(Side.COMMON, require(TargetedMod.NETHERLICIOUS),
                                          "netherlicious.BiomeConfigurationMixin"),
     //endregion Netherlicious->common
+    //region RandomThings->common
+    ItemBiomePainterMixin(Side.COMMON, require(TargetedMod.RANDOMTHINGS), "randomthings.ItemBiomePainterMixin"),
+    MessagePaintBiomeMixin(Side.COMMON, require(TargetedMod.RANDOMTHINGS), "randomthings.MessagePaintBiomeMixin"),
+    //endregion RandomThings->common
     //region RTG->common
     RTGChunkProviderRTGMixin(Side.COMMON, require(TargetedMod.RTG), "rtg.ChunkProviderRTGMixin"),
     RTGLandscapeGeneratorMixin(Side.COMMON, require(TargetedMod.RTG), "rtg.LandscapeGeneratorMixin"),

@@ -105,6 +105,9 @@ dependencies {
     //Netherlicious 3.2.3
     compile(deobfCurse("netherlicious-385860:3858031"))
 
+    //RandomThings 2.2.4
+    compileOnly(deobfCurse("randomthings-59816:2225310"))
+
     //Realistic Terrain Generation 1.1.1.7
     compile(deobfCurse("rtg-237989:2521557"))
 
