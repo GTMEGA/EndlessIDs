@@ -1,7 +1,7 @@
 package com.falsepattern.endlessids.mixin.mixins.common.antiidconflict;
 
 import code.elix_x.coremods.antiidconflict.AntiIdConflictBase;
-import org.spongepowered.asm.lib.Opcodes;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
