@@ -3,8 +3,12 @@ static def curse(curseDep) {
 }
 
 def deobfCurse(curseDep) {
-    String curseMaven = "https://cursemaven.com/" //Use https://cursemaven.falsepattern.com/ if this is down
-    return deobfMaven(curseMaven, curse(curseDep))
+    try {
+        return deobfMaven("https://cursemaven.com/", curse(curseDep))
+    } catch (Exception ignored) {
+        println("Failed to get dep " + curseDep + " from cursemaven. Grabbing from mirror.")
+        return deobfMaven("https://mvn.falsepattern.com/cursemaven/", curse(curseDep))
+    }
 }
 
 dependencies {
