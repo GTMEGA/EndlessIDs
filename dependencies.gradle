@@ -54,7 +54,7 @@ dependencies {
     compile(deobfCurse("cofh-lib-220333:2388748"))
 
     //CompactMachines 1.21
-    compile(deobfCurse("compactmachines-224218:2268575"))
+    compileOnly(deobfCurse("compactmachines-224218:2268575"))
 
     //Dark World 0.2
     compile(deobfCurse("darkworld-225075:2225172"))
