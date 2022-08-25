@@ -23,7 +23,9 @@ This mod also contains patches for the following mods:
 - Atum
 - Biomes O' Plenty
 - Biome Wand
+- BuildCraft
 - ChromatiCraft
+- Compact Machines
 - CoFH Lib
 - Dark World
 - DragonAPI
@@ -40,6 +42,7 @@ This mod also contains patches for the following mods:
 - More Fun Quicksand Mod
 - Nature's Compass
 - Netherlicious
+- Random Things
 - Realistic Terrain Generation
 - Thaumcraft
 - Tropicraft
