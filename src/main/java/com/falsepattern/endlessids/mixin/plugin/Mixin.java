@@ -93,6 +93,9 @@ public enum Mixin implements IMixin {
     BiomeWandItemMixin(Side.COMMON, require(TargetedMod.BIOMEWAND), "biomewand.BiomeWandItemMixin"),
     //endregion Biome Wand->common
     //endregion Biome Wand
+    //region Buildcraft
+    BuildcraftEnergyMixin(Side.COMMON, require(TargetedMod.BUILDCRAFT), "buildcraft.BuildcraftEnergyMixin"),
+    //endregion Buildcraft
     //region CoFHLib->common
     CoFHLibCofhBlockHelperMixin(Side.COMMON, require(TargetedMod.COFHLIB), "cofhlib.BlockHelperMixin"),
     //endregion CoFHLib->common

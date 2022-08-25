@@ -47,6 +47,9 @@ dependencies {
     //Mirrored at: https://maven.falsepattern.com/mirror/mirror/1.7.10-Biome-Wand-1.1.9.jar
     compile(deobf("https://spacechase0.com/wp-content/uploads/2014/10/1.7.10-Biome-Wand-1.1.9.jar"))
 
+    //Buildcraft 7.1.24
+    compile(deobfCurse("buildcraft-61811:3538651"))
+
     //CoFH Lib 1.2.1-185
     compile(deobfCurse("cofh-lib-220333:2388748"))
 
