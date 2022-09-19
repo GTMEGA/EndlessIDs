@@ -65,4 +65,4 @@ If you find any crashes or incompatibilities, don't hesitate to open an issue.
 
 ## Dependencies
 - [FalsePatternLib](https://github.com/FalsePattern/FalsePatternLib)
-- [SpongeMixins](https://github.com/TimeConqueror/SpongeMixins)
+- [GasStation](https://github.com/FalsePattern/GasStation)
