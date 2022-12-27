@@ -81,6 +81,7 @@ public enum Mixin implements IMixin {
     //endregion AntiIDConflict->common
     //region BoP->common
     BOPBiomeManagerMixin(Side.COMMON, require(TargetedMod.BOP), "bop.BOPBiomeManagerMixin"),
+    BOPBiomesMixin(Side.COMMON, require(TargetedMod.BOP), "bop.BOPBiomesMixin"),
     //endregion BoP->common
     //region BiomeTweaker->common
     BiomeEventHandlerMixin(Side.COMMON, require(TargetedMod.BIOMETWEAKER), "biometweaker.BiomeEventHandlerMixin"),
