@@ -12,13 +12,14 @@ def deobfCurse(curseDep) {
     }
 }
 
+
 dependencies {
     ////////////////Our dependencies////////////////
 
-    compileOnly("org.projectlombok:lombok:1.18.22") {
+    compileOnly("org.projectlombok:lombok:1.18.24") {
         transitive = false
     }
-    annotationProcessor("org.projectlombok:lombok:1.18.22")
+    annotationProcessor("org.projectlombok:lombok:1.18.24")
 
     compile("com.falsepattern:falsepatternlib-mc1.7.10:0.10.13:dev")
 
