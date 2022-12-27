@@ -116,6 +116,10 @@ public enum Mixin implements IMixin {
     ReikaChunkHelperMixin(Side.COMMON, require(TargetedMod.DRAGONAPI), "dragonapi.ReikaChunkHelperMixin"),
     ReikaWorldHelperMixin(Side.COMMON, require(TargetedMod.DRAGONAPI), "dragonapi.ReikaWorldHelperMixin"),
     //endregion DragonAPI->common
+    //region Enderlicious->common
+    EnderliciousBiomeConfigurationMixin(Side.COMMON, require(TargetedMod.ENDERLICIOUS), "enderlicious.BiomeConfigurationMixin"),
+    EnderliciousEndChunkProviderMixin(Side.COMMON, require(TargetedMod.ENDERLICIOUS), "enderlicious.EndChunkProviderMixin"),
+    //endregion Enderlicious->common
     //region EnhancedBiomes
     EBBiomeIDsMixin(Side.COMMON, require(TargetedMod.EB), "eb.BiomeIDsMixin"),
     EBGenLayerArchipelagoEdgeMixin(Side.COMMON, require(TargetedMod.EB), "eb.GenLayerArchipelagoEdgeMixin"),

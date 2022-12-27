@@ -24,6 +24,7 @@ public enum TargetedMod implements ITargetedMod {
     DARKWORLD("Dark World", true, startsWith("darkworld-")),
     DRAGONAPI("DragonAPI", false, startsWith("dragonapi")),
     EB("Enhanced Biomes", true, startsWith("Enhanced Biomes").or(startsWith("enhancedbiomes"))),
+    ENDERLICIOUS("Enderlicious", true, startsWith("enderlicious-")),
     EREBUS("The Erebus", true, startsWith("theerebus")),
     EXTRAPLANETS("Extra Planets", false, startsWith("extraplanets-")),
     EXTRAUTILITIES("Extra Utilities", true, startsWith("extrautilities-")),

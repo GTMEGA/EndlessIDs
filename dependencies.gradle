@@ -1,3 +1,4 @@
+//file:noinspection DependencyNotationArgument
 static def curse(curseDep) {
     return "curse.maven:" + curseDep
 }
@@ -68,6 +69,9 @@ dependencies {
 
     //Dynamic Surroundings 1.0.6.4
     compile(deobfCurse("dynamicsurrounding-238891:2642381"))
+
+    //Enderlicious 1.1.2
+    compile(deobfCurse("enderlicious-508777:3504111"))
 
     //Enhanced Biomes 2.5
     compile(deobf("https://mvn.falsepattern.com/releases/mirror/mirror/enhancedbiomes-2.5.jar"))
