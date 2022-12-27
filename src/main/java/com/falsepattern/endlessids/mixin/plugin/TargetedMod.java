@@ -42,6 +42,7 @@ public enum TargetedMod implements ITargetedMod {
     TROPICRAFT("Tropicraft", true, startsWith("tropicraft-")),
     TWILIGHTFOREST("Twilight Forest", true, startsWith("twilightforest")),
     UBC("Underground Biomes Constructs", true, startsWith("undergroundbiomesconstructs-")),
+    WITCHERY("Witchery", true, startsWith("witchery-")),
     WORLDEDIT("WorldEdit", false, startsWith("worldedit-")),
     ;
 

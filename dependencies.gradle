@@ -133,6 +133,9 @@ dependencies {
     //Underground Biomes Constructs 0.8-beta49
     compile(deobfCurse("undergroundbiomesconstructs-72744:2304497"))
 
+    //Witchery 0.24.1
+    compile(deobfCurse("witchery-69673:2234410"))
+
     //WorldEdit 6.1.1
     compileOnly(deobfCurse("worldedit-225608:2309699"))
 

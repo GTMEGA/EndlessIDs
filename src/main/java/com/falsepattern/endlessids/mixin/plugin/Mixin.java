@@ -192,6 +192,9 @@ public enum Mixin implements IMixin {
     UBCOreUBifierMixin(Side.COMMON, require(TargetedMod.UBC), "ubc.OreUBifierMixin"),
     UBCBiomeUndergroundDecoratorMixin(Side.COMMON, require(TargetedMod.UBC), "ubc.BiomeUndergroundDecoratorMixin"),
     //endregion UBC->common
+    //region Witchery->common
+    WitcheryWorldChunkManagerMirrorixin(Side.COMMON, require(TargetedMod.WITCHERY), "witchery.WorldChunkManagerMirrorMixin"),
+    //endregion Witchery->common
     //region WorldEdit->common
     WorldEditBaseBlockMixin(Side.COMMON, require(TargetedMod.WORLDEDIT), "worldedit.BaseBlockMixin"),
     //endregion WorldEdit->common
