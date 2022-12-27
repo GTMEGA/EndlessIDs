@@ -32,6 +32,7 @@ public enum TargetedMod implements ITargetedMod {
     EXTRAUTILITIES("Extra Utilities", true, startsWith("extrautilities-")),
     FUTUREPACK("Futurepack", true, startsWith("[1.7.10]futurepack").or(startsWith("futurepack-"))),
     GALACTICRAFTCORE("GalactiCraftCore", false, startsWith("galacticraftcore")),
+    GALAXYSPACE("GalaxySpace", false, startsWith("galaxyspace-")),
     HIGHLANDS("Highlands", true, startsWith("highlands")),
     ICG("Immersive Cavegen", true, startsWith("immersivecavegen")),
     LOTR("LOTR Mod", false, startsWith("lotrmod")),

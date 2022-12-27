@@ -148,6 +148,12 @@ public enum Mixin implements IMixin {
     GalactiCraftConfigManagerCoreMixin(Side.COMMON, require(TargetedMod.GALACTICRAFTCORE),
                                        "galacticraft.ConfigManagerCoreMixin"),
     //endregion GalactiCraftCore->common
+    //region GalaxySpace->common
+    GSChunkProviderKuiperMixin(Side.COMMON, require(TargetedMod.GALAXYSPACE), "galaxyspace.ChunkProviderKuiperMixin"),
+    GSChunkProviderMarsSSMixin(Side.COMMON, require(TargetedMod.GALAXYSPACE), "galaxyspace.ChunkProviderMarsSSMixin"),
+    GSChunkProviderSpaceLakesMixin(Side.COMMON, require(TargetedMod.GALAXYSPACE), "galaxyspace.ChunkProviderSpaceLakesMixin"),
+    GSChunkProviderVenusSSMixin(Side.COMMON, require(TargetedMod.GALAXYSPACE), "galaxyspace.ChunkProviderVenusSSMixin"),
+    //endregion GalaxySpace->common
     //region Highlands->common
     HighlandsConfigMixin(Side.COMMON, require(TargetedMod.HIGHLANDS), "highlands.ConfigMixin"),
     //endregion Highlands->common
