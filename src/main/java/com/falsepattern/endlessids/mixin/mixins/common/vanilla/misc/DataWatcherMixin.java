@@ -23,7 +23,7 @@ public abstract class DataWatcherMixin {
     @ModifyConstant(method = {"addObject", "writeWatchedListToPacketBuffer", "func_151509_a",
                               "writeWatchableObjectToPacketBuffer"},
                     constant = @Constant(intValue = VanillaConstants.maxWatchableID),
-                    require = 4)
+                    require = 3)
     private static int extend1(int constant) {
         return ExtendedConstants.maxWatchableID;
     }
