@@ -16,6 +16,7 @@ Comparison of the known limits:
 This mod also contains patches for the following mods:
 
 - AbyssalCraft
+- Advanced Rocketry
 - Alternate Terrain Generation
 - Antique Atlas
 - Anti ID Conflict
@@ -30,6 +31,7 @@ This mod also contains patches for the following mods:
 - Dark World
 - DragonAPI
 - Dynamic Surroundings
+- Enderlicious
 - Enhanced Biomes
 - Erebus
 - Extra Planets
@@ -42,12 +44,15 @@ This mod also contains patches for the following mods:
 - More Fun Quicksand Mod
 - Nature's Compass
 - Netherlicious
+- Nomadic Tents
 - Random Things
 - Realistic Terrain Generation
+- Realistic World Generation
 - Thaumcraft
 - Tropicraft
 - Twilight Forest
 - Underground Biomes Constructs
+- Witchery
 - WorldEdit
 
 Mods not listed here may or may not work.
