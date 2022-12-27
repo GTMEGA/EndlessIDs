@@ -169,6 +169,9 @@ public enum Mixin implements IMixin {
     NetherliciousBiomeConfigurationMixin(Side.COMMON, require(TargetedMod.NETHERLICIOUS),
                                          "netherlicious.BiomeConfigurationMixin"),
     //endregion Netherlicious->common
+    //region NomadicTents->common
+    NomadicTentsTentChunkProviderMixin(Side.COMMON, require(TargetedMod.NOMADICTENTS), "nomadictents.TentChunkProviderMixin"),
+    //endregion NomadicTents->common
     //region RandomThings->common
     ItemBiomePainterMixin(Side.COMMON, require(TargetedMod.RANDOMTHINGS), "randomthings.ItemBiomePainterMixin"),
     MessagePaintBiomeMixin(Side.COMMON, require(TargetedMod.RANDOMTHINGS), "randomthings.MessagePaintBiomeMixin"),

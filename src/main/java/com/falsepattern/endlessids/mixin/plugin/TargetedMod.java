@@ -36,6 +36,7 @@ public enum TargetedMod implements ITargetedMod {
     MFQM("More Fun Quicksand Mod", true, startsWith("morefunquicksandmod-")),
     NATURESCOMPASS("Nature's Compass", true, startsWith("naturescompass")),
     NETHERLICIOUS("Netherlicious", true, startsWith("netherlicious-")),
+    NOMADICTENTS("Nomadic Tents", true, startsWith("nomadictents")),
     RANDOMTHINGS("Random Things", true, startsWith("randomthings-")),
     RTG("Realistic Terrain Generation", true, startsWith("rtg-")),
     THAUMCRAFT("Thaumcraft", true, startsWith("thaumcraft")),

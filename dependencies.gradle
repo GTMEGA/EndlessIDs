@@ -113,6 +113,9 @@ dependencies {
     //Netherlicious 3.2.3
     compile(deobfCurse("netherlicious-385860:3858031"))
 
+    //Nomadic Tents 1.12.1
+    compile(deobfCurse("nomadictents-238794:2679476"))
+
     //RandomThings 2.2.4
     compileOnly(deobfCurse("randomthings-59816:2225310"))
 
