@@ -1,6 +1,6 @@
 {
   "required": true,
-  "minVersion": "0.7.11",
+  "minVersion": "0.8.5",
   "package": "com.falsepattern.endlessids.mixin.mixins",
   "plugin": "com.falsepattern.endlessids.mixin.plugin.MixinPlugin",
   "refmap": "mixins.endlessids.refmap.json",

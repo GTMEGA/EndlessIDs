@@ -19,7 +19,7 @@ dependencies {
     }
     annotationProcessor("org.projectlombok:lombok:1.18.22")
 
-    compile("com.falsepattern:falsepatternlib-mc1.7.10:0.10.5:dev")
+    compile("com.falsepattern:falsepatternlib-mc1.7.10:0.10.13:dev")
 
     ////////////////Patched mods////////////////
 
@@ -48,7 +48,7 @@ dependencies {
     compile(deobfCurse("biometweaker-228895:2279911"))
 
     //Biome Wand 1.1.9
-    //Mirrored at: https://maven.falsepattern.com/mirror/mirror/1.7.10-Biome-Wand-1.1.9.jar
+    //Mirrored at: https://maven.falsepattern.com/releases/mirror/mirror/1.7.10-Biome-Wand-1.1.9.jar
     compile(deobf("https://spacechase0.com/wp-content/uploads/2014/10/1.7.10-Biome-Wand-1.1.9.jar"))
 
     //Buildcraft 7.1.24
@@ -70,7 +70,7 @@ dependencies {
     compile(deobfCurse("dynamicsurrounding-238891:2642381"))
 
     //Enhanced Biomes 2.5
-    compile(deobf("https://maven.falsepattern.com/releases/mirror/mirror/enhancedbiomes-2.5.jar"))
+    compile(deobf("https://mvn.falsepattern.com/releases/mirror/mirror/enhancedbiomes-2.5.jar"))
 
     //Erebus 0.4.7
     compile(deobfCurse("theerebus-220698:2305035"))
@@ -86,10 +86,10 @@ dependencies {
 
     //Galacticraft Core 3.0.12.504
     //micdoodle8.com went down
-    compileOnly(deobf("https://maven.falsepattern.com/mirror/mirror/micdoodle/GalacticraftCore-1.7-3.0.12.504.jar"))
+    compileOnly(deobf("https://mvn.falsepattern.com/releases/mirror/mirror/micdoodle/GalacticraftCore-1.7-3.0.12.504.jar"))
 
     //Galacticraft Planets 3.0.12.504
-    compileOnly(deobf("https://maven.falsepattern.com/mirror/mirror/micdoodle/Galacticraft-Planets-1.7-3.0.12.504.jar"))
+    compileOnly(deobf("https://mvn.falsepattern.com/releases/mirror/mirror/micdoodle/Galacticraft-Planets-1.7-3.0.12.504.jar"))
 
     //Highlands 2.2.3
     compile(deobfCurse("highlands-221226:2227924"))
@@ -121,7 +121,7 @@ dependencies {
     //Tropicraft 6.0.5
     //This is from a mirror file, because the file on curseforge is a zip containing other files too.
     //Source: https://www.curseforge.com/minecraft/mc-mods/tropicraft/files/2353906
-    compile(deobf("https://maven.falsepattern.com/mirror/mirror/tropicraft-6.0.5.jar"))
+    compile(deobf("https://mvn.falsepattern.com/releases/mirror/mirror/tropicraft-6.0.5.jar"))
 
     //Twilight Forest 2.3.8
     compile(deobfCurse("twilightforest-227639:3039937"))
@@ -136,7 +136,7 @@ dependencies {
 
     //SpaceCore 0.7.14
     //needed by: Biome Wand
-    //Mirrored at: https://maven.falsepattern.com/mirror/mirror/1.7.10-SpaceCore-0.7.14.jar
+    //Mirrored at: https://maven.falsepattern.com/releases/mirror/mirror/1.7.10-SpaceCore-0.7.14.jar
     compile(deobf("http://spacechase0.com/files/mcmod/1.7.10-SpaceCore-0.7.14.jar"))
 
     //Baubles 1.0.1.10
@@ -146,5 +146,5 @@ dependencies {
     //CoroUtil 1.1.3
     //needed by: Tropicraft
     //Same reason for being mirrored as tropicraft
-    compile(deobf("https://maven.falsepattern.com/mirror/mirror/coroutil-1.1.3.jar"))
+    compile(deobf("https://mvn.falsepattern.com/releases/mirror/mirror/coroutil-1.1.3.jar"))
 }
