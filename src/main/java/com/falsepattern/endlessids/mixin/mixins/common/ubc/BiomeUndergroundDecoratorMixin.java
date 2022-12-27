@@ -10,6 +10,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import net.minecraft.world.chunk.NibbleArray;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 
+import java.util.logging.Logger;
+
 @Mixin(value = BiomeUndergroundDecorator.class,
        remap = false)
 public abstract class BiomeUndergroundDecoratorMixin {
@@ -59,5 +61,13 @@ public abstract class BiomeUndergroundDecoratorMixin {
     private OreUBifier.BlockReplacer reshuffleID(OreUBifier instance, int blockID) {
         blockID = ((blockID & 0xFF) << 16) | ((blockID & 0xFFFF00) >>> 8);
         return instance.blockReplacer(blockID);
+    }
+
+    @Redirect(method = "correctBiomeDecorators",
+              at = @At(value = "INVOKE",
+                       target = "Ljava/util/logging/Logger;info(Ljava/lang/String;)V"),
+              require = 2)
+    private void noLog(Logger instance, String s) {
+
     }
 }
