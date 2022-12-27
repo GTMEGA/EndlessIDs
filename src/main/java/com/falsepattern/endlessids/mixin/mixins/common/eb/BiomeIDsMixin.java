@@ -11,6 +11,6 @@ public abstract class BiomeIDsMixin {
                     constant = @Constant(intValue = 39),
                     require = 1)
     private static int extendIDs(int id) {
-        return id + 15000;
+        return id + 6000;
     }
 }

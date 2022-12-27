@@ -58,7 +58,7 @@ public abstract class ModBiomesMixin {
                                 @Constant(intValue = 107)},
                     require = 8)
     private static int shiftBiomeIDsUp(int id) {
-        return id + 13000;
+        return id + 4000;
     }
 
     @ModifyConstant(method = "init",

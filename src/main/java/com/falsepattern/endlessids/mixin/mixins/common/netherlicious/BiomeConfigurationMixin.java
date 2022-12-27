@@ -13,6 +13,6 @@ public abstract class BiomeConfigurationMixin {
                                 @Constant(intValue = 175)},
                     require = 2)
     private static int shiftBiomeIDsUp(int id) {
-        return id + 12000;
+        return id + 3000;
     }
 }

@@ -12,6 +12,6 @@ public class FuturepackIDConfig {
     }
     @Config.Comment("Original: 97")
     @Config.RangeInt(min = 40, max = ExtendedConstants.biomeIDCount - 1)
-    @Config.DefaultInt(11097)
+    @Config.DefaultInt(2097)
     public static int spaceID;
 }

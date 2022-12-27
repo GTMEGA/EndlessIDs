@@ -14,7 +14,7 @@ public abstract class BOPBiomeManagerMixin {
                     constant = @Constant(intValue = 40),
                     require = 1)
     private static int shiftBiomeIDsUp(int id) {
-        return id + 14000;
+        return id + 5000;
     }
 
     @ModifyConstant(method = "getNextFreeBiomeId",

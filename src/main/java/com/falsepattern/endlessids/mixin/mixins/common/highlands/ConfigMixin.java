@@ -14,6 +14,6 @@ public abstract class ConfigMixin {
                index = 2,
                require = 44)
     private static int shiftBiomeIDsUp(int id) {
-        return id + 16000;
+        return id + 7000;
     }
 }
