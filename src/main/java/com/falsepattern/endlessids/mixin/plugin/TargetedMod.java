@@ -39,6 +39,7 @@ public enum TargetedMod implements ITargetedMod {
     NOMADICTENTS("Nomadic Tents", true, startsWith("nomadictents")),
     RANDOMTHINGS("Random Things", true, startsWith("randomthings-")),
     RTG("Realistic Terrain Generation", true, startsWith("rtg-")),
+    RWG("Realistic World Gen", true, startsWith("rwg-")),
     THAUMCRAFT("Thaumcraft", true, startsWith("thaumcraft")),
     TROPICRAFT("Tropicraft", true, startsWith("tropicraft-")),
     TWILIGHTFOREST("Twilight Forest", true, startsWith("twilightforest")),
