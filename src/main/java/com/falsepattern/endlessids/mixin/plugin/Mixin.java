@@ -57,6 +57,12 @@ public enum Mixin implements IMixin {
     //region AbyssalCraft->common
     AbyssalCraftMixin(Side.COMMON, require(TargetedMod.ABYSSALCRAFT), "abyssalcraft.AbyssalCraftMixin"),
     //endregion AbyssalCraft->common
+    //region AdvancedRocketry->common
+    AdvancedRocketryMixin(Side.COMMON, require(TargetedMod.AROCKETRY), "arocketry.AdvancedRocketryMixin"),
+    ARocketryChunkProviderCavePlanetMixin(Side.COMMON, require(TargetedMod.AROCKETRY), "arocketry.ChunkProviderCavePlanetMixin"),
+    ARocketryChunkProviderPlanetMixin(Side.COMMON, require(TargetedMod.AROCKETRY), "arocketry.ChunkProviderPlanetMixin"),
+    ARocketryChunkProviderSpaceMixin(Side.COMMON, require(TargetedMod.AROCKETRY), "arocketry.ChunkProviderSpaceMixin"),
+    //endregion AdvancedRocketry->common
     //region ATG->common
     ATGBiomeConfigMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGBiomeConfigMixin"),
     ATGBiomeManagerMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGBiomeManagerMixin"),

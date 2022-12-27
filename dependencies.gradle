@@ -27,6 +27,9 @@ dependencies {
     //AbyssalCraft 1.9.1.3-FINAL
     compile(deobfCurse("abyssalcraft-53686:2311135"))
 
+    //Advanced Rocketry
+    compile(deobfCurse("advancedrocketry-236542:2985057"))
+
     //Alternate Terrain Generation 0.12.0
     compile(deobfCurse("atg-228356:2231155"))
 
@@ -157,4 +160,8 @@ dependencies {
     //needed by: Tropicraft
     //Same reason for being mirrored as tropicraft
     compile(deobf("https://mvn.falsepattern.com/releases/mirror/mirror/coroutil-1.1.3.jar"))
+
+    //LibVulpes 0.2.8
+    //needed by: Advanced Rocketry
+    compile(deobfCurse("libvulpes-236541:2812784"))
 }
