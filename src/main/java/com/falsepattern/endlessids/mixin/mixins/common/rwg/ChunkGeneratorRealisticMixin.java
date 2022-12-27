@@ -22,7 +22,8 @@ public abstract class ChunkGeneratorRealisticMixin implements IChunkProvider {
     @Redirect(method = "func_73154_d",
               at = @At(value = "INVOKE",
                        target = "Lnet/minecraft/world/chunk/Chunk;func_76605_m()[B"),
-              require = 1)
+              require = 0,
+              expect = 0)
     private byte[] setBiomesTweaked(Chunk chunk) {
         return BiomePatchHelper.getBiomeArrayTweaked(chunk, baseBiomesList);
     }
