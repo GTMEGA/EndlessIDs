@@ -7,7 +7,9 @@ import lombok.val;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.minecraft.world.biome.BiomeGenBase;
@@ -59,5 +61,24 @@ public abstract class AbyssalCraftMixin {
                 bga[biome] = null;
             }
         }
+    }
+
+    @ModifyConstant(method = "syncConfig",
+                    constant = {@Constant(intValue = 100, ordinal = 0),
+                                @Constant(intValue = 101, ordinal = 0),
+                                @Constant(intValue = 102, ordinal = 0),
+                                @Constant(intValue = 103, ordinal = 0),
+                                @Constant(intValue = 104, ordinal = 0),
+                                @Constant(intValue = 105, ordinal = 0),
+                                @Constant(intValue = 106, ordinal = 0),
+                                @Constant(intValue = 107, ordinal = 0),
+                                @Constant(intValue = 108, ordinal = 0),
+                                @Constant(intValue = 109, ordinal = 0),
+                                @Constant(intValue = 110, ordinal = 0),
+                                @Constant(intValue = 112, ordinal = 0),
+                                @Constant(intValue = 113, ordinal = 0)},
+                    require = 13)
+    private static int shiftBiomeIDsUp(int constant) {
+        return constant + 8000;
     }
 }
