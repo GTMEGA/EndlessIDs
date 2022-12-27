@@ -26,71 +26,71 @@ dependencies {
     ////////////////Patched mods////////////////
 
     //AbyssalCraft 1.9.1.3-FINAL
-    compile(deobfCurse("abyssalcraft-53686:2311135"))
+    compileOnly(deobfCurse("abyssalcraft-53686:2311135"))
 
     //Advanced Rocketry
-    compile(deobfCurse("advancedrocketry-236542:2985057"))
+    compileOnly(deobfCurse("advancedrocketry-236542:2985057"))
 
     //Alternate Terrain Generation 0.12.0
-    compile(deobfCurse("atg-228356:2231155"))
+    compileOnly(deobfCurse("atg-228356:2231155"))
 
     //Antique Atlas 4.4.4
-    compile(deobfCurse("antiqueatlas-227795:2454232"))
+    compileOnly(deobfCurse("antiqueatlas-227795:2454232"))
 
     //Anti ID Conflict 1.3.5
-    compile(deobfCurse("antiidconflict-246288:2308279"))
+    compileOnly(deobfCurse("antiidconflict-246288:2308279"))
 
 //    //ArchaicFix 0.2.0
 //    compileOnly("com.github.embeddedt:ArchaicFix:0.2.0:dev")
 
     //Atum 0.6.77
-    compile(deobfCurse("atum-59621:2256356"))
+    compileOnly(deobfCurse("atum-59621:2256356"))
 
     //Biomes O' Plenty 2.1.0.2308
-    compile(deobfCurse("biomesoplenty-220318:2499612"))
+    compileOnly(deobfCurse("biomesoplenty-220318:2499612"))
 
     //Biome Tweaker 2.0.182
-    compile(deobfCurse("biometweaker-228895:2279911"))
+    compileOnly(deobfCurse("biometweaker-228895:2279911"))
 
     //Biome Wand 1.1.9
     //Mirrored at: https://maven.falsepattern.com/releases/mirror/mirror/1.7.10-Biome-Wand-1.1.9.jar
-    compile(deobf("https://spacechase0.com/wp-content/uploads/2014/10/1.7.10-Biome-Wand-1.1.9.jar"))
+    compileOnly(deobf("https://spacechase0.com/wp-content/uploads/2014/10/1.7.10-Biome-Wand-1.1.9.jar"))
 
     //Buildcraft 7.1.24
-    compile(deobfCurse("buildcraft-61811:3538651"))
+    compileOnly(deobfCurse("buildcraft-61811:3538651"))
 
     //CoFH Lib 1.2.1-185
-    compile(deobfCurse("cofh-lib-220333:2388748"))
+    compileOnly(deobfCurse("cofh-lib-220333:2388748"))
 
     //CompactMachines 1.21
     compileOnly(deobfCurse("compactmachines-224218:2268575"))
 
     //Dark World 0.2
-    compile(deobfCurse("darkworld-225075:2225172"))
+    compileOnly(deobfCurse("darkworld-225075:2225172"))
 
     //DragonAPI V31b
     compileOnly(deobfCurse("dragonapi-235591:3574508"))
 
     //Dynamic Surroundings 1.0.6.4
-    compile(deobfCurse("dynamicsurrounding-238891:2642381"))
+    compileOnly(deobfCurse("dynamicsurrounding-238891:2642381"))
 
     //Enderlicious 1.1.2
-    compile(deobfCurse("enderlicious-508777:3504111"))
+    compileOnly(deobfCurse("enderlicious-508777:3504111"))
 
     //Enhanced Biomes 2.5
-    compile(deobf("https://mvn.falsepattern.com/releases/mirror/mirror/enhancedbiomes-2.5.jar"))
+    compileOnly(deobf("https://mvn.falsepattern.com/releases/mirror/mirror/enhancedbiomes-2.5.jar"))
 
     //Erebus 0.4.7
-    compile(deobfCurse("theerebus-220698:2305035"))
+    compileOnly(deobfCurse("theerebus-220698:2305035"))
 
     //Extra Planets 2.1.4
     compileOnly(deobfCurse("extraplanets-241291:3214413"))
 
     //Extra Utilities 1.2.12
-    compile(deobfCurse("extrautilities-225561:2264384"))
+    compileOnly(deobfCurse("extrautilities-225561:2264384"))
 
     //Futurepack v18.7
-    compile(deobfCurse("futurepack-237333:2263966"))
+    compileOnly(deobfCurse("futurepack-237333:2263966"))
 
     //Galacticraft Core 3.0.12.504
     //micdoodle8.com went down
@@ -100,48 +100,48 @@ dependencies {
     compileOnly(deobf("https://mvn.falsepattern.com/releases/mirror/mirror/micdoodle/Galacticraft-Planets-1.7-3.0.12.504.jar"))
 
     //Highlands 2.2.3
-    compile(deobfCurse("highlands-221226:2227924"))
+    compileOnly(deobfCurse("highlands-221226:2227924"))
 
     //Immersive Cavegen 1.2g
-    compile(deobfCurse("immersivecavegen-521557:3649411"))
+    compileOnly(deobfCurse("immersivecavegen-521557:3649411"))
 
     //LOTR Mod 36.14
     compileOnly(deobfCurse("lotrmod-423748:3646430"))
 
     //More Fun Quicksands Mod 1.0.8.8-fixed
-    compile(deobfCurse("more-fun-quicksand-mod-321960:2717318"))
+    compileOnly(deobfCurse("more-fun-quicksand-mod-321960:2717318"))
 
     //Nature's Compass 1.3.1
-    compile(deobfCurse("naturescompass-252848:2451823"))
+    compileOnly(deobfCurse("naturescompass-252848:2451823"))
 
     //Netherlicious 3.2.3
-    compile(deobfCurse("netherlicious-385860:3858031"))
+    compileOnly(deobfCurse("netherlicious-385860:3858031"))
 
     //Nomadic Tents 1.12.1
-    compile(deobfCurse("nomadictents-238794:2679476"))
+    compileOnly(deobfCurse("nomadictents-238794:2679476"))
 
     //RandomThings 2.2.4
     compileOnly(deobfCurse("randomthings-59816:2225310"))
 
     //Realistic Terrain Generation 1.1.1.7
-    compile(deobfCurse("rtg-237989:2521557"))
+    compileOnly(deobfCurse("rtg-237989:2521557"))
 
     //Thaumcraft 4.2.3.5
-    compile(deobfCurse("thaumcraft-223628:2227552"))
+    compileOnly(deobfCurse("thaumcraft-223628:2227552"))
 
     //Tropicraft 6.0.5
     //This is from a mirror file, because the file on curseforge is a zip containing other files too.
     //Source: https://www.curseforge.com/minecraft/mc-mods/tropicraft/files/2353906
-    compile(deobf("https://mvn.falsepattern.com/releases/mirror/mirror/tropicraft-6.0.5.jar"))
+    compileOnly(deobf("https://mvn.falsepattern.com/releases/mirror/mirror/tropicraft-6.0.5.jar"))
 
     //Twilight Forest 2.3.8
-    compile(deobfCurse("twilightforest-227639:3039937"))
+    compileOnly(deobfCurse("twilightforest-227639:3039937"))
 
     //Underground Biomes Constructs 0.8-beta49
-    compile(deobfCurse("undergroundbiomesconstructs-72744:2304497"))
+    compileOnly(deobfCurse("undergroundbiomesconstructs-72744:2304497"))
 
     //Witchery 0.24.1
-    compile(deobfCurse("witchery-69673:2234410"))
+    compileOnly(deobfCurse("witchery-69673:2234410"))
 
     //WorldEdit 6.1.1
     compileOnly(deobfCurse("worldedit-225608:2309699"))
@@ -151,18 +151,5 @@ dependencies {
     //SpaceCore 0.7.14
     //needed by: Biome Wand
     //Mirrored at: https://maven.falsepattern.com/releases/mirror/mirror/1.7.10-SpaceCore-0.7.14.jar
-    compile(deobf("http://spacechase0.com/files/mcmod/1.7.10-SpaceCore-0.7.14.jar"))
-
-    //Baubles 1.0.1.10
-    //needed by: Thaumcraft
-    compile(deobfCurse("baubles-227083:2224857"))
-
-    //CoroUtil 1.1.3
-    //needed by: Tropicraft
-    //Same reason for being mirrored as tropicraft
-    compile(deobf("https://mvn.falsepattern.com/releases/mirror/mirror/coroutil-1.1.3.jar"))
-
-    //LibVulpes 0.2.8
-    //needed by: Advanced Rocketry
-    compile(deobfCurse("libvulpes-236541:2812784"))
+    compileOnly(deobf("http://spacechase0.com/files/mcmod/1.7.10-SpaceCore-0.7.14.jar"))
 }
