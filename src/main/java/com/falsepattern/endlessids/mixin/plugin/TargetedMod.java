@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.function.Predicate;
 
+import static com.falsepattern.lib.mixin.ITargetedMod.PredicateHelpers.contains;
 import static com.falsepattern.lib.mixin.ITargetedMod.PredicateHelpers.startsWith;
 
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public enum TargetedMod implements ITargetedMod {
     BOP("Biomes O' Plenty", true, startsWith("biomesoplenty-")),
     BIOMETWEAKER("Biome Tweaker", true, startsWith("biometweaker-")),
     BIOMEWAND("Biome Wand", true, startsWith("1.7.10-biome-wand-").or(startsWith("biome-wand"))),
-    BUILDCRAFT("BuildCraft", true, startsWith("buildcraft-")),
+    BUILDCRAFT("BuildCraft", true, startsWith("buildcraft-").and(contains("-compat").negate())),
     COFHLIB("CoFH Lib", true, startsWith("cofhlib-")),
     COMPACTMACHINES("Compact Machines", true, startsWith("compactmachines-")),
     DARKWORLD("Dark World", true, startsWith("darkworld-")),
