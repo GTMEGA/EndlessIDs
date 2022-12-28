@@ -17,7 +17,7 @@ import java.util.Arrays;
 @Mixin(Potion.class)
 public abstract class PotionMixin {
 
-    @Shadow
+    @Shadow(aliases = "field_76425_a")
     @Final
     @Mutable
     public static Potion[] potionTypes;
