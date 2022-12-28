@@ -11,8 +11,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.minecraft.potion.Potion;
 
+import java.util.Arrays;
+
 @Mixin(Potion.class)
-public class PotionMixin {
+public abstract class PotionMixin {
 
     @Shadow
     @Final
@@ -24,6 +26,6 @@ public class PotionMixin {
             at = @At(value = "RETURN"),
             require = 1)
     private static void clinit(CallbackInfo ci) {
-        potionTypes = new Potion[32767];
+        potionTypes = Arrays.copyOf(potionTypes, 32767);
     }
 }
