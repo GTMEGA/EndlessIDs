@@ -26,6 +26,6 @@ public abstract class PotionMixin {
             at = @At(value = "RETURN"),
             require = 1)
     private static void clinit(CallbackInfo ci) {
-        potionTypes = Arrays.copyOf(potionTypes, 32767);
+        potionTypes = Arrays.copyOf(potionTypes, 32768);
     }
 }
