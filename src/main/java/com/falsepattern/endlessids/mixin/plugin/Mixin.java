@@ -47,7 +47,10 @@ public enum Mixin implements IMixin {
     GenLayerVoronoiZoomMixin(Side.COMMON, always(), "vanilla.worldgen.GenLayerVoronoiZoomMixin"),
     //endregion Minecraft->common->worldgen
     //region Minecraft->common->potion
+    PotionEffectMixin(Side.COMMON, always(), "vanilla.potion.PotionEffectMixin"),
     PotionMixin(Side.COMMON, always(), "vanilla.potion.PotionMixin"),
+    S1DPacketEntityEffectMixin(Side.COMMON, always(), "vanilla.potion.network.S1DPacketEntityEffectMixin"),
+    S1EPacketRemoveEntityEffectMixin(Side.COMMON, always(), "vanilla.potion.network.S1EPacketRemoveEntityEffectMixin"),
     //endregion Minecraft->common->potion
     //endregion Minecraft->common
     //region Minecraft->client
