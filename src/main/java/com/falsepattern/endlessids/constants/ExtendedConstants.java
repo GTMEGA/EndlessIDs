@@ -11,6 +11,8 @@ public class ExtendedConstants {
     public static final int watchableBits = 7;
     public static final int bitsPerBiome = 16;
 
+    public static final int maximumPotionIDs = 65536;
+
     //BlockItemIDs
     public static final int nibblesPerID = bitsPerID / 4;
     public static final int bytesPerID = (nibblesPerID + 1) / 2;

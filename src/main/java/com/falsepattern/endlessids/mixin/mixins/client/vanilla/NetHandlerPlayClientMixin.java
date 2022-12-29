@@ -1,13 +1,23 @@
 package com.falsepattern.endlessids.mixin.mixins.client.vanilla;
 
+import com.falsepattern.endlessids.mixin.helpers.IS1DPacketEntityEffectMixin;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import lombok.val;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.network.NetHandlerPlayClient;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.network.play.server.S1DPacketEntityEffect;
 import net.minecraft.network.play.server.S22PacketMultiBlockChange;
+import net.minecraft.potion.PotionEffect;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -15,13 +25,13 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 
+import static com.falsepattern.endlessids.mixin.helpers.PotionIDHelper.theID;
+
 @SideOnly(Side.CLIENT)
 @Mixin(NetHandlerPlayClient.class)
 public abstract class NetHandlerPlayClientMixin {
-
     @Shadow
     private WorldClient clientWorldController;
-
 
     /**
      * @author FalsePattern
@@ -47,6 +57,23 @@ public abstract class NetHandlerPlayClientMixin {
                                                          var9);
             }
         }
+    }
 
+    //POTIONS
+    @Inject(method = "handleEntityEffect",
+            at = @At("HEAD"),
+            require = 1)
+    private void grabID(S1DPacketEntityEffect packetIn, CallbackInfo ci) {
+        theID.set(((IS1DPacketEntityEffectMixin)packetIn).getIDExtended());
+    }
+
+    @WrapOperation(method = "handleEntityEffect",
+                   at = @At(value = "INVOKE",
+                       target = "Lnet/minecraft/entity/EntityLivingBase;addPotionEffect(Lnet/minecraft/potion/PotionEffect;)V"),
+                   require = 1)
+    private void addPotionEffect(EntityLivingBase entity, PotionEffect effect, Operation<Void> op) {
+        val newPotion = new PotionEffect(theID.get(), effect.getDuration(), effect.getAmplifier());
+        newPotion.setPotionDurationMax(effect.getIsPotionDurationMax());
+        op.call(entity, newPotion);
     }
 }

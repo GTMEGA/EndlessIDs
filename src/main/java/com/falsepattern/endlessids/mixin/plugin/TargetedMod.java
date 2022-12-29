@@ -11,7 +11,6 @@ import static com.falsepattern.lib.mixin.ITargetedMod.PredicateHelpers.startsWit
 
 @RequiredArgsConstructor
 public enum TargetedMod implements ITargetedMod {
-
     ABYSSALCRAFT("AbyssalCraft", false, startsWith("abyssalcraft-")),
     AROCKETRY("Advanced Rocketry", false, startsWith("advancedrocketry-")),
     ATG("Alternate Terrain Generation", false, startsWith("atg")),
@@ -20,7 +19,7 @@ public enum TargetedMod implements ITargetedMod {
     BOP("Biomes O' Plenty", false, startsWith("biomesoplenty-")),
     BIOMETWEAKER("Biome Tweaker", false, startsWith("biometweaker-")),
     BIOMEWAND("Biome Wand", false, startsWith("1.7.10-biome-wand-").or(startsWith("biome-wand"))),
-    BUILDCRAFT("BuildCraft", false, startsWith("buildcraft-").and(contains("-compat").negate())),
+    BUILDCRAFT("BuildCraft", false, startsWith("buildcraft-").and(contains("compat").negate())),
     COFHLIB("CoFH Lib", false, startsWith("cofhlib-")),
     COMPACTMACHINES("Compact Machines", false, startsWith("compactmachines-")),
     DARKWORLD("Dark World", false, startsWith("darkworld-")),
