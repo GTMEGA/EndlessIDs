@@ -52,6 +52,9 @@ public enum Mixin implements IMixin {
     S1DPacketEntityEffectMixin(Side.COMMON, always(), "vanilla.potion.network.S1DPacketEntityEffectMixin"),
     S1EPacketRemoveEntityEffectMixin(Side.COMMON, always(), "vanilla.potion.network.S1EPacketRemoveEntityEffectMixin"),
     //endregion Minecraft->common->potion
+    //region Minecraft->common->enchantment
+    EnchantmentMixin(Side.COMMON, always(), "vanilla.enchantment.EnchantmentMixin"),
+    //endregion Minecraft->common->enchantment
     //endregion Minecraft->common
     //region Minecraft->client
     ChunkMixinClient(Side.CLIENT, always(), "vanilla.ChunkMixin"),

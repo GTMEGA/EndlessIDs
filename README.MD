@@ -10,7 +10,7 @@ Comparison of the known limits:
 | Biome IDs       | 256                                                | 256          | 65,536 since 1.4                 |
 | Entity IDs      | 256                                                | 256          | 256 right now, extension planned |
 | Potion IDs      | 32                                                 | 32           | 65,536 since 1.5                 |
-| Enchantment IDs | 256                                                | 256          | 256 right now, extension planned |
+| Enchantment IDs | 256                                                | 256          | 32,768 since 1.5                 |
 | Dimension IDs   | Theoretically unlimited, 4,294,967,295 in practice | Same         | Same                             |
 
 This mod also contains patches for the following mods:
