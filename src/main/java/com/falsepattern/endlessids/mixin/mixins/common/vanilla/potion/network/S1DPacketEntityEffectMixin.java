@@ -15,7 +15,6 @@ import net.minecraft.potion.PotionEffect;
 
 @Mixin(value = S1DPacketEntityEffect.class)
 public abstract class S1DPacketEntityEffectMixin implements IS1DPacketEntityEffectMixin {
-    @Getter
     private int idExtended;
 
     @WrapOperation(method = "<init>(ILnet/minecraft/potion/PotionEffect;)V",
@@ -45,5 +44,10 @@ public abstract class S1DPacketEntityEffectMixin implements IS1DPacketEntityEffe
     private ByteBuf networkWritePacketData(PacketBuffer instance, int p_writeByte_1_) {
         instance.writeInt(idExtended);
         return null;
+    }
+	
+	@Override
+	public int getIDExtended() {
+        return this.idExtended;
     }
 }
