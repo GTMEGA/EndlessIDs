@@ -16,70 +16,13 @@ import static com.falsepattern.lib.mixin.IMixin.PredicateHelpers.require;
 
 @RequiredArgsConstructor
 public enum Mixin implements IMixin {
-    //region Minecraft
-    //region Minecraft->common
-    //region Minecraft->common->storage
+    //region common
+    //region vanilla
     AnvilChunkLoaderMixin(Side.COMMON, always(), "vanilla.storage.AnvilChunkLoaderMixin"),
-    ChunkMixin(Side.COMMON, always(), "vanilla.storage.ChunkMixin"),
-    ExtendedBlockStorageMixin(Side.COMMON, always(), "vanilla.storage.ExtendedBlockStorageMixin"),
-    ItemStackMixin(Side.COMMON, always(), "vanilla.storage.ItemStackMixin"),
-    //endregion Minecraft->common->storage
-    //region Minecraft->common->networking
-    PacketBufferMixin(Side.COMMON, always(), "vanilla.networking.PacketBufferMixin"),
     S21PacketChunkDataMixin(Side.COMMON, always(), "vanilla.networking.S21PacketChunkDataMixin"),
-    S22PacketMultiBlockChangeMixin(Side.COMMON, always(), "vanilla.networking.S22PacketMultiBlockChangeMixin"),
-    S24PacketBlockActionMixin(Side.COMMON, always(), "vanilla.networking.S24PacketBlockActionMixin"),
     S26PacketMapChunkBulkMixin(Side.COMMON, always(), "vanilla.networking.S26PacketMapChunkBulkMixin"),
-    //endregion Minecraft->common->networking
-    //region Minecraft->common->biome
-    BiomeDictionaryMixin(Side.COMMON, always(), "vanilla.biome.BiomeDictionaryMixin"),
-    BiomeGenBaseMixin(Side.COMMON, always(), "vanilla.biome.BiomeGenBaseMixin"),
-    //endregion Minecraft->common->biome
-    //region Minecraft->common->misc
-    BlockFireMixin(Side.COMMON, always(), "vanilla.misc.BlockFireMixin"),
-    DataWatcherMixin(Side.COMMON, condition(() -> GeneralConfig.extendDataWatcher), "vanilla.misc.DataWatcherMixin"),
-    ItemInWorldManagerMixin(Side.COMMON, always(), "vanilla.misc.ItemInWorldManagerMixin"),
-    StatListMixin(Side.COMMON, always(), "vanilla.misc.StatListMixin"),
-    WorldMixin(Side.COMMON, always(), "vanilla.misc.WorldMixin"),
-    //endregion Minecraft->common->misc
-    //region Minecraft->common->worldgen
-    GenLayerRiverMixMixin(Side.COMMON, avoid(TargetedMod.DRAGONAPI), "vanilla.worldgen.GenLayerRiverMixMixin"),
-    GenLayerVoronoiZoomMixin(Side.COMMON, always(), "vanilla.worldgen.GenLayerVoronoiZoomMixin"),
-    //endregion Minecraft->common->worldgen
-    //region Minecraft->common->potion
-    PotionEffectMixin(Side.COMMON, always(), "vanilla.potion.PotionEffectMixin"),
-    PotionMixin(Side.COMMON, always(), "vanilla.potion.PotionMixin"),
-    S1DPacketEntityEffectMixin(Side.COMMON, always(), "vanilla.potion.network.S1DPacketEntityEffectMixin"),
-    S1EPacketRemoveEntityEffectMixin(Side.COMMON, always(), "vanilla.potion.network.S1EPacketRemoveEntityEffectMixin"),
-    //endregion Minecraft->common->potion
-    //region Minecraft->common->enchantment
-    EnchantmentMixin(Side.COMMON, always(), "vanilla.enchantment.EnchantmentMixin"),
-    //endregion Minecraft->common->enchantment
-    //endregion Minecraft->common
-    //region Minecraft->client
-    ChunkMixinClient(Side.CLIENT, always(), "vanilla.ChunkMixin"),
-    NetHandlerPlayClientMixin(Side.CLIENT, always(), "vanilla.NetHandlerPlayClientMixin"),
-    PlayerControllerMPMixin(Side.CLIENT, always(), "vanilla.PlayerControllerMPMixin"),
-    RenderGlobalMixin(Side.CLIENT, always(), "vanilla.RenderGlobalMixin"),
-    //endregion Minecraft->client
-    //endregion Minecraft
-    //region AbyssalCraft->common
-    AbyssalCraftMixin(Side.COMMON, require(TargetedMod.ABYSSALCRAFT), "abyssalcraft.AbyssalCraftMixin"),
-    //endregion AbyssalCraft->common
-    //region AdvancedRocketry->common
-    AdvancedRocketryMixin(Side.COMMON, require(TargetedMod.AROCKETRY), "arocketry.AdvancedRocketryMixin"),
-    ARocketryChunkProviderSpaceMixin(Side.COMMON, require(TargetedMod.AROCKETRY), "arocketry.ChunkProviderSpaceMixin"),
-    //endregion AdvancedRocketry->common
-    //region ATG->common
-    ATGBiomeConfigMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGBiomeConfigMixin"),
-    ATGBiomeManagerMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGBiomeManagerMixin"),
-    ATGWorldGenRocksMixin(Side.COMMON, require(TargetedMod.ATG), "atg.ATGWorldGenRocksMixin"),
-    //endregion ATG->common
-    //region AntiqueAtlas->commond
-    BiomeDetectorBaseMixin(Side.COMMON, require(TargetedMod.ANTIQUEATLAS), "antiqueatlas.BiomeDetectorBaseMixin"),
-    BiomeDetectorNetherMixin(Side.COMMON, require(TargetedMod.ANTIQUEATLAS), "antiqueatlas.BiomeDetectorNetherMixin"),
-    //endregion AntiqueAtlas->commond
-    //region AntiIDConflict->common
+    //endregion vanilla
+    //region AntiIDConflict
     AIDCAntiIdConflictBaseMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT),
                                 "antiidconflict.AntiIdConflictBaseMixin"),
     AIDCBiomesGenBasePlaceholderMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT),
@@ -91,140 +34,213 @@ public enum Mixin implements IMixin {
                                   "antiidconflict.EnchantementsManagerMixin"),
     AIDCEntitiesManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT), "antiidconflict.EntitiesManagerMixin"),
     AIDCPotionsManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT), "antiidconflict.PotionsManagerMixin"),
-    //endregion AntiIDConflict->common
-    //region BoP->common
-    BOPBiomeManagerMixin(Side.COMMON, require(TargetedMod.BOP), "bop.BOPBiomeManagerMixin"),
-    BOPBiomesMixin(Side.COMMON, require(TargetedMod.BOP), "bop.BOPBiomesMixin"),
-    //endregion BoP->common
-    //region BiomeTweaker->common
-    BiomeEventHandlerMixin(Side.COMMON, require(TargetedMod.BIOMETWEAKER), "biometweaker.BiomeEventHandlerMixin"),
-    //endregion BiomeTweaker->common
+    //endregion AntiIDConflict
+    //region biome
+    //region vanilla
+    BiomeDictionaryMixin(Side.COMMON, always(), "biome.vanilla.BiomeDictionaryMixin"),
+    BiomeGenBaseMixin(Side.COMMON, always(), "biome.vanilla.BiomeGenBaseMixin"),
+    ChunkMixin(Side.COMMON, always(), "biome.vanilla.ChunkMixin"),
+    GenLayerRiverMixMixin(Side.COMMON, avoid(TargetedMod.DRAGONAPI), "biome.vanilla.GenLayerRiverMixMixin"),
+    GenLayerVoronoiZoomMixin(Side.COMMON, always(), "biome.vanilla.GenLayerVoronoiZoomMixin"),
+    //endregion vanilla
+    //region AbyssalCraft
+    AbyssalCraftMixin(Side.COMMON, require(TargetedMod.ABYSSALCRAFT), "biome.abyssalcraft.AbyssalCraftMixin"),
+    //endregion AbyssalCraft
+    //region AntiqueAtlas
+    BiomeDetectorBaseMixin(Side.COMMON, require(TargetedMod.ANTIQUEATLAS), "biome.antiqueatlas.BiomeDetectorBaseMixin"),
+    BiomeDetectorNetherMixin(Side.COMMON, require(TargetedMod.ANTIQUEATLAS), "biome.antiqueatlas.BiomeDetectorNetherMixin"),
+    //endregion AntiqueAtlas
+    //region AdvancedRocketry
+    AdvancedRocketryMixin(Side.COMMON, require(TargetedMod.AROCKETRY), "biome.arocketry.AdvancedRocketryMixin"),
+    ARocketryChunkProviderSpaceMixin(Side.COMMON, require(TargetedMod.AROCKETRY), "biome.arocketry.ChunkProviderSpaceMixin"),
+    //endregion AdvancedRocketry
+    //region ATG
+    ATGBiomeConfigMixin(Side.COMMON, require(TargetedMod.ATG), "biome.atg.ATGBiomeConfigMixin"),
+    ATGBiomeManagerMixin(Side.COMMON, require(TargetedMod.ATG), "biome.atg.ATGBiomeManagerMixin"),
+    ATGWorldGenRocksMixin(Side.COMMON, require(TargetedMod.ATG), "biome.atg.ATGWorldGenRocksMixin"),
+    //endregion ATG
+    //region BiomeTweaker
+    BiomeEventHandlerMixin(Side.COMMON, require(TargetedMod.BIOMETWEAKER), "biome.biometweaker.BiomeEventHandlerMixin"),
+    //endregion BiomeTweaker
     //region Biome Wand
-    //region Biome Wand->client
-    BiomeWandItemClientMixin(Side.CLIENT, require(TargetedMod.BIOMEWAND), "biomewand.BiomeWandItemMixin"),
-    //endregion Biome Wand->client
-    //region Biome Wand->common
-    BiomeWandItemMixin(Side.COMMON, require(TargetedMod.BIOMEWAND), "biomewand.BiomeWandItemMixin"),
-    //endregion Biome Wand->common
+    BiomeWandItemMixin(Side.COMMON, require(TargetedMod.BIOMEWAND), "biome.biomewand.BiomeWandItemMixin"),
     //endregion Biome Wand
+    //region BoP
+    BOPBiomeManagerMixin(Side.COMMON, require(TargetedMod.BOP), "biome.bop.BOPBiomeManagerMixin"),
+    BOPBiomesMixin(Side.COMMON, require(TargetedMod.BOP), "biome.bop.BOPBiomesMixin"),
+    //endregion BoP
     //region Buildcraft
     BuildcraftEnergyMixin(Side.COMMON, require(TargetedMod.BUILDCRAFT), "buildcraft.BuildcraftEnergyMixin"),
     //endregion Buildcraft
-    //region CoFHLib->common
-    CoFHLibCofhBlockHelperMixin(Side.COMMON, require(TargetedMod.COFHLIB), "cofhlib.BlockHelperMixin"),
-    //endregion CoFHLib->common
-    //region CompactMachines->common
-    CMCubeToolsMixin(Side.COMMON, require(TargetedMod.COMPACTMACHINES), "compactmachines.CubeToolsMixin"),
-    //endregion CompactMachines->common
-    //region DarkWorld->common
-    DarkWorldModBiomesMixin(Side.COMMON, require(TargetedMod.DARKWORLD), "darkworld.ModBiomesMixin"),
-    //endregion DarkWorld->common
-    //region DragonAPI->common
-    //region DragonAPI->common->vanilla
-    DragonAPIGenLayerRiverMixMixin(Side.COMMON, require(TargetedMod.DRAGONAPI),
-                                   "dragonapi.vanilla.GenLayerRiverMixMixin"),
-    //endregion DragonAPI->common->vanilla
-    DragonAPIGenLayerRiverEventMixin(Side.COMMON, require(TargetedMod.DRAGONAPI), "dragonapi.GenLayerRiverEventMixin"),
-    DragonAPIBlockPropertiesMixin(Side.COMMON, require(TargetedMod.DRAGONAPI), "dragonapi.BlockPropertiesMixin"),
-    DragonAPIIDTypeMixin(Side.COMMON, require(TargetedMod.DRAGONAPI), "dragonapi.IDTypeMixin"),
-    ReikaChunkHelperMixin(Side.COMMON, require(TargetedMod.DRAGONAPI), "dragonapi.ReikaChunkHelperMixin"),
-    ReikaWorldHelperMixin(Side.COMMON, require(TargetedMod.DRAGONAPI), "dragonapi.ReikaWorldHelperMixin"),
-    //endregion DragonAPI->common
-    //region Enderlicious->common
-    EnderliciousBiomeConfigurationMixin(Side.COMMON, require(TargetedMod.ENDERLICIOUS), "enderlicious.BiomeConfigurationMixin"),
-    EnderliciousEndChunkProviderMixin(Side.COMMON, require(TargetedMod.ENDERLICIOUS), "enderlicious.EndChunkProviderMixin"),
-    //endregion Enderlicious->common
+    //region CompactMachines
+    CMCubeToolsMixin(Side.COMMON, require(TargetedMod.COMPACTMACHINES), "biome.compactmachines.CubeToolsMixin"),
+    //endregion CompactMachines
+    //region DarkWorld
+    DarkWorldModBiomesMixin(Side.COMMON, require(TargetedMod.DARKWORLD), "biome.darkworld.ModBiomesMixin"),
+    //endregion DarkWorld
+    //region DragonAPI
+    DragonAPIGenLayerRiverMixVanillaMixin(Side.COMMON, require(TargetedMod.DRAGONAPI), "biome.dragonapi.vanilla.GenLayerRiverMixMixin"),
+    DragonAPIGenLayerRiverEventMixin(Side.COMMON, require(TargetedMod.DRAGONAPI), "biome.dragonapi.GenLayerRiverEventMixin"),
+    DragonAPIBiomeIDTypeMixin(Side.COMMON, require(TargetedMod.DRAGONAPI), "biome.dragonapi.IDTypeMixin"),
+    ReikaChunkHelperMixin(Side.COMMON, require(TargetedMod.DRAGONAPI), "biome.dragonapi.ReikaChunkHelperMixin"),
+    ReikaWorldHelperMixin(Side.COMMON, require(TargetedMod.DRAGONAPI), "biome.dragonapi.ReikaWorldHelperMixin"),
+    //endregion DragonAPI
     //region EnhancedBiomes
-    EBBiomeIDsMixin(Side.COMMON, require(TargetedMod.EB), "eb.BiomeIDsMixin"),
-    EBGenLayerArchipelagoEdgeMixin(Side.COMMON, require(TargetedMod.EB), "eb.GenLayerArchipelagoEdgeMixin"),
-    EBGenLayerEBHillsMixin(Side.COMMON, require(TargetedMod.EB), "eb.GenLayerEBHillsMixin"),
-    EBGenLayerEBRiverMixMixin(Side.COMMON, require(TargetedMod.EB), "eb.GenLayerEBRiverMixMixin"),
-    EBGenLayerEBVoronoiZoomMixin(Side.COMMON, require(TargetedMod.EB), "eb.GenLayerEBVoronoiZoomMixin"),
+    EBBiomeIDsMixin(Side.COMMON, require(TargetedMod.EB), "biome.eb.BiomeIDsMixin"),
+    EBGenLayerArchipelagoEdgeMixin(Side.COMMON, require(TargetedMod.EB), "biome.eb.GenLayerArchipelagoEdgeMixin"),
+    EBGenLayerEBHillsMixin(Side.COMMON, require(TargetedMod.EB), "biome.eb.GenLayerEBHillsMixin"),
+    EBGenLayerEBRiverMixMixin(Side.COMMON, require(TargetedMod.EB), "biome.eb.GenLayerEBRiverMixMixin"),
+    EBGenLayerEBVoronoiZoomMixin(Side.COMMON, require(TargetedMod.EB), "biome.eb.GenLayerEBVoronoiZoomMixin"),
     //endregion EnhancedBiomes
-    //region Erebus->common
-    ErebusModBiomesMixin(Side.COMMON, require(TargetedMod.EREBUS), "erebus.ModBiomesMixin"),
-    //endregion Erebus->common
-    //region ExtraPlanets->common
-    ExtraPlanetsConfigMixin(Side.COMMON, require(TargetedMod.EXTRAPLANETS), "extraplanets.ConfigMixin"),
-    //endregion ExtraPlanets->common
-    //region ExtraUtilities->common
-    ChunkProviderEndOfTimeMixin(Side.COMMON, require(TargetedMod.EXTRAUTILITIES), "extrautilities.ChunkProviderEndOfTimeMixin"),
-    //endregion ExtraUtilities->common
-    //region Futurepack->common
-    FuturepackBiomeGenSpaceMixin(Side.COMMON, require(TargetedMod.FUTUREPACK), "futurepack.BiomeGenSpaceMixin"),
-    //endregion Futurepack->common
-    //region GalactiCraftCore->common
+    //region Enderlicious
+    EnderliciousBiomeConfigurationMixin(Side.COMMON, require(TargetedMod.ENDERLICIOUS), "biome.enderlicious.BiomeConfigurationMixin"),
+    EnderliciousEndChunkProviderMixin(Side.COMMON, require(TargetedMod.ENDERLICIOUS), "biome.enderlicious.EndChunkProviderMixin"),
+    //endregion Enderlicious
+    //region Erebus
+    ErebusModBiomesMixin(Side.COMMON, require(TargetedMod.EREBUS), "biome.erebus.ModBiomesMixin"),
+    //endregion Erebus
+    //region ExtraPlanets
+    ExtraPlanetsConfigMixin(Side.COMMON, require(TargetedMod.EXTRAPLANETS), "biome.extraplanets.ConfigMixin"),
+    //endregion ExtraPlanets
+    //region ExtraUtilities
+    ChunkProviderEndOfTimeMixin(Side.COMMON, require(TargetedMod.EXTRAUTILITIES), "biome.extrautilities.ChunkProviderEndOfTimeMixin"),
+    //endregion ExtraUtilities
+    //region Futurepack
+    FuturepackBiomeGenSpaceMixin(Side.COMMON, require(TargetedMod.FUTUREPACK), "biome.futurepack.BiomeGenSpaceMixin"),
+    //endregion Futurepack
+    //region GalactiCraftCore
     GalactiCraftConfigManagerCoreMixin(Side.COMMON, require(TargetedMod.GALACTICRAFTCORE),
-                                       "galacticraft.ConfigManagerCoreMixin"),
-    //endregion GalactiCraftCore->common
-    //region GalaxySpace->common
-    GSChunkProviderKuiperMixin(Side.COMMON, require(TargetedMod.GALAXYSPACE), "galaxyspace.ChunkProviderKuiperMixin"),
-    GSChunkProviderMarsSSMixin(Side.COMMON, require(TargetedMod.GALAXYSPACE), "galaxyspace.ChunkProviderMarsSSMixin"),
-    GSChunkProviderSpaceLakesMixin(Side.COMMON, require(TargetedMod.GALAXYSPACE), "galaxyspace.ChunkProviderSpaceLakesMixin"),
-    GSChunkProviderVenusSSMixin(Side.COMMON, require(TargetedMod.GALAXYSPACE), "galaxyspace.ChunkProviderVenusSSMixin"),
-    //endregion GalaxySpace->common
-    //region Highlands->common
-    HighlandsConfigMixin(Side.COMMON, require(TargetedMod.HIGHLANDS), "highlands.ConfigMixin"),
-    //endregion Highlands->common
-    //region ICG->common
-    ICGMysteriumPatchesFixesCaveMixin(Side.COMMON, require(TargetedMod.ICG), "icg.MysteriumPatchesFixesCaveMixin"),
-    //endregion ICG->common
-    //region LOTR->common
-    LOTRBiomeVariantStorageMixin(Side.COMMON, require(TargetedMod.LOTR), "lotr.LOTRBiomeVariantStorageMixin"),
-    LOTRChunkProviderMixin(Side.COMMON, require(TargetedMod.LOTR), "lotr.LOTRChunkProviderMixin"),
-    LOTRChunkProviderUtumnoMixin(Side.COMMON, require(TargetedMod.LOTR), "lotr.LOTRChunkProviderUtumnoMixin"),
+                                       "biome.galacticraft.ConfigManagerCoreMixin"),
+    //endregion GalactiCraftCore
+    //region GalaxySpace
+    GSChunkProviderKuiperMixin(Side.COMMON, require(TargetedMod.GALAXYSPACE), "biome.galaxyspace.ChunkProviderKuiperMixin"),
+    GSChunkProviderMarsSSMixin(Side.COMMON, require(TargetedMod.GALAXYSPACE), "biome.galaxyspace.ChunkProviderMarsSSMixin"),
+    GSChunkProviderSpaceLakesMixin(Side.COMMON, require(TargetedMod.GALAXYSPACE), "biome.galaxyspace.ChunkProviderSpaceLakesMixin"),
+    GSChunkProviderVenusSSMixin(Side.COMMON, require(TargetedMod.GALAXYSPACE), "biome.galaxyspace.ChunkProviderVenusSSMixin"),
+    //endregion GalaxySpace
+    //region Highlands
+    HighlandsConfigMixin(Side.COMMON, require(TargetedMod.HIGHLANDS), "biome.highlands.ConfigMixin"),
+    //endregion Highlands
+    //region ICG
+    ICGMysteriumPatchesFixesCaveMixin(Side.COMMON, require(TargetedMod.ICG), "biome.icg.MysteriumPatchesFixesCaveMixin"),
+    //endregion ICG
+    //region LOTR
+    LOTRBiomeVariantStorageMixin(Side.COMMON, require(TargetedMod.LOTR), "biome.lotr.LOTRBiomeVariantStorageMixin"),
+    LOTRChunkProviderMixin(Side.COMMON, require(TargetedMod.LOTR), "biome.lotr.LOTRChunkProviderMixin"),
+    LOTRChunkProviderUtumnoMixin(Side.COMMON, require(TargetedMod.LOTR), "biome.lotr.LOTRChunkProviderUtumnoMixin"),
     LOTRPacketBiomeVariantsWatchHandlerMixin(Side.COMMON, require(TargetedMod.LOTR),
-                                             "lotr.LOTRPacketBiomeVariantsWatchHandlerMixin"),
-    LOTRWorldChunkManagerMixin(Side.COMMON, require(TargetedMod.LOTR), "lotr.LOTRWorldChunkManagerMixin"),
-    //endregion LOTR->common
-    //region MFQM->common
-    MFQMMixin(Side.COMMON, require(TargetedMod.MFQM), "mfqm.MFQMMixin"),
-    MFQMDataWatcherMixin(Side.COMMON, require(TargetedMod.MFQM).and(condition(() -> GeneralConfig.extendDataWatcher)),
-                         "mfqm.MFQMDataWatcherMixin"),
-    //endregion MFQM->common
-    //region NaturesCompass->common
-    NaturesCompassBiomeUtilsMixin(Side.COMMON, require(TargetedMod.NATURESCOMPASS), "naturescompass.BiomeUtilsMixin"),
-    //endregion NaturesCompass->common
-    //region Netherlicious->common
+                                             "biome.lotr.LOTRPacketBiomeVariantsWatchHandlerMixin"),
+    LOTRWorldChunkManagerMixin(Side.COMMON, require(TargetedMod.LOTR), "biome.lotr.LOTRWorldChunkManagerMixin"),
+    //endregion LOTR
+    //region NaturesCompass
+    NaturesCompassBiomeUtilsMixin(Side.COMMON, require(TargetedMod.NATURESCOMPASS), "biome.naturescompass.BiomeUtilsMixin"),
+    //endregion NaturesCompass
+    //region Netherlicious
     NetherliciousBiomeConfigurationMixin(Side.COMMON, require(TargetedMod.NETHERLICIOUS),
-                                         "netherlicious.BiomeConfigurationMixin"),
-    //endregion Netherlicious->common
-    //region NomadicTents->common
-    NomadicTentsTentChunkProviderMixin(Side.COMMON, require(TargetedMod.NOMADICTENTS), "nomadictents.TentChunkProviderMixin"),
-    //endregion NomadicTents->common
-    //region RandomThings->common
-    ItemBiomePainterMixin(Side.COMMON, require(TargetedMod.RANDOMTHINGS), "randomthings.ItemBiomePainterMixin"),
-    MessagePaintBiomeMixin(Side.COMMON, require(TargetedMod.RANDOMTHINGS), "randomthings.MessagePaintBiomeMixin"),
-    //endregion RandomThings->common
-    //region RTG->common
-    RTGChunkProviderRTGMixin(Side.COMMON, require(TargetedMod.RTG), "rtg.ChunkProviderRTGMixin"),
-    RTGLandscapeGeneratorMixin(Side.COMMON, require(TargetedMod.RTG), "rtg.LandscapeGeneratorMixin"),
-    //endregion RTG->common
-    //region RWG->common
-    RWGChunkGeneratorRealisticMixin(Side.COMMON, require(TargetedMod.RWG), "rwg.ChunkGeneratorRealisticMixin"),
-    RWGRealisticBiomeBaseMixin(Side.COMMON, require(TargetedMod.RWG), "rwg.RealisticBiomeBaseMixin"),
-    RWGVillageMaterialsMixin(Side.COMMON, require(TargetedMod.RWG), "rwg.VillageMaterialsMixin"),
-    //endregion RWG->common
-    //region Thaumcraft->common
-    ThaumcraftUtilsMixin(Side.COMMON, require(TargetedMod.THAUMCRAFT), "thaumcraft.UtilsMixin"),
-    //endregion Thaumcraft->common
-    //region Tropicraft->common
+                                         "biome.netherlicious.BiomeConfigurationMixin"),
+    //endregion Netherlicious
+    //region NomadicTents
+    NomadicTentsTentChunkProviderMixin(Side.COMMON, require(TargetedMod.NOMADICTENTS), "biome.nomadictents.TentChunkProviderMixin"),
+    //endregion NomadicTents
+    //region RandomThings
+    ItemBiomePainterMixin(Side.COMMON, require(TargetedMod.RANDOMTHINGS), "biome.randomthings.ItemBiomePainterMixin"),
+    MessagePaintBiomeMixin(Side.COMMON, require(TargetedMod.RANDOMTHINGS), "biome.randomthings.MessagePaintBiomeMixin"),
+    //endregion RandomThings
+    //region RTG
+    RTGChunkProviderRTGMixin(Side.COMMON, require(TargetedMod.RTG), "biome.rtg.ChunkProviderRTGMixin"),
+    RTGLandscapeGeneratorMixin(Side.COMMON, require(TargetedMod.RTG), "biome.rtg.LandscapeGeneratorMixin"),
+    //endregion RTG
+    //region RWG
+    RWGChunkGeneratorRealisticMixin(Side.COMMON, require(TargetedMod.RWG), "biome.rwg.ChunkGeneratorRealisticMixin"),
+    RWGRealisticBiomeBaseMixin(Side.COMMON, require(TargetedMod.RWG), "biome.rwg.RealisticBiomeBaseMixin"),
+    RWGVillageMaterialsMixin(Side.COMMON, require(TargetedMod.RWG), "biome.rwg.VillageMaterialsMixin"),
+    //endregion RWG
+    //region Thaumcraft
+    ThaumcraftUtilsMixin(Side.COMMON, require(TargetedMod.THAUMCRAFT), "biome.thaumcraft.UtilsMixin"),
+    //endregion Thaumcraft
+    //region Tropicraft
     GenLayerTropiVoronoiZoomMixin(Side.COMMON, require(TargetedMod.TROPICRAFT),
-                                  "tropicraft.GenLayerTropiVoronoiZoomMixin"),
-    //endregion Tropicraft->common
-    //region TwilightForest->common
-    TFBiomeBaseMixin(Side.COMMON, require(TargetedMod.TWILIGHTFOREST), "twilightforest.TFBiomeBaseMixin"),
-    //endregion TwilightForest->common
-    //region UBC->common
-    UBCOreUBifierMixin(Side.COMMON, require(TargetedMod.UBC), "ubc.OreUBifierMixin"),
-    UBCBiomeUndergroundDecoratorMixin(Side.COMMON, require(TargetedMod.UBC), "ubc.BiomeUndergroundDecoratorMixin"),
-    //endregion UBC->common
-    //region Witchery->common
-    WitcheryWorldChunkManagerMirrorixin(Side.COMMON, require(TargetedMod.WITCHERY), "witchery.WorldChunkManagerMirrorMixin"),
-    //endregion Witchery->common
-    //region WorldEdit->common
-    WorldEditBaseBlockMixin(Side.COMMON, require(TargetedMod.WORLDEDIT), "worldedit.BaseBlockMixin"),
-    //endregion WorldEdit->common
+                                  "biome.tropicraft.GenLayerTropiVoronoiZoomMixin"),
+    //endregion Tropicraft
+    //region TwilightForest
+    TFBiomeBaseMixin(Side.COMMON, require(TargetedMod.TWILIGHTFOREST), "biome.twilightforest.TFBiomeBaseMixin"),
+    //endregion TwilightForest
+    //region Witchery
+    WitcheryWorldChunkManagerMirrorixin(Side.COMMON, require(TargetedMod.WITCHERY), "biome.witchery.WorldChunkManagerMirrorMixin"),
+    //endregion Witchery
+
+    //endregion biome
+    //region blockitem
+    //region vanilla
+    BlockFireMixin(Side.COMMON, always(), "blockitem.vanilla.BlockFireMixin"),
+    ExtendedBlockStorageMixin(Side.COMMON, always(), "blockitem.vanilla.ExtendedBlockStorageMixin"),
+    ItemInWorldManagerMixin(Side.COMMON, always(), "blockitem.vanilla.ItemInWorldManagerMixin"),
+    ItemStackMixin(Side.COMMON, always(), "blockitem.vanilla.ItemStackMixin"),
+    PacketBufferMixin(Side.COMMON, always(), "blockitem.vanilla.PacketBufferMixin"),
+    S22PacketMultiBlockChangeMixin(Side.COMMON, always(), "blockitem.vanilla.S22PacketMultiBlockChangeMixin"),
+    S24PacketBlockActionMixin(Side.COMMON, always(), "blockitem.vanilla.S24PacketBlockActionMixin"),
+    StatListMixin(Side.COMMON, always(), "blockitem.vanilla.StatListMixin"),
+    WorldMixin(Side.COMMON, always(), "blockitem.vanilla.WorldMixin"),
+    //endregion vanilla
+    //region CoFHLib
+    CoFHLibCofhBlockHelperMixin(Side.COMMON, require(TargetedMod.COFHLIB), "blockitem.cofhlib.BlockHelperMixin"),
+    //endregion CoFHLib
+    //region DragonAPI
+    DragonAPIBlockPropertiesMixin(Side.COMMON, require(TargetedMod.DRAGONAPI), "blockitem.dragonapi.BlockPropertiesMixin"),
+    DragonAPIBlockItemIDTypeMixin(Side.COMMON, require(TargetedMod.DRAGONAPI), "blockitem.dragonapi.IDTypeMixin"),
+    //endregion DragonAPI
+    //region MFQM
+    MFQMMixin(Side.COMMON, require(TargetedMod.MFQM), "blockitem.mfqm.MFQMMixin"),
+    //endregion MFQM
+    //region WorldEdit
+    WorldEditBaseBlockMixin(Side.COMMON, require(TargetedMod.WORLDEDIT), "blockitem.worldedit.BaseBlockMixin"),
+    //endregion WorldEdit
+    //region UBC
+    UBCOreUBifierMixin(Side.COMMON, require(TargetedMod.UBC), "blockitem.ubc.OreUBifierMixin"),
+    UBCBiomeUndergroundDecoratorMixin(Side.COMMON, require(TargetedMod.UBC), "blockitem.ubc.BiomeUndergroundDecoratorMixin"),
+    //endregion UBC
+    //endregion blockitem
+    //region datawatcher
+    //region vanilla
+    DataWatcherMixin(Side.COMMON, condition(() -> GeneralConfig.extendDataWatcher), "datawatcher.vanilla.DataWatcherMixin"),
+    //endregion vanilla
+    //region MFQM
+    MFQMDataWatcherMixin(Side.COMMON, require(TargetedMod.MFQM).and(condition(() -> GeneralConfig.extendDataWatcher)),
+                         "datawatcher.mfqm.MFQMDataWatcherMixin"),
+    //endregion MFQM
+    //endregion datawatcher
+    //region enchantment
+    //region vanilla
+    EnchantmentMixin(Side.COMMON, always(), "enchantment.vanilla.EnchantmentMixin"),
+    //endregion vanilla
+    //endregion enchantment
+    //region potion
+    //region vanilla
+    PotionEffectMixin(Side.COMMON, always(), "potion.vanilla.PotionEffectMixin"),
+    PotionMixin(Side.COMMON, always(), "potion.vanilla.PotionMixin"),
+    S1DPacketEntityEffectMixin(Side.COMMON, always(), "potion.vanilla.network.S1DPacketEntityEffectMixin"),
+    S1EPacketRemoveEntityEffectMixin(Side.COMMON, always(), "potion.vanilla.network.S1EPacketRemoveEntityEffectMixin"),
+    //endregion vanilla
+    //endregion potion
+    //endregion common
+
+    //region client
+    //region vanilla
+    ChunkMixinClient(Side.CLIENT, always(), "vanilla.ChunkMixin"),
+    NetHandlerPlayClientMixin(Side.CLIENT, always(), "vanilla.NetHandlerPlayClientMixin"),
+
+    //endregion vanilla
+    //region biome
+    //region Biome Wand
+    BiomeWandItemClientMixin(Side.CLIENT, require(TargetedMod.BIOMEWAND), "biome.biomewand.BiomeWandItemMixin"),
+    //endregion Biome Wand
+    //endregion biome
+    //region blockitem
+    PlayerControllerMPMixin(Side.CLIENT, always(), "blockitem.vanilla.PlayerControllerMPMixin"),
+    RenderGlobalMixin(Side.CLIENT, always(), "blockitem.vanilla.RenderGlobalMixin"),
+    //endregion blockitem
+    //endregion client
+
     ;
     @Getter
     private final Side side;
