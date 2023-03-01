@@ -1,10 +1,12 @@
 package com.falsepattern.endlessids;
 
 import com.falsepattern.endlessids.asm.IETransformer;
+import com.falsepattern.endlessids.config.GeneralConfig;
 import lombok.SneakyThrows;
 import lombok.val;
 
 import net.minecraft.launchwrapper.LaunchClassLoader;
+import cpw.mods.fml.relauncher.FMLInjectionData;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 
 import java.util.Map;
@@ -27,6 +29,7 @@ public class IEPlugin implements IFMLLoadingPlugin {
 
     @SneakyThrows
     public String[] getASMTransformerClass() {
+        GeneralConfig.poke();
         val cl = ((LaunchClassLoader) this.getClass().getClassLoader());
         val field = cl.getClass().getDeclaredField("transformerExceptions");
         field.setAccessible(true);
@@ -42,6 +45,21 @@ public class IEPlugin implements IFMLLoadingPlugin {
     }
 
     public String getModContainerClass() {
+        if (GeneralConfig.extendBiome) {
+            FMLInjectionData.containers.add(Tags.GROUPNAME + ".containers.BiomeContainer");
+        }
+        if (GeneralConfig.extendBlockItem) {
+            FMLInjectionData.containers.add(Tags.GROUPNAME + ".containers.BlockItemContainer");
+        }
+        if (GeneralConfig.extendDataWatcher) {
+            FMLInjectionData.containers.add(Tags.GROUPNAME + ".containers.DataWatcherContainer");
+        }
+        if (GeneralConfig.extendEnchantment) {
+            FMLInjectionData.containers.add(Tags.GROUPNAME + ".containers.EnchantmentContainer");
+        }
+        if (GeneralConfig.extendPotion) {
+            FMLInjectionData.containers.add(Tags.GROUPNAME + ".containers.PotionContainer");
+        }
         return null;
     }
 

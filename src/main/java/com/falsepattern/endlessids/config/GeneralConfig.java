@@ -60,4 +60,8 @@ public class GeneralConfig {
                      max = 12)
     @Config.DefaultInt(12)
     public static int countCorrectionBits;
+
+    public static void poke() {
+
+    }
 }

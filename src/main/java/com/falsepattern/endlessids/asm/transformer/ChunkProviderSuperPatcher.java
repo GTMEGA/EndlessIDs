@@ -2,6 +2,7 @@ package com.falsepattern.endlessids.asm.transformer;
 
 import com.falsepattern.endlessids.asm.IClassNodeTransformer;
 import com.falsepattern.endlessids.asm.IETransformer;
+import com.falsepattern.endlessids.config.GeneralConfig;
 import lombok.Data;
 import lombok.val;
 import lombok.var;
@@ -142,6 +143,9 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
     }
 
     public static boolean shouldPatch(final ClassNode cn) {
+        if (!GeneralConfig.extendBiome) {
+            return false;
+        }
         for (MethodNode method : cn.methods) {
             if (scanForBrokenCall(method)) {
                 return true;
