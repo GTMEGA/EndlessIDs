@@ -34,10 +34,14 @@ public class ExtendedConstants {
     public static final int biomeIDMask = biomeIDCount - 1;
     public static final int biomeIDNull = biomeIDMask;
     public static final int bytesPerBiome = (bitsPerBiome + 7) / 8;
-    //Chunk
-    public static final int bytesPerChunk = bytesPerBiome * 256 + bytesPerEBS * 16;
+
     //DataWatcher
     public static final int watchableCount = 1 << watchableBits;
     public static final int maxWatchableID = watchableCount - 1;
     public static final int watchableMask = (0x7 << watchableBits) | maxWatchableID;
+
+    //Chunk
+    public static final int bytesPerChunk =
+            (GeneralConfig.extendBiome ? bytesPerBiome : VanillaConstants.bytesPerBiome) * 256
+            + (GeneralConfig.extendBlockItem ? bytesPerEBS : VanillaConstants.bytesPerEBS) * 16;
 }

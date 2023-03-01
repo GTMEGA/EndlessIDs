@@ -18,10 +18,9 @@ import static com.falsepattern.lib.mixin.IMixin.PredicateHelpers.require;
 public enum Mixin implements IMixin {
     //region common
     //region vanilla
-    AnvilChunkLoaderMixin(Side.COMMON, always(), "vanilla.storage.AnvilChunkLoaderMixin"),
-    S21PacketChunkDataMixin(Side.COMMON, always(), "vanilla.networking.S21PacketChunkDataMixin"),
-    S26PacketMapChunkBulkMixin(Side.COMMON, always(), "vanilla.networking.S26PacketMapChunkBulkMixin"),
+    S21PacketChunkDataMixin(Side.COMMON, always(), "vanilla.S21PacketChunkDataMixin"),
     //endregion vanilla
+
     //region AntiIDConflict
     AIDCAntiIdConflictBaseMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT),
                                 "antiidconflict.AntiIdConflictBaseMixin"),
@@ -35,13 +34,17 @@ public enum Mixin implements IMixin {
     AIDCEntitiesManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT), "antiidconflict.EntitiesManagerMixin"),
     AIDCPotionsManagerMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT), "antiidconflict.PotionsManagerMixin"),
     //endregion AntiIDConflict
+
     //region biome
     //region vanilla
+    AnvilChunkLoaderMixinBiome(Side.COMMON, always(), "biome.vanilla.AnvilChunkLoaderMixin"),
     BiomeDictionaryMixin(Side.COMMON, always(), "biome.vanilla.BiomeDictionaryMixin"),
     BiomeGenBaseMixin(Side.COMMON, always(), "biome.vanilla.BiomeGenBaseMixin"),
     ChunkMixin(Side.COMMON, always(), "biome.vanilla.ChunkMixin"),
     GenLayerRiverMixMixin(Side.COMMON, avoid(TargetedMod.DRAGONAPI), "biome.vanilla.GenLayerRiverMixMixin"),
     GenLayerVoronoiZoomMixin(Side.COMMON, always(), "biome.vanilla.GenLayerVoronoiZoomMixin"),
+    S21PacketChunkDataMixinBiome(Side.COMMON, always(), "biome.vanilla.S21PacketChunkDataMixin"),
+    S26PacketMapChunkBulkMixinBiome(Side.COMMON, always(), "biome.vanilla.S26PacketMapChunkBulkMixin"),
     //endregion vanilla
     //region AbyssalCraft
     AbyssalCraftMixin(Side.COMMON, require(TargetedMod.ABYSSALCRAFT), "biome.abyssalcraft.AbyssalCraftMixin"),
@@ -170,15 +173,19 @@ public enum Mixin implements IMixin {
     //endregion Witchery
 
     //endregion biome
+
     //region blockitem
     //region vanilla
+    AnvilChunkLoaderMixinBlockItem(Side.COMMON, always(), "blockitem.vanilla.AnvilChunkLoaderMixin"),
     BlockFireMixin(Side.COMMON, always(), "blockitem.vanilla.BlockFireMixin"),
     ExtendedBlockStorageMixin(Side.COMMON, always(), "blockitem.vanilla.ExtendedBlockStorageMixin"),
     ItemInWorldManagerMixin(Side.COMMON, always(), "blockitem.vanilla.ItemInWorldManagerMixin"),
     ItemStackMixin(Side.COMMON, always(), "blockitem.vanilla.ItemStackMixin"),
     PacketBufferMixin(Side.COMMON, always(), "blockitem.vanilla.PacketBufferMixin"),
+    S21PacketChunkDataMixinBlockItem(Side.COMMON, always(), "blockitem.vanilla.S21PacketChunkDataMixin"),
     S22PacketMultiBlockChangeMixin(Side.COMMON, always(), "blockitem.vanilla.S22PacketMultiBlockChangeMixin"),
     S24PacketBlockActionMixin(Side.COMMON, always(), "blockitem.vanilla.S24PacketBlockActionMixin"),
+    S26PacketMapChunkBulkMixinBlockItem(Side.COMMON, always(), "blockitem.vanilla.S26PacketMapChunkBulkMixin"),
     StatListMixin(Side.COMMON, always(), "blockitem.vanilla.StatListMixin"),
     WorldMixin(Side.COMMON, always(), "blockitem.vanilla.WorldMixin"),
     //endregion vanilla
@@ -200,6 +207,7 @@ public enum Mixin implements IMixin {
     UBCBiomeUndergroundDecoratorMixin(Side.COMMON, require(TargetedMod.UBC), "blockitem.ubc.BiomeUndergroundDecoratorMixin"),
     //endregion UBC
     //endregion blockitem
+
     //region datawatcher
     //region vanilla
     DataWatcherMixin(Side.COMMON, condition(() -> GeneralConfig.extendDataWatcher), "datawatcher.vanilla.DataWatcherMixin"),
@@ -209,11 +217,13 @@ public enum Mixin implements IMixin {
                          "datawatcher.mfqm.MFQMDataWatcherMixin"),
     //endregion MFQM
     //endregion datawatcher
+
     //region enchantment
     //region vanilla
     EnchantmentMixin(Side.COMMON, always(), "enchantment.vanilla.EnchantmentMixin"),
     //endregion vanilla
     //endregion enchantment
+
     //region potion
     //region vanilla
     PotionEffectMixin(Side.COMMON, always(), "potion.vanilla.PotionEffectMixin"),
@@ -222,23 +232,33 @@ public enum Mixin implements IMixin {
     S1EPacketRemoveEntityEffectMixin(Side.COMMON, always(), "potion.vanilla.network.S1EPacketRemoveEntityEffectMixin"),
     //endregion vanilla
     //endregion potion
+
     //endregion common
 
     //region client
-    //region vanilla
-    ChunkMixinClient(Side.CLIENT, always(), "vanilla.ChunkMixin"),
-    NetHandlerPlayClientMixin(Side.CLIENT, always(), "vanilla.NetHandlerPlayClientMixin"),
 
-    //endregion vanilla
     //region biome
+    //region vanilla
+    ChunkMixinClientBiome(Side.CLIENT, always(), "biome.vanilla.ChunkMixin"),
+    //endregion vanilla
     //region Biome Wand
     BiomeWandItemClientMixin(Side.CLIENT, require(TargetedMod.BIOMEWAND), "biome.biomewand.BiomeWandItemMixin"),
     //endregion Biome Wand
     //endregion biome
+
     //region blockitem
+    //region vanilla
+    ChunkMixinClientBlockItem(Side.CLIENT, always(), "blockitem.vanilla.ChunkMixin"),
+    NetHandlerPlayClientMixinBlockItem(Side.CLIENT, always(), "blockitem.vanilla.NetHandlerPlayClientMixin"),
     PlayerControllerMPMixin(Side.CLIENT, always(), "blockitem.vanilla.PlayerControllerMPMixin"),
     RenderGlobalMixin(Side.CLIENT, always(), "blockitem.vanilla.RenderGlobalMixin"),
+    //endregion vanilla
     //endregion blockitem
+
+    //region potion
+    NetHandlerPlayClientMixinPotion(Side.CLIENT, always(), "potion.vanilla.NetHandlerPlayClientMixin"),
+    //endregion potion
+
     //endregion client
 
     ;

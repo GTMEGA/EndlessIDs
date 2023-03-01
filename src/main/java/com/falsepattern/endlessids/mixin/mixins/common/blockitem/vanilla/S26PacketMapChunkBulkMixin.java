@@ -1,4 +1,4 @@
-package com.falsepattern.endlessids.mixin.mixins.common.vanilla.networking;
+package com.falsepattern.endlessids.mixin.mixins.common.blockitem.vanilla;
 
 import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.constants.VanillaConstants;
@@ -15,12 +15,5 @@ public abstract class S26PacketMapChunkBulkMixin {
                     require = 1)
     private int extend1(int constant) {
         return ExtendedConstants.bytesPerIDPlusMetadata * 16 * 16 * 16;
-    }
-
-    @ModifyConstant(method = "readPacketData",
-                    constant = @Constant(intValue = VanillaConstants.bytesPerBiome * 16 * 16),
-                    require = 1)
-    private int extend2(int contant) {
-        return ExtendedConstants.bytesPerBiome * 16 * 16;
     }
 }
