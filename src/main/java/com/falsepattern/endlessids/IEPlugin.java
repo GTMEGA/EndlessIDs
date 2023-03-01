@@ -19,7 +19,7 @@ import static cpw.mods.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
 
 @MCVersion("1.7.10")
 @Name(Tags.MODID)
-@TransformerExclusions({"com.falsepattern.endlessids.asm"})
+@TransformerExclusions({"com.falsepattern.endlessids.asm", "com.falsepattern.endlessids.config.GeneralConfig"})
 @DependsOn("falsepatternlib")
 public class IEPlugin implements IFMLLoadingPlugin {
 
@@ -29,7 +29,6 @@ public class IEPlugin implements IFMLLoadingPlugin {
 
     @SneakyThrows
     public String[] getASMTransformerClass() {
-        GeneralConfig.poke();
         val cl = ((LaunchClassLoader) this.getClass().getClassLoader());
         val field = cl.getClass().getDeclaredField("transformerExceptions");
         field.setAccessible(true);
