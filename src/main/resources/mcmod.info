@@ -2,7 +2,7 @@
   {
     "modid": "${modId}",
     "name": "${modName}",
-    "description": "Extends hardcoded block ID limit even more.",
+    "description": "Extend ALL the IDs!",
     "version": "${modVersion}",
     "mcversion": "${minecraftVersion}",
     "url": "https://github.com/FalsePattern/EndlessIDs",
