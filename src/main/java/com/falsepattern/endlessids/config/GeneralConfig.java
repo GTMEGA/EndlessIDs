@@ -47,6 +47,20 @@ public class GeneralConfig {
     @Config.DefaultBoolean(true)
     public static boolean extendPotion;
 
+    @Config.Comment("Extends the maximum redstone signal strength.\n" +
+                    "Only has effect with extendBlockItem enabled.\n" +
+                    "WARNING: THIS IS HERE ONLY FOR FUN, IT WILL DEFINITELY CORRUPT YOUR WORLD!")
+    @Config.DefaultBoolean(false)
+    public static boolean extendRedstone;
+
+    @Config.Comment("Increases the max signal strength of redstone.\n" +
+                    "Only has effect with both extendBlockItem and extendRedstone enabled.\n" +
+                    "Vanilla value is 15.")
+    @Config.RangeInt(min = 15,
+                     max = 127)
+    @Config.DefaultInt(15)
+    public static int maxRedstone;
+
     @Config.Comment(
             "Use this to tune the amount of available block IDs.\n" +
             "Minecraft contains some internal code that uses a HUGE amount of RAM with too many block IDs available.\n" +

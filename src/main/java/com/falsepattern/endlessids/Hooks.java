@@ -11,29 +11,33 @@ import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.chunk.Chunk;
 
-import java.nio.ByteBuffer;
-import java.nio.ShortBuffer;
-
 public class Hooks {
 
-    public static byte[] getBlockData(final IExtendedBlockStorageMixin ebs) {
+    public static void getBlockData(final IExtendedBlockStorageMixin ebs, final byte[] data, final int offset) {
         val lsb = ebs.getLSB();
         val msb = ebs.getMSB();
-        final byte[] ret = new byte[lsb.length * 3];
-        ByteBuffer.wrap(ret).asShortBuffer().put(lsb);
-        System.arraycopy(msb, 0, ret, lsb.length * 2, lsb.length);
-        return ret;
+        Unsafer.arraycopy(lsb, 0, data, offset, lsb.length);
+        System.arraycopy(msb, 0, data, offset + lsb.length * 2, msb.length);
     }
 
     public static void setBlockData(final IExtendedBlockStorageMixin ebs, final byte[] data, final int offset) {
         val lsb = ebs.getLSB();
         val msb = ebs.getMSB();
-        val lsbBytes = lsb.length * 2;
-        ShortBuffer.wrap(ebs.getLSB()).put(ByteBuffer.wrap(data, offset, lsbBytes).asShortBuffer());
-        System.arraycopy(data, offset + lsbBytes, msb, 0, msb.length);
+        Unsafer.arraycopy(data, offset, lsb, 0, lsb.length);
+        System.arraycopy(data, offset + lsb.length * 2, msb, 0, msb.length);
     }
 
-    public static void writeChunkToNbt(final NBTTagCompound nbt, final IExtendedBlockStorageMixin ebs) {
+    public static void getBlockMeta(final IExtendedBlockStorageMixin ebs, final byte[] data, final int offset) {
+        val meta = ebs.getMetaArray();
+        Unsafer.arraycopy(meta, 0, data, offset, meta.length);
+    }
+
+    public static void setBlockMeta(final IExtendedBlockStorageMixin ebs, final byte[] data, final int offset) {
+        val meta = ebs.getMetaArray();
+        Unsafer.arraycopy(data, offset, meta, 0, meta.length);
+    }
+
+    public static void writeBlockDataToNBT(final NBTTagCompound nbt, final IExtendedBlockStorageMixin ebs) {
         val ebsLSB = ebs.getLSB();
         val ebsMSB = ebs.getMSB();
 
@@ -82,7 +86,7 @@ public class Hooks {
         }
     }
 
-    public static void readChunkFromNbt(final IExtendedBlockStorageMixin ebs, final NBTTagCompound nbt) {
+    public static void readBlockDataFromNBT(final IExtendedBlockStorageMixin ebs, final NBTTagCompound nbt) {
         assert nbt.hasKey("Blocks");
         val byte1Data = nbt.getByteArray("Blocks");
         val byte2BottomNibbleData = nbt.hasKey("Add") ? nbt.getByteArray("Add") : null;
@@ -183,8 +187,8 @@ public class Hooks {
         }
     }
 
-    public static void oldBiomeByteToNewShortArray(byte[] byteArray, short[] shortArray) {
-        for (int i = 0; i < 256; i++) {
+    private static void scatter(byte[] byteArray, short[] shortArray) {
+        for (int i = 0; i < byteArray.length; i++) {
             shortArray[i] = (short) (byteArray[i] & 0xff);
         }
     }
@@ -218,12 +222,25 @@ public class Hooks {
         } else if (nbt.hasKey("Biomes16", 7)) {
             byteToShortArrayLegacy(nbt.getByteArray("Biomes16"), data);
         } else if (nbt.hasKey("Biomes", 7)) {
-            oldBiomeByteToNewShortArray(nbt.getByteArray("Biomes"), data);
+            scatter(nbt.getByteArray("Biomes"), data);
         } else {
             put = false;
         }
         if (put) {
             ((IChunkMixin) chunk).setBiomeShortArray(data);
         }
+    }
+
+    public static void readBlockMetaFromNBT(IExtendedBlockStorageMixin instance, NBTTagCompound nbt) {
+        short[] data = instance.getMetaArray();
+        if (nbt.hasKey("Data16", 7)) {
+            byteToShortArray(nbt.getByteArray("Data16"), 0, data, 0, data.length * 2);
+        } else {
+            scatter(nbt.getByteArray("Data"), data);
+        }
+    }
+
+    public static void writeBlockMetaToNBT(IExtendedBlockStorageMixin instance, NBTTagCompound nbt) {
+        nbt.setByteArray("Data16", shortToByteArray(instance.getMetaArray()));
     }
 }

@@ -242,6 +242,19 @@ public enum Mixin implements IMixin {
     //endregion potion
     //endregion client
 
+    //region redstone
+    //region common
+    BlockCompressedPoweredMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem && GeneralConfig.extendRedstone), "redstone.BlockCompressedPoweredMixin"),
+    BlockRedstoneDiodeMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem && GeneralConfig.extendRedstone), "redstone.BlockRedstoneDiodeMixin"),
+    BlockRedstoneTorchMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem && GeneralConfig.extendRedstone), "redstone.BlockRedstoneTorchMixin"),
+    RedstoneWorldMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem && GeneralConfig.extendRedstone), "redstone.WorldMixin"),
+    //endregion common
+    //region client
+    BlockRedstoneWireMixin(Side.CLIENT, condition(() -> GeneralConfig.extendBlockItem && GeneralConfig.extendRedstone), "redstone.BlockRedstoneWireMixin"),
+    RedstoneRenderBlocksMixin(Side.CLIENT, condition(() -> GeneralConfig.extendBlockItem && GeneralConfig.extendRedstone), "redstone.RenderBlocksMixin"),
+    //endregion client
+    //endregion redstone
+
     ;
     @Getter
     private final Side side;

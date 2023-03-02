@@ -5,7 +5,7 @@ import com.falsepattern.endlessids.config.GeneralConfig;
 public class ExtendedConstants {
     //Tunables
     public static final int bitsPerID = 24;
-    public static final int bitsPerMetadata = 4;
+    public static final int bitsPerMetadata = 16;
     public static final int countCorrectionBits = GeneralConfig.countCorrectionBits;
 
     public static final int watchableBits = 7;

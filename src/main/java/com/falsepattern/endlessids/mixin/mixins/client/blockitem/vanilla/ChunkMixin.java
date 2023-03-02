@@ -10,9 +10,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+import net.minecraft.network.play.server.S21PacketChunkData;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.NibbleArray;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 
 import java.util.Iterator;
@@ -63,4 +66,50 @@ public abstract class ChunkMixin {
                                         target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;getBlockLSBArray()[B")),
               require = 1)
     private void noCopy(Object src, int srcPos, Object dest, int destPos, int length) {}
+
+
+
+    @Inject(method = "fillChunk",
+            at = @At(value = "INVOKE",
+                     target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;getMetadataArray()Lnet/minecraft/world/chunk/NibbleArray;"),
+            locals = LocalCapture.CAPTURE_FAILHARD,
+            require = 1)
+    private void hookSetBlockMeta(byte[] p_76607_1_, int p_76607_2_, int p_76607_3_, boolean p_76607_4_, CallbackInfo ci, Iterator iterator, int k, boolean flag1, int l) {
+        Hooks.setBlockMeta((IExtendedBlockStorageMixin) this.storageArrays[l], p_76607_1_, k);
+    }
+
+    private static NibbleArray fakeNarray;
+
+    @Redirect(method = "fillChunk",
+              at = @At(value = "INVOKE",
+                       target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;getMetadataArray()Lnet/minecraft/world/chunk/NibbleArray;"),
+              require = 1)
+    private NibbleArray hookSetBlockMetaNoArray(ExtendedBlockStorage instance) {
+        return fakeNarray != null ? fakeNarray : (fakeNarray = new NibbleArray(null, 0));
+    }
+
+    @Redirect(method = "fillChunk",
+              at = @At(value = "FIELD",
+                       target = "Lnet/minecraft/world/chunk/NibbleArray;data:[B",
+                       args = "array=length"),
+              slice = @Slice(from = @At(value = "INVOKE",
+                                        target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;getMetadataArray()Lnet/minecraft/world/chunk/NibbleArray;"),
+                             to = @At(value = "INVOKE",
+                                      target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;getBlocklightArray()Lnet/minecraft/world/chunk/NibbleArray;")),
+              expect = 2,
+              require = 2)
+    private int hookSetBlockMetaFakeBytesLength(byte[] array) {
+        return 16 * 16 * 16 * (ExtendedConstants.nibblesPerMetadata >>> 1);
+    }
+
+    @Redirect(method = "fillChunk",
+              at = @At(value = "INVOKE",
+                       target = "Ljava/lang/System;arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V",
+                       ordinal = 0),
+              slice = @Slice(from = @At(value = "INVOKE",
+                                        target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;getMetadataArray()Lnet/minecraft/world/chunk/NibbleArray;")),
+              require = 1)
+    private void hookSetBlockMetaNoCopy(Object src, int srcPos, Object dest, int destPos, int length) {
+
+    }
 }

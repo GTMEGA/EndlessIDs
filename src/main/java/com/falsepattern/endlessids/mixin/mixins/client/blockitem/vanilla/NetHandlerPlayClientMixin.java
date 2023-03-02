@@ -38,7 +38,7 @@ public abstract class NetHandlerPlayClientMixin {
                     short idLSB = dataInput.readShort();
                     byte idMSB = dataInput.readByte();
                     int id = (idLSB & 0xFFFF) | ((idMSB & 0xFF) << 16);
-                    int meta = dataInput.readByte() & 15;
+                    int meta = dataInput.readShort() & 0xFFFF;
                     int x = pos >> 12 & 15;
                     int z = pos >> 8 & 15;
                     int y = pos & 255;

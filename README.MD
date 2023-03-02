@@ -6,6 +6,7 @@ Comparison of the known limits:
 |                 | Vanilla                                            | NotEnoughIDs | EndlessIDs                       |
 |-----------------|----------------------------------------------------|--------------|----------------------------------|
 | Block IDs       | 4,096                                              | 32,000       | 16,777,216 since 1.3             |
+| Block Metadata  | 16                                                 | 16           | 65,536 since 1.5                 |
 | Item  IDs       | 32,000                                             | 32,000       | 16,777,216 since 1.3             |
 | Biome IDs       | 256                                                | 256          | 65,536 since 1.4                 |
 | Entity IDs      | 256                                                | 256          | 256 right now, extension planned |

@@ -8,4 +8,6 @@ public interface IExtendedBlockStorageMixin {
     short[] getLSB();
 
     byte[] getMSB();
+
+    short[] getMetaArray();
 }
