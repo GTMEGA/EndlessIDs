@@ -9,7 +9,8 @@ import org.spongepowered.asm.mixin.Shadow;
 @Mixin(value = BaseBlock.class,
        remap = false)
 public abstract class BaseBlockMixin {
-    @Shadow private short data;
+    @Shadow
+    private short data;
     private int idExtended;
 
     /**
@@ -58,7 +59,7 @@ public abstract class BaseBlockMixin {
         } else if (data < -1) {
             throw new IllegalArgumentException("Can't have a block data value below -1");
         } else {
-            this.data = (short)data;
+            this.data = (short) data;
         }
     }
 

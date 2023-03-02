@@ -40,7 +40,7 @@ public class CommonManager {
     }
 
     private void runPatches(String stageName, Stage stage) throws Exception {
-        for (val patch: patches) {
+        for (val patch : patches) {
             if (Loader.isModLoaded(patch.modid)) {
                 try {
                     if (stage.run(patch)) {

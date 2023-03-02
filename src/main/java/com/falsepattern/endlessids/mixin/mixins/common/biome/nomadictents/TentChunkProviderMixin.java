@@ -22,7 +22,7 @@ public abstract class TentChunkProviderMixin {
               require = 1)
     private void setBiomesTweaked(Chunk chunk, byte[] p_76616_1_) {
         short[] biomeMap = new short[256];
-        Arrays.fill(biomeMap, (short)BiomeGenBase.ocean.biomeID);
-        ((IChunkMixin)chunk).setBiomeShortArray(biomeMap);
+        Arrays.fill(biomeMap, (short) BiomeGenBase.ocean.biomeID);
+        ((IChunkMixin) chunk).setBiomeShortArray(biomeMap);
     }
 }

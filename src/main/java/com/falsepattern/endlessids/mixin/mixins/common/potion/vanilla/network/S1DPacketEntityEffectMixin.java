@@ -18,7 +18,7 @@ public abstract class S1DPacketEntityEffectMixin implements IS1DPacketEntityEffe
 
     @WrapOperation(method = "<init>(ILnet/minecraft/potion/PotionEffect;)V",
                    at = @At(value = "INVOKE",
-                       target = "Lnet/minecraft/potion/PotionEffect;getPotionID()I"),
+                            target = "Lnet/minecraft/potion/PotionEffect;getPotionID()I"),
                    require = 1)
     private int getPotionID(PotionEffect effect, Operation<Integer> original) {
         idExtended = original.call(effect);
@@ -26,10 +26,10 @@ public abstract class S1DPacketEntityEffectMixin implements IS1DPacketEntityEffe
     }
 
     @Redirect(method = "readPacketData",
-                   at = @At(value = "INVOKE",
-                            target = "Lnet/minecraft/network/PacketBuffer;readByte()B",
-                            ordinal = 0),
-                   require = 1)
+              at = @At(value = "INVOKE",
+                       target = "Lnet/minecraft/network/PacketBuffer;readByte()B",
+                       ordinal = 0),
+              require = 1)
     private byte networkReadPacketData(PacketBuffer instance) {
         idExtended = instance.readInt();
         return -1;
@@ -44,9 +44,9 @@ public abstract class S1DPacketEntityEffectMixin implements IS1DPacketEntityEffe
         instance.writeInt(idExtended);
         return null;
     }
-	
-	@Override
-	public int getIDExtended() {
+
+    @Override
+    public int getIDExtended() {
         return this.idExtended;
     }
 }

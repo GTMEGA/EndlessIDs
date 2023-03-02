@@ -3,10 +3,10 @@ package com.falsepattern.endlessids.mixin.stubpackage.org.dave.CompactMachines.t
 import net.minecraft.world.World;
 
 public class TileEntityMachine {
-    public World getWorldObj()
-    {
-        return null;
-    }
     public int xCoord;
     public int zCoord;
+
+    public World getWorldObj() {
+        return null;
+    }
 }

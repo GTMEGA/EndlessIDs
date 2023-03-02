@@ -16,14 +16,14 @@ import net.minecraft.world.chunk.Chunk;
 @Mixin(value = BiomeDetectorBase.class,
        remap = false)
 public abstract class BiomeDetectorBaseMixin {
+    private Chunk chunk;
+
     @ModifyConstant(method = "<clinit>",
                     constant = @Constant(intValue = VanillaConstants.biomeIDCount),
                     require = 2)
     private static int extendIDs(int constant) {
         return ExtendedConstants.biomeIDCount;
     }
-
-    private Chunk chunk;
 
     @Redirect(method = "getBiomeID",
               at = @At(value = "INVOKE",
@@ -41,7 +41,7 @@ public abstract class BiomeDetectorBaseMixin {
               require = 1)
     private int[] biomeIDs(byte[] i) {
         try {
-            return ShortUtil.unsignedShortToIntArray(((IChunkMixin)chunk).getBiomeShortArray());
+            return ShortUtil.unsignedShortToIntArray(((IChunkMixin) chunk).getBiomeShortArray());
         } finally {
             chunk = null;
         }

@@ -71,7 +71,8 @@ public abstract class ModBiomesMixin {
                     constant = @Constant(stringValue = "Erebus biome IDs cannot be higher than 127 or smaller than 0!"),
                     require = 1)
     private static String modifyWarning(String str) {
-        return "Erebus biome IDs cannot be higher than " + (ExtendedConstants.biomeIDCount - 129) + " or smaller than 0!";
+        return "Erebus biome IDs cannot be higher than " + (ExtendedConstants.biomeIDCount - 129) +
+               " or smaller than 0!";
     }
 
     @Inject(method = "init",
@@ -84,7 +85,7 @@ public abstract class ModBiomesMixin {
                                  ulteriorOutbackID, fungalForestID, submergedSwampID, fieldsSubForestID,
                                  jungleSubLakeID, jungleSubAsperGroveID, desertSubCharredForestID,
                                  savannahSubRockyWastelandID, savannahSubAsperGroveID, savannahSubSteppeID};
-        for (val biome: biomes) {
+        for (val biome : biomes) {
             if (biome <= 0 || biome >= ExtendedConstants.biomeIDCount - 129) {
                 continue;
             }

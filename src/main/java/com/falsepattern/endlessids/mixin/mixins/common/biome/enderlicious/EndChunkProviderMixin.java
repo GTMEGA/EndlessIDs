@@ -40,11 +40,11 @@ public abstract class EndChunkProviderMixin {
               require = 1)
     private byte[] setBiomesTweaked(Chunk chunk) {
         val chunkBiomes = ((IChunkMixin) chunk).getBiomeShortArray();
-        for(int k = 0; k < chunkBiomes.length; ++k) {
+        for (int k = 0; k < chunkBiomes.length; ++k) {
             if (Math.abs(xx) < 160 && Math.abs(zz) < 160) {
                 chunkBiomes[k] = 9;
             } else {
-                chunkBiomes[k] = (short)this.biomesForGeneration[k].biomeID;
+                chunkBiomes[k] = (short) this.biomesForGeneration[k].biomeID;
             }
         }
         return ZERO_LENGTH_BIOME_ARRAY_PLACEHOLDER;

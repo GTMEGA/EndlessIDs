@@ -56,8 +56,7 @@ public abstract class BiomesManagerMixin {
     }
 
     @ModifyConstant(method = {"preinit", "setUpBiomesFolder"},
-                    constant = {@Constant(stringValue = "\\biomes"),
-                                @Constant(stringValue = "\\main.cfg")})
+                    constant = {@Constant(stringValue = "\\biomes"), @Constant(stringValue = "\\main.cfg")})
     private static String fixPaths(String original) {
         return AIDCStringFixer.fixString(original);
     }

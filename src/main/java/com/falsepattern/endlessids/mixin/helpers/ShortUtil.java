@@ -12,7 +12,7 @@ public final class ShortUtil {
     public static int[] unsignedShortToIntArray(short[] shorts) {
         int[] ints = new int[shorts.length];
 
-        for(int i = 0; i < shorts.length; ++i) {
+        for (int i = 0; i < shorts.length; ++i) {
             ints[i] = unsignedShortToInt(shorts[i]);
         }
 

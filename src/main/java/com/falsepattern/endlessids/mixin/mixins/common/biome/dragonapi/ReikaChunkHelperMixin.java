@@ -13,13 +13,14 @@ import net.minecraft.world.chunk.Chunk;
        remap = false)
 public abstract class ReikaChunkHelperMixin {
     private static short[] biomeArray;
+
     @Redirect(method = "copyChunk",
               at = @At(value = "INVOKE",
                        target = "Lnet/minecraft/world/chunk/Chunk;setBiomeArray([B)V",
                        remap = true),
               require = 1)
     private static void customSet(Chunk chunk, byte[] p_76616_1_) {
-        ((IChunkMixin)chunk).setBiomeShortArray(biomeArray);
+        ((IChunkMixin) chunk).setBiomeShortArray(biomeArray);
         biomeArray = null;
     }
 
@@ -29,7 +30,7 @@ public abstract class ReikaChunkHelperMixin {
                        remap = true),
               require = 1)
     private static byte[] customGet(Chunk chunk) {
-        biomeArray = ((IChunkMixin)chunk).getBiomeShortArray();
+        biomeArray = ((IChunkMixin) chunk).getBiomeShortArray();
         return EndlessIDs.ZERO_LENGTH_BIOME_ARRAY_PLACEHOLDER;
     }
 }

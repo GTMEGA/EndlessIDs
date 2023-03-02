@@ -42,17 +42,17 @@ public abstract class BiomeWandItemMixin {
             int relBlockX = blockX & 15;
             int relBlockZ = blockZ & 15;
             Chunk chunk = world.getChunkFromBlockCoords(blockX, blockZ);
-            short biome = ((IChunkMixin)chunk).getBiomeShortArray()[relBlockZ * 16 + relBlockX];
+            short biome = ((IChunkMixin) chunk).getBiomeShortArray()[relBlockZ * 16 + relBlockX];
             tag.setShort("sampledBiomeS", biome);
         } else {
             short biome = tag.getShort("sampledBiomeS");
 
-            for(int ix = blockX - 3; ix <= blockX + 3; ++ix) {
-                for(int iz = blockZ - 3; iz <= blockZ + 3; ++iz) {
+            for (int ix = blockX - 3; ix <= blockX + 3; ++ix) {
+                for (int iz = blockZ - 3; iz <= blockZ + 3; ++iz) {
                     int relBlockX = ix & 15;
                     int relBlockZ = iz & 15;
                     Chunk chunk = world.getChunkFromBlockCoords(blockX, blockZ);
-                    ((IChunkMixin)chunk).getBiomeShortArray()[relBlockZ << 4 | relBlockX] = biome;
+                    ((IChunkMixin) chunk).getBiomeShortArray()[relBlockZ << 4 | relBlockX] = biome;
                     chunk.isModified = true;
                     BiomeWandMod.proxy.updateRendererAt(ix, iz);
                 }
@@ -96,12 +96,12 @@ public abstract class BiomeWandItemMixin {
      */
     @Overwrite
     public void getSubItems(Item item, CreativeTabs tabs, List list) {
-        list.add(new ItemStack((BiomeWandItem)(Object)this, 1));
+        list.add(new ItemStack((BiomeWandItem) (Object) this, 1));
         for (BiomeGenBase biome : BiomeGenBase.getBiomeGenArray()) {
             if (biome != null && !(biome instanceof PlaceholderBiome)) {
                 NBTTagCompound compound = new NBTTagCompound();
                 compound.setShort("sampledBiomeS", (short) biome.biomeID);
-                ItemStack wand = new ItemStack((BiomeWandItem)(Object)this, 1);
+                ItemStack wand = new ItemStack((BiomeWandItem) (Object) this, 1);
                 wand.setTagCompound(compound);
                 list.add(wand);
             }

@@ -30,7 +30,7 @@ public abstract class BiomeDetectorNetherMixin {
               require = 1)
     private int[] biomeIDs(byte[] i) {
         try {
-            return ShortUtil.unsignedShortToIntArray(((IChunkMixin)chunk).getBiomeShortArray());
+            return ShortUtil.unsignedShortToIntArray(((IChunkMixin) chunk).getBiomeShortArray());
         } finally {
             chunk = null;
         }

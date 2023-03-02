@@ -132,7 +132,7 @@ public abstract class AnvilChunkLoaderMixin {
                        target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;setBlockMetadataArray(Lnet/minecraft/world/chunk/NibbleArray;)V"),
               require = 1)
     private void redirectBlockMetaRead(ExtendedBlockStorage instance, NibbleArray p_76668_1_) {
-        Hooks.readBlockMetaFromNBT((IExtendedBlockStorageMixin)instance, nbt);
+        Hooks.readBlockMetaFromNBT((IExtendedBlockStorageMixin) instance, nbt);
         nbt = null;
     }
 }

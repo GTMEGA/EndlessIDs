@@ -44,25 +44,6 @@ public abstract class AbyssalCraftMixin {
     @Shadow
     public static int configBiomeId13;
 
-    @Inject(method = "checkBiomeIds",
-            at = @At("HEAD"),
-            require = 1)
-    private void cleanupBiomeArrayForAssignment(CallbackInfo ci) {
-        val bga = BiomeGenBase.getBiomeGenArray();
-
-        int[] biomes = new int[]{configBiomeId1, configBiomeId2, configBiomeId3, configBiomeId4, configBiomeId5,
-                                 configBiomeId6, configBiomeId7, configBiomeId8, configBiomeId9, configBiomeId10,
-                                 configBiomeId11, configBiomeId12, configBiomeId13};
-        for (val biome : biomes) {
-            if (biome < 0 || biome >= ExtendedConstants.biomeIDCount) {
-                continue;
-            }
-            if (bga[biome] instanceof PlaceholderBiome) {
-                bga[biome] = null;
-            }
-        }
-    }
-
     @ModifyConstant(method = "syncConfig",
                     constant = {@Constant(intValue = 100, ordinal = 0),
                                 @Constant(intValue = 101, ordinal = 0),
@@ -80,5 +61,24 @@ public abstract class AbyssalCraftMixin {
                     require = 13)
     private static int shiftBiomeIDsUp(int constant) {
         return constant + 8000;
+    }
+
+    @Inject(method = "checkBiomeIds",
+            at = @At("HEAD"),
+            require = 1)
+    private void cleanupBiomeArrayForAssignment(CallbackInfo ci) {
+        val bga = BiomeGenBase.getBiomeGenArray();
+
+        int[] biomes = new int[]{configBiomeId1, configBiomeId2, configBiomeId3, configBiomeId4, configBiomeId5,
+                                 configBiomeId6, configBiomeId7, configBiomeId8, configBiomeId9, configBiomeId10,
+                                 configBiomeId11, configBiomeId12, configBiomeId13};
+        for (val biome : biomes) {
+            if (biome < 0 || biome >= ExtendedConstants.biomeIDCount) {
+                continue;
+            }
+            if (bga[biome] instanceof PlaceholderBiome) {
+                bga[biome] = null;
+            }
+        }
     }
 }

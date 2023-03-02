@@ -16,6 +16,7 @@ public abstract class ConfigManagerCoreMixin {
     private static int shiftBiomeIDsUp(int id) {
         return id + 18000;
     }
+
     @ModifyConstant(method = "syncConfig",
                     constant = @Constant(stringValue = "Biome ID for Moon (Mars will be this + 1, Asteroids + 2 etc). Allowed range 40-250."),
                     require = 1)

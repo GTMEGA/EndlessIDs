@@ -21,21 +21,22 @@ import java.util.zip.Inflater;
 
 @Mixin(S21PacketChunkData.class)
 public abstract class S21PacketChunkDataMixin {
-    @Shadow private int field_149280_d;
-
-    @Shadow private byte[] field_149278_f;
-
-    @Shadow private int field_149284_a;
-
-    @Shadow private int field_149282_b;
-
-    @Shadow private boolean field_149279_g;
-
-    @Shadow private int field_149283_c;
-
-    @Shadow private int field_149285_h;
-
-    @Shadow private static byte[] field_149286_i;
+    @Shadow
+    private static byte[] field_149286_i;
+    @Shadow
+    private int field_149280_d;
+    @Shadow
+    private byte[] field_149278_f;
+    @Shadow
+    private int field_149284_a;
+    @Shadow
+    private int field_149282_b;
+    @Shadow
+    private boolean field_149279_g;
+    @Shadow
+    private int field_149283_c;
+    @Shadow
+    private int field_149285_h;
 
     @ModifyConstant(method = {"<clinit>", "func_149275_c"},
                     constant = @Constant(intValue = VanillaConstants.bytesPerChunk),
@@ -47,8 +48,8 @@ public abstract class S21PacketChunkDataMixin {
 
     @Inject(method = "writePacketData",
             at = @At(value = "INVOKE",
-                       target = "Lnet/minecraft/network/PacketBuffer;writeShort(I)Lio/netty/buffer/ByteBuf;",
-                       ordinal = 1),
+                     target = "Lnet/minecraft/network/PacketBuffer;writeShort(I)Lio/netty/buffer/ByteBuf;",
+                     ordinal = 1),
             require = 1)
     private void extendWrite(PacketBuffer p_148840_1_, CallbackInfo ci) {
         p_148840_1_.writeInt(this.field_149280_d);

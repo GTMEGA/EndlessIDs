@@ -27,10 +27,13 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
     private int blockRefCount;
     @Shadow
     private int tickRefCount;
-    @Shadow private byte[] blockLSBArray;
-    @Shadow private NibbleArray blockMetadataArray;
+    @Shadow
+    private byte[] blockLSBArray;
+    @Shadow
+    private NibbleArray blockMetadataArray;
 
-    @Shadow private NibbleArray blockMSBArray;
+    @Shadow
+    private NibbleArray blockMSBArray;
     private NibbleArray b2High;
     private byte[] b3;
     private short[] metaArray;
@@ -141,7 +144,7 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
     @Overwrite
     public void setExtBlockMetadata(int x, int y, int z, int meta) {
         int index = y << 8 | z << 4 | x;
-        metaArray[index] = (short)(meta & 0xFFFF);
+        metaArray[index] = (short) (meta & 0xFFFF);
     }
 
     @Redirect(method = "removeInvalidBlocks",
@@ -181,13 +184,13 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
     }
 
     @Override
-    public void clearB2Low() {
-        blockMSBArray = null;
+    public void setB2Low(NibbleArray data) {
+        blockMSBArray = data;
     }
 
     @Override
-    public void setB2Low(NibbleArray data) {
-        blockMSBArray = data;
+    public void clearB2Low() {
+        blockMSBArray = null;
     }
 
     @Override

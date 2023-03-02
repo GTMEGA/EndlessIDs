@@ -19,6 +19,7 @@ import java.io.IOException;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DevFixer {
     private static final ClassNode blocks;
+
     static {
         if (IETransformer.isObfuscated) {
             blocks = null;
@@ -60,7 +61,7 @@ public final class DevFixer {
     }
 
     private static void biomeTweakerCompat(final ClassNode cn) {
-        for (val field: cn.fields) {
+        for (val field : cn.fields) {
             if (field.name.startsWith("spawnable")) {
                 field.access &= ~Opcodes.ACC_PROTECTED;
                 field.access |= Opcodes.ACC_PUBLIC;
@@ -69,18 +70,16 @@ public final class DevFixer {
     }
 
     private static void remapBlocks(final ClassNode cn) {
-        for (val method: cn.methods) {
+        for (val method : cn.methods) {
             val instructions = method.instructions;
             int insnCount = instructions.size();
             for (int i = 0; i < insnCount; i++) {
                 val insn = instructions.get(i);
                 if (insn instanceof FieldInsnNode) {
                     val field = (FieldInsnNode) insn;
-                    if (field.getOpcode() == Opcodes.GETSTATIC &&
-                        field.owner.equals("net/minecraft/init/Blocks")) {
-                        for (val blockField: blocks.fields) {
-                            if (blockField.name.equals(field.name) &&
-                                !blockField.desc.equals(field.desc)) {
+                    if (field.getOpcode() == Opcodes.GETSTATIC && field.owner.equals("net/minecraft/init/Blocks")) {
+                        for (val blockField : blocks.fields) {
+                            if (blockField.name.equals(field.name) && !blockField.desc.equals(field.desc)) {
                                 field.desc = blockField.desc;
                             }
                         }

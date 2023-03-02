@@ -18,6 +18,8 @@ import net.minecraft.world.chunk.Chunk;
 @Mixin(value = ReikaWorldHelper.class,
        remap = false)
 public abstract class ReikaWorldHelperMixin {
+    private static int fromBiomeID;
+
     @Redirect(method = {"setBiomeForXZ", "setBiomeAndBlocksForXZ"},
               at = @At(value = "INVOKE",
                        target = "Lnet/minecraft/world/chunk/Chunk;getBiomeArray()[B",
@@ -43,10 +45,8 @@ public abstract class ReikaWorldHelperMixin {
             locals = LocalCapture.CAPTURE_FAILHARD,
             require = 1)
     private static void customLogicSetBiome(World world, int x, int z, BiomeGenBase biome, CallbackInfo ci, Chunk ch, int ax, int az, byte[] biomes, int index) {
-        ((IChunkMixin)ch).getBiomeShortArray()[index] = (short) biome.biomeID;
+        ((IChunkMixin) ch).getBiomeShortArray()[index] = (short) biome.biomeID;
     }
-
-    private static int fromBiomeID;
 
     @Inject(method = "setBiomeAndBlocksForXZ",
             at = @At(value = "FIELD",
@@ -55,7 +55,7 @@ public abstract class ReikaWorldHelperMixin {
             locals = LocalCapture.CAPTURE_FAILEXCEPTION,
             require = 1)
     private static void captureIndexSetBiomeAndBlocks(World world, int x, int z, BiomeGenBase biome, CallbackInfo ci, Chunk ch, int ax, int az, byte[] biomes, int index) {
-        fromBiomeID = ((IChunkMixin)ch).getBiomeShortArray()[index];
+        fromBiomeID = ((IChunkMixin) ch).getBiomeShortArray()[index];
     }
 
     @ModifyVariable(method = "setBiomeAndBlocksForXZ",
@@ -72,6 +72,6 @@ public abstract class ReikaWorldHelperMixin {
             locals = LocalCapture.CAPTURE_FAILEXCEPTION,
             require = 1)
     private static void customLogicSetBiomeAndBlocks(World world, int x, int z, BiomeGenBase biome, CallbackInfo ci, Chunk ch, int ax, int az, byte[] biomes, int index, BiomeGenBase from) {
-        ((IChunkMixin)ch).getBiomeShortArray()[index] = (short) biome.biomeID;
+        ((IChunkMixin) ch).getBiomeShortArray()[index] = (short) biome.biomeID;
     }
 }

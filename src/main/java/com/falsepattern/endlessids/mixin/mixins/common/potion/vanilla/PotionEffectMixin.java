@@ -13,32 +13,6 @@ import net.minecraft.potion.PotionEffect;
 
 @Mixin(value = PotionEffect.class)
 public abstract class PotionEffectMixin {
-    @Shadow public abstract int getPotionID();
-
-    @Shadow public abstract int getAmplifier();
-
-    @Shadow public abstract int getDuration();
-
-    @Shadow public abstract boolean getIsAmbient();
-
-    @Inject(method = "writeCustomPotionEffectToNBT",
-            at = @At(value = "HEAD"),
-            cancellable = true,
-            require = 1)
-    private void writeCustomPotionEffectToNBTExtended(NBTTagCompound nbt, CallbackInfoReturnable<NBTTagCompound> cir) {
-        val potionID = getPotionID();
-        if (potionID > 127) {
-            nbt.setInteger("IdExtended", potionID);
-            nbt.setByte("Id", (byte)-1);
-        } else {
-            nbt.setByte("Id", (byte)potionID);
-        }
-        nbt.setByte("Amplifier", (byte)this.getAmplifier());
-        nbt.setInteger("Duration", this.getDuration());
-        nbt.setBoolean("Ambient", this.getIsAmbient());
-        cir.setReturnValue(nbt);
-    }
-
     @Inject(method = "readCustomPotionEffectFromNBT",
             at = @At(value = "HEAD"),
             cancellable = true,
@@ -59,5 +33,35 @@ public abstract class PotionEffectMixin {
         } else {
             cir.setReturnValue(null);
         }
+    }
+
+    @Shadow
+    public abstract int getPotionID();
+
+    @Shadow
+    public abstract int getAmplifier();
+
+    @Shadow
+    public abstract int getDuration();
+
+    @Shadow
+    public abstract boolean getIsAmbient();
+
+    @Inject(method = "writeCustomPotionEffectToNBT",
+            at = @At(value = "HEAD"),
+            cancellable = true,
+            require = 1)
+    private void writeCustomPotionEffectToNBTExtended(NBTTagCompound nbt, CallbackInfoReturnable<NBTTagCompound> cir) {
+        val potionID = getPotionID();
+        if (potionID > 127) {
+            nbt.setInteger("IdExtended", potionID);
+            nbt.setByte("Id", (byte) -1);
+        } else {
+            nbt.setByte("Id", (byte) potionID);
+        }
+        nbt.setByte("Amplifier", (byte) this.getAmplifier());
+        nbt.setInteger("Duration", this.getDuration());
+        nbt.setBoolean("Ambient", this.getIsAmbient());
+        cir.setReturnValue(nbt);
     }
 }

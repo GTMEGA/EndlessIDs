@@ -16,15 +16,20 @@ import java.util.zip.Inflater;
 
 @Mixin(S26PacketMapChunkBulk.class)
 public abstract class S26PacketMapChunkBulkMixin {
-    @Shadow private int[] field_149262_d;
+    @Shadow
+    private int[] field_149262_d;
 
-    @Shadow private byte[][] field_149260_f;
+    @Shadow
+    private byte[][] field_149260_f;
 
-    @Shadow private int[] field_149266_a;
+    @Shadow
+    private int[] field_149266_a;
 
-    @Shadow private int[] field_149264_b;
+    @Shadow
+    private int[] field_149264_b;
 
-    @Shadow private int[] field_149265_c;
+    @Shadow
+    private int[] field_149265_c;
 
     @Inject(method = "writePacketData",
             at = @At(value = "INVOKE",

@@ -139,8 +139,8 @@ public class Hooks {
     public static void shortToByteArray(short[] shortArray, int shortOffset, byte[] byteArray, int byteOffset, int shortCount) {
         for (int i = 0; i < shortCount; i++) {
             short s = shortArray[shortOffset + i];
-            byteArray[byteOffset + i * 2] = (byte)(s & 255);
-            byteArray[byteOffset + i * 2 + 1] = (byte)((s >>> 8) & 255);
+            byteArray[byteOffset + i * 2] = (byte) (s & 255);
+            byteArray[byteOffset + i * 2 + 1] = (byte) ((s >>> 8) & 255);
         }
     }
 
@@ -178,13 +178,13 @@ public class Hooks {
     }
 
     public static int readBiomeArrayFromPacket(Chunk chunk, byte[] array, int offset) {
-        short[] biomeArray = ((IChunkMixin)chunk).getBiomeShortArray();
+        short[] biomeArray = ((IChunkMixin) chunk).getBiomeShortArray();
         byteToShortArray(array, offset, biomeArray, 0, biomeArray.length * 2);
         return biomeArray.length * 2;
     }
 
     public static int writeBiomeArrayToPacket(Chunk chunk, byte[] array, int offset) {
-        short[] biomeArray = ((IChunkMixin)chunk).getBiomeShortArray();
+        short[] biomeArray = ((IChunkMixin) chunk).getBiomeShortArray();
         shortToByteArray(biomeArray, 0, array, offset, biomeArray.length);
         return biomeArray.length * 2;
     }
@@ -195,7 +195,7 @@ public class Hooks {
     }
 
     public static void readChunkBiomeArrayFromNbt(Chunk chunk, NBTTagCompound nbt) {
-        short[] data = ((IChunkMixin)chunk).getBiomeShortArray();
+        short[] data = ((IChunkMixin) chunk).getBiomeShortArray();
         boolean put = false;
         if (data == null) {
             data = new short[16 * 16];

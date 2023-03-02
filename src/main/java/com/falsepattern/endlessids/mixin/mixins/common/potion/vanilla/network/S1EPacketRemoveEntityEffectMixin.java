@@ -13,7 +13,8 @@ import net.minecraft.network.play.server.S1EPacketRemoveEntityEffect;
 
 @Mixin(S1EPacketRemoveEntityEffect.class)
 public abstract class S1EPacketRemoveEntityEffectMixin {
-    @Shadow private int field_149078_b;
+    @Shadow
+    private int field_149078_b;
 
     @Redirect(method = "readPacketData",
               at = @At(value = "INVOKE",

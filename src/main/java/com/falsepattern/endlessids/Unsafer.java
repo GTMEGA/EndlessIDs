@@ -10,11 +10,13 @@ import java.nio.ShortBuffer;
 
 public class Unsafer {
     public static final Unsafe UNSAFE;
+
     static {
         Field unsafeField = null;
         Unsafe unsafe = null;
-        for (val field: Unsafe.class.getDeclaredFields()) {
-            if (Modifier.isStatic(field.getModifiers()) && Modifier.isFinal(field.getModifiers()) && field.getType().equals(Unsafe.class)) {
+        for (val field : Unsafe.class.getDeclaredFields()) {
+            if (Modifier.isStatic(field.getModifiers()) && Modifier.isFinal(field.getModifiers()) &&
+                field.getType().equals(Unsafe.class)) {
                 unsafeField = field;
                 break;
             }
@@ -40,9 +42,12 @@ public class Unsafer {
             val sourceOffsetBytes = sourceOffset * 2;
             val arrayOffsetSource = UNSAFE.arrayBaseOffset(source.getClass());
             val arrayOffsetTarget = UNSAFE.arrayBaseOffset(target.getClass());
-            UNSAFE.copyMemory(source, arrayOffsetSource + sourceOffsetBytes, target, arrayOffsetTarget + targetOffset, (long)shorts << 1);
+            UNSAFE.copyMemory(source, arrayOffsetSource + sourceOffsetBytes, target, arrayOffsetTarget + targetOffset,
+                              (long) shorts << 1);
         } else {
-            ByteBuffer.wrap(target, targetOffset, target.length - targetOffset).asShortBuffer().put(source, sourceOffset, shorts);
+            ByteBuffer.wrap(target, targetOffset, target.length - targetOffset)
+                      .asShortBuffer()
+                      .put(source, sourceOffset, shorts);
         }
     }
 
@@ -51,9 +56,11 @@ public class Unsafer {
             val targetOffsetBytes = targetOffset * 2;
             val arrayOffsetSource = UNSAFE.arrayBaseOffset(source.getClass());
             val arrayOffsetTarget = UNSAFE.arrayBaseOffset(target.getClass());
-            UNSAFE.copyMemory(source, arrayOffsetSource + sourceOffset, target, arrayOffsetTarget + targetOffsetBytes, (long)shorts << 1);
+            UNSAFE.copyMemory(source, arrayOffsetSource + sourceOffset, target, arrayOffsetTarget + targetOffsetBytes,
+                              (long) shorts << 1);
         } else {
-            ShortBuffer.wrap(target, targetOffset, target.length - targetOffset).put(ByteBuffer.wrap(source, sourceOffset, shorts * 2).asShortBuffer());
+            ShortBuffer.wrap(target, targetOffset, target.length - targetOffset)
+                       .put(ByteBuffer.wrap(source, sourceOffset, shorts * 2).asShortBuffer());
         }
     }
 }

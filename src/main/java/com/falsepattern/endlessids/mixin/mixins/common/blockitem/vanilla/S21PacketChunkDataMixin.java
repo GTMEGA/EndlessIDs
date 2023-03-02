@@ -19,6 +19,9 @@ import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 
 @Mixin(S21PacketChunkData.class)
 public abstract class S21PacketChunkDataMixin {
+    private static byte[][] fakeArrays;
+    private static NibbleArray fakeNarray;
+
     @Redirect(method = "func_149269_a",
               at = @At(value = "INVOKE",
                        target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;getBlockMSBArray()Lnet/minecraft/world/chunk/NibbleArray;",
@@ -38,7 +41,6 @@ public abstract class S21PacketChunkDataMixin {
         extracted.field_150281_c |= Hooks.getBlockData(ebs, abyte, j) << l * 2;
     }
 
-    private static byte[][] fakeArrays;
     @Redirect(method = "func_149269_a",
               at = @At(value = "INVOKE",
                        target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;getBlockLSBArray()[B"),
@@ -51,7 +53,7 @@ public abstract class S21PacketChunkDataMixin {
             fakeArrays[2] = new byte[16 * 16 * 16 * 4 / 2];
             fakeArrays[3] = new byte[16 * 16 * 16 * 6 / 2];
         }
-        return fakeArrays[((IExtendedBlockStorageMixin)instance).getStorageFlag()];
+        return fakeArrays[((IExtendedBlockStorageMixin) instance).getStorageFlag()];
     }
 
     @Redirect(method = "func_149269_a",
@@ -73,8 +75,6 @@ public abstract class S21PacketChunkDataMixin {
     private static void hookGetBlockMeta(Chunk p_149269_0_, boolean p_149269_1_, int p_149269_2_, CallbackInfoReturnable<S21PacketChunkData.Extracted> cir, int j, ExtendedBlockStorage[] aextendedblockstorage, int k, S21PacketChunkData.Extracted extracted, byte[] abyte, int l) {
         Hooks.getBlockMeta((IExtendedBlockStorageMixin) aextendedblockstorage[l], abyte, j);
     }
-
-    private static NibbleArray fakeNarray;
 
     @Redirect(method = "func_149269_a",
               at = @At(value = "INVOKE",

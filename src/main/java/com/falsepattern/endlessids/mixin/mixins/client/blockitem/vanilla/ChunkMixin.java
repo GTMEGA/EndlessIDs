@@ -21,6 +21,9 @@ import java.util.Iterator;
 
 @Mixin(Chunk.class)
 public abstract class ChunkMixin {
+    //This is needed because the array is not a field, but a local, and local arraylength overriding does not exist
+    private static byte[][] fakeArrays;
+    private static NibbleArray fakeNarray;
     @Shadow
     private ExtendedBlockStorage[] storageArrays;
 
@@ -30,7 +33,7 @@ public abstract class ChunkMixin {
                        args = "array=length",
                        ordinal = 0),
               slice = @Slice(from = @At(value = "INVOKE",
-                                target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;getSkylightArray()Lnet/minecraft/world/chunk/NibbleArray;")),
+                                        target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;getSkylightArray()Lnet/minecraft/world/chunk/NibbleArray;")),
               require = 1)
     private int noMSBLoop(ExtendedBlockStorage[] array) {
         return 0;
@@ -47,9 +50,6 @@ public abstract class ChunkMixin {
         Hooks.setBlockData((IExtendedBlockStorageMixin) this.storageArrays[l], p_76607_1_, k, storageFlag);
     }
 
-
-    //This is needed because the array is not a field, but a local, and local arraylength overriding does not exist
-    private static byte[][] fakeArrays;
     @Redirect(method = "fillChunk",
               at = @At(value = "INVOKE",
                        target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;getBlockLSBArray()[B"),
@@ -62,7 +62,7 @@ public abstract class ChunkMixin {
             fakeArrays[2] = new byte[16 * 16 * 16 * 4 / 2];
             fakeArrays[3] = new byte[16 * 16 * 16 * 6 / 2];
         }
-        return fakeArrays[((IExtendedBlockStorageMixin)instance).getStorageFlag()];
+        return fakeArrays[((IExtendedBlockStorageMixin) instance).getStorageFlag()];
     }
 
     @Redirect(method = "fillChunk",
@@ -72,9 +72,8 @@ public abstract class ChunkMixin {
               slice = @Slice(from = @At(value = "INVOKE",
                                         target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;getBlockLSBArray()[B")),
               require = 1)
-    private void noCopy(Object src, int srcPos, Object dest, int destPos, int length) {}
-
-
+    private void noCopy(Object src, int srcPos, Object dest, int destPos, int length) {
+    }
 
     @Inject(method = "fillChunk",
             at = @At(value = "INVOKE",
@@ -84,8 +83,6 @@ public abstract class ChunkMixin {
     private void hookSetBlockMeta(byte[] p_76607_1_, int p_76607_2_, int p_76607_3_, boolean p_76607_4_, CallbackInfo ci, Iterator iterator, int k, boolean flag1, int l) {
         Hooks.setBlockMeta((IExtendedBlockStorageMixin) this.storageArrays[l], p_76607_1_, k);
     }
-
-    private static NibbleArray fakeNarray;
 
     @Redirect(method = "fillChunk",
               at = @At(value = "INVOKE",

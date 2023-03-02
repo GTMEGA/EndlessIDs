@@ -12,7 +12,7 @@ public class SpaceCoreModInfoGenerator implements IClassNodeTransformer {
         if (obfuscated) {
             return;
         }
-        for (val method: cn.methods) {
+        for (val method : cn.methods) {
             if (method.name.equals("generate")) {
                 val iterator = method.instructions.iterator();
                 iterator.add(new InsnNode(Opcodes.RETURN));

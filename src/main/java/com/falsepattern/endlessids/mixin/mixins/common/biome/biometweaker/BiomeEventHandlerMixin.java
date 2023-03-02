@@ -30,14 +30,6 @@ public abstract class BiomeEventHandlerMixin {
         return ExtendedConstants.biomeIDCount;
     }
 
-    @Inject(method = "<init>",
-            at = @At("RETURN"),
-            require = 1)
-    private void extendIDs2(CallbackInfo ci) {
-        colorCache = new int[ExtendedConstants.biomeIDCount * 3];
-        Arrays.fill(colorCache, -2);
-    }
-
     @ModifyConstant(method = "onGetFoliageColor",
                     constant = @Constant(intValue = VanillaConstants.biomeIDCount),
                     require = 1)
@@ -50,5 +42,13 @@ public abstract class BiomeEventHandlerMixin {
                     require = 1)
     private static int extendIDs4(int constant) {
         return ExtendedConstants.biomeIDCount * 2;
+    }
+
+    @Inject(method = "<init>",
+            at = @At("RETURN"),
+            require = 1)
+    private void extendIDs2(CallbackInfo ci) {
+        colorCache = new int[ExtendedConstants.biomeIDCount * 3];
+        Arrays.fill(colorCache, -2);
     }
 }

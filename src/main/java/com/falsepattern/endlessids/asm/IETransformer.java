@@ -18,9 +18,8 @@ import java.util.List;
 
 public class IETransformer implements IClassTransformer {
     public static final Logger logger;
-    public static boolean isObfuscated;
-
     private static final List<String> blacklist = new ArrayList<>();
+    public static boolean isObfuscated;
 
     static {
         logger = LogManager.getLogger(Tags.MODNAME + " ASM");

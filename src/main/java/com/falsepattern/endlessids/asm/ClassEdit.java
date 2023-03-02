@@ -18,7 +18,8 @@ public enum ClassEdit {
                 () -> GeneralConfig.extendBlockItem,
                 "cpw.mods.fml.common.registry.GameData",
                 "cpw.mods.fml.common.registry.FMLControlledNamespacedRegistry"),
-    SpaceCoreModInfoGenerator(new SpaceCoreModInfoGenerator(), () -> true, "com.spacechase0.minecraft.spacecore.mcp.ModInfoGenerator");
+    SpaceCoreModInfoGenerator(new SpaceCoreModInfoGenerator(), () -> true,
+                              "com.spacechase0.minecraft.spacecore.mcp.ModInfoGenerator");
 
     private static final Map<String, ClassEdit> editMap;
 

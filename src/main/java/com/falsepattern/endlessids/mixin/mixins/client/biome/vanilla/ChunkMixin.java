@@ -35,7 +35,8 @@ public abstract class ChunkMixin {
               slice = @Slice(from = @At(value = "INVOKE",
                                         target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;clearMSBArray()V")),
               require = 1)
-    private void noCopyBiome(Object src, int srcPos, Object dest, int destPos, int length) {}
+    private void noCopyBiome(Object src, int srcPos, Object dest, int destPos, int length) {
+    }
 
     @Redirect(method = "fillChunk",
               at = @At(value = "FIELD",

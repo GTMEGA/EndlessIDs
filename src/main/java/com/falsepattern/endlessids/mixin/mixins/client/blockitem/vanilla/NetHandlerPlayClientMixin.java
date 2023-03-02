@@ -44,7 +44,8 @@ public abstract class NetHandlerPlayClientMixin {
                     int y = pos & 255;
                     this.clientWorldController.func_147492_c(x + chunkX, y, z + chunkZ, Block.getBlockById(id), meta);
                 }
-            } catch (IOException ignored) {}
+            } catch (IOException ignored) {
+            }
         }
     }
 }

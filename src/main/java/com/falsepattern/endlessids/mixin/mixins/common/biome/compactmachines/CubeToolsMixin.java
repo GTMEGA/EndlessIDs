@@ -27,10 +27,10 @@ public abstract class CubeToolsMixin {
         WorldServer machineWorld = MinecraftServer.getServer().worldServerForDimension(ConfigurationHandler.dimensionId);
         Chunk chunk = machineWorld.getChunkFromBlockCoords(coords * ConfigurationHandler.cubeDistance, 0);
         if (chunk != null && chunk.isChunkLoaded) {
-            short[] biomeArray = ((IChunkMixin)chunk).getBiomeShortArray();
-            for(int x = 0; x < 15; ++x) {
-                for(int z = 0; z < 15; ++z) {
-                    biomeArray[z << 4 | x] = (short)biome.biomeID;
+            short[] biomeArray = ((IChunkMixin) chunk).getBiomeShortArray();
+            for (int x = 0; x < 15; ++x) {
+                for (int z = 0; z < 15; ++z) {
+                    biomeArray[z << 4 | x] = (short) biome.biomeID;
                 }
             }
         }
@@ -43,10 +43,12 @@ public abstract class CubeToolsMixin {
      */
     @Overwrite
     public static BiomeGenBase getMachineBiome(TileEntityMachine machine) {
-        short[] biomeArray = ((IChunkMixin)machine.getWorldObj().getChunkFromBlockCoords(machine.xCoord, machine.zCoord)).getBiomeShortArray();
+        short[] biomeArray = ((IChunkMixin) machine.getWorldObj()
+                                                   .getChunkFromBlockCoords(machine.xCoord,
+                                                                            machine.zCoord)).getBiomeShortArray();
         int biomeId = biomeArray[(machine.zCoord & 15) << 4 | machine.xCoord & 15];
-        return biomeId > 0 && biomeId < BiomeGenBase.getBiomeGenArray().length && BiomeDictionary.isBiomeRegistered(biomeId)
-               ? BiomeGenBase.getBiome(biomeId)
-               : WorldUtils.getBiomeByName(ConfigurationHandler.defaultBiome);
+        return biomeId > 0 && biomeId < BiomeGenBase.getBiomeGenArray().length &&
+               BiomeDictionary.isBiomeRegistered(biomeId) ? BiomeGenBase.getBiome(biomeId) : WorldUtils.getBiomeByName(
+                ConfigurationHandler.defaultBiome);
     }
 }

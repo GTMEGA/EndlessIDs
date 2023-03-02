@@ -24,15 +24,20 @@ import java.util.Random;
        remap = false)
 public abstract class MessagePaintBiomeMixin {
 
-    @Shadow private int posZ;
+    @Shadow
+    private int posZ;
 
-    @Shadow private int posX;
+    @Shadow
+    private int posX;
 
-    @Shadow private int biomeID;
+    @Shadow
+    private int biomeID;
 
-    @Shadow private int dimensionID;
+    @Shadow
+    private int dimensionID;
 
-    @Shadow private int posY;
+    @Shadow
+    private int posY;
 
     /**
      * @author FalsePattern
@@ -44,18 +49,25 @@ public abstract class MessagePaintBiomeMixin {
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
         if (player != null && player.worldObj.provider.dimensionId == this.dimensionID) {
             Chunk c = player.worldObj.getChunkFromBlockCoords(this.posX, this.posZ);
-            short[] biomeArray = ((IChunkMixin)c).getBiomeShortArray(); //changed
-            biomeArray[(this.posZ & 15) << 4 | this.posX & 15] = (short)(this.biomeID & 0xFFFF); //changed
-            ((IChunkMixin)c).setBiomeShortArray(biomeArray); //changed
-            Minecraft.getMinecraft().thePlayer.worldObj.markBlocksDirtyVertical(this.posX, this.posZ, 0, player.worldObj.getActualHeight());
+            short[] biomeArray = ((IChunkMixin) c).getBiomeShortArray(); //changed
+            biomeArray[(this.posZ & 15) << 4 | this.posX & 15] = (short) (this.biomeID & 0xFFFF); //changed
+            ((IChunkMixin) c).setBiomeShortArray(biomeArray); //changed
+            Minecraft.getMinecraft().thePlayer.worldObj.markBlocksDirtyVertical(this.posX, this.posZ, 0,
+                                                                                player.worldObj.getActualHeight());
             BiomeGenBase biome = BiomeGenBase.getBiome(this.biomeID);
             int colorInt = ItemBiomeCapsule.getColorForBiome(biome);
             Random rng = new Random();
             Color color = new Color(colorInt);
 
-            for(int i = 0; i < 64; ++i) {
-                EntityFX smoke = new EntitySmokeFX(player.worldObj, (float)this.posX + rng.nextFloat(), (float)this.posY + rng.nextFloat(), (float)this.posZ + rng.nextFloat(), 0.0, 0.0, 0.0);
-                smoke.setRBGColorF(0.003921569F * (float)color.getRed(), 0.003921569F * (float)color.getGreen(), 0.003921569F * (float)color.getBlue());
+            for (int i = 0; i < 64; ++i) {
+                EntityFX smoke = new EntitySmokeFX(player.worldObj,
+                                                   (float) this.posX + rng.nextFloat(),
+                                                   (float) this.posY + rng.nextFloat(),
+                                                   (float) this.posZ + rng.nextFloat(),
+                                                   0.0, 0.0, 0.0);
+                smoke.setRBGColorF(0.003921569F * (float) color.getRed(),
+                                   0.003921569F * (float) color.getGreen(),
+                                   0.003921569F * (float) color.getBlue());
                 Minecraft.getMinecraft().effectRenderer.addEffect(smoke);
             }
         }

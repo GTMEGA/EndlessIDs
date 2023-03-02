@@ -28,7 +28,7 @@ public abstract class ItemBiomePainterMixin {
         } else if (par3World.isRemote) {
             return true;
         } else {
-            for(int i = 0; i < par2EntityPlayer.inventory.getSizeInventory(); ++i) {
+            for (int i = 0; i < par2EntityPlayer.inventory.getSizeInventory(); ++i) {
                 ItemStack is = par2EntityPlayer.inventory.getStackInSlot(i);
                 if (is != null && is.getItem() instanceof ItemBiomeCapsule && is.getItemDamage() != 0) {
                     NBTTagCompound nbt = is.stackTagCompound;
@@ -40,16 +40,18 @@ public abstract class ItemBiomePainterMixin {
                     if (charges > 0 || par2EntityPlayer.capabilities.isCreativeMode) {
                         Chunk c = par3World.getChunkFromBlockCoords(par4, par6);
                         int biomeID = is.getItemDamage() - 1;
-                        short[] biomeArray = ((IChunkMixin)c).getBiomeShortArray(); //changed
+                        short[] biomeArray = ((IChunkMixin) c).getBiomeShortArray(); //changed
                         if ((biomeArray[(par6 & 15) << 4 | par4 & 15] & 255) != biomeID) {
-                            biomeArray[(par6 & 15) << 4 | par4 & 15] = (short)(biomeID & 0xFFFF); //changed
-                            ((IChunkMixin)c).setBiomeShortArray(biomeArray); //changed
+                            biomeArray[(par6 & 15) << 4 | par4 & 15] = (short) (biomeID & 0xFFFF); //changed
+                            ((IChunkMixin) c).setBiomeShortArray(biomeArray); //changed
                             if (!par2EntityPlayer.capabilities.isCreativeMode) {
                                 nbt.setInteger("charges", charges - 1);
                                 par2EntityPlayer.inventoryContainer.detectAndSendChanges();
                             }
 
-                            PacketHandler.INSTANCE.sendToDimension(new MessagePaintBiome(par4, par5, par6, par3World.provider.dimensionId, biomeID), par3World.provider.dimensionId);
+                            PacketHandler.INSTANCE.sendToDimension(
+                                    new MessagePaintBiome(par4, par5, par6, par3World.provider.dimensionId, biomeID),
+                                    par3World.provider.dimensionId);
                         }
                     }
 

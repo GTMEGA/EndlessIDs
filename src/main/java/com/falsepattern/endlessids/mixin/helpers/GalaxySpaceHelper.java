@@ -8,6 +8,7 @@ import java.lang.reflect.Field;
 
 public class GalaxySpaceHelper {
     private static final Field GSSpaceField;
+
     static {
         Class<?> clazz;
         try {
