@@ -19,6 +19,7 @@ public enum Mixin implements IMixin {
     //region common
     //region vanilla
     S21PacketChunkDataMixin(Side.COMMON, always(), "vanilla.S21PacketChunkDataMixin"),
+    S26PacketMapChunkBulkMixin(Side.COMMON, always(), "vanilla.S26PacketMapChunkBulkMixin"),
     //endregion vanilla
     //region AntiIDConflict
     AIDCAntiIdConflictBaseMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT), "antiidconflict.AntiIdConflictBaseMixin"),
@@ -38,7 +39,6 @@ public enum Mixin implements IMixin {
     GenLayerRiverMixMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(avoid(TargetedMod.DRAGONAPI)), "biome.vanilla.GenLayerRiverMixMixin"),
     GenLayerVoronoiZoomMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome), "biome.vanilla.GenLayerVoronoiZoomMixin"),
     S21PacketChunkDataMixinBiome(Side.COMMON, condition(() -> GeneralConfig.extendBiome), "biome.vanilla.S21PacketChunkDataMixin"),
-    S26PacketMapChunkBulkMixinBiome(Side.COMMON, condition(() -> GeneralConfig.extendBiome), "biome.vanilla.S26PacketMapChunkBulkMixin"),
     //endregion vanilla
     //region AbyssalCraft
     AbyssalCraftMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.ABYSSALCRAFT)), "biome.abyssalcraft.AbyssalCraftMixin"),
@@ -173,7 +173,6 @@ public enum Mixin implements IMixin {
     S21PacketChunkDataMixinBlockItem(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.S21PacketChunkDataMixin"),
     S22PacketMultiBlockChangeMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.S22PacketMultiBlockChangeMixin"),
     S24PacketBlockActionMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.S24PacketBlockActionMixin"),
-    S26PacketMapChunkBulkMixinBlockItem(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.S26PacketMapChunkBulkMixin"),
     StatListMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.StatListMixin"),
     WorldMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.WorldMixin"),
     //endregion vanilla

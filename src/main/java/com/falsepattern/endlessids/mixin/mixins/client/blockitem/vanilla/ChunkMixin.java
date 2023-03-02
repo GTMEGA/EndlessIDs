@@ -3,6 +3,7 @@ package com.falsepattern.endlessids.mixin.mixins.client.blockitem.vanilla;
 import com.falsepattern.endlessids.Hooks;
 import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;
+import lombok.val;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,9 +26,6 @@ public abstract class ChunkMixin {
     @Shadow
     private ExtendedBlockStorage[] storageArrays;
 
-    //This is needed because the array is not a field, but a local, and local arraylength overriding does not exist
-    private static byte[] fakeArray;
-
     @Redirect(method = "fillChunk",
               at = @At(value = "FIELD",
                        target = "Lnet/minecraft/world/chunk/Chunk;storageArrays:[Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;",
@@ -47,15 +45,26 @@ public abstract class ChunkMixin {
             locals = LocalCapture.CAPTURE_FAILHARD,
             require = 1)
     private void blockData(byte[] p_76607_1_, int p_76607_2_, int p_76607_3_, boolean p_76607_4_, CallbackInfo ci, Iterator iterator, int k, boolean flag1, int l) {
-        Hooks.setBlockData((IExtendedBlockStorageMixin) this.storageArrays[l], p_76607_1_, k);
+        val storageFlag = (p_76607_3_ >>> l) & 0b11;
+        Hooks.setBlockData((IExtendedBlockStorageMixin) this.storageArrays[l], p_76607_1_, k, storageFlag);
     }
 
+
+    //This is needed because the array is not a field, but a local, and local arraylength overriding does not exist
+    private static byte[][] fakeArrays;
     @Redirect(method = "fillChunk",
               at = @At(value = "INVOKE",
                        target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;getBlockLSBArray()[B"),
               require = 1)
     private byte[] fakeLSBArray(ExtendedBlockStorage instance) {
-        return fakeArray != null ? fakeArray : (fakeArray = new byte[16 * 16 * 16 * ExtendedConstants.bytesPerID]);
+        if (fakeArrays == null) {
+            fakeArrays = new byte[4][];
+            fakeArrays[0] = new byte[16 * 16 * 16 * 2 / 2];
+            fakeArrays[1] = new byte[16 * 16 * 16 * 3 / 2];
+            fakeArrays[2] = new byte[16 * 16 * 16 * 4 / 2];
+            fakeArrays[3] = new byte[16 * 16 * 16 * 6 / 2];
+        }
+        return fakeArrays[((IExtendedBlockStorageMixin)instance).getStorageFlag()];
     }
 
     @Redirect(method = "fillChunk",

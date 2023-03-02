@@ -5,26 +5,74 @@ import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
 import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;
 import lombok.val;
+import lombok.var;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.NibbleArray;
+import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 
 public class Hooks {
 
-    public static void getBlockData(final IExtendedBlockStorageMixin ebs, final byte[] data, final int offset) {
-        val lsb = ebs.getLSB();
-        val msb = ebs.getMSB();
-        Unsafer.arraycopy(lsb, 0, data, offset, lsb.length);
-        System.arraycopy(msb, 0, data, offset + lsb.length * 2, msb.length);
+    public static int getBlockData(final IExtendedBlockStorageMixin ebs, final byte[] data, int offset) {
+        val b1 = ebs.getB1();
+        System.arraycopy(b1, 0, data, offset, b1.length);
+        offset += b1.length;
+        val b2Low = ebs.getB2Low();
+        if (b2Low != null) {
+            System.arraycopy(b2Low.data, 0, data, offset, b2Low.data.length);
+            offset += b2Low.data.length;
+            val b2High = ebs.getB2High();
+            if (b2High != null) {
+                System.arraycopy(b2High.data, 0, data, offset, b2High.data.length);
+                offset += b2High.data.length;
+                val b3 = ebs.getB3();
+                if (b3 != null) {
+                    System.arraycopy(b3, 0, data, offset, b3.length);
+                }
+            }
+        }
+        return ebs.getStorageFlag();
     }
 
-    public static void setBlockData(final IExtendedBlockStorageMixin ebs, final byte[] data, final int offset) {
-        val lsb = ebs.getLSB();
-        val msb = ebs.getMSB();
-        Unsafer.arraycopy(data, offset, lsb, 0, lsb.length);
-        System.arraycopy(data, offset + lsb.length * 2, msb, 0, msb.length);
+    public static void setBlockData(final IExtendedBlockStorageMixin ebs, final byte[] data, int offset, final int storageFlag) {
+        val b1 = ebs.getB1();
+        System.arraycopy(data, offset, b1, 0, b1.length);
+        offset += b1.length;
+        if (storageFlag == 0b00) {
+            ebs.clearB2Low();
+            ebs.clearB2High();
+            ebs.clearB3();
+            return;
+        }
+        var b2Low = ebs.getB2Low();
+        if (b2Low == null) {
+            b2Low = ebs.createB2Low();
+        }
+        System.arraycopy(data, offset, b2Low.data, 0, b2Low.data.length);
+        offset += b2Low.data.length;
+        if (storageFlag == 0b01) {
+            ebs.clearB2High();
+            ebs.clearB3();
+            return;
+        }
+        var b2High = ebs.getB2High();
+        if (b2High == null) {
+            b2High = ebs.createB2High();
+        }
+        System.arraycopy(data, offset, b2High.data, 0, b2High.data.length);
+        offset += b2High.data.length;
+        if (storageFlag == 0b10) {
+            ebs.clearB3();
+            return;
+        }
+        var b3 = ebs.getB3();
+        if (b3 == null) {
+            b3 = ebs.createB3();
+        }
+        System.arraycopy(data, offset, b3, 0, b3.length);
     }
 
     public static void getBlockMeta(final IExtendedBlockStorageMixin ebs, final byte[] data, final int offset) {
@@ -38,103 +86,41 @@ public class Hooks {
     }
 
     public static void writeBlockDataToNBT(final NBTTagCompound nbt, final IExtendedBlockStorageMixin ebs) {
-        val ebsLSB = ebs.getLSB();
-        val ebsMSB = ebs.getMSB();
-
-        val byte1Data = new byte[ebsLSB.length];
-        byte[] byte2BottomNibbleData = null;
-        byte[] byte2TopNibbleData = null;
-        byte[] byte3Data = null;
-        for (int i = 0; i < ebsLSB.length; ++i) {
-            if (ebsMSB[i] != 0) {
-                if (byte3Data == null) {
-                    byte3Data = new byte[ebsLSB.length];
-                }
-                byte3Data[i] = ebsMSB[i];
-            }
-            val idLSB = (ebsLSB[i] & 0xFFFF);
-            byte1Data[i] = (byte) (idLSB & 0xFF);
-
-            if (idLSB <= 0xFF) {
-                continue;
-            }
-            val nibbleIndex = i >> 1;
-            val nibbleShift = (i & 1) * 4;
-            if (byte2BottomNibbleData == null) {
-                byte2BottomNibbleData = new byte[ebsLSB.length / 2];
-            }
-            byte2BottomNibbleData[nibbleIndex] |= ((idLSB >>> 8) & 0xF) << nibbleShift;
-
-            if (idLSB <= 0xFFF) {
-                continue;
-            }
-            if (byte2TopNibbleData == null) {
-                byte2TopNibbleData = new byte[ebsLSB.length / 2];
-            }
-            byte2TopNibbleData[nibbleIndex] |= ((idLSB >>> 12) & 0xF) << nibbleShift;
-
+        val b1 = ebs.getB1();
+        val b2Low = ebs.getB2Low();
+        val b2High = ebs.getB2High();
+        val b3 = ebs.getB3();
+        nbt.setByteArray("Blocks", b1);
+        if (b2Low != null) {
+            nbt.setByteArray("Add", b2Low.data);
         }
-        nbt.setByteArray("Blocks", byte1Data);
-        if (byte2BottomNibbleData != null) {
-            nbt.setByteArray("Add", byte2BottomNibbleData);
+        if (b2High != null) {
+            nbt.setByteArray("BlocksB2Hi", b2High.data);
         }
-        if (byte2TopNibbleData != null) {
-            nbt.setByteArray("BlocksB2Hi", byte2TopNibbleData);
-        }
-        if (byte3Data != null) {
-            nbt.setByteArray("BlocksB3", byte3Data);
+        if (b3 != null) {
+            nbt.setByteArray("BlocksB3", b3);
         }
     }
 
     public static void readBlockDataFromNBT(final IExtendedBlockStorageMixin ebs, final NBTTagCompound nbt) {
         assert nbt.hasKey("Blocks");
-        val byte1Data = nbt.getByteArray("Blocks");
-        val byte2BottomNibbleData = nbt.hasKey("Add") ? nbt.getByteArray("Add") : null;
-        val byte2TopNibbleData = nbt.hasKey("BlocksB2Hi") ? nbt.getByteArray("BlocksB2Hi") : null;
-        val byte3Data = nbt.hasKey("BlocksB3") ? nbt.getByteArray("BlocksB3") : null;
+        val b1 = nbt.getByteArray("Blocks");
+        final byte[] b2Low = nbt.hasKey("Add") ? nbt.getByteArray("Add") : null;
+        final byte[] b2High = nbt.hasKey("BlocksB2Hi") ? nbt.getByteArray("BlocksB2Hi") : null;
+        final byte[] b3 = nbt.hasKey("BlocksB3") ? nbt.getByteArray("BlocksB3") : null;
 
-        val lsb = ebs.getLSB();
-        val msb = ebs.getMSB();
-        for (int i = 0; i < lsb.length; i++) {
-            if (byte3Data != null) {
-                msb[i] = byte3Data[i];
-            }
-            int nibbleShift = (i & 1) * 4;
-            int id = byte1Data[i] & 0xFF;
-            if (byte2BottomNibbleData != null) {
-                id |= ((byte2BottomNibbleData[i >> 1] >> nibbleShift) & 0xF) << 8;
-            }
-            if (byte2TopNibbleData != null) {
-                id |= ((byte2TopNibbleData[i >> 1] >> nibbleShift) & 0xF) << 12;
-            }
-            lsb[i] = (short) id;
+        ebs.setB1(b1);
+        if (b2Low == null) {
+            ebs.clearB2Low();
+        } else {
+            ebs.setB2Low(new NibbleArray(b2Low, 4));
         }
-    }
-
-    public static void removeInvalidBlocksHook(final IExtendedBlockStorageMixin ebs) {
-        val blkIdsLSB = ebs.getLSB();
-        val blkIdsMSB = ebs.getMSB();
-        int cntNonEmpty = 0;
-        int cntTicking = 0;
-        for (int off = 0; off < blkIdsLSB.length; ++off) {
-            final int id =
-                    ((blkIdsLSB[off] & 0xFFFF) | ((blkIdsMSB[off] & 0xFF) << 16)) & ExtendedConstants.blockIDMask;
-            if (id > 0) {
-                final Block block = (Block) Block.blockRegistry.getObjectById(id);
-                if (block == null) {
-                    if (GeneralConfig.removeInvalidBlocks) {
-                        blkIdsLSB[off] = 0;
-                    }
-                } else if (block != Blocks.air) {
-                    ++cntNonEmpty;
-                    if (block.getTickRandomly()) {
-                        ++cntTicking;
-                    }
-                }
-            }
+        if (b2High == null) {
+            ebs.clearB2High();
+        } else {
+            ebs.setB2High(new NibbleArray(b2High, 4));
         }
-        ebs.setBlockRefCount(cntNonEmpty);
-        ebs.setTickRefCount(cntTicking);
+        ebs.setB3(b3);
     }
 
     public static int getIdFromBlockWithCheck(final Block block, final Block oldBlock) {

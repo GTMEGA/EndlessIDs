@@ -3,9 +3,10 @@ package com.falsepattern.endlessids.mixin.mixins.common.blockitem.vanilla;
 import com.falsepattern.endlessids.EndlessIDs;
 import com.falsepattern.endlessids.Hooks;
 import com.falsepattern.endlessids.Tags;
+import com.falsepattern.endlessids.config.GeneralConfig;
 import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;
 import lombok.val;
-import org.objectweb.asm.Opcodes;
+import lombok.var;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
@@ -28,29 +29,11 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
     private int tickRefCount;
     @Shadow private byte[] blockLSBArray;
     @Shadow private NibbleArray blockMetadataArray;
-    private short[] lsbArray;
-    private byte[] msbArray;
+
+    @Shadow private NibbleArray blockMSBArray;
+    private NibbleArray b2High;
+    private byte[] b3;
     private short[] metaArray;
-
-    @Override
-    public void setBlockRefCount(int value) {
-        blockRefCount = value;
-    }
-
-    @Override
-    public void setTickRefCount(int value) {
-        tickRefCount = value;
-    }
-
-    @Override
-    public short[] getLSB() {
-        return lsbArray;
-    }
-
-    @Override
-    public byte[] getMSB() {
-        return msbArray;
-    }
 
     @Override
     public short[] getMetaArray() {
@@ -61,26 +44,50 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
             at = @At(value = "RETURN"),
             require = 1)
     private void init(CallbackInfo ci) {
-        blockLSBArray = null;
         blockMetadataArray = null;
-        lsbArray = new short[16 * 16 * 16];
-        msbArray = new byte[16 * 16 * 16];
         metaArray = new short[16 * 16 * 16];
     }
 
-    private int getID(int x, int y, int z) {
+    public int getID(int x, int y, int z) {
         int index = y << 8 | z << 4 | x;
-        int lsb = lsbArray[index] & 0xFFFF;
-        int msb = (msbArray[index] & 0xFF) << 16;
-        return lsb | msb;
+        int id = blockLSBArray[index] & 0xFF;
+        if (blockMSBArray != null) {
+            id |= blockMSBArray.get(x, y, z) << 8;
+            if (b2High != null) {
+                id |= b2High.get(x, y, z) << 12;
+                if (b3 != null) {
+                    id |= (b3[index] & 0xFF) << 16;
+                }
+            }
+        }
+        return id;
     }
 
     private void setID(int x, int y, int z, int id) {
         int index = y << 8 | z << 4 | x;
-        int lsb = id & 0xFFFF;
-        int msb = (id >>> 16) & 0xFF;
-        lsbArray[index] = (short) lsb;
-        msbArray[index] = (byte) msb;
+        blockLSBArray[index] = (byte) (id & 0xFF);
+        if (id > 0xFF) {
+            if (blockMSBArray == null) {
+                blockMSBArray = new NibbleArray(blockLSBArray.length, 4);
+            }
+            if (id > 0xFFF) {
+                if (b2High == null) {
+                    b2High = new NibbleArray(blockLSBArray.length, 4);
+                }
+                if (id > 0xFFFF && b3 == null) {
+                    b3 = new byte[blockLSBArray.length];
+                }
+            }
+        }
+        if (blockMSBArray != null) {
+            blockMSBArray.set(x, y, z, (id >>> 8) & 0xF);
+            if (b2High != null) {
+                b2High.set(x, y, z, (id >>> 12) & 0xF);
+                if (b3 != null) {
+                    b3[index] = (byte) ((id >>> 16) & 0xFF);
+                }
+            }
+        }
     }
 
     /**
@@ -137,13 +144,17 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
         metaArray[index] = (short)(meta & 0xFFFF);
     }
 
-    /**
-     * @author FalsePattern
-     * @reason Direct port from dumped code
-     */
-    @Overwrite
-    public void removeInvalidBlocks() {
-        Hooks.removeInvalidBlocksHook(this);
+    @Redirect(method = "removeInvalidBlocks",
+              at = @At(value = "INVOKE",
+                       target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;getBlockByExtId(III)Lnet/minecraft/block/Block;"),
+              require = 1)
+    private Block removeInvalidBlocks(ExtendedBlockStorage instance, int x, int y, int z) {
+        var block = instance.getBlockByExtId(x, y, z);
+        if (block == null && GeneralConfig.removeInvalidBlocks) {
+            instance.func_150818_a(x, y, z, Blocks.air);
+            block = Blocks.air;
+        }
+        return block;
     }
 
     private UnsupportedOperationException emergencyCrash() {
@@ -152,6 +163,90 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
                        "Please report this issue on https://github.com/FalsePattern/EndlessIDs ASAP!";
         EndlessIDs.LOG.fatal(crashMSG);
         return new UnsupportedOperationException(crashMSG);
+    }
+
+    @Override
+    public byte[] getB1() {
+        return blockLSBArray;
+    }
+
+    @Override
+    public void setB1(byte[] data) {
+        blockLSBArray = data;
+    }
+
+    @Override
+    public NibbleArray getB2Low() {
+        return blockMSBArray;
+    }
+
+    @Override
+    public void clearB2Low() {
+        blockMSBArray = null;
+    }
+
+    @Override
+    public void setB2Low(NibbleArray data) {
+        blockMSBArray = data;
+    }
+
+    @Override
+    public NibbleArray createB2Low() {
+        return (blockMSBArray = new NibbleArray(blockLSBArray.length, 4));
+    }
+
+    @Override
+    public NibbleArray getB2High() {
+        return b2High;
+    }
+
+    @Override
+    public void setB2High(NibbleArray data) {
+        b2High = data;
+    }
+
+    @Override
+    public void clearB2High() {
+        b2High = null;
+    }
+
+    @Override
+    public NibbleArray createB2High() {
+        return (b2High = new NibbleArray(blockLSBArray.length, 4));
+    }
+
+    @Override
+    public byte[] getB3() {
+        return b3;
+    }
+
+    @Override
+    public void setB3(byte[] data) {
+        b3 = data;
+    }
+
+    @Override
+    public void clearB3() {
+        b3 = null;
+    }
+
+    @Override
+    public byte[] createB3() {
+        return b3 = new byte[blockLSBArray.length];
+    }
+
+    @Override
+    public int getStorageFlag() {
+        if (blockMSBArray == null) {
+            return 0b00;
+        }
+        if (b2High == null) {
+            return 0b01;
+        }
+        if (b3 == null) {
+            return 0b10;
+        }
+        return 0b11;
     }
 
     @Inject(method = {"getBlockMSBArray", "createBlockMSBArray"},

@@ -3,6 +3,7 @@ package com.falsepattern.endlessids.mixin.mixins.common.blockitem.ubc;
 import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;
 import exterminatorJeff.undergroundBiomes.worldGen.BiomeUndergroundDecorator;
 import exterminatorJeff.undergroundBiomes.worldGen.OreUBifier;
+import lombok.val;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -16,7 +17,7 @@ import java.util.logging.Logger;
        remap = false)
 public abstract class BiomeUndergroundDecoratorMixin {
     private static NibbleArray fakeArray;
-    private ThreadLocal<IExtendedBlockStorageMixin> ebs;
+    private IExtendedBlockStorageMixin ebs;
 
     @Redirect(method = {"replaceChunkOres(IILnet/minecraft/world/World;)V",
                         "replaceChunkOres(Lnet/minecraft/world/chunk/IChunkProvider;II)V"},
@@ -24,13 +25,10 @@ public abstract class BiomeUndergroundDecoratorMixin {
                        target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;getBlockLSBArray()[B",
                        remap = true),
               require = 2)
-    private byte[] returnMSBasLSB(ExtendedBlockStorage instance) {
-        if (ebs == null) {
-            ebs = new ThreadLocal<>();
-        }
+    private byte[] returnLSB(ExtendedBlockStorage instance) {
         IExtendedBlockStorageMixin iebs = (IExtendedBlockStorageMixin) instance;
-        ebs.set(iebs);
-        return iebs.getMSB();
+        ebs = iebs;
+        return iebs.getB1();
     }
 
     @Redirect(method = {"replaceChunkOres(IILnet/minecraft/world/World;)V",
@@ -50,17 +48,9 @@ public abstract class BiomeUndergroundDecoratorMixin {
                        remap = true),
               require = 2)
     private int returnRestOfID(NibbleArray instance, int x, int y, int z) {
-        return ebs.get().getLSB()[y << 8 | z << 4 | x] & 0xFFFF;
-    }
-
-    @Redirect(method = {"replaceChunkOres(IILnet/minecraft/world/World;)V",
-                        "replaceChunkOres(Lnet/minecraft/world/chunk/IChunkProvider;II)V"},
-              at = @At(value = "INVOKE",
-                       target = "LexterminatorJeff/undergroundBiomes/worldGen/OreUBifier;blockReplacer(I)LexterminatorJeff/undergroundBiomes/worldGen/OreUBifier$BlockReplacer;"),
-              require = 2)
-    private OreUBifier.BlockReplacer reshuffleID(OreUBifier instance, int blockID) {
-        blockID = ((blockID & 0xFF) << 16) | ((blockID & 0xFFFF00) >>> 8);
-        return instance.blockReplacer(blockID);
+        val id = ebs.getID(x, y, z) >>> 8;
+        ebs = null;
+        return id;
     }
 
     @Redirect(method = "correctBiomeDecorators",
