@@ -1,7 +1,5 @@
 package com.falsepattern.endlessids.asm.transformer;
 
-import com.falsepattern.endlessids.asm.ClassEdit;
-import com.falsepattern.endlessids.asm.IClassNodeTransformer;
 import com.falsepattern.endlessids.asm.IETransformer;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

@@ -2,7 +2,6 @@ package com.falsepattern.endlessids.mixin.mixins.common.blockitem.ubc;
 
 import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;
 import exterminatorJeff.undergroundBiomes.worldGen.BiomeUndergroundDecorator;
-import exterminatorJeff.undergroundBiomes.worldGen.OreUBifier;
 import lombok.val;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
