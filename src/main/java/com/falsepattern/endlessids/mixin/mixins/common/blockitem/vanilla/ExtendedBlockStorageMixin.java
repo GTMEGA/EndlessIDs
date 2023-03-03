@@ -322,43 +322,50 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
     }
 
     @Inject(method = {"getBlockMSBArray", "createBlockMSBArray"},
-            at = @At("HEAD"))
+            at = @At("HEAD"),
+            expect = 0)
     private void crashMSBArray(CallbackInfoReturnable<NibbleArray> cir) {
         throw emergencyCrash();
     }
 
     @Inject(method = "clearMSBArray",
-            at = @At("HEAD"))
+            at = @At("HEAD"),
+            expect = 0)
     private void crashMSBArray(CallbackInfo ci) {
         throw emergencyCrash();
     }
 
     @Inject(method = "setBlockMSBArray",
-            at = @At("HEAD"))
+            at = @At("HEAD"),
+            expect = 0)
     private void crashMSBArray(NibbleArray p_76673_1_, CallbackInfo ci) {
         throw emergencyCrash();
     }
 
     @Inject(method = "setBlockLSBArray",
-            at = @At("HEAD"))
+            at = @At("HEAD"),
+            expect = 0)
     private void crashLSBArray(byte[] p_76664_1_, CallbackInfo ci) {
         throw emergencyCrash();
     }
 
     @Inject(method = "getBlockLSBArray",
-            at = @At("HEAD"))
+            at = @At("HEAD"),
+            expect = 0)
     private void crashLSBArray(CallbackInfoReturnable<byte[]> cir) {
         throw emergencyCrash();
     }
 
     @Inject(method = "setBlockMetadataArray",
-            at = @At("HEAD"))
+            at = @At("HEAD"),
+            expect = 0)
     private void crashMetadataArray(NibbleArray p_76668_1_, CallbackInfo ci) {
         throw emergencyCrash();
     }
 
     @Inject(method = "getMetadataArray",
-            at = @At("HEAD"))
+            at = @At("HEAD"),
+            expect = 0)
     private void crashMetadataArray(CallbackInfoReturnable<NibbleArray> cir) {
         throw emergencyCrash();
     }
