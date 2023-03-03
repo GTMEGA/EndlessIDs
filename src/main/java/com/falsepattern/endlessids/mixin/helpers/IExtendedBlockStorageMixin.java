@@ -31,9 +31,29 @@ public interface IExtendedBlockStorageMixin {
 
     byte[] createB3();
 
-    int getStorageFlag();
+    int getEBSMask();
+
+    int getEBSMSBMask();
 
     int getID(int x, int y, int z);
 
-    short[] getMetaArray();
+    NibbleArray getM1Low();
+
+    void setM1Low(NibbleArray m1Low);
+
+    NibbleArray getM1High();
+
+    void setM1High(NibbleArray m1High);
+
+    void clearM1High();
+
+    NibbleArray createM1High();
+
+    byte[] getM2();
+
+    void setM2(byte[] m2);
+
+    void clearM2();
+
+    byte[] createM2();
 }

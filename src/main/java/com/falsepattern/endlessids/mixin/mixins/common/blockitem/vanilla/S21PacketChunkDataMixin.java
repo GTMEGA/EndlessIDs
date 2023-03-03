@@ -1,10 +1,10 @@
 package com.falsepattern.endlessids.mixin.mixins.common.blockitem.vanilla;
 
 import com.falsepattern.endlessids.Hooks;
-import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;
 import lombok.val;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -20,7 +20,7 @@ import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 @Mixin(S21PacketChunkData.class)
 public abstract class S21PacketChunkDataMixin {
     private static byte[][] fakeArrays;
-    private static NibbleArray fakeNarray;
+    private static NibbleArray[] fakeNarrays;
 
     @Redirect(method = "func_149269_a",
               at = @At(value = "INVOKE",
@@ -38,7 +38,7 @@ public abstract class S21PacketChunkDataMixin {
             require = 1)
     private static void hookGetBlockData(Chunk p_149269_0_, boolean p_149269_1_, int p_149269_2_, CallbackInfoReturnable<S21PacketChunkData.Extracted> cir, int j, ExtendedBlockStorage[] aextendedblockstorage, int k, S21PacketChunkData.Extracted extracted, byte[] abyte, int l) {
         val ebs = (IExtendedBlockStorageMixin) aextendedblockstorage[l];
-        extracted.field_150281_c |= Hooks.getBlockData(ebs, abyte, j) << l * 2;
+        extracted.field_150281_c |= Hooks.getBlockData(ebs, abyte, j) << (l << 1);
     }
 
     @Redirect(method = "func_149269_a",
@@ -53,7 +53,7 @@ public abstract class S21PacketChunkDataMixin {
             fakeArrays[2] = new byte[16 * 16 * 16 * 4 / 2];
             fakeArrays[3] = new byte[16 * 16 * 16 * 6 / 2];
         }
-        return fakeArrays[((IExtendedBlockStorageMixin) instance).getStorageFlag()];
+        return fakeArrays[((IExtendedBlockStorageMixin) instance).getEBSMSBMask()];
     }
 
     @Redirect(method = "func_149269_a",
@@ -73,7 +73,10 @@ public abstract class S21PacketChunkDataMixin {
             locals = LocalCapture.CAPTURE_FAILHARD,
             require = 1)
     private static void hookGetBlockMeta(Chunk p_149269_0_, boolean p_149269_1_, int p_149269_2_, CallbackInfoReturnable<S21PacketChunkData.Extracted> cir, int j, ExtendedBlockStorage[] aextendedblockstorage, int k, S21PacketChunkData.Extracted extracted, byte[] abyte, int l) {
-        Hooks.getBlockMeta((IExtendedBlockStorageMixin) aextendedblockstorage[l], abyte, j);
+        if (l == 0) {
+            extracted.field_150280_b = 0;
+        }
+        extracted.field_150280_b |= Hooks.getBlockMeta((IExtendedBlockStorageMixin) aextendedblockstorage[l], abyte, j) << (l << 1);
     }
 
     @Redirect(method = "func_149269_a",
@@ -81,7 +84,13 @@ public abstract class S21PacketChunkDataMixin {
                        target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;getMetadataArray()Lnet/minecraft/world/chunk/NibbleArray;"),
               require = 1)
     private static NibbleArray hookGetBlockMetaNoArray(ExtendedBlockStorage instance) {
-        return fakeNarray != null ? fakeNarray : (fakeNarray = new NibbleArray(null, 0));
+        if (fakeNarrays == null) {
+            fakeNarrays = new NibbleArray[3];
+            fakeNarrays[0] = new NibbleArray(new byte[]{(byte)0b01}, 0);
+            fakeNarrays[1] = new NibbleArray(new byte[]{(byte)0b10}, 0);
+            fakeNarrays[2] = new NibbleArray(new byte[]{(byte)0b100}, 0);
+        }
+        return fakeNarrays[((IExtendedBlockStorageMixin)instance).getEBSMask() - 1];
     }
 
     @Redirect(method = "func_149269_a",
@@ -95,7 +104,7 @@ public abstract class S21PacketChunkDataMixin {
               expect = 2,
               require = 2)
     private static int hookGetBlockMetaFakeBytesLength(byte[] array) {
-        return 16 * 16 * 16 * (ExtendedConstants.nibblesPerMetadata >>> 1);
+        return 16 * 16 * 16 * (array[0] & 0xFF) / 2;
     }
 
     @Redirect(method = "func_149269_a",

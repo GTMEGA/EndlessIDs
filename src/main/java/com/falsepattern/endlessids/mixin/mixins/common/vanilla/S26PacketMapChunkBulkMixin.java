@@ -1,5 +1,6 @@
 package com.falsepattern.endlessids.mixin.mixins.common.vanilla;
 
+import com.falsepattern.endlessids.config.GeneralConfig;
 import io.netty.buffer.ByteBuf;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -34,12 +35,27 @@ public abstract class S26PacketMapChunkBulkMixin {
     @Inject(method = "writePacketData",
             at = @At(value = "INVOKE",
                      target = "Lnet/minecraft/network/PacketBuffer;writeShort(I)Lio/netty/buffer/ByteBuf;",
-                     ordinal = 2),
+                     ordinal = 1),
             locals = LocalCapture.CAPTURE_FAILHARD,
             require = 1)
     private void extendWrite(PacketBuffer p_148840_1_, CallbackInfo ci, int i) {
-        p_148840_1_.writeInt(this.field_149262_d[i]);
+        if (GeneralConfig.extendBlockItem) {
+            p_148840_1_.writeInt(this.field_149265_c[i]);
+            p_148840_1_.writeInt(this.field_149262_d[i]);
+        } else {
+            p_148840_1_.writeShort((short)(this.field_149265_c[i] & 65535));
+            p_148840_1_.writeShort((short)(this.field_149262_d[i] & 65535));
+        }
         p_148840_1_.writeInt(this.field_149260_f[i].length);
+    }
+
+    @Redirect(method = "writePacketData",
+              at = @At(value = "INVOKE",
+                       target = "Lnet/minecraft/network/PacketBuffer;writeShort(I)Lio/netty/buffer/ByteBuf;",
+                       ordinal = 1),
+              require = 1)
+    private ByteBuf suppressOldWrite1(PacketBuffer instance, int p_writeShort_1_) {
+        return null;
     }
 
     @Redirect(method = "writePacketData",
@@ -47,7 +63,7 @@ public abstract class S26PacketMapChunkBulkMixin {
                        target = "Lnet/minecraft/network/PacketBuffer;writeShort(I)Lio/netty/buffer/ByteBuf;",
                        ordinal = 2),
               require = 1)
-    private ByteBuf suppressOldWrite(PacketBuffer instance, int p_writeShort_1_) {
+    private ByteBuf suppressOldWrite2(PacketBuffer instance, int p_writeShort_1_) {
         return null;
     }
 
@@ -64,8 +80,13 @@ public abstract class S26PacketMapChunkBulkMixin {
         for (int j = 0; j < short1; ++j) {
             this.field_149266_a[j] = data.readInt();
             this.field_149264_b[j] = data.readInt();
-            this.field_149265_c[j] = data.readShort();
-            this.field_149262_d[j] = data.readInt();
+            if (GeneralConfig.extendBlockItem) {
+                this.field_149265_c[j] = data.readInt();
+                this.field_149262_d[j] = data.readInt();
+            } else {
+                this.field_149265_c[j] = data.readShort();
+                this.field_149262_d[j] = data.readShort();
+            }
             byte[] dataBytes = new byte[data.readInt()];
             this.field_149260_f[j] = dataBytes;
             System.arraycopy(abyte, i, dataBytes, 0, dataBytes.length);

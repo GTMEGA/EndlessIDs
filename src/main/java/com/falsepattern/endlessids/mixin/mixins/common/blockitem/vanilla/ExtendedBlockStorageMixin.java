@@ -27,29 +27,18 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
     private int blockRefCount;
     @Shadow
     private int tickRefCount;
+
     @Shadow
     private byte[] blockLSBArray;
-    @Shadow
-    private NibbleArray blockMetadataArray;
-
     @Shadow
     private NibbleArray blockMSBArray;
     private NibbleArray b2High;
     private byte[] b3;
-    private short[] metaArray;
 
-    @Override
-    public short[] getMetaArray() {
-        return metaArray;
-    }
-
-    @Inject(method = "<init>",
-            at = @At(value = "RETURN"),
-            require = 1)
-    private void init(CallbackInfo ci) {
-        blockMetadataArray = null;
-        metaArray = new short[16 * 16 * 16];
-    }
+    @Shadow
+    private NibbleArray blockMetadataArray;
+    private NibbleArray m1High;
+    private byte[] m2;
 
     public int getID(int x, int y, int z) {
         int index = y << 8 | z << 4 | x;
@@ -71,14 +60,14 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
         blockLSBArray[index] = (byte) (id & 0xFF);
         if (id > 0xFF) {
             if (blockMSBArray == null) {
-                blockMSBArray = new NibbleArray(blockLSBArray.length, 4);
+                createB2Low();
             }
             if (id > 0xFFF) {
                 if (b2High == null) {
-                    b2High = new NibbleArray(blockLSBArray.length, 4);
+                    createB2High();
                 }
                 if (id > 0xFFFF && b3 == null) {
-                    b3 = new byte[blockLSBArray.length];
+                    createB3();
                 }
             }
         }
@@ -133,8 +122,14 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
      */
     @Overwrite
     public int getExtBlockMetadata(int x, int y, int z) {
-        int index = y << 8 | z << 4 | x;
-        return metaArray[index] & 0xFFFF;
+        int meta = blockMetadataArray.get(x, y, z);
+        if (m1High != null) {
+            meta |= m1High.get(x, y, z) << 4;
+            if (m2 != null) {
+                meta |= (m2[(y << 8) | (z << 4) | x] & 0xFF) << 8;
+            }
+        }
+        return meta;
     }
 
     /**
@@ -143,8 +138,21 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
      */
     @Overwrite
     public void setExtBlockMetadata(int x, int y, int z, int meta) {
-        int index = y << 8 | z << 4 | x;
-        metaArray[index] = (short) (meta & 0xFFFF);
+        blockMetadataArray.set(x, y, z, meta & 0xF);
+        if (meta > 0xF) {
+            if (m1High == null) {
+                createM1High();
+            }
+            if (meta > 0xFF && m2 == null) {
+                createM2();
+            }
+        }
+        if (m1High != null) {
+            m1High.set(x, y, z, (meta >>> 4) & 0xF);
+            if (m2 != null) {
+                m2[(y << 8) | (z << 4) | x] = (byte) ((meta >>> 8) & 0xFF);
+            }
+        }
     }
 
     @Redirect(method = "removeInvalidBlocks",
@@ -239,7 +247,57 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
     }
 
     @Override
-    public int getStorageFlag() {
+    public NibbleArray getM1Low() {
+        return blockMetadataArray;
+    }
+
+    @Override
+    public void setM1Low(NibbleArray m1Low) {
+        blockMetadataArray = m1Low;
+    }
+
+    @Override
+    public NibbleArray getM1High() {
+        return m1High;
+    }
+
+    @Override
+    public void setM1High(NibbleArray m1High) {
+        this.m1High = m1High;
+    }
+
+    @Override
+    public void clearM1High() {
+        m1High = null;
+    }
+
+    @Override
+    public NibbleArray createM1High() {
+        return (m1High = new NibbleArray(blockLSBArray.length, 4));
+    }
+
+    @Override
+    public byte[] getM2() {
+        return m2;
+    }
+
+    @Override
+    public void setM2(byte[] m2) {
+        this.m2 = m2;
+    }
+
+    @Override
+    public void clearM2() {
+        m2 = null;
+    }
+
+    @Override
+    public byte[] createM2() {
+        return (m2 = new byte[blockLSBArray.length]);
+    }
+
+    @Override
+    public int getEBSMSBMask() {
         if (blockMSBArray == null) {
             return 0b00;
         }
@@ -247,6 +305,17 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
             return 0b01;
         }
         if (b3 == null) {
+            return 0b10;
+        }
+        return 0b11;
+    }
+
+    @Override
+    public int getEBSMask() {
+        if (m1High == null) {
+            return 0b01;
+        }
+        if (m2 == null) {
             return 0b10;
         }
         return 0b11;

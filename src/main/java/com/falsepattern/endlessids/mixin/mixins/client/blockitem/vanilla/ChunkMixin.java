@@ -1,13 +1,13 @@
 package com.falsepattern.endlessids.mixin.mixins.client.blockitem.vanilla;
 
 import com.falsepattern.endlessids.Hooks;
-import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;
 import lombok.val;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -23,9 +23,24 @@ import java.util.Iterator;
 public abstract class ChunkMixin {
     //This is needed because the array is not a field, but a local, and local arraylength overriding does not exist
     private static byte[][] fakeArrays;
-    private static NibbleArray fakeNarray;
+    private static NibbleArray[] fakeNarrays;
     @Shadow
     private ExtendedBlockStorage[] storageArrays;
+
+    private int ebsData;
+
+    @ModifyVariable(method = "fillChunk",
+                    at = @At("HEAD"),
+                    ordinal = 0,
+                    argsOnly = true)
+    private int extractEBSData(int ebs) {
+        ebsData = ebs;
+        int result = 0;
+        for (int i = 0; i < 16; i++) {
+            result |= ((ebs >>> (i << 1)) & 0b11) > 0 ? 1 << i : 0;
+        }
+        return result;
+    }
 
     @Redirect(method = "fillChunk",
               at = @At(value = "FIELD",
@@ -46,7 +61,7 @@ public abstract class ChunkMixin {
             locals = LocalCapture.CAPTURE_FAILHARD,
             require = 1)
     private void blockData(byte[] p_76607_1_, int p_76607_2_, int p_76607_3_, boolean p_76607_4_, CallbackInfo ci, Iterator iterator, int k, boolean flag1, int l) {
-        val storageFlag = (p_76607_3_ >>> l) & 0b11;
+        val storageFlag = (p_76607_3_ >>> (l << 1)) & 0b11;
         Hooks.setBlockData((IExtendedBlockStorageMixin) this.storageArrays[l], p_76607_1_, k, storageFlag);
     }
 
@@ -62,7 +77,7 @@ public abstract class ChunkMixin {
             fakeArrays[2] = new byte[16 * 16 * 16 * 4 / 2];
             fakeArrays[3] = new byte[16 * 16 * 16 * 6 / 2];
         }
-        return fakeArrays[((IExtendedBlockStorageMixin) instance).getStorageFlag()];
+        return fakeArrays[((IExtendedBlockStorageMixin) instance).getEBSMSBMask()];
     }
 
     @Redirect(method = "fillChunk",
@@ -81,7 +96,8 @@ public abstract class ChunkMixin {
             locals = LocalCapture.CAPTURE_FAILHARD,
             require = 1)
     private void hookSetBlockMeta(byte[] p_76607_1_, int p_76607_2_, int p_76607_3_, boolean p_76607_4_, CallbackInfo ci, Iterator iterator, int k, boolean flag1, int l) {
-        Hooks.setBlockMeta((IExtendedBlockStorageMixin) this.storageArrays[l], p_76607_1_, k);
+        val storageFlag = (ebsData >>> (l << 1)) & 0b11;
+        Hooks.setBlockMeta((IExtendedBlockStorageMixin) this.storageArrays[l], p_76607_1_, k, storageFlag);
     }
 
     @Redirect(method = "fillChunk",
@@ -89,7 +105,13 @@ public abstract class ChunkMixin {
                        target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;getMetadataArray()Lnet/minecraft/world/chunk/NibbleArray;"),
               require = 1)
     private NibbleArray hookSetBlockMetaNoArray(ExtendedBlockStorage instance) {
-        return fakeNarray != null ? fakeNarray : (fakeNarray = new NibbleArray(null, 0));
+        if (fakeNarrays == null) {
+            fakeNarrays = new NibbleArray[3];
+            fakeNarrays[0] = new NibbleArray(new byte[]{(byte)0b01}, 0);
+            fakeNarrays[1] = new NibbleArray(new byte[]{(byte)0b10}, 0);
+            fakeNarrays[2] = new NibbleArray(new byte[]{(byte)0b100}, 0);
+        }
+        return fakeNarrays[((IExtendedBlockStorageMixin)instance).getEBSMask() - 1];
     }
 
     @Redirect(method = "fillChunk",
@@ -103,7 +125,7 @@ public abstract class ChunkMixin {
               expect = 2,
               require = 2)
     private int hookSetBlockMetaFakeBytesLength(byte[] array) {
-        return 16 * 16 * 16 * (ExtendedConstants.nibblesPerMetadata >>> 1);
+        return 16 * 16 * 16 * (array[0] & 0xFF) / 2;
     }
 
     @Redirect(method = "fillChunk",

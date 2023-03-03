@@ -32,7 +32,7 @@ public class Hooks {
                 }
             }
         }
-        return ebs.getStorageFlag();
+        return ebs.getEBSMSBMask();
     }
 
     public static void setBlockData(final IExtendedBlockStorageMixin ebs, final byte[] data, int offset, final int storageFlag) {
@@ -73,16 +73,6 @@ public class Hooks {
         System.arraycopy(data, offset, b3, 0, b3.length);
     }
 
-    public static void getBlockMeta(final IExtendedBlockStorageMixin ebs, final byte[] data, final int offset) {
-        val meta = ebs.getMetaArray();
-        Unsafer.arraycopy(meta, 0, data, offset, meta.length);
-    }
-
-    public static void setBlockMeta(final IExtendedBlockStorageMixin ebs, final byte[] data, final int offset) {
-        val meta = ebs.getMetaArray();
-        Unsafer.arraycopy(data, offset, meta, 0, meta.length);
-    }
-
     public static void writeBlockDataToNBT(final NBTTagCompound nbt, final IExtendedBlockStorageMixin ebs) {
         val b1 = ebs.getB1();
         val b2Low = ebs.getB2Low();
@@ -119,6 +109,75 @@ public class Hooks {
             ebs.setB2High(new NibbleArray(b2High, 4));
         }
         ebs.setB3(b3);
+    }
+
+    public static int getBlockMeta(final IExtendedBlockStorageMixin ebs, final byte[] data, int offset) {
+        val m1Low = ebs.getM1Low();
+        System.arraycopy(m1Low.data, 0, data, offset, m1Low.data.length);
+        offset += m1Low.data.length;
+        val m1High = ebs.getM1High();
+        if (m1High != null) {
+            System.arraycopy(m1High.data, 0, data, offset, m1High.data.length);
+            offset += m1High.data.length;
+            val m2 = ebs.getM2();
+            if (m2 != null) {
+                System.arraycopy(m2, 0, data, offset, m2.length);
+            }
+        }
+        return ebs.getEBSMask();
+    }
+
+    public static void setBlockMeta(final IExtendedBlockStorageMixin ebs, final byte[] data, int offset, final int storageFlag) {
+        val m1Low = ebs.getM1Low();
+        System.arraycopy(data, offset, m1Low.data, 0, m1Low.data.length);
+        offset += m1Low.data.length;
+        if (storageFlag == 0b01) {
+            ebs.clearM1High();
+            ebs.clearM2();
+            return;
+        }
+        var m1High = ebs.getM1High();
+        if (m1High == null) {
+            m1High = ebs.createM1High();
+        }
+        System.arraycopy(data, offset, m1High.data, 0, m1High.data.length);
+        if (storageFlag == 0b10) {
+            ebs.clearM2();
+            return;
+        }
+        var m2 = ebs.getM2();
+        if (m2 == null) {
+            m2 = ebs.createM2();
+        }
+        System.arraycopy(data, offset, m2, 0, m2.length);
+    }
+
+    public static void writeBlockMetaToNBT(IExtendedBlockStorageMixin ebs, NBTTagCompound nbt) {
+        val m1Low = ebs.getM1Low();
+        val m1High = ebs.getM1High();
+        val m2 = ebs.getM2();
+        nbt.setByteArray("Data", m1Low.data);
+        if (m1High != null) {
+            nbt.setByteArray("Data1High", m1High.data);
+        }
+        if (m2 != null) {
+            nbt.setByteArray("Data2", m2);
+        }
+    }
+
+    public static void readBlockMetaFromNBT(IExtendedBlockStorageMixin ebs, NBTTagCompound nbt) {
+        assert nbt.hasKey("Data");
+        val m1Low = nbt.getByteArray("Data");
+        final byte[] m1High = nbt.hasKey("Data1High") ? nbt.getByteArray("Data1High") : null;
+        final byte[] m2 = nbt.hasKey("Data2") ? nbt.getByteArray("Data2") : null;
+
+        ebs.setM1Low(new NibbleArray(m1Low, 4));
+        if (m1High == null) {
+            ebs.clearM1High();
+        } else {
+            ebs.setM1High(new NibbleArray(m1High, 4));
+        }
+        ebs.setM2(m2);
     }
 
     public static int getIdFromBlockWithCheck(final Block block, final Block oldBlock) {
@@ -203,9 +262,9 @@ public class Hooks {
         }
         if (nbt.hasKey("Biomes16v2", 7)) {
             byteToShortArray(nbt.getByteArray("Biomes16v2"), 0, data, 0, data.length * 2);
-        } else if (nbt.hasKey("Biomes16", 7)) {
+        } else if (nbt.hasKey("Biomes16", 7)) { //NotEnoughBiomes DFU
             byteToShortArrayLegacy(nbt.getByteArray("Biomes16"), data);
-        } else if (nbt.hasKey("Biomes", 7)) {
+        } else if (nbt.hasKey("Biomes", 7)) { //Vanilla DFU
             scatter(nbt.getByteArray("Biomes"), data);
         } else {
             put = false;
@@ -213,18 +272,5 @@ public class Hooks {
         if (put) {
             ((IChunkMixin) chunk).setBiomeShortArray(data);
         }
-    }
-
-    public static void readBlockMetaFromNBT(IExtendedBlockStorageMixin instance, NBTTagCompound nbt) {
-        short[] data = instance.getMetaArray();
-        if (nbt.hasKey("Data16", 7)) {
-            byteToShortArray(nbt.getByteArray("Data16"), 0, data, 0, data.length * 2);
-        } else {
-            scatter(nbt.getByteArray("Data"), data);
-        }
-    }
-
-    public static void writeBlockMetaToNBT(IExtendedBlockStorageMixin instance, NBTTagCompound nbt) {
-        nbt.setByteArray("Data16", shortToByteArray(instance.getMetaArray()));
     }
 }

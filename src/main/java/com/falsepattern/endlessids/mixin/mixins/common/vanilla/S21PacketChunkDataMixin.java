@@ -1,5 +1,6 @@
 package com.falsepattern.endlessids.mixin.mixins.common.vanilla;
 
+import com.falsepattern.endlessids.config.GeneralConfig;
 import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.constants.VanillaConstants;
 import io.netty.buffer.ByteBuf;
@@ -49,11 +50,26 @@ public abstract class S21PacketChunkDataMixin {
     @Inject(method = "writePacketData",
             at = @At(value = "INVOKE",
                      target = "Lnet/minecraft/network/PacketBuffer;writeShort(I)Lio/netty/buffer/ByteBuf;",
-                     ordinal = 1),
+                     ordinal = 0),
             require = 1)
     private void extendWrite(PacketBuffer p_148840_1_, CallbackInfo ci) {
-        p_148840_1_.writeInt(this.field_149280_d);
+        if (GeneralConfig.extendBlockItem) {
+            p_148840_1_.writeInt(this.field_149283_c);
+            p_148840_1_.writeInt(this.field_149280_d);
+        } else {
+            p_148840_1_.writeShort((short)(this.field_149283_c & 65535));
+            p_148840_1_.writeShort((short)(this.field_149280_d & 65535));
+        }
         p_148840_1_.writeInt(this.field_149278_f.length);
+    }
+
+    @Redirect(method = "writePacketData",
+              at = @At(value = "INVOKE",
+                       target = "Lnet/minecraft/network/PacketBuffer;writeShort(I)Lio/netty/buffer/ByteBuf;",
+                       ordinal = 0),
+              require = 1)
+    private ByteBuf suppressOldWrite1(PacketBuffer instance, int p_writeShort_1_) {
+        return null;
     }
 
     @Redirect(method = "writePacketData",
@@ -61,7 +77,7 @@ public abstract class S21PacketChunkDataMixin {
                        target = "Lnet/minecraft/network/PacketBuffer;writeShort(I)Lio/netty/buffer/ByteBuf;",
                        ordinal = 1),
               require = 1)
-    private ByteBuf suppressOldWrite(PacketBuffer instance, int p_writeShort_1_) {
+    private ByteBuf suppressOldWrite2(PacketBuffer instance, int p_writeShort_1_) {
         return null;
     }
 
@@ -73,8 +89,13 @@ public abstract class S21PacketChunkDataMixin {
         this.field_149284_a = data.readInt();
         this.field_149282_b = data.readInt();
         this.field_149279_g = data.readBoolean();
-        this.field_149283_c = data.readShort();
-        this.field_149280_d = data.readInt();
+        if (GeneralConfig.extendBlockItem) {
+            this.field_149283_c = data.readInt();
+            this.field_149280_d = data.readInt();
+        } else {
+            this.field_149283_c = data.readShort();
+            this.field_149280_d = data.readShort();
+        }
         int length = data.readInt();
         this.field_149285_h = data.readInt();
 
