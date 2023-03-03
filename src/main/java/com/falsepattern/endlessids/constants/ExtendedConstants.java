@@ -24,6 +24,9 @@ public class ExtendedConstants {
     public static final int blockIDCount = 1 << (bitsPerID - countCorrectionBits);
     public static final int maxBlockID = blockIDCount - 1;
 
+    public static final int itemIDCount = 1 << (bitsPerID);
+    public static final int maxItemID = itemIDCount - 1;
+
     public static final int bitsPerBlock = 8 + bitsPerID + bitsPerMetadata;
     public static final int nibblesPerBlock = bitsPerBlock / 4;
     public static final int nibblesPerEBS = nibblesPerBlock * 16 * 16 * 16;

@@ -22,7 +22,7 @@ public class FmlRegistry implements IClassNodeTransformer {
         }
         field = AsmUtil.findField(cn, "MAX_ITEM_ID", true);
         if (field != null) {
-            field.value = ExtendedConstants.maxBlockID;
+            field.value = ExtendedConstants.maxItemID;
         }
         boolean found = false;
         for (final MethodNode method : cn.methods) {
@@ -30,7 +30,7 @@ public class FmlRegistry implements IClassNodeTransformer {
                                                    ExtendedConstants.maxBlockID, true)) {
                 found = true;
             }
-            AsmUtil.transformInlinedSizeMethod(cn, method, 31999, ExtendedConstants.maxBlockID, true);
+            AsmUtil.transformInlinedSizeMethod(cn, method, 31999, ExtendedConstants.maxItemID, true);
         }
         if (!found) {
             throw new AsmTransformException("can't find 4095 constant in any method");
