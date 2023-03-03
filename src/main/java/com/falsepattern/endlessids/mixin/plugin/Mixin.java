@@ -67,7 +67,7 @@ public enum Mixin implements IMixin {
     BOPBiomesMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.BOP)), "biome.bop.BOPBiomesMixin"),
     //endregion BoP
     //region Buildcraft
-    BuildcraftEnergyMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.BUILDCRAFT)), "buildcraft.BuildcraftEnergyMixin"),
+    BuildcraftEnergyMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.BUILDCRAFT)), "biome.buildcraft.BuildcraftEnergyMixin"),
     //endregion Buildcraft
     //region CompactMachines
     CMCubeToolsMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.COMPACTMACHINES)), "biome.compactmachines.CubeToolsMixin"),
