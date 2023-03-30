@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static com.falsepattern.lib.mixin.IMixin.PredicateHelpers.always;
 import static com.falsepattern.lib.mixin.IMixin.PredicateHelpers.avoid;
 import static com.falsepattern.lib.mixin.IMixin.PredicateHelpers.condition;
 import static com.falsepattern.lib.mixin.IMixin.PredicateHelpers.require;
@@ -17,10 +16,6 @@ import static com.falsepattern.lib.mixin.IMixin.PredicateHelpers.require;
 @RequiredArgsConstructor
 public enum Mixin implements IMixin {
     //region common
-    //region vanilla
-    S21PacketChunkDataMixin(Side.COMMON, always(), "vanilla.S21PacketChunkDataMixin"),
-    S26PacketMapChunkBulkMixin(Side.COMMON, always(), "vanilla.S26PacketMapChunkBulkMixin"),
-    //endregion vanilla
     //region AntiIDConflict
     AIDCAntiIdConflictBaseMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT), "antiidconflict.AntiIdConflictBaseMixin"),
     AIDCBiomesGenBasePlaceholderMixin(Side.COMMON, require(TargetedMod.ANTIIDCONFLICT), "antiidconflict.BiomeGenBasePlaceholderMixin"),
@@ -32,13 +27,11 @@ public enum Mixin implements IMixin {
     //endregion AntiIDConflict
     //region biome
     //region vanilla
-    AnvilChunkLoaderMixinBiome(Side.COMMON, condition(() -> GeneralConfig.extendBiome), "biome.vanilla.AnvilChunkLoaderMixin"),
     BiomeDictionaryMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome), "biome.vanilla.BiomeDictionaryMixin"),
     BiomeGenBaseMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome), "biome.vanilla.BiomeGenBaseMixin"),
     ChunkMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome), "biome.vanilla.ChunkMixin"),
     GenLayerRiverMixMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(avoid(TargetedMod.DRAGONAPI)), "biome.vanilla.GenLayerRiverMixMixin"),
     GenLayerVoronoiZoomMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome), "biome.vanilla.GenLayerVoronoiZoomMixin"),
-    S21PacketChunkDataMixinBiome(Side.COMMON, condition(() -> GeneralConfig.extendBiome), "biome.vanilla.S21PacketChunkDataMixin"),
     //endregion vanilla
     //region AbyssalCraft
     AbyssalCraftMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.ABYSSALCRAFT)), "biome.abyssalcraft.AbyssalCraftMixin"),
@@ -164,13 +157,11 @@ public enum Mixin implements IMixin {
     //endregion biome
     //region blockitem
     //region vanilla
-    AnvilChunkLoaderMixinBlockItem(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.AnvilChunkLoaderMixin"),
     BlockFireMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.BlockFireMixin"),
     ExtendedBlockStorageMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.ExtendedBlockStorageMixin"),
     ItemInWorldManagerMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.ItemInWorldManagerMixin"),
     ItemStackMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.ItemStackMixin"),
     PacketBufferMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.PacketBufferMixin"),
-    S21PacketChunkDataMixinBlockItem(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.S21PacketChunkDataMixin"),
     S22PacketMultiBlockChangeMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.S22PacketMultiBlockChangeMixin"),
     S24PacketBlockActionMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.S24PacketBlockActionMixin"),
     StatListMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.StatListMixin"),
@@ -219,16 +210,12 @@ public enum Mixin implements IMixin {
 
     //region client
     //region biome
-    //region vanilla
-    ChunkMixinClientBiome(Side.CLIENT, condition(() -> GeneralConfig.extendBiome), "biome.vanilla.ChunkMixin"),
-    //endregion vanilla
     //region Biome Wand
     BiomeWandItemClientMixin(Side.CLIENT, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.BIOMEWAND)), "biome.biomewand.BiomeWandItemMixin"),
     //endregion Biome Wand
     //endregion biome
     //region blockitem
     //region vanilla
-    ChunkMixinClientBlockItem(Side.CLIENT, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.ChunkMixin"),
     NetHandlerPlayClientMixinBlockItem(Side.CLIENT, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.NetHandlerPlayClientMixin"),
     PlayerControllerMPMixin(Side.CLIENT, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.PlayerControllerMPMixin"),
     RenderGlobalMixin(Side.CLIENT, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.RenderGlobalMixin"),

@@ -72,3 +72,4 @@ If you find any crashes or incompatibilities, don't hesitate to open an issue.
 ## Dependencies
 - [FalsePatternLib](https://github.com/FalsePattern/FalsePatternLib)
 - [GasStation](https://github.com/FalsePattern/GasStation)
+- [ChunkAPI](https://github.com/FalsePattern/ChunkAPI) (since 1.5-alpha0006. Incompatible with ChunkAPI in previous versions.)

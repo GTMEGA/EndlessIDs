@@ -16,4 +16,5 @@ repositories {
         name = "jitpack"
         url = "https://mvn.falsepattern.com/jitpack/"
     }
+    mavenLocal()
 }

@@ -1,5 +1,10 @@
 package com.falsepattern.endlessids;
 
+import com.falsepattern.chunk.api.ChunkDataRegistry;
+import com.falsepattern.endlessids.config.GeneralConfig;
+import com.falsepattern.endlessids.managers.BiomeManager;
+import com.falsepattern.endlessids.managers.BlockIDManager;
+import com.falsepattern.endlessids.managers.BlockMetaManager;
 import com.falsepattern.endlessids.patching.CommonManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,10 +44,24 @@ public class EndlessIDs {
     @Mod.EventHandler
     public void init(FMLInitializationEvent e) {
         patchManager.init();
+        if (GeneralConfig.extendBiome) {
+            ChunkDataRegistry.registerDataManager(new BiomeManager());
+        }
+        if (GeneralConfig.extendBlockItem) {
+            ChunkDataRegistry.registerDataManager(new BlockIDManager());
+            ChunkDataRegistry.registerDataManager(new BlockMetaManager());
+        }
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent e) {
         patchManager.postInit();
+        if (GeneralConfig.extendBiome) {
+            ChunkDataRegistry.disableDataManager("minecraft", "biome");
+        }
+        if (GeneralConfig.extendBlockItem) {
+            ChunkDataRegistry.disableDataManager("minecraft", "blockid");
+            ChunkDataRegistry.disableDataManager("minecraft", "metadata");
+        }
     }
 }
