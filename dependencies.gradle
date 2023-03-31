@@ -23,7 +23,7 @@ dependencies {
 
     compile("com.falsepattern:falsepatternlib-mc1.7.10:0.10.15:dev")
 
-    compile("com.falsepattern:chunkapi-mc1.7.10:446ee60:dev")
+    compile("com.falsepattern:chunkapi-mc1.7.10:0.1.0:dev")
 
     ////////////////Patched mods////////////////
 
