@@ -65,7 +65,7 @@ Mods not listed here may or may not work.
   - If a mod adds a custom world generator, it has a high chance of invoking an old vanilla method in the worldgen code.
 
     To avoid world corruption and broken biomes, this method has been replaced with an instant crash that refers the 
-user to this github repo.
+user to this GitHub repo.
 
 If you find any crashes or incompatibilities, don't hesitate to open an issue.
 
