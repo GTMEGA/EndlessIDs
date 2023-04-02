@@ -42,7 +42,6 @@ This mod also contains patches for the following mods:
 - GalactiCraft
 - Highlands
 - Immersive Cavegen
-- LOTR
 - More Fun Quicksand Mod
 - Nature's Compass
 - Netherlicious
