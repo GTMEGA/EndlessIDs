@@ -11,7 +11,9 @@ import net.minecraft.world.chunk.Chunk;
 
 import java.util.Random;
 
-@Mixin(BiomeHelper.class)
+@Mixin(value = BiomeHelper.class,
+       priority = 999,
+       remap = false)
 public abstract class BiomeHelperMixin {
     /**
      * @author FalsePattern

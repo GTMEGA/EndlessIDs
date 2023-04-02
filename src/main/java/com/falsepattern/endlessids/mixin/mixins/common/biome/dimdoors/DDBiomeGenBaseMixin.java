@@ -8,7 +8,9 @@ import org.spongepowered.asm.mixin.Overwrite;
 
 import net.minecraft.world.biome.BiomeGenBase;
 
-@Mixin(DDBiomeGenBase.class)
+@Mixin(value = DDBiomeGenBase.class,
+       priority = 999,
+       remap = false)
 public abstract class DDBiomeGenBaseMixin extends BiomeGenBase {
     private DDBiomeGenBaseMixin(int p_i1971_1_) {
         super(p_i1971_1_);
