@@ -116,6 +116,9 @@ public enum Mixin implements IMixin {
     //region ICG
     ICGMysteriumPatchesFixesCaveMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.ICG)), "biome.icg.MysteriumPatchesFixesCaveMixin"),
     //endregion ICG
+    //region Industrial Revolution by Redstone Rebooted
+    IR3IR2Mixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.IR3)), "biome.ir3.IR2Mixin"),
+    //endregion Industrial Revolution by Redstone Rebooted
     //region LOTR
     LOTRBiomeVariantStorageMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.LOTR)), "biome.lotr.LOTRBiomeVariantStorageMixin"),
     LOTRChunkProviderMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.LOTR)), "biome.lotr.LOTRChunkProviderMixin"),

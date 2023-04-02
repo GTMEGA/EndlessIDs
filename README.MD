@@ -42,6 +42,7 @@ This mod also contains patches for the following mods:
 - GalactiCraft
 - Highlands
 - Immersive Cavegen
+- Industrial Revolution by Redstone Rebooted
 - More Fun Quicksand Mod
 - Nature's Compass
 - Netherlicious

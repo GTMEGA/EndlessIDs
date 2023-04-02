@@ -110,6 +110,9 @@ dependencies {
     //Immersive Cavegen 1.2g
     compileOnly(deobfCurse("immersivecavegen-521557:3649411"))
 
+    //Industrial Revolution by Redstone Rebooted 1.1.1
+    compileOnly(deobfCurse("industrialrevolutionbyredstonerebooted-241812:2538035"))
+
     //LOTR Mod 36.14
     compileOnly(deobfCurse("lotrmod-423748:3646430"))
 

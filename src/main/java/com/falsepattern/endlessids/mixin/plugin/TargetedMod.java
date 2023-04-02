@@ -35,6 +35,7 @@ public enum TargetedMod implements ITargetedMod {
     GALAXYSPACE("GalaxySpace", false, startsWith("galaxyspace-")),
     HIGHLANDS("Highlands", false, startsWith("highlands")),
     ICG("Immersive Cavegen", false, startsWith("immersivecavegen")),
+    IR3("Industrial Revolution by Redstone Rebooted", false, startsWith("industrialrevolutionbyredstonerebooted-")),
     LOTR("LOTR Mod", false, startsWith("lotrmod")),
     MFQM("More Fun Quicksand Mod", false, startsWith("morefunquicksandmod-")),
     NATURESCOMPASS("Nature's Compass", false, startsWith("naturescompass")),
