@@ -132,7 +132,7 @@ dependencies {
     compileOnly(deobfCurse("rtg-237989:2521557"))
 
     //Restructured 1.0.4.2
-    implementation(deobfCurse("restructured-230570:2276784"))
+    compileOnly(deobfCurse("restructured-230570:2276784"))
 
     //Thaumcraft 4.2.3.5
     compileOnly(deobfCurse("thaumcraft-223628:2227552"))
