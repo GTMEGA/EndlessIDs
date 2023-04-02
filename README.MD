@@ -47,6 +47,7 @@ This mod also contains patches for the following mods:
 - Netherlicious
 - Nomadic Tents
 - Random Things
+- Restructured
 - Realistic Terrain Generation
 - Realistic World Generation
 - Thaumcraft

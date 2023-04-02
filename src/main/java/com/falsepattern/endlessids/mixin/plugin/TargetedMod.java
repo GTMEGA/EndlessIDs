@@ -41,6 +41,7 @@ public enum TargetedMod implements ITargetedMod {
     NETHERLICIOUS("Netherlicious", false, startsWith("netherlicious-")),
     NOMADICTENTS("Nomadic Tents", false, startsWith("nomadictents")),
     RANDOMTHINGS("Random Things", false, startsWith("randomthings-")),
+    RESTRUCTURED("Restructured", false, startsWith("restructured-")),
     RTG("Realistic Terrain Generation", false, startsWith("rtg-")),
     RWG("Realistic World Gen", false, startsWith("rwg-")),
     THAUMCRAFT("Thaumcraft", false, startsWith("thaumcraft")),

@@ -136,6 +136,9 @@ public enum Mixin implements IMixin {
     ItemBiomePainterMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.RANDOMTHINGS)), "biome.randomthings.ItemBiomePainterMixin"),
     MessagePaintBiomeMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.RANDOMTHINGS)), "biome.randomthings.MessagePaintBiomeMixin"),
     //endregion RandomThings
+    //region Restructured
+    RSBiomeHelperMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.RESTRUCTURED)), "biome.restructured.BiomeHelperMixin"),
+    //endregion Restructured
     //region RTG
     RTGChunkProviderRTGMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.RTG)), "biome.rtg.ChunkProviderRTGMixin"),
     RTGLandscapeGeneratorMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.RTG)), "biome.rtg.LandscapeGeneratorMixin"),
