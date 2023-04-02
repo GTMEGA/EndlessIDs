@@ -1,4 +1,4 @@
-//version: 1656003793falsepattern63
+//version: 1656003793falsepattern65
 /*
 DO NOT CHANGE THIS FILE!
 
@@ -670,6 +670,8 @@ def getCredentials = {
 }
 
 //Publishing
+tasks.publish.dependsOn(build)
+
 publishing {
     publications {
         maven(MavenPublication) {
