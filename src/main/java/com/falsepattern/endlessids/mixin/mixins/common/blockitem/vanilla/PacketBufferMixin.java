@@ -12,7 +12,7 @@ import net.minecraft.network.PacketBuffer;
 
 import java.io.IOException;
 
-@Mixin(PacketBuffer.class)
+@Mixin(value = PacketBuffer.class, priority = 999)
 public abstract class PacketBufferMixin {
 
     @Shadow
