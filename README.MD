@@ -30,6 +30,7 @@ This mod also contains patches for the following mods:
 - Compact Machines
 - CoFH Lib
 - Dark World
+- Dimensional Doors
 - DragonAPI
 - Dynamic Surroundings
 - Enderlicious

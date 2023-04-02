@@ -23,6 +23,7 @@ public enum TargetedMod implements ITargetedMod {
     COFHLIB("CoFH Lib", false, startsWith("cofhlib-")),
     COMPACTMACHINES("Compact Machines", false, startsWith("compactmachines-")),
     DARKWORLD("Dark World", false, startsWith("darkworld-")),
+    DIMDOORS("Dimensional Doors", false, startsWith("dimensionaldoors-").or(startsWith("dimdoors-"))),
     DRAGONAPI("DragonAPI", false, startsWith("dragonapi")),
     EB("Enhanced Biomes", false, startsWith("Enhanced Biomes").or(startsWith("enhancedbiomes"))),
     ENDERLICIOUS("Enderlicious", false, startsWith("enderlicious-")),

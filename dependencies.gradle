@@ -70,6 +70,9 @@ dependencies {
     //Dark World 0.2
     compileOnly(deobfCurse("darkworld-225075:2225172"))
 
+    //DimDoors 2.2.5-test9
+    compileOnly(deobf("https://github.com/CannibalVox/DimDoors/releases/download/2.2.5-test9/DimensionalDoors-2.2.5-test9.jar"))
+
     //DragonAPI V31b
     compileOnly(deobfCurse("dragonapi-235591:3574508"))
 

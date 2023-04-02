@@ -68,6 +68,9 @@ public enum Mixin implements IMixin {
     //region DarkWorld
     DarkWorldModBiomesMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.DARKWORLD)), "biome.darkworld.ModBiomesMixin"),
     //endregion DarkWorld
+    //region DimDoors
+    DDBiomeGenBaseMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.DIMDOORS)), "biome.dimdoors.DDBiomeGenBaseMixin"),
+    //endregion DimDoors
     //region DragonAPI
     DragonAPIGenLayerRiverMixVanillaMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.DRAGONAPI)), "biome.dragonapi.vanilla.GenLayerRiverMixMixin"),
     DragonAPIGenLayerRiverEventMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.DRAGONAPI)), "biome.dragonapi.GenLayerRiverEventMixin"),
