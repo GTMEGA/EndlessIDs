@@ -1,5 +1,6 @@
 package com.falsepattern.endlessids.constants;
 
+@SuppressWarnings("unused")
 public class VanillaConstants {
     //Tunables
     public static final int bitsPerID = 12;
@@ -32,8 +33,7 @@ public class VanillaConstants {
     public static final int biomeIDMask = biomeIDCount - 1;
     public static final int biomeIDNull = biomeIDMask;
     public static final int bytesPerBiome = (bitsPerBiome + 7) / 8;
-    //Chunk
-    public static final int bytesPerChunk = bytesPerBiome * 256 + bytesPerEBS * 16;
+
     //DataWatcher
     public static final int watchableCount = 1 << watchableBits;
     public static final int maxWatchableID = watchableCount - 1;
