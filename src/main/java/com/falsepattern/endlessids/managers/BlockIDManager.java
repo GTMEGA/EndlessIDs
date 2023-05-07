@@ -136,9 +136,34 @@ public class BlockIDManager implements ChunkDataManager, ChunkDataManager.Packet
         }
     }
 
+    //NotEnoughIDs world compatibility
+    public static void readSectionFromNBTNotEnoughIDsDFU(IExtendedBlockStorageMixin ebs, NBTTagCompound section) {
+        val data = section.getByteArray("Blocks16");
+        val dataShort = new short[data.length >>> 1];
+        ByteBuffer.wrap(data).asShortBuffer().get(dataShort);
+        val b1 = new byte[dataShort.length];
+        val b2L = new byte[dataShort.length >>> 1];
+        val b2H = new byte[dataShort.length >>> 1];
+        for (int i = 0; i < dataShort.length; i++) {
+            val s = dataShort[i];
+            val nI = i >>> 1;
+            val mI = (i & 1) * 4;
+            b1[i] = (byte) (s & 0x00FF);
+            b2L[nI] |= ((s & 0x0F00) >>> 8) << mI;
+            b2H[nI] |= ((s & 0xF000) >>> 12) << mI;
+        }
+        ebs.setB1(b1);
+        ebs.setB2Low(new NibbleArray(b2L, 4));
+        ebs.setB2High(new NibbleArray(b2H, 4));
+    }
+
     @Override
     public void readSectionFromNBT(Chunk chunk, ExtendedBlockStorage ebsVanilla, NBTTagCompound section) {
         val ebs = (IExtendedBlockStorageMixin) ebsVanilla;
+        if (section.hasKey("Blocks16")) {
+            readSectionFromNBTNotEnoughIDsDFU(ebs, section);
+            return;
+        }
         assert section.hasKey("Blocks");
         val b1 = section.getByteArray("Blocks");
         final byte[] b2Low = section.hasKey("Add") ? section.getByteArray("Add") : null;
