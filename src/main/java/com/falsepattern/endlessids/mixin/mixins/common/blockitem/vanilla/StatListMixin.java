@@ -12,7 +12,7 @@ import net.minecraft.stats.StatList;
 public abstract class StatListMixin {
     @ModifyConstant(method = "<clinit>",
                     constant = {@Constant(intValue = VanillaConstants.blockIDCount)},
-                    require = 4)
+                    require = 1)
     private static int modifyMineBlockStatArraySize(int constant) {
         return ExtendedConstants.blockIDCount;
     }
