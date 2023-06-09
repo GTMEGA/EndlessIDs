@@ -1,6 +1,11 @@
 EndlessIDs is the unofficial successor of NotEnoughIDs, with more focus on compatibility, stability, and reaching
 new limits.
 
+## REQUIRED MODS
+- [FalsePatternLib](https://github.com/FalsePattern/FalsePatternLib)
+- [GasStation](https://github.com/FalsePattern/GasStation)
+- [ChunkAPI](https://github.com/FalsePattern/ChunkAPI)
+
 Comparison of the known limits:
 
 |                 | Vanilla                                            | NotEnoughIDs | EndlessIDs                       |
@@ -70,8 +75,3 @@ Mods not listed here may or may not work.
 user to this GitHub repo.
 
 If you find any crashes or incompatibilities, don't hesitate to open an issue.
-
-## Dependencies
-- [FalsePatternLib](https://github.com/FalsePattern/FalsePatternLib)
-- [GasStation](https://github.com/FalsePattern/GasStation)
-- [ChunkAPI](https://github.com/FalsePattern/ChunkAPI) (since 1.5-alpha0006. Incompatible with ChunkAPI in previous versions.)
