@@ -36,10 +36,10 @@ public class DragonAPIModList implements IClassNodeTransformer {
         val iterator = method.instructions.iterator();
         while (iterator.hasNext()) {
             var insn = iterator.next();
-            if (insn instanceof LineNumberNode && ((LineNumberNode) insn).line == 154) {
+            if (insn instanceof LineNumberNode && ((LineNumberNode) insn).line == 22) {
                 //SRC:
                 //  L3
-                //    LINENUMBER 154 L3
+                //    LINENUMBER 22 L3
                 //    ALOAD 0
                 //    ALOAD 0
                 //    GETFIELD Reika/DragonAPI/ModList.modLabel : Ljava/lang/String;
@@ -47,7 +47,7 @@ public class DragonAPIModList implements IClassNodeTransformer {
                 //    PUTFIELD Reika/DragonAPI/ModList.condition : Z
                 //TGT:
                 //  L3
-                //    LINENUMBER 154 L3
+                //    LINENUMBER 22 L3
                 //    ALOAD 0
                 //    ALOAD 5
                 //    PUTFIELD Reika/DragonAPI/ModList.itemClasses : [Ljava/lang/String;
