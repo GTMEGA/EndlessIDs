@@ -1,7 +1,6 @@
 package com.falsepattern.endlessids.asm;
 
 import com.falsepattern.endlessids.asm.transformer.ChunkProviderSuperPatcher;
-import com.falsepattern.endlessids.asm.transformer.DragonAPIModList;
 import com.falsepattern.endlessids.asm.transformer.FmlRegistry;
 import com.falsepattern.endlessids.asm.transformer.SpaceCoreModInfoGenerator;
 import com.falsepattern.endlessids.config.GeneralConfig;
@@ -13,7 +12,6 @@ import java.util.function.BooleanSupplier;
 
 public enum ClassEdit {
     ChunkProviderSuperPatcher(new ChunkProviderSuperPatcher(), () -> GeneralConfig.extendBiome),
-    DragonAPIModList(new DragonAPIModList(), () -> true, "Reika.DragonAPI.ModList"),
     FmlRegistry(new FmlRegistry(),
                 () -> GeneralConfig.extendBlockItem,
                 "cpw.mods.fml.common.registry.GameData",
