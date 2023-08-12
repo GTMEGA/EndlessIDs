@@ -38,26 +38,32 @@ public class EndlessIDs {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent e) {
-        LOG.info("Current configuration:");
-        logConfig("      Biome Extension", GeneralConfig.extendBiome);
-        logConfig(" Block/Item Extension", GeneralConfig.extendBlockItem);
+        LOG.info("---------------------------------------------------------");
+        LOG.info("Current EndlessIDs configuration:");
+        logConfig("  Biome Extension", GeneralConfig.extendBiome);
+        logConfig("  Block/Item Extension", GeneralConfig.extendBlockItem);
         if (GeneralConfig.extendBlockItem) {
-            logConfig("      Extra Item Bits", GeneralConfig.extraItemIDBits);
-            logConfig("     Extra Block Bits", GeneralConfig.extraBlockIDBits);
+            logConfig("    Extra Item Bits", GeneralConfig.extraItemIDBits);
+            logConfig("    Extra Block Bits", GeneralConfig.extraBlockIDBits);
         }
-        logConfig("DataWatcher Extension", GeneralConfig.extendDataWatcher);
-        logConfig("Enchantment Extension", GeneralConfig.extendEnchantment);
-        logConfig("     Potion Extension", GeneralConfig.extendPotion);
-        logConfig("   Redstone Extension", GeneralConfig.extendRedstone);
+        logConfig("  DataWatcher Extension", GeneralConfig.extendDataWatcher);
+        logConfig("  Enchantment Extension", GeneralConfig.extendEnchantment);
+        logConfig("  Potion Extension", GeneralConfig.extendPotion);
+        logConfig("  Redstone Extension", GeneralConfig.extendRedstone);
         if (GeneralConfig.extendRedstone) {
-            logConfig("   Max redstone level", GeneralConfig.maxRedstone);
-            LOG.warn("(Redstone extension is an experimental and dangerous feature, and should NEVER be used in worlds that you worry about getting corrupted!)");
+            LOG.warn("    (Redstone extension is an experimental and dangerous feature, and should NEVER be used in worlds that you worry about getting corrupted!)");
+            logConfig("    Max redstone level", GeneralConfig.maxRedstone);
         }
+        logConfig("  Registry performance tweak", GeneralConfig.enableRegistryPerformanceTweak);
+        if (GeneralConfig.enableRegistryPerformanceTweak) {
+            LOG.warn("    (This tweak has not gone through proper testing yet, so it might corrupt worlds. USE BACKUPS!)");
+        }
+        LOG.info("---------------------------------------------------------");
         patchManager.preInit();
     }
 
     private static void logConfig(String name, boolean value) {
-        LOG.info(name + (value ? ": Enabled" : ": Disabled"));
+        LOG.info(name + (value ? ": ENABLED" : ": disabled"));
     }
 
     private static void logConfig(String name, int value) {
