@@ -16,14 +16,14 @@ def deobfCurse(curseDep) {
 dependencies {
     ////////////////Our dependencies////////////////
 
-    compileOnly("org.projectlombok:lombok:[1.18, 1.19)") {
+    compileOnly("org.projectlombok:lombok:1.18.28") {
         transitive = false
     }
-    annotationProcessor("org.projectlombok:lombok:[1.18, 1.19)")
+    annotationProcessor("org.projectlombok:lombok:1.18.28")
 
-    implementation("com.falsepattern:falsepatternlib-mc1.7.10:[0.11,):dev")
+    implementation("com.falsepattern:falsepatternlib-mc1.7.10:0.12.0:dev")
 
-    implementation("com.falsepattern:chunkapi-mc1.7.10:0.1.1:dev")
+    implementation("com.falsepattern:chunkapi-mc1.7.10:0.3.2:dev")
 
     ////////////////Patched mods////////////////
 
