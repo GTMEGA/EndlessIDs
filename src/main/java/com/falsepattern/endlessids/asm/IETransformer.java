@@ -4,6 +4,7 @@ import com.falsepattern.endlessids.Tags;
 import com.falsepattern.endlessids.asm.transformer.ChunkProviderSuperPatcher;
 import com.falsepattern.endlessids.asm.transformer.DevFixer;
 import lombok.val;
+import lombok.var;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.ClassReader;
@@ -37,8 +38,7 @@ public class IETransformer implements IClassTransformer {
         if (blacklist.contains(transformedName)) {
             return bytes;
         }
-        ClassEdit[] edits = new ClassEdit[2];
-        edits[0] = ClassEdit.get(transformedName);
+        var edits = new ArrayList<ClassEdit>(ClassEdit.get(transformedName));
         ClassNode cn = new ClassNode(Opcodes.ASM5);
         {
             val reader = new ClassReader(bytes);
@@ -52,20 +52,15 @@ public class IETransformer implements IClassTransformer {
                 val reader = new ClassReader(bytes);
                 reader.accept(cn, ClassReader.EXPAND_FRAMES);
             }
-            if (edits[0] == null) {
-                edits[0] = ClassEdit.ChunkProviderSuperPatcher;
-            } else {
-                edits[1] = ClassEdit.ChunkProviderSuperPatcher;
-            }
+            edits.add(ClassEdit.ChunkProviderSuperPatcher);
         }
-        if (edits[0] == null) {
+        if (edits.size() == 0) {
             return isObfuscated ? bytes : DevFixer.fixDev(bytes);
         }
         if (!isObfuscated) {
             DevFixer.transform(cn);
         }
-        for (int i = 0; i < edits.length; i++) {
-            val edit = edits[i];
+        for (final ClassEdit edit : edits) {
             if (edit == null) {
                 continue;
             }
