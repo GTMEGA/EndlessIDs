@@ -56,10 +56,30 @@ public class GeneralConfig {
                     "The default setting sets it to 4k (vanilla).\n" +
                     "increase if necessary (when running out of BLOCK IDs in your modpack)\n" +
                     "Only effective if extendBlockItem is enabled.\n" +
-                    "(0: 16M, 1: 8M, 2: 4M, 3: 2M, 4: 1M, 5: 512K, 6: 256K, 7: 128K, 8: 64K, 9: 32K, 10: 16K, 11: 8K, 12: 4K)\n")
+                    "Effective values: (0: 4k, 1: 8k, 2: 16k, 3: 32k, 4: 64k, 5: 128k, 6: 256k, 7: 512k, 8: 1M, 9: 2M, 10: 4M, 11: 8M, 12: 16M)\n" +
+                    "The effective value of this variable must always be smaller or equal to the effective value of extraItemIDBits")
     @Config.RangeInt(min = 0,
                      max = 12)
-    @Config.DefaultInt(12)
+    @Config.DefaultInt(0)
+    public static int extraBlockIDBits;
+    @Config.Comment("Use this to tune the amount of available item IDs.\n" +
+                    "The vanilla default is 32k item IDs, while the maximum is 16 million.\n" +
+                    "The default setting sets it to 32k (vanilla).\n" +
+                    "increase if necessary (when running out of ITEM IDs in your modpack)\n" +
+                    "Only effective if extendBlockItem is enabled.\n" +
+                    "Effective values: (0: 32k, 1: 64k, 2: 128k, 3: 256k, 4: 512k, 5: 1M, 6: 2M, 7: 4M, 8: 8M, 9: 16M)\n" +
+                    "The effective value of this variable must always be equal or larger than the effective value of extraBlockIDBits")
+    @Config.RangeInt(min = 0,
+                     max = 9)
+    @Config.DefaultInt(0)
+    public static int extraItemIDBits;
+
+
+    @Config.Comment("DEPRECATED, will be removed in the next version of EndlessIDs!\n" +
+                    "This property does nothing.\n" +
+                    "Use extraBlockIDBits and extraItemIDBits instead.")
+    @Config.DefaultInt(0)
+    @Deprecated
     public static int countCorrectionBits;
 
     static {

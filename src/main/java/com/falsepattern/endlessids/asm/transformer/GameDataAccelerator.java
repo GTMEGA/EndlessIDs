@@ -7,6 +7,7 @@ import lombok.var;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldInsnNode;
+import org.objectweb.asm.tree.FieldNode;
 import org.objectweb.asm.tree.InsnNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
@@ -17,6 +18,8 @@ public class GameDataAccelerator implements IClassNodeTransformer {
     private static final int MASK_REGISTER_ITEM = 0b10;
     @Override
     public void transform(ClassNode classNode, boolean obfuscated) {
+        var cacheField = new FieldNode(Opcodes.ACC_PUBLIC | Opcodes.ACC_SYNTHETIC, "endlessIDsItemBlockCache", "Lcom/falsepattern/endlessids/util/WeakIdentityHashMap;", null, null);
+        classNode.fields.add(cacheField);
         int tweaksLeft = MASK_REGISTER_BLOCK | MASK_REGISTER_ITEM;
         for (val method: classNode.methods) {
             if ((tweaksLeft & MASK_REGISTER_BLOCK) != 0 &&
@@ -53,7 +56,8 @@ public class GameDataAccelerator implements IClassNodeTransformer {
                 continue;
             iter.previous();
             iter.add(new InsnNode(Opcodes.DUP));
-            iter.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/falsepattern/endlessids/asm/GameDataHooks", "cacheItemBlock", "(Lnet/minecraft/item/ItemBlock;)V", false));
+            iter.add(new VarInsnNode(Opcodes.ALOAD, 0));
+            iter.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/falsepattern/endlessids/asm/GameDataHooks", "cacheItemBlock", "(Lnet/minecraft/item/ItemBlock;Lcpw/mods/fml/common/registry/GameData;)V", false));
             return;
         }
         transformError(method);
@@ -82,7 +86,8 @@ public class GameDataAccelerator implements IClassNodeTransformer {
             iter.next();
             iter.remove();
             iter.add(new VarInsnNode(Opcodes.ALOAD, 1));
-            iter.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/falsepattern/endlessids/asm/GameDataHooks", "fetchCachedItemBlock", "(Lnet/minecraft/block/Block;)Lnet/minecraft/item/ItemBlock;", false));
+            iter.add(new VarInsnNode(Opcodes.ALOAD, 0));
+            iter.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/falsepattern/endlessids/asm/GameDataHooks", "fetchCachedItemBlock", "(Lnet/minecraft/block/Block;Lcpw/mods/fml/common/registry/GameData;)Lnet/minecraft/item/ItemBlock;", false));
             iter.add(new VarInsnNode(Opcodes.ASTORE, 4));
             iter.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/falsepattern/endlessids/asm/GameDataHooks", "fakeIterable", "()Ljava/lang/Iterable;", false));
             return;

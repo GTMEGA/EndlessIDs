@@ -7,7 +7,8 @@ public class ExtendedConstants {
     //Tunables
     public static final int bitsPerID = 24;
     public static final int bitsPerMetadata = 16;
-    public static final int countCorrectionBits = GeneralConfig.countCorrectionBits;
+    public static final int countCorrectionItemBits = 9 - GeneralConfig.extraItemIDBits;
+    public static final int countCorrectionBlockBits = 12 - GeneralConfig.extraBlockIDBits;
 
     public static final int watchableBits = 7;
     public static final int bitsPerBiome = 16;
@@ -22,10 +23,10 @@ public class ExtendedConstants {
     public static final int bytesPerIDPlusMetadata = (nibblesPerID + nibblesPerMetadata + 1) / 2;
 
     public static final int blockIDMask = (1 << bitsPerID) - 1;
-    public static final int blockIDCount = 1 << (bitsPerID - countCorrectionBits);
+    public static final int blockIDCount = 1 << (bitsPerID - countCorrectionBlockBits);
     public static final int maxBlockID = blockIDCount - 1;
 
-    public static final int itemIDCount = 1 << (bitsPerID);
+    public static final int itemIDCount = 1 << (bitsPerID - countCorrectionItemBits);
     public static final int maxItemID = itemIDCount - 1;
 
     public static final int bitsPerBlock = 8 + bitsPerID + bitsPerMetadata;
