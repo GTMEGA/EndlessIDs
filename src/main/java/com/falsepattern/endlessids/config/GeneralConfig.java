@@ -38,6 +38,13 @@ public class GeneralConfig {
     @Config.Comment("Extend Potion IDs. Vanilla limit is 32, new limit is 65536.")
     @Config.DefaultBoolean(true)
     public static boolean extendPotion;
+
+    @Config.Comment("Improves the speed of the block registry by multiple orders of magnitudes. (not thoroughly tested yet)\n" +
+                    "It's highly recommended to leave this enabled, especially when using a lot of IDs.\n" +
+                    "With this disabled, registering 1 million blocks on a test system took 80 minutes\n" +
+                    "With this enabled, registering the same million blocks took 7 seconds")
+    @Config.DefaultBoolean(true)
+    public static boolean enableRegistryPerformanceTweak;
     @Config.Comment(
             "Extends the maximum redstone signal strength.\n" + "Only has effect with extendBlockItem enabled.\n" +
             "WARNING: THIS IS HERE ONLY FOR FUN, IT WILL DEFINITELY CORRUPT YOUR WORLD!")

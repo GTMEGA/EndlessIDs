@@ -23,7 +23,7 @@ public enum ClassEdit {
                 "cpw.mods.fml.common.registry.FMLControlledNamespacedRegistry"),
     SpaceCoreModInfoGenerator(new SpaceCoreModInfoGenerator(), () -> true,
                               "com.spacechase0.minecraft.spacecore.mcp.ModInfoGenerator"),
-    GameDataAccelerator(new GameDataAccelerator(), () -> true, "cpw.mods.fml.common.registry.GameData"),
+    GameDataAccelerator(new GameDataAccelerator(), () -> GeneralConfig.enableRegistryPerformanceTweak, "cpw.mods.fml.common.registry.GameData"),
     ;
 
     private static final Map<String, List<ClassEdit>> editMap;
