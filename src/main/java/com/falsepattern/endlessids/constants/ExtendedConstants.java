@@ -16,6 +16,9 @@ public class ExtendedConstants {
     public static final int maximumPotionIDs = 65536;
     public static final int maximumEnchantmentIDs = 32768;
 
+    //Align with max item metadata for spawn eggs. Will be treated as short in netcode
+    public static final int bitsPerEntity = 15;
+
     //BlockItemIDs
     public static final int nibblesPerID = bitsPerID / 4;
     public static final int bytesPerID = (nibblesPerID + 1) / 2;
@@ -44,4 +47,9 @@ public class ExtendedConstants {
     public static final int watchableCount = 1 << watchableBits;
     public static final int maxWatchableID = watchableCount - 1;
     public static final int watchableMask = (0x7 << watchableBits) | maxWatchableID;
+
+    //EntityIDs
+    public static final int entityIDCount = 1 << bitsPerEntity;
+    public static final int entityIDMask = entityIDCount - 1;
+    public static final int maxEntityID = entityIDMask;
 }

@@ -10,6 +10,8 @@ public class VanillaConstants {
     public static final int watchableBits = 5;
     public static final int bitsPerBiome = 8;
 
+    public static final int bitsPerEntity = 8;
+
     //BlockItemIDs
     public static final int nibblesPerID = bitsPerID / 4;
     public static final int bytesPerID = (nibblesPerID + 1) / 2;
@@ -38,4 +40,8 @@ public class VanillaConstants {
     public static final int watchableCount = 1 << watchableBits;
     public static final int maxWatchableID = watchableCount - 1;
     public static final int watchableMask = (0x7 << watchableBits) | maxWatchableID;
+
+    //EntityIDs
+    public static final int entityIDCount = 1 << bitsPerEntity;
+    public static final int maxEntityID = entityIDCount - 1;
 }

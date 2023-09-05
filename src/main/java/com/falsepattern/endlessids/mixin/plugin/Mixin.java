@@ -215,6 +215,13 @@ public enum Mixin implements IMixin {
     S1EPacketRemoveEntityEffectMixin(Side.COMMON, condition(() -> GeneralConfig.extendPotion), "potion.vanilla.network.S1EPacketRemoveEntityEffectMixin"),
     //endregion vanilla
     //endregion potion
+    //region entity
+    //region vanilla
+    EntityListMixin(Side.COMMON, condition(() -> GeneralConfig.extendEntity), "entity.vanilla.EntityListMixin"),
+    EntityRegistryMixin(Side.COMMON, condition(() -> GeneralConfig.extendEntity), "entity.vanilla.EntityRegistryMixin"),
+    S0FPacketSpawnMobMixin(Side.COMMON, condition(() -> GeneralConfig.extendEntity), "entity.vanilla.S0FPacketSpawnMobMixin"),
+    //endregion vanilla
+    //endregion entity
     //endregion common
 
     //region client
