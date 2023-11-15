@@ -5,6 +5,8 @@ import com.falsepattern.endlessids.Tags;
 import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;
 import lombok.val;
 import lombok.var;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.chunk.Chunk;
@@ -182,5 +184,25 @@ public class BlockIDManager implements ChunkDataManager, ChunkDataManager.Packet
             ebs.setB2High(new NibbleArray(b2High, 4));
         }
         ebs.setB3(b3);
+    }
+
+    @Override
+    public @NotNull String version() {
+        return Tags.VERSION;
+    }
+
+    @Override
+    public @Nullable String newInstallDescription() {
+        return "EndlessIDs extended block IDs. Vanilla worlds can be converted to EndlessIDs worlds safely.";
+    }
+
+    @Override
+    public @NotNull String uninstallMessage() {
+        return "EndlessIDs extended block IDs removed. Any blocks with IDs above 4095 will get corrupted.";
+    }
+
+    @Override
+    public @Nullable String versionChangeMessage(String priorVersion) {
+        return null;
     }
 }

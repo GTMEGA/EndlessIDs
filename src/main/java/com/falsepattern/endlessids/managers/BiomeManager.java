@@ -5,6 +5,8 @@ import com.falsepattern.endlessids.Hooks;
 import com.falsepattern.endlessids.Tags;
 import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
 import lombok.var;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.chunk.Chunk;
@@ -71,5 +73,26 @@ public class BiomeManager implements ChunkDataManager, ChunkDataManager.PacketDa
             Hooks.scatter(nbt.getByteArray("Biomes"), data);
         }
 
+    }
+
+    @Override
+    public @NotNull String version() {
+        return Tags.MODID;
+    }
+
+    @Override
+    public @Nullable String newInstallDescription() {
+        return "EndlessIDs extended biome data. Vanilla biome data is limited to 256 biomes. This allows for 65536 biomes.";
+    }
+
+    @Override
+    public @NotNull String uninstallMessage() {
+        return "EndlessIDs extended biome data has been uninstalled. Biomes are limited to 256,\n" +
+               "and any biomes with IDs above 255 in the save will be corrupted.";
+    }
+
+    @Override
+    public @Nullable String versionChangeMessage(String priorVersion) {
+        return null;
     }
 }
