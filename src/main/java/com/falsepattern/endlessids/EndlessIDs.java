@@ -20,7 +20,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
      version = Tags.VERSION,
      name = Tags.MODNAME,
      acceptedMinecraftVersions = "[1.7.10]",
-     dependencies = "required-after:chunkapi@[0.3.2,);required-after:falsepatternlib@[0.12.1,);required-after:gasstation@[0.5.0,);after:antiidconflict")
+     dependencies = "required-after:chunkapi@[0.4.0,0.5.0);required-after:falsepatternlib@[0.12.5,);required-after:gasstation@[0.5.0,);after:antiidconflict")
 public class EndlessIDs {
     public static final byte[] ZERO_LENGTH_BIOME_ARRAY_PLACEHOLDER = new byte[0];
     public static final byte[] FAKE_BIOME_ARRAY_PLACEHOLDER = new byte[256];
