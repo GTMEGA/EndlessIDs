@@ -11,23 +11,17 @@ public interface IExtendedBlockStorageMixin {
 
     void setB2Low(NibbleArray data);
 
-    void clearB2Low();
-
     NibbleArray createB2Low();
 
     NibbleArray getB2High();
 
     void setB2High(NibbleArray data);
 
-    void clearB2High();
-
     NibbleArray createB2High();
 
     byte[] getB3();
 
     void setB3(byte[] data);
-
-    void clearB3();
 
     byte[] createB3();
 
@@ -45,15 +39,11 @@ public interface IExtendedBlockStorageMixin {
 
     void setM1High(NibbleArray m1High);
 
-    void clearM1High();
-
     NibbleArray createM1High();
 
     byte[] getM2();
 
     void setM2(byte[] m2);
-
-    void clearM2();
 
     byte[] createM2();
 }

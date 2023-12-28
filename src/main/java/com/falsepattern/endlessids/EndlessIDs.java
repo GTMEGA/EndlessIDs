@@ -1,6 +1,6 @@
 package com.falsepattern.endlessids;
 
-import com.falsepattern.chunk.api.ChunkDataRegistry;
+import com.falsepattern.chunk.api.DataRegistry;
 import com.falsepattern.endlessids.config.GeneralConfig;
 import com.falsepattern.endlessids.managers.BiomeManager;
 import com.falsepattern.endlessids.managers.BlockIDManager;
@@ -20,7 +20,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
      version = Tags.VERSION,
      name = Tags.MODNAME,
      acceptedMinecraftVersions = "[1.7.10]",
-     dependencies = "required-after:chunkapi@[0.4.0,0.5.0);" +
+     dependencies = "required-after:chunkapi@[0.5.0,0.6.0);" +
                     "required-after:falsepatternlib@[1.0.0,);" +
                     "after:antiidconflict")
 public class EndlessIDs {
@@ -76,11 +76,11 @@ public class EndlessIDs {
     public void init(FMLInitializationEvent e) {
         patchManager.init();
         if (GeneralConfig.extendBiome) {
-            ChunkDataRegistry.registerDataManager(new BiomeManager());
+            DataRegistry.registerDataManager(new BiomeManager());
         }
         if (GeneralConfig.extendBlockItem) {
-            ChunkDataRegistry.registerDataManager(new BlockIDManager());
-            ChunkDataRegistry.registerDataManager(new BlockMetaManager());
+            DataRegistry.registerDataManager(new BlockIDManager());
+            DataRegistry.registerDataManager(new BlockMetaManager());
         }
     }
 
@@ -88,11 +88,11 @@ public class EndlessIDs {
     public void postInit(FMLPostInitializationEvent e) {
         patchManager.postInit();
         if (GeneralConfig.extendBiome) {
-            ChunkDataRegistry.disableDataManager("minecraft", "biome");
+            DataRegistry.disableDataManager("minecraft", "biome");
         }
         if (GeneralConfig.extendBlockItem) {
-            ChunkDataRegistry.disableDataManager("minecraft", "blockid");
-            ChunkDataRegistry.disableDataManager("minecraft", "metadata");
+            DataRegistry.disableDataManager("minecraft", "blockid");
+            DataRegistry.disableDataManager("minecraft", "metadata");
         }
     }
 }

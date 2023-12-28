@@ -197,11 +197,6 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
     }
 
     @Override
-    public void clearB2Low() {
-        blockMSBArray = null;
-    }
-
-    @Override
     public NibbleArray createB2Low() {
         return (blockMSBArray = new NibbleArray(blockLSBArray.length, 4));
     }
@@ -217,11 +212,6 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
     }
 
     @Override
-    public void clearB2High() {
-        b2High = null;
-    }
-
-    @Override
     public NibbleArray createB2High() {
         return (b2High = new NibbleArray(blockLSBArray.length, 4));
     }
@@ -234,11 +224,6 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
     @Override
     public void setB3(byte[] data) {
         b3 = data;
-    }
-
-    @Override
-    public void clearB3() {
-        b3 = null;
     }
 
     @Override
@@ -267,11 +252,6 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
     }
 
     @Override
-    public void clearM1High() {
-        m1High = null;
-    }
-
-    @Override
     public NibbleArray createM1High() {
         return (m1High = new NibbleArray(blockLSBArray.length, 4));
     }
@@ -284,11 +264,6 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
     @Override
     public void setM2(byte[] m2) {
         this.m2 = m2;
-    }
-
-    @Override
-    public void clearM2() {
-        m2 = null;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.falsepattern.endlessids.managers;
 
-import com.falsepattern.chunk.api.ChunkDataManager;
+import com.falsepattern.chunk.api.ArrayUtil;
+import com.falsepattern.chunk.api.DataManager;
 import com.falsepattern.endlessids.Tags;
 import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;
 import lombok.val;
@@ -15,7 +16,7 @@ import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 
 import java.nio.ByteBuffer;
 
-public class BlockIDManager implements ChunkDataManager, ChunkDataManager.PacketDataManager, ChunkDataManager.SectionNBTDataManager {
+public class BlockIDManager implements DataManager.PacketDataManager, DataManager.SubChunkDataManager {
 
     @Override
     public String domain() {
@@ -82,9 +83,9 @@ public class BlockIDManager implements ChunkDataManager, ChunkDataManager.Packet
             val b1 = ebs.getB1();
             buffer.get(b1);
             if (storageFlag == 0b00) {
-                ebs.clearB2Low();
-                ebs.clearB2High();
-                ebs.clearB3();
+                ebs.setB2Low(null);
+                ebs.setB2High(null);
+                ebs.setB3(null);
                 continue;
             }
             var b2Low = ebs.getB2Low();
@@ -93,8 +94,8 @@ public class BlockIDManager implements ChunkDataManager, ChunkDataManager.Packet
             }
             buffer.get(b2Low.data);
             if (storageFlag == 0b01) {
-                ebs.clearB2High();
-                ebs.clearB3();
+                ebs.setB2High(null);
+                ebs.setB3(null);
                 continue;
             }
             var b2High = ebs.getB2High();
@@ -103,7 +104,7 @@ public class BlockIDManager implements ChunkDataManager, ChunkDataManager.Packet
             }
             buffer.get(b2High.data);
             if (storageFlag == 0b10) {
-                ebs.clearB3();
+                ebs.setB3(null);
                 continue;
             }
             var b3 = ebs.getB3();
@@ -115,12 +116,13 @@ public class BlockIDManager implements ChunkDataManager, ChunkDataManager.Packet
     }
 
     @Override
-    public boolean sectionPrivilegedAccess() {
+    public boolean subChunkPrivilegedAccess() {
         return true;
     }
 
+
     @Override
-    public void writeSectionToNBT(Chunk chunk, ExtendedBlockStorage ebsVanilla, NBTTagCompound section) {
+    public void writeSubChunkToNBT(Chunk chunk, ExtendedBlockStorage ebsVanilla, NBTTagCompound section) {
         val ebs = (IExtendedBlockStorageMixin) ebsVanilla;
         val b1 = ebs.getB1();
         val b2Low = ebs.getB2Low();
@@ -160,7 +162,7 @@ public class BlockIDManager implements ChunkDataManager, ChunkDataManager.Packet
     }
 
     @Override
-    public void readSectionFromNBT(Chunk chunk, ExtendedBlockStorage ebsVanilla, NBTTagCompound section) {
+    public void readSubChunkFromNBT(Chunk chunk, ExtendedBlockStorage ebsVanilla, NBTTagCompound section) {
         val ebs = (IExtendedBlockStorageMixin) ebsVanilla;
         if (section.hasKey("Blocks16")) {
             readSectionFromNBTNotEnoughIDsDFU(ebs, section);
@@ -173,17 +175,20 @@ public class BlockIDManager implements ChunkDataManager, ChunkDataManager.Packet
         final byte[] b3 = section.hasKey("BlocksB3") ? section.getByteArray("BlocksB3") : null;
 
         ebs.setB1(b1);
-        if (b2Low == null) {
-            ebs.clearB2Low();
-        } else {
-            ebs.setB2Low(new NibbleArray(b2Low, 4));
-        }
-        if (b2High == null) {
-            ebs.clearB2High();
-        } else {
-            ebs.setB2High(new NibbleArray(b2High, 4));
-        }
+        ebs.setB2Low(b2Low == null ? null : new NibbleArray(b2Low, 4));
+        ebs.setB2High(b2High == null ? null : new NibbleArray(b2High, 4));
         ebs.setB3(b3);
+    }
+
+    @Override
+    public void cloneSubChunk(Chunk fromChunk, ExtendedBlockStorage fromVanilla, ExtendedBlockStorage toVanilla) {
+        val from = (IExtendedBlockStorageMixin) fromVanilla;
+        val to = (IExtendedBlockStorageMixin) toVanilla;
+
+        to.setB1(ArrayUtil.copyArray(from.getB1(), to.getB1()));
+        to.setB2Low(ArrayUtil.copyArray(from.getB2Low(), to.getB2Low()));
+        to.setB2High(ArrayUtil.copyArray(from.getB2High(), to.getB2High()));
+        to.setB3(ArrayUtil.copyArray(from.getB3(), to.getB3()));
     }
 
     @Override

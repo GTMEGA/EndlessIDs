@@ -1,9 +1,11 @@
 package com.falsepattern.endlessids.managers;
 
-import com.falsepattern.chunk.api.ChunkDataManager;
+import com.falsepattern.chunk.api.ArrayUtil;
+import com.falsepattern.chunk.api.DataManager;
 import com.falsepattern.endlessids.Hooks;
 import com.falsepattern.endlessids.Tags;
 import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
+import lombok.val;
 import lombok.var;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -13,7 +15,7 @@ import net.minecraft.world.chunk.Chunk;
 
 import java.nio.ByteBuffer;
 
-public class BiomeManager implements ChunkDataManager, ChunkDataManager.PacketDataManager, ChunkDataManager.ChunkNBTDataManager {
+public class BiomeManager implements DataManager.PacketDataManager, DataManager.ChunkDataManager {
 
     @Override
     public String domain() {
@@ -73,6 +75,14 @@ public class BiomeManager implements ChunkDataManager, ChunkDataManager.PacketDa
             Hooks.scatter(nbt.getByteArray("Biomes"), data);
         }
 
+    }
+
+    @Override
+    public void cloneChunk(Chunk fromVanilla, Chunk toVanilla) {
+        val from = (IChunkMixin) fromVanilla;
+        val to = (IChunkMixin) toVanilla;
+
+        to.setBiomeShortArray(ArrayUtil.copyArray(from.getBiomeShortArray(), to.getBiomeShortArray()));
     }
 
     @Override

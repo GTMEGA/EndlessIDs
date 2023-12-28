@@ -1,6 +1,7 @@
 package com.falsepattern.endlessids.managers;
 
-import com.falsepattern.chunk.api.ChunkDataManager;
+import com.falsepattern.chunk.api.ArrayUtil;
+import com.falsepattern.chunk.api.DataManager;
 import com.falsepattern.endlessids.Tags;
 import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;
 import lombok.val;
@@ -15,7 +16,7 @@ import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 
 import java.nio.ByteBuffer;
 
-public class BlockMetaManager implements ChunkDataManager, ChunkDataManager.PacketDataManager, ChunkDataManager.SectionNBTDataManager {
+public class BlockMetaManager implements DataManager.PacketDataManager, DataManager.SubChunkDataManager {
 
     @Override
     public String domain() {
@@ -76,8 +77,8 @@ public class BlockMetaManager implements ChunkDataManager, ChunkDataManager.Pack
             val m1Low = ebs.getM1Low();
             buffer.get(m1Low.data);
             if (storageFlag == 0b01) {
-                ebs.clearM1High();
-                ebs.clearM2();
+                ebs.setM1High(null);
+                ebs.setM2(null);
                 continue;
             }
             var m1High = ebs.getM1High();
@@ -86,7 +87,7 @@ public class BlockMetaManager implements ChunkDataManager, ChunkDataManager.Pack
             }
             buffer.get(m1High.data);
             if (storageFlag == 0b10) {
-                ebs.clearM2();
+                ebs.setM2(null);
                 continue;
             }
             var m2 = ebs.getM2();
@@ -98,12 +99,12 @@ public class BlockMetaManager implements ChunkDataManager, ChunkDataManager.Pack
     }
 
     @Override
-    public boolean sectionPrivilegedAccess() {
+    public boolean subChunkPrivilegedAccess() {
         return true;
     }
 
     @Override
-    public void writeSectionToNBT(Chunk chunk, ExtendedBlockStorage ebsVanilla, NBTTagCompound section) {
+    public void writeSubChunkToNBT(Chunk chunk, ExtendedBlockStorage ebsVanilla, NBTTagCompound section) {
         val ebs = (IExtendedBlockStorageMixin) ebsVanilla;
         val m1Low = ebs.getM1Low();
         val m1High = ebs.getM1High();
@@ -118,7 +119,7 @@ public class BlockMetaManager implements ChunkDataManager, ChunkDataManager.Pack
     }
 
     @Override
-    public void readSectionFromNBT(Chunk chunk, ExtendedBlockStorage ebsVanilla, NBTTagCompound section) {
+    public void readSubChunkFromNBT(Chunk chunk, ExtendedBlockStorage ebsVanilla, NBTTagCompound section) {
         val ebs = (IExtendedBlockStorageMixin) ebsVanilla;
         assert section.hasKey("Data");
         val m1Low = section.getByteArray("Data");
@@ -126,12 +127,18 @@ public class BlockMetaManager implements ChunkDataManager, ChunkDataManager.Pack
         final byte[] m2 = section.hasKey("Data2") ? section.getByteArray("Data2") : null;
 
         ebs.setM1Low(new NibbleArray(m1Low, 4));
-        if (m1High == null) {
-            ebs.clearM1High();
-        } else {
-            ebs.setM1High(new NibbleArray(m1High, 4));
-        }
+        ebs.setM1High(m1High == null ? null : new NibbleArray(m1High, 4));
         ebs.setM2(m2);
+    }
+
+    @Override
+    public void cloneSubChunk(Chunk fromChunk, ExtendedBlockStorage fromVanilla, ExtendedBlockStorage toVanilla) {
+        val from = (IExtendedBlockStorageMixin) fromVanilla;
+        val to = (IExtendedBlockStorageMixin) toVanilla;
+
+        to.setM1Low(ArrayUtil.copyArray(from.getM1Low(), to.getM1Low()));
+        to.setM1High(ArrayUtil.copyArray(from.getM1High(), to.getM1High()));
+        to.setM2(ArrayUtil.copyArray(from.getM2(), to.getM2()));
     }
 
     @Override
