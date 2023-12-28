@@ -5,6 +5,7 @@ import com.falsepattern.endlessids.config.GeneralConfig;
 import lombok.SneakyThrows;
 import lombok.val;
 
+import net.minecraft.launchwrapper.Launch;
 import net.minecraft.launchwrapper.LaunchClassLoader;
 import cpw.mods.fml.relauncher.FMLInjectionData;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
@@ -29,8 +30,8 @@ public class IEPlugin implements IFMLLoadingPlugin {
 
     @SneakyThrows
     public String[] getASMTransformerClass() {
-        val cl = ((LaunchClassLoader) this.getClass().getClassLoader());
-        val field = cl.getClass().getDeclaredField("transformerExceptions");
+        val cl = Launch.classLoader;
+        val field = LaunchClassLoader.class.getDeclaredField("transformerExceptions");
         field.setAccessible(true);
         val exceptions = (Set<String>) field.get(cl);
         if (exceptions.contains("code.elix_x.coremods")) {
