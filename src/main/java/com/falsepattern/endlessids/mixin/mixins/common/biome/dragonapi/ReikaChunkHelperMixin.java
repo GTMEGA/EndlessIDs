@@ -2,7 +2,7 @@ package com.falsepattern.endlessids.mixin.mixins.common.biome.dragonapi;
 
 import Reika.DragonAPI.Libraries.World.ReikaChunkHelper;
 import com.falsepattern.endlessids.EndlessIDs;
-import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
+import com.falsepattern.endlessids.mixin.helpers.ChunkBiomeHook;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -20,7 +20,7 @@ public abstract class ReikaChunkHelperMixin {
                        remap = true),
               require = 1)
     private static void customSet(Chunk chunk, byte[] p_76616_1_) {
-        ((IChunkMixin) chunk).setBiomeShortArray(biomeArray);
+        ((ChunkBiomeHook) chunk).setBiomeShortArray(biomeArray);
         biomeArray = null;
     }
 
@@ -30,7 +30,7 @@ public abstract class ReikaChunkHelperMixin {
                        remap = true),
               require = 1)
     private static byte[] customGet(Chunk chunk) {
-        biomeArray = ((IChunkMixin) chunk).getBiomeShortArray();
+        biomeArray = ((ChunkBiomeHook) chunk).getBiomeShortArray();
         return EndlessIDs.ZERO_LENGTH_BIOME_ARRAY_PLACEHOLDER;
     }
 }

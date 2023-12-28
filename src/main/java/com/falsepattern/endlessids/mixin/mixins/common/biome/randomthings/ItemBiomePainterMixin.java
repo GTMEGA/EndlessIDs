@@ -1,6 +1,6 @@
 package com.falsepattern.endlessids.mixin.mixins.common.biome.randomthings;
 
-import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
+import com.falsepattern.endlessids.mixin.helpers.ChunkBiomeHook;
 import lumien.randomthings.Items.ItemBiomeCapsule;
 import lumien.randomthings.Items.ItemBiomePainter;
 import lumien.randomthings.Items.ModItems;
@@ -40,10 +40,10 @@ public abstract class ItemBiomePainterMixin {
                     if (charges > 0 || par2EntityPlayer.capabilities.isCreativeMode) {
                         Chunk c = par3World.getChunkFromBlockCoords(par4, par6);
                         int biomeID = is.getItemDamage() - 1;
-                        short[] biomeArray = ((IChunkMixin) c).getBiomeShortArray(); //changed
+                        short[] biomeArray = ((ChunkBiomeHook) c).getBiomeShortArray(); //changed
                         if ((biomeArray[(par6 & 15) << 4 | par4 & 15] & 255) != biomeID) {
                             biomeArray[(par6 & 15) << 4 | par4 & 15] = (short) (biomeID & 0xFFFF); //changed
-                            ((IChunkMixin) c).setBiomeShortArray(biomeArray); //changed
+                            ((ChunkBiomeHook) c).setBiomeShortArray(biomeArray); //changed
                             if (!par2EntityPlayer.capabilities.isCreativeMode) {
                                 nbt.setInteger("charges", charges - 1);
                                 par2EntityPlayer.inventoryContainer.detectAndSendChanges();

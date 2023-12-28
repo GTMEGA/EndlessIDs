@@ -1,6 +1,6 @@
 package com.falsepattern.endlessids.mixin.mixins.common.biome.randomthings;
 
-import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
+import com.falsepattern.endlessids.mixin.helpers.ChunkBiomeHook;
 import lumien.randomthings.Items.ItemBiomeCapsule;
 import lumien.randomthings.Network.Messages.MessagePaintBiome;
 import org.spongepowered.asm.mixin.Mixin;
@@ -49,9 +49,9 @@ public abstract class MessagePaintBiomeMixin {
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
         if (player != null && player.worldObj.provider.dimensionId == this.dimensionID) {
             Chunk c = player.worldObj.getChunkFromBlockCoords(this.posX, this.posZ);
-            short[] biomeArray = ((IChunkMixin) c).getBiomeShortArray(); //changed
+            short[] biomeArray = ((ChunkBiomeHook) c).getBiomeShortArray(); //changed
             biomeArray[(this.posZ & 15) << 4 | this.posX & 15] = (short) (this.biomeID & 0xFFFF); //changed
-            ((IChunkMixin) c).setBiomeShortArray(biomeArray); //changed
+            ((ChunkBiomeHook) c).setBiomeShortArray(biomeArray); //changed
             Minecraft.getMinecraft().thePlayer.worldObj.markBlocksDirtyVertical(this.posX, this.posZ, 0,
                                                                                 player.worldObj.getActualHeight());
             BiomeGenBase biome = BiomeGenBase.getBiome(this.biomeID);

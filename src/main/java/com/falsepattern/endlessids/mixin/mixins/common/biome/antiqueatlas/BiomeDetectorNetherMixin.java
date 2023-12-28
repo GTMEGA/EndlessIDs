@@ -1,6 +1,6 @@
 package com.falsepattern.endlessids.mixin.mixins.common.biome.antiqueatlas;
 
-import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
+import com.falsepattern.endlessids.mixin.helpers.ChunkBiomeHook;
 import com.falsepattern.endlessids.mixin.helpers.ShortUtil;
 import hunternif.mc.atlas.core.BiomeDetectorNether;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,7 +30,7 @@ public abstract class BiomeDetectorNetherMixin {
               require = 1)
     private int[] biomeIDs(byte[] i) {
         try {
-            return ShortUtil.unsignedShortToIntArray(((IChunkMixin) chunk).getBiomeShortArray());
+            return ShortUtil.unsignedShortToIntArray(((ChunkBiomeHook) chunk).getBiomeShortArray());
         } finally {
             chunk = null;
         }

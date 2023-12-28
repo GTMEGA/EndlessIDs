@@ -1,7 +1,7 @@
 package com.falsepattern.endlessids.mixin.mixins.common.biome.biomewand;
 
 import com.falsepattern.endlessids.PlaceholderBiome;
-import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
+import com.falsepattern.endlessids.mixin.helpers.ChunkBiomeHook;
 import com.spacechase0.minecraft.biomewand.BiomeWandMod;
 import com.spacechase0.minecraft.biomewand.item.BiomeWandItem;
 import com.spacechase0.minecraft.spacecore.util.TranslateUtils;
@@ -42,7 +42,7 @@ public abstract class BiomeWandItemMixin {
             int relBlockX = blockX & 15;
             int relBlockZ = blockZ & 15;
             Chunk chunk = world.getChunkFromBlockCoords(blockX, blockZ);
-            short biome = ((IChunkMixin) chunk).getBiomeShortArray()[relBlockZ * 16 + relBlockX];
+            short biome = ((ChunkBiomeHook) chunk).getBiomeShortArray()[relBlockZ * 16 + relBlockX];
             tag.setShort("sampledBiomeS", biome);
         } else {
             short biome = tag.getShort("sampledBiomeS");
@@ -52,7 +52,7 @@ public abstract class BiomeWandItemMixin {
                     int relBlockX = ix & 15;
                     int relBlockZ = iz & 15;
                     Chunk chunk = world.getChunkFromBlockCoords(blockX, blockZ);
-                    ((IChunkMixin) chunk).getBiomeShortArray()[relBlockZ << 4 | relBlockX] = biome;
+                    ((ChunkBiomeHook) chunk).getBiomeShortArray()[relBlockZ << 4 | relBlockX] = biome;
                     chunk.isModified = true;
                     BiomeWandMod.proxy.updateRendererAt(ix, iz);
                 }

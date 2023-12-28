@@ -1,6 +1,6 @@
 package com.falsepattern.endlessids.mixin.mixins.common.biome.thaumcraft;
 
-import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
+import com.falsepattern.endlessids.mixin.helpers.ChunkBiomeHook;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import thaumcraft.common.lib.network.PacketHandler;
@@ -24,7 +24,7 @@ public abstract class UtilsMixin {
     public static void setBiomeAt(World world, int x, int z, BiomeGenBase biome) {
         if (biome != null) {
             Chunk chunk = world.getChunkFromBlockCoords(x, z);
-            short[] array = ((IChunkMixin) chunk).getBiomeShortArray();
+            short[] array = ((ChunkBiomeHook) chunk).getBiomeShortArray();
             array[(z & 15) << 4 | x & 15] = (short) (biome.biomeID);
             if (!world.isRemote) {
                 PacketHandler.INSTANCE.sendToAllAround(new PacketBiomeChange(x, z, (short) biome.biomeID),

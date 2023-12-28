@@ -1,7 +1,7 @@
 package com.falsepattern.endlessids.mixin.mixins.common.biome.enderlicious;
 
 import DelirusCrux.Enderlicious.Dimension.EndChunkProvider;
-import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
+import com.falsepattern.endlessids.mixin.helpers.ChunkBiomeHook;
 import lombok.val;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -39,7 +39,7 @@ public abstract class EndChunkProviderMixin {
               remap = true,
               require = 1)
     private byte[] setBiomesTweaked(Chunk chunk) {
-        val chunkBiomes = ((IChunkMixin) chunk).getBiomeShortArray();
+        val chunkBiomes = ((ChunkBiomeHook) chunk).getBiomeShortArray();
         for (int k = 0; k < chunkBiomes.length; ++k) {
             if (Math.abs(xx) < 160 && Math.abs(zz) < 160) {
                 chunkBiomes[k] = 9;

@@ -1,6 +1,6 @@
 package com.falsepattern.endlessids.mixin.mixins.common.biome.restructured;
 
-import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
+import com.falsepattern.endlessids.mixin.helpers.ChunkBiomeHook;
 import org.blockartistry.mod.Restructured.world.BiomeHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -21,7 +21,7 @@ public abstract class BiomeHelperMixin {
      */
     @Overwrite
     public static BiomeGenBase chunkBiomeSurvey(World world, Chunk chunk, Random rand) {
-        short[] biomes = ((IChunkMixin)chunk).getBiomeShortArray();
+        short[] biomes = ((ChunkBiomeHook)chunk).getBiomeShortArray();
         int[] counts = new int[biomes.length];
         int highIndex = BiomeGenBase.plains.biomeID;
         int highCount = -1;

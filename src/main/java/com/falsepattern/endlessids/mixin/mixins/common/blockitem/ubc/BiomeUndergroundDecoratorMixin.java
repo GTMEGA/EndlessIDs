@@ -1,6 +1,6 @@
 package com.falsepattern.endlessids.mixin.mixins.common.blockitem.ubc;
 
-import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;
+import com.falsepattern.endlessids.mixin.helpers.SubChunkBlockHook;
 import exterminatorJeff.undergroundBiomes.worldGen.BiomeUndergroundDecorator;
 import lombok.val;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,7 +16,7 @@ import java.util.logging.Logger;
        remap = false)
 public abstract class BiomeUndergroundDecoratorMixin {
     private static NibbleArray fakeArray;
-    private IExtendedBlockStorageMixin ebs;
+    private SubChunkBlockHook subChunk;
 
     @Redirect(method = {"replaceChunkOres(IILnet/minecraft/world/World;)V",
                         "replaceChunkOres(Lnet/minecraft/world/chunk/IChunkProvider;II)V"},
@@ -24,10 +24,10 @@ public abstract class BiomeUndergroundDecoratorMixin {
                        target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;getBlockLSBArray()[B",
                        remap = true),
               require = 2)
-    private byte[] returnLSB(ExtendedBlockStorage instance) {
-        IExtendedBlockStorageMixin iebs = (IExtendedBlockStorageMixin) instance;
-        ebs = iebs;
-        return iebs.getB1();
+    private byte[] returnLSB(ExtendedBlockStorage subChunkVanilla) {
+        SubChunkBlockHook subChunk = (SubChunkBlockHook) subChunkVanilla;
+        this.subChunk = subChunk;
+        return subChunk.getB1();
     }
 
     @Redirect(method = {"replaceChunkOres(IILnet/minecraft/world/World;)V",
@@ -47,8 +47,8 @@ public abstract class BiomeUndergroundDecoratorMixin {
                        remap = true),
               require = 2)
     private int returnRestOfID(NibbleArray instance, int x, int y, int z) {
-        val id = ebs.getID(x, y, z) >>> 8;
-        ebs = null;
+        val id = subChunk.getID(x, y, z) >>> 8;
+        subChunk = null;
         return id;
     }
 

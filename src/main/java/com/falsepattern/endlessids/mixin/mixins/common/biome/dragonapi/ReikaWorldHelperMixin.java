@@ -2,7 +2,7 @@ package com.falsepattern.endlessids.mixin.mixins.common.biome.dragonapi;
 
 import Reika.DragonAPI.Libraries.World.ReikaWorldHelper;
 import com.falsepattern.endlessids.EndlessIDs;
-import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
+import com.falsepattern.endlessids.mixin.helpers.ChunkBiomeHook;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -45,7 +45,7 @@ public abstract class ReikaWorldHelperMixin {
             locals = LocalCapture.CAPTURE_FAILHARD,
             require = 1)
     private static void customLogicSetBiome(World world, int x, int z, BiomeGenBase biome, boolean applyEnvironment, CallbackInfo ci, Chunk ch, int ax, int az, byte[] biomes, int index) {
-        ((IChunkMixin) ch).getBiomeShortArray()[index] = (short) biome.biomeID;
+        ((ChunkBiomeHook) ch).getBiomeShortArray()[index] = (short) biome.biomeID;
     }
 
     @Inject(method = "setBiomeAndBlocksForXZ",
@@ -55,7 +55,7 @@ public abstract class ReikaWorldHelperMixin {
             locals = LocalCapture.CAPTURE_FAILEXCEPTION,
             require = 1)
     private static void captureIndexSetBiomeAndBlocks(World world, int x, int z, BiomeGenBase biome, boolean applyEnvironment, CallbackInfo ci, Chunk ch, int ax, int az, byte[] biomes, int index) {
-        fromBiomeID = ((IChunkMixin) ch).getBiomeShortArray()[index];
+        fromBiomeID = ((ChunkBiomeHook) ch).getBiomeShortArray()[index];
     }
 
     @ModifyVariable(method = "setBiomeAndBlocksForXZ",
@@ -72,6 +72,6 @@ public abstract class ReikaWorldHelperMixin {
             locals = LocalCapture.CAPTURE_FAILEXCEPTION,
             require = 1)
     private static void customLogicSetBiomeAndBlocks(World world, int x, int z, BiomeGenBase biome, boolean applyEnvironment, CallbackInfo ci, Chunk ch, int ax, int az, byte[] biomes, int index, BiomeGenBase from) {
-        ((IChunkMixin) ch).getBiomeShortArray()[index] = (short) biome.biomeID;
+        ((ChunkBiomeHook) ch).getBiomeShortArray()[index] = (short) biome.biomeID;
     }
 }

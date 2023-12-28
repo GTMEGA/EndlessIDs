@@ -1,6 +1,6 @@
 package com.falsepattern.endlessids.mixin.mixins.common.biome.ir3;
 
-import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
+import com.falsepattern.endlessids.mixin.helpers.ChunkBiomeHook;
 import jp.plusplus.ir2.IR2;
 import jp.plusplus.ir2.blocks.BlockCore;
 import org.spongepowered.asm.mixin.Mixin;
@@ -62,7 +62,7 @@ public abstract class IR2Mixin {
                 }
             }
 
-            short[] bIds = ((IChunkMixin)event.world.getChunkFromBlockCoords(event.worldX, event.worldZ)).getBiomeShortArray();
+            short[] bIds = ((ChunkBiomeHook)event.world.getChunkFromBlockCoords(event.worldX, event.worldZ)).getBiomeShortArray();
 
             for(int k = 0; k < bIds.length; ++k) {
                 if (bIds[k] == BiomeGenBase.ocean.biomeID || bIds[k] == BiomeGenBase.deepOcean.biomeID) {

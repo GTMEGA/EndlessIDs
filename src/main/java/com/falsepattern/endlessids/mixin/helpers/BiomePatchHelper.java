@@ -11,7 +11,7 @@ import static com.falsepattern.endlessids.EndlessIDs.ZERO_LENGTH_BIOME_ARRAY_PLA
 
 public class BiomePatchHelper {
     public static byte[] getBiomeArrayTweaked(Chunk chunk, IntFunction<BiomeGenBase> biomesForGeneration) {
-        val chunkBiomes = ((IChunkMixin) chunk).getBiomeShortArray();
+        val chunkBiomes = ((ChunkBiomeHook) chunk).getBiomeShortArray();
 
         for (int i = 0; i < chunkBiomes.length; ++i) {
             chunkBiomes[i] = (short) biomesForGeneration.apply(i).biomeID;
@@ -20,7 +20,7 @@ public class BiomePatchHelper {
     }
 
     public static byte[] getBiomeArrayTweaked(Chunk chunk, BiomeGenBase[] biomesForGeneration) {
-        val chunkBiomes = ((IChunkMixin) chunk).getBiomeShortArray();
+        val chunkBiomes = ((ChunkBiomeHook) chunk).getBiomeShortArray();
 
         for (int i = 0; i < chunkBiomes.length; ++i) {
             chunkBiomes[i] = (short) biomesForGeneration[i].biomeID;

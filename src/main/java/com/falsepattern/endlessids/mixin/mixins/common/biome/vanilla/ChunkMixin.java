@@ -3,7 +3,7 @@ package com.falsepattern.endlessids.mixin.mixins.common.biome.vanilla;
 import com.falsepattern.endlessids.EndlessIDs;
 import com.falsepattern.endlessids.Tags;
 import com.falsepattern.endlessids.constants.ExtendedConstants;
-import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
+import com.falsepattern.endlessids.mixin.helpers.ChunkBiomeHook;
 import lombok.val;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,7 +23,7 @@ import java.util.Arrays;
 
 @Mixin(value = Chunk.class,
        priority = 900)
-public abstract class ChunkMixin implements IChunkMixin {
+public abstract class ChunkMixin implements ChunkBiomeHook {
     @Shadow
     @Final
     public int xPosition;

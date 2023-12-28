@@ -34,8 +34,8 @@ public class ExtendedConstants {
 
     public static final int bitsPerBlock = 8 + bitsPerID + bitsPerMetadata;
     public static final int nibblesPerBlock = bitsPerBlock / 4;
-    public static final int nibblesPerEBS = nibblesPerBlock * 16 * 16 * 16;
-    public static final int bytesPerEBS = (nibblesPerEBS + 1) / 2;
+    public static final int nibblesPerSubChunk = nibblesPerBlock * 16 * 16 * 16;
+    public static final int bytesPerSubChunk = (nibblesPerSubChunk + 1) / 2;
 
     //BiomeIDs
     public static final int biomeIDCount = 1 << bitsPerBiome;

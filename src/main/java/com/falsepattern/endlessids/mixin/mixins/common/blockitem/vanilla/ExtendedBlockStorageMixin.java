@@ -4,7 +4,7 @@ import com.falsepattern.endlessids.EndlessIDs;
 import com.falsepattern.endlessids.Hooks;
 import com.falsepattern.endlessids.Tags;
 import com.falsepattern.endlessids.config.GeneralConfig;
-import com.falsepattern.endlessids.mixin.helpers.IExtendedBlockStorageMixin;
+import com.falsepattern.endlessids.mixin.helpers.SubChunkBlockHook;
 import lombok.val;
 import lombok.var;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,7 +22,7 @@ import net.minecraft.world.chunk.NibbleArray;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 
 @Mixin(ExtendedBlockStorage.class)
-public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorageMixin {
+public abstract class ExtendedBlockStorageMixin implements SubChunkBlockHook {
     @Shadow
     private int blockRefCount;
     @Shadow
@@ -272,7 +272,7 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
     }
 
     @Override
-    public int getEBSMSBMask() {
+    public int getBlockMask() {
         if (blockMSBArray == null) {
             return 0b00;
         }
@@ -286,7 +286,7 @@ public abstract class ExtendedBlockStorageMixin implements IExtendedBlockStorage
     }
 
     @Override
-    public int getEBSMask() {
+    public int getMetadataMask() {
         if (m1High == null) {
             return 0b01;
         }

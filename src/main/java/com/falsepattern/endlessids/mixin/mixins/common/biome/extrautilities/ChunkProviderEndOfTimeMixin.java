@@ -1,7 +1,7 @@
 package com.falsepattern.endlessids.mixin.mixins.common.biome.extrautilities;
 
 import com.falsepattern.endlessids.EndlessIDs;
-import com.falsepattern.endlessids.mixin.helpers.IChunkMixin;
+import com.falsepattern.endlessids.mixin.helpers.ChunkBiomeHook;
 import com.rwtema.extrautils.worldgen.endoftime.ChunkProviderEndOfTime;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -45,7 +45,7 @@ public abstract class ChunkProviderEndOfTimeMixin {
               require = 1)
     private void setBiomesTweaked3(byte[] bytes, byte b) {
         try {
-            Arrays.fill(((IChunkMixin) chunk).getBiomeShortArray(), (short) id);
+            Arrays.fill(((ChunkBiomeHook) chunk).getBiomeShortArray(), (short) id);
         } finally {
             chunk = null;
             id = -1;
