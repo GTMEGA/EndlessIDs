@@ -84,6 +84,7 @@ public class IETransformer implements IClassTransformer {
             for (int i = 0; i < 100; i++) {
                 IETransformer.logger.fatal("FAILED TO TRANSFORM " + transformedName + ", WORLD MAY GET CORRUPTED!", e);
             }
+            return bytes;
         }
         IETransformer.logger.debug("Patched {} successfully.", transformedName);
         return writer.toByteArray();
