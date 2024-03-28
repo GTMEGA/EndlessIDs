@@ -78,7 +78,13 @@ public class IETransformer implements IClassTransformer {
             }
         }
         final ClassWriter writer = new ClassWriter(expanded ? ClassWriter.COMPUTE_FRAMES : 0);
-        cn.accept(writer);
+        try {
+            cn.accept(writer);
+        } catch (Exception e) {
+            for (int i = 0; i < 100; i++) {
+                IETransformer.logger.fatal("FAILED TO TRANSFORM " + transformedName + ", WORLD MAY GET CORRUPTED!", e);
+            }
+        }
         IETransformer.logger.debug("Patched {} successfully.", transformedName);
         return writer.toByteArray();
     }
