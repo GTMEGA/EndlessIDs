@@ -1,9 +1,13 @@
+# EndlessIDs <img src="EIDSico.png" align="right" width=150>
+
+<sup>**[CurseForge](https://www.curseforge.com/minecraft/mc-mods/endlessids) | [Modrinth](https://modrinth.com/mod/endlessids)**</sup>
+
 EndlessIDs is the unofficial successor of NotEnoughIDs, with more focus on compatibility, stability, and reaching
 new limits.
 
 ## REQUIRED MODS
 - [FalsePatternLib](https://github.com/FalsePattern/FalsePatternLib)
-- [GasStation](https://github.com/FalsePattern/GasStation)
+- [UniMixins](https://github.com/LegacyModdingMC/UniMixins)
 - [ChunkAPI](https://github.com/FalsePattern/ChunkAPI)
 
 Comparison of the known limits:
