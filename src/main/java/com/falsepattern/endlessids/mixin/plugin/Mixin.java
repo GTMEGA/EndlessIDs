@@ -167,6 +167,7 @@ public enum Mixin implements IMixin {
     //region blockitem
     //region vanilla
     BlockFireMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.BlockFireMixin"),
+    BlockMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.BlockMixin"),
     ExtendedBlockStorageMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.ExtendedBlockStorageMixin"),
     ItemInWorldManagerMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.ItemInWorldManagerMixin"),
     ItemStackMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem), "blockitem.vanilla.ItemStackMixin"),

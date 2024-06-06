@@ -1,0 +1,25 @@
+{
+  "identifier": "falsepatternlib_dependencies",
+  "repositories": [
+    "https://repo1.maven.org/maven2/"
+  ],
+  "dependencies": {
+    "always": {
+      "common": [
+        "it.unimi.dsi:fastutil:8.5.13"
+      ],
+      "client": [],
+      "server": []
+    },
+    "obf": {
+      "common": [],
+      "client": [],
+      "server": []
+    },
+    "dev": {
+      "common": [],
+      "client": [],
+      "server": []
+    }
+  }
+}

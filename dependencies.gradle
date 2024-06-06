@@ -22,6 +22,7 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.32")
 
     implementation("com.falsepattern:falsepatternlib-mc1.7.10:1.2.4:dev")
+    implementation("it.unimi.dsi:fastutil:8.5.13")
 
     compileOnly("com.falsepattern:chunkapi-mc1.7.10:0.5.1:api")
     runtimeOnly("com.falsepattern:chunkapi-mc1.7.10:0.5.1:dev")
