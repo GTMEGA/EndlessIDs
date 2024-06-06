@@ -16,6 +16,9 @@ public class ExtendedConstants {
     public static final int maximumPotionIDs = 65536;
     public static final int maximumEnchantmentIDs = 32768;
 
+    public static final int blocksPerSubChunk = 16 * 16 * 16;
+    public static final int subChunkNibbleArraySize = 16 * 16 * 16;
+
     //Align with max item metadata for spawn eggs. Will be treated as short in netcode
     public static final int bitsPerEntity = 15;
 

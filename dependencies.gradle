@@ -16,17 +16,17 @@ def deobfCurse(curseDep) {
 dependencies {
     ////////////////Our dependencies////////////////
 
-    compileOnly("org.projectlombok:lombok:1.18.28") {
+    compileOnly("org.projectlombok:lombok:1.18.32") {
         transitive = false
     }
-    annotationProcessor("org.projectlombok:lombok:1.18.28")
+    annotationProcessor("org.projectlombok:lombok:1.18.32")
 
-    implementation("com.falsepattern:falsepatternlib-mc1.7.10:1.0.0:dev")
+    implementation("com.falsepattern:falsepatternlib-mc1.7.10:1.2.4:dev")
 
-    compileOnly("com.falsepattern:chunkapi-mc1.7.10:0.5.0:api")
-    runtimeOnly("com.falsepattern:chunkapi-mc1.7.10:0.5.0:dev")
+    compileOnly("com.falsepattern:chunkapi-mc1.7.10:0.5.1:api")
+    runtimeOnly("com.falsepattern:chunkapi-mc1.7.10:0.5.1:dev")
 
-    compileOnly("org.jetbrains:annotations:24.0.1")
+    compileOnly("org.jetbrains:annotations:24.1.0")
 
     ////////////////Patched mods////////////////
 
@@ -116,8 +116,8 @@ dependencies {
     //Industrial Revolution by Redstone Rebooted 1.1.1
     compileOnly(deobfCurse("industrialrevolutionbyredstonerebooted-241812:2538035"))
 
-    //LOTR Mod 36.14
-    compileOnly(deobfCurse("lotrmod-423748:3646430"))
+    //LOTR Mod 36.15
+    compileOnly(deobfCurse("lotrmod-423748:4091561"))
 
     //More Fun Quicksands Mod 1.0.8.8-fixed
     compileOnly(deobfCurse("more-fun-quicksand-mod-321960:2717318"))

@@ -1,4 +1,4 @@
-//version: 1656003793falsepattern73
+//version: 1656003793falsepattern76
 /*
 DO NOT CHANGE THIS FILE!
 
@@ -311,7 +311,11 @@ configurations {
 repositories {
     maven {
         name = "Overmind forge repo mirror"
-        url = "https://gregtech.overminddl1.com/"
+        url = "https://mvn.falsepattern.com/overmind"
+        content {
+            includeGroup("net.minecraftforge")
+            includeGroup("org.scala-lang")
+        }
     }
     if(usesMixins.toBoolean() || hasMixinDeps.toBoolean()) {
         maven {
@@ -321,6 +325,10 @@ repositories {
         maven {
             name = "sponge2"
             url = "https://mvn.falsepattern.com/sponge"
+        }
+        maven {
+            name = "jitpack"
+            url = "https://mvn.falsepattern.com/jitpack/"
         }
     }
 }
@@ -1028,6 +1036,10 @@ static unzip(String zipFileName, String outputDir) {
 configure(deobfParams) {
     group = 'forgegradle'
     description = 'Rename all obfuscated parameter names inherited from Minecraft classes'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
 
 // Dependency Deobfuscation

@@ -4,6 +4,7 @@ import com.falsepattern.chunk.api.ArrayUtil;
 import com.falsepattern.chunk.api.DataManager;
 import com.falsepattern.endlessids.Tags;
 import com.falsepattern.endlessids.mixin.helpers.SubChunkBlockHook;
+import com.falsepattern.endlessids.util.DataUtil;
 import lombok.val;
 import lombok.var;
 import org.jetbrains.annotations.NotNull;
@@ -15,6 +16,8 @@ import net.minecraft.world.chunk.NibbleArray;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 
 import java.nio.ByteBuffer;
+
+import static com.falsepattern.endlessids.constants.ExtendedConstants.blocksPerSubChunk;
 
 public class BlockMetaManager implements DataManager.PacketDataManager, DataManager.SubChunkDataManager {
 
@@ -118,17 +121,42 @@ public class BlockMetaManager implements DataManager.PacketDataManager, DataMana
         }
     }
 
+    //NotEnoughIDs world compatibility
+    private void readSubChunkFromNBTNotEnoughIDsDFU(SubChunkBlockHook subChunk, NBTTagCompound nbt) {
+        val data = nbt.getByteArray("Data16");
+        val dataShort = new short[data.length >>> 1];
+        ByteBuffer.wrap(data).asShortBuffer().get(dataShort);
+        val m1Low = new byte[blocksPerSubChunk >>> 1];
+        val m1High = new byte[blocksPerSubChunk >>> 1];
+        val m2 = new byte[blocksPerSubChunk];
+        for (int i = 0; i < dataShort.length; i++) {
+            val s = dataShort[i];
+            val nI = i >>> 1;
+            val mI = (i & 1) * 4;
+            m1Low[nI] |= (byte) ((s & 0x000F) << mI);
+            m1High[nI] |= (byte) (((s & 0x00F0) >>> 4) << mI);
+            m2[i] = (byte) ((s & 0xFF00) >>> 8);
+        }
+        subChunk.setM1Low(new NibbleArray(m1Low, 4));
+        subChunk.setM1High(new NibbleArray(m1High, 4));
+        subChunk.setM2(m2);
+    }
+
     @Override
     public void readSubChunkFromNBT(Chunk chunk, ExtendedBlockStorage subChunkVanilla, NBTTagCompound nbt) {
         val subChunk = (SubChunkBlockHook) subChunkVanilla;
+        if (nbt.hasKey("Data16")) {
+            readSubChunkFromNBTNotEnoughIDsDFU(subChunk, nbt);
+            return;
+        }
         assert nbt.hasKey("Data");
         val m1Low = nbt.getByteArray("Data");
         final byte[] m1High = nbt.hasKey("Data1High") ? nbt.getByteArray("Data1High") : null;
         final byte[] m2 = nbt.hasKey("Data2") ? nbt.getByteArray("Data2") : null;
 
-        subChunk.setM1Low(new NibbleArray(m1Low, 4));
-        subChunk.setM1High(m1High == null ? null : new NibbleArray(m1High, 4));
-        subChunk.setM2(m2);
+        subChunk.setM1Low(DataUtil.ensureSubChunkNibbleArray(m1Low));
+        subChunk.setM1High(DataUtil.ensureSubChunkNibbleArray(m1High));
+        subChunk.setM2(DataUtil.ensureSubChunkByteArray(m2));
     }
 
     @Override

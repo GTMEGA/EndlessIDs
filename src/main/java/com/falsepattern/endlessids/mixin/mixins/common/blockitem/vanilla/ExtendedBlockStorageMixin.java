@@ -21,6 +21,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.chunk.NibbleArray;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 
+import static com.falsepattern.endlessids.constants.ExtendedConstants.blocksPerSubChunk;
+
 @Mixin(ExtendedBlockStorage.class)
 public abstract class ExtendedBlockStorageMixin implements SubChunkBlockHook {
     @Shadow
@@ -198,7 +200,7 @@ public abstract class ExtendedBlockStorageMixin implements SubChunkBlockHook {
 
     @Override
     public NibbleArray createB2Low() {
-        return (blockMSBArray = new NibbleArray(blockLSBArray.length, 4));
+        return (blockMSBArray = new NibbleArray(blocksPerSubChunk, 4));
     }
 
     @Override
@@ -213,7 +215,7 @@ public abstract class ExtendedBlockStorageMixin implements SubChunkBlockHook {
 
     @Override
     public NibbleArray createB2High() {
-        return (b2High = new NibbleArray(blockLSBArray.length, 4));
+        return (b2High = new NibbleArray(blocksPerSubChunk, 4));
     }
 
     @Override
@@ -228,7 +230,7 @@ public abstract class ExtendedBlockStorageMixin implements SubChunkBlockHook {
 
     @Override
     public byte[] createB3() {
-        return b3 = new byte[blockLSBArray.length];
+        return b3 = new byte[blocksPerSubChunk];
     }
 
     @Override
@@ -253,7 +255,7 @@ public abstract class ExtendedBlockStorageMixin implements SubChunkBlockHook {
 
     @Override
     public NibbleArray createM1High() {
-        return (m1High = new NibbleArray(blockLSBArray.length, 4));
+        return (m1High = new NibbleArray(blocksPerSubChunk, 4));
     }
 
     @Override
@@ -268,7 +270,7 @@ public abstract class ExtendedBlockStorageMixin implements SubChunkBlockHook {
 
     @Override
     public byte[] createM2() {
-        return (m2 = new byte[blockLSBArray.length]);
+        return (m2 = new byte[blocksPerSubChunk]);
     }
 
     @Override

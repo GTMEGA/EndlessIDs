@@ -4,6 +4,7 @@ import com.falsepattern.chunk.api.ArrayUtil;
 import com.falsepattern.chunk.api.DataManager;
 import com.falsepattern.endlessids.Tags;
 import com.falsepattern.endlessids.mixin.helpers.SubChunkBlockHook;
+import com.falsepattern.endlessids.util.DataUtil;
 import lombok.val;
 import lombok.var;
 import org.jetbrains.annotations.NotNull;
@@ -15,6 +16,9 @@ import net.minecraft.world.chunk.NibbleArray;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 
 import java.nio.ByteBuffer;
+
+import static com.falsepattern.endlessids.constants.ExtendedConstants.blocksPerSubChunk;
+import static com.falsepattern.endlessids.util.DataUtil.*;
 
 public class BlockIDManager implements DataManager.PacketDataManager, DataManager.SubChunkDataManager {
 
@@ -141,20 +145,20 @@ public class BlockIDManager implements DataManager.PacketDataManager, DataManage
     }
 
     //NotEnoughIDs world compatibility
-    public static void readSectionFromNBTNotEnoughIDsDFU(SubChunkBlockHook subChunk, NBTTagCompound nbt) {
+    public static void readSubChunkFromNBTNotEnoughIDsDFU(SubChunkBlockHook subChunk, NBTTagCompound nbt) {
         val data = nbt.getByteArray("Blocks16");
         val dataShort = new short[data.length >>> 1];
         ByteBuffer.wrap(data).asShortBuffer().get(dataShort);
-        val b1 = new byte[dataShort.length];
-        val b2L = new byte[dataShort.length >>> 1];
-        val b2H = new byte[dataShort.length >>> 1];
+        val b1 = new byte[blocksPerSubChunk];
+        val b2L = new byte[blocksPerSubChunk >>> 1];
+        val b2H = new byte[blocksPerSubChunk >>> 1];
         for (int i = 0; i < dataShort.length; i++) {
             val s = dataShort[i];
             val nI = i >>> 1;
             val mI = (i & 1) * 4;
             b1[i] = (byte) (s & 0x00FF);
-            b2L[nI] |= ((s & 0x0F00) >>> 8) << mI;
-            b2H[nI] |= ((s & 0xF000) >>> 12) << mI;
+            b2L[nI] |= (byte) (((s & 0x0F00) >>> 8) << mI);
+            b2H[nI] |= (byte) (((s & 0xF000) >>> 12) << mI);
         }
         subChunk.setB1(b1);
         subChunk.setB2Low(new NibbleArray(b2L, 4));
@@ -165,7 +169,7 @@ public class BlockIDManager implements DataManager.PacketDataManager, DataManage
     public void readSubChunkFromNBT(Chunk chunk, ExtendedBlockStorage subChunkVanilla, NBTTagCompound nbt) {
         val subChunk = (SubChunkBlockHook) subChunkVanilla;
         if (nbt.hasKey("Blocks16")) {
-            readSectionFromNBTNotEnoughIDsDFU(subChunk, nbt);
+            readSubChunkFromNBTNotEnoughIDsDFU(subChunk, nbt);
             return;
         }
         assert nbt.hasKey("Blocks");
@@ -174,10 +178,10 @@ public class BlockIDManager implements DataManager.PacketDataManager, DataManage
         final byte[] b2High = nbt.hasKey("BlocksB2Hi") ? nbt.getByteArray("BlocksB2Hi") : null;
         final byte[] b3 = nbt.hasKey("BlocksB3") ? nbt.getByteArray("BlocksB3") : null;
 
-        subChunk.setB1(b1);
-        subChunk.setB2Low(b2Low == null ? null : new NibbleArray(b2Low, 4));
-        subChunk.setB2High(b2High == null ? null : new NibbleArray(b2High, 4));
-        subChunk.setB3(b3);
+        subChunk.setB1(ensureSubChunkByteArray(b1));
+        subChunk.setB2Low(ensureSubChunkNibbleArray(b2Low));
+        subChunk.setB2High(ensureSubChunkNibbleArray(b2High));
+        subChunk.setB3(ensureSubChunkByteArray(b3));
     }
 
     @Override
