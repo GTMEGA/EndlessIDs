@@ -31,7 +31,8 @@ public abstract class GenLayerEBHillsMixin {
 
     @Redirect(method = "getInts",
               at = @At(value = "INVOKE",
-                       target = "Lorg/apache/logging/log4j/Logger;debug(Ljava/lang/String;)V"),
+                       target = "Lorg/apache/logging/log4j/Logger;debug(Ljava/lang/String;)V",
+                       remap = false),
               remap = true,
               require = 1)
     private void noLog(Logger instance, String s) {

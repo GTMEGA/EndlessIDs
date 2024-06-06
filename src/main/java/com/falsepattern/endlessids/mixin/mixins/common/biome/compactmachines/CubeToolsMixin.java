@@ -1,14 +1,16 @@
 package com.falsepattern.endlessids.mixin.mixins.common.biome.compactmachines;
 
 import com.falsepattern.endlessids.mixin.helpers.ChunkBiomeHook;
-import com.falsepattern.endlessids.mixin.stubpackage.org.dave.CompactMachines.tileentity.TileEntityMachine;
+import lombok.val;
 import org.dave.CompactMachines.handler.ConfigurationHandler;
 import org.dave.CompactMachines.machines.tools.CubeTools;
+import org.dave.CompactMachines.tileentity.TileEntityMachine;
 import org.dave.CompactMachines.utility.WorldUtils;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
@@ -43,10 +45,12 @@ public abstract class CubeToolsMixin {
      */
     @Overwrite
     public static BiomeGenBase getMachineBiome(TileEntityMachine machine) {
-        short[] biomeArray = ((ChunkBiomeHook) machine.getWorldObj()
-                                                      .getChunkFromBlockCoords(machine.xCoord,
-                                                                            machine.zCoord)).getBiomeShortArray();
-        int biomeId = biomeArray[(machine.zCoord & 15) << 4 | machine.xCoord & 15];
+        val TE = (TileEntity)machine;
+        val x = TE.xCoord;
+        val z = TE.zCoord;
+        short[] biomeArray = ((ChunkBiomeHook) TE.getWorldObj()
+                                                 .getChunkFromBlockCoords(x, z)).getBiomeShortArray();
+        int biomeId = biomeArray[(z & 15) << 4 | x & 15];
         return biomeId > 0 && biomeId < BiomeGenBase.getBiomeGenArray().length &&
                BiomeDictionary.isBiomeRegistered(biomeId) ? BiomeGenBase.getBiome(biomeId) : WorldUtils.getBiomeByName(
                 ConfigurationHandler.defaultBiome);

@@ -20,11 +20,17 @@ import java.util.List;
 
 @Mixin(DataWatcher.class)
 public abstract class DataWatcherMixin {
-    @ModifyConstant(method = {"addObject", "writeWatchedListToPacketBuffer", "func_151509_a",
-                              "writeWatchableObjectToPacketBuffer"},
+    @ModifyConstant(method = {"writeWatchableObjectToPacketBuffer"},
                     constant = @Constant(intValue = VanillaConstants.maxWatchableID),
-                    require = 3)
-    private static int extend1(int constant) {
+                    require = 1)
+    private static int extend1s(int constant) {
+        return ExtendedConstants.maxWatchableID;
+    }
+
+    @ModifyConstant(method = {"addObject", "func_151509_a"},
+                    constant = @Constant(intValue = VanillaConstants.maxWatchableID),
+                    require = 2)
+    private int extend1d(int constant) {
         return ExtendedConstants.maxWatchableID;
     }
 
