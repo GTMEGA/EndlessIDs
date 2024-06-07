@@ -61,6 +61,7 @@ This mod also contains patches for the following mods:
 - Realistic Terrain Generation
 - Realistic World Generation
 - Thaumcraft
+- The Lord of the Rings Mod: Legacy
 - Tropicraft
 - Twilight Forest
 - Underground Biomes Constructs

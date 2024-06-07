@@ -3,6 +3,7 @@ package com.falsepattern.endlessids.asm;
 import com.falsepattern.endlessids.asm.transformer.ChunkProviderSuperPatcher;
 import com.falsepattern.endlessids.asm.transformer.FmlRegistry;
 import com.falsepattern.endlessids.asm.transformer.GameDataAccelerator;
+import com.falsepattern.endlessids.asm.transformer.LOTRFieldExposer;
 import com.falsepattern.endlessids.asm.transformer.SpaceCoreModInfoGenerator;
 import com.falsepattern.endlessids.config.GeneralConfig;
 import lombok.val;
@@ -21,6 +22,9 @@ public enum ClassEdit {
                 () -> GeneralConfig.extendBlockItem,
                 "cpw.mods.fml.common.registry.GameData",
                 "cpw.mods.fml.common.registry.FMLControlledNamespacedRegistry"),
+    LOTRFieldExposer(new LOTRFieldExposer(),
+                     () -> GeneralConfig.extendBiome,
+                     "lotr.common.network.LOTRPacketBiomeVariantsWatch"),
     SpaceCoreModInfoGenerator(new SpaceCoreModInfoGenerator(), () -> true,
                               "com.spacechase0.minecraft.spacecore.mcp.ModInfoGenerator"),
     GameDataAccelerator(new GameDataAccelerator(), () -> GeneralConfig.enableRegistryPerformanceTweak, "cpw.mods.fml.common.registry.GameData"),

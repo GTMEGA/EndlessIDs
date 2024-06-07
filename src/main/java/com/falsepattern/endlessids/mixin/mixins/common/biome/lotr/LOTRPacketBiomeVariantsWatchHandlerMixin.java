@@ -16,7 +16,7 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
 @Mixin(value = LOTRPacketBiomeVariantsWatch.Handler.class,
        remap = false)
-public abstract class LOTRPacketBiomeVariantsWatchHandler {
+public abstract class LOTRPacketBiomeVariantsWatchHandlerMixin {
 
     /**
      * @author FalsePattern

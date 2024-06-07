@@ -123,8 +123,10 @@ public enum Mixin implements IMixin {
     LOTRBiomeVariantStorageMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.LOTR)), "biome.lotr.LOTRBiomeVariantStorageMixin"),
     LOTRChunkProviderMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.LOTR)), "biome.lotr.LOTRChunkProviderMixin"),
     LOTRChunkProviderUtumnoMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.LOTR)), "biome.lotr.LOTRChunkProviderUtumnoMixin"),
+    LOTRDimensionMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.LOTR)), "biome.lotr.LOTRDimensionMixin"),
     LOTRPacketBiomeVariantsWatchHandlerMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.LOTR)), "biome.lotr.LOTRPacketBiomeVariantsWatchHandlerMixin"),
     LOTRWorldChunkManagerMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.LOTR)), "biome.lotr.LOTRWorldChunkManagerMixin"),
+    LOTRWorldProviderMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.LOTR)), "biome.lotr.LOTRWorldProviderMixin"),
     //endregion LOTR
     //region NaturesCompass
     NaturesCompassBiomeUtilsMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.NATURESCOMPASS)), "biome.naturescompass.BiomeUtilsMixin"),
