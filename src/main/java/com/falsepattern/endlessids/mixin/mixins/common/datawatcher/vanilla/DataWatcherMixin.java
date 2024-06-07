@@ -1,31 +1,34 @@
 package com.falsepattern.endlessids.mixin.mixins.common.datawatcher.vanilla;
 
+import com.falsepattern.endlessids.config.GeneralConfig;
 import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.constants.VanillaConstants;
 import io.netty.buffer.ByteBuf;
+import lombok.val;
+import lombok.var;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import net.minecraft.entity.DataWatcher;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ChunkCoordinates;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Mixin(DataWatcher.class)
 public abstract class DataWatcherMixin {
-    @ModifyConstant(method = {"writeWatchableObjectToPacketBuffer"},
-                    constant = @Constant(intValue = VanillaConstants.maxWatchableID),
-                    require = 1)
-    private static int extend1s(int constant) {
-        return ExtendedConstants.maxWatchableID;
-    }
+
+    @Shadow @Final private Map watchedObjects;
 
     @ModifyConstant(method = {"addObject", "func_151509_a"},
                     constant = @Constant(intValue = VanillaConstants.maxWatchableID),
@@ -34,76 +37,106 @@ public abstract class DataWatcherMixin {
         return ExtendedConstants.maxWatchableID;
     }
 
-    @ModifyConstant(method = "writeWatchableObjectToPacketBuffer",
-                    constant = @Constant(intValue = VanillaConstants.watchableBits,
-                                         ordinal = 0),
-                    require = 1)
-    private static int extend2(int constant) {
-        return ExtendedConstants.watchableBits;
-    }
-
-    @ModifyConstant(method = "writeWatchableObjectToPacketBuffer",
-                    constant = @Constant(intValue = VanillaConstants.watchableMask,
-                                         ordinal = 0),
-                    require = 1)
-    private static int extend3(int constant) {
-        return ExtendedConstants.watchableMask;
-    }
-
-    @Redirect(method = "writeWatchableObjectToPacketBuffer",
-              at = @At(value = "INVOKE",
-                       target = "Lnet/minecraft/network/PacketBuffer;writeByte(I)Lio/netty/buffer/ByteBuf;"),
-              require = 1)
-    private static ByteBuf extendWrite(PacketBuffer instance, int p_writeByte_1_) {
-        return instance.writeShort(p_writeByte_1_);
-    }
-
     /**
      * @author FalsePattern
-     * @reason Direct port from dumped code
+     * @reason Extend IDs
      */
     @Overwrite
     public static List<DataWatcher.WatchableObject> readWatchedListFromPacketBuffer(PacketBuffer packet)
             throws IOException {
         ArrayList<DataWatcher.WatchableObject> watchables = null;
 
-        for (short id = packet.readShort(); id != 32767; id = packet.readShort()) {
+        for (int type = packet.readByte() & 0xFF; type != 0x7F; type = packet.readByte() & 0xFF) {
             if (watchables == null) {
                 watchables = new ArrayList<>();
             }
 
-            int flag = (id >> ExtendedConstants.watchableBits) & 0x7;
-            int watchableID = id & ExtendedConstants.maxWatchableID;
+            boolean shortID = (type & 0x80) != 0;
+            type &= 0x7F;
+            int id = shortID
+                     ? packet.readShort() & 0xFFFF
+                     : packet.readByte() & 0xFF;
             DataWatcher.WatchableObject watchable = null;
-            switch (flag) {
+            switch (type) {
                 case 0:
-                    watchable = new DataWatcher.WatchableObject(flag, watchableID, packet.readByte());
+                    watchable = new DataWatcher.WatchableObject(type, id, packet.readByte());
                     break;
                 case 1:
-                    watchable = new DataWatcher.WatchableObject(flag, watchableID, packet.readShort());
+                    watchable = new DataWatcher.WatchableObject(type, id, packet.readShort());
                     break;
                 case 2:
-                    watchable = new DataWatcher.WatchableObject(flag, watchableID, packet.readInt());
+                    watchable = new DataWatcher.WatchableObject(type, id, packet.readInt());
                     break;
                 case 3:
-                    watchable = new DataWatcher.WatchableObject(flag, watchableID, packet.readFloat());
+                    watchable = new DataWatcher.WatchableObject(type, id, packet.readFloat());
                     break;
                 case 4:
-                    watchable = new DataWatcher.WatchableObject(flag, watchableID, packet.readStringFromBuffer(32767));
+                    watchable = new DataWatcher.WatchableObject(type, id, packet.readStringFromBuffer(32767));
                     break;
                 case 5:
-                    watchable = new DataWatcher.WatchableObject(flag, watchableID, packet.readItemStackFromBuffer());
+                    watchable = new DataWatcher.WatchableObject(type, id, packet.readItemStackFromBuffer());
                     break;
                 case 6:
                     int x = packet.readInt();
                     int y = packet.readInt();
                     int z = packet.readInt();
-                    watchable = new DataWatcher.WatchableObject(flag, watchableID, new ChunkCoordinates(x, y, z));
+                    watchable = new DataWatcher.WatchableObject(type, id, new ChunkCoordinates(x, y, z));
             }
 
             watchables.add(watchable);
         }
 
         return watchables;
+    }
+
+
+    /**
+     * Writes a watchable object (entity attribute of type {byte, short, int, float, string, ItemStack,
+     * ChunkCoordinates}) to the specified PacketBuffer
+     *
+     * @author FalsePattern
+     * @reason Extend IDs
+     */
+
+    @Overwrite
+    private static void writeWatchableObjectToPacketBuffer(PacketBuffer buf, DataWatcher.WatchableObject watcher)
+            throws IOException {
+        var type = watcher.getObjectType() & 0x7F;
+        val id = watcher.getDataValueId() & 0xFFFF;
+        if (id > 255)
+            type |= 0x80;
+        buf.writeByte(type);
+        if (id > 255) {
+            buf.writeShort(id & 0xFFFF);
+        } else {
+            buf.writeByte(id & 0xFF);
+        }
+
+        switch (type) {
+            case 0:
+                buf.writeByte((byte) watcher.getObject());
+                break;
+            case 1:
+                buf.writeShort((short) watcher.getObject());
+                break;
+            case 2:
+                buf.writeInt((int) watcher.getObject());
+                break;
+            case 3:
+                buf.writeFloat((float) watcher.getObject());
+                break;
+            case 4:
+                buf.writeStringToBuffer((String) watcher.getObject());
+                break;
+            case 5:
+                ItemStack itemstack = (ItemStack) watcher.getObject();
+                buf.writeItemStackToBuffer(itemstack);
+                break;
+            case 6:
+                ChunkCoordinates chunkcoordinates = (ChunkCoordinates) watcher.getObject();
+                buf.writeInt(chunkcoordinates.posX);
+                buf.writeInt(chunkcoordinates.posY);
+                buf.writeInt(chunkcoordinates.posZ);
+        }
     }
 }

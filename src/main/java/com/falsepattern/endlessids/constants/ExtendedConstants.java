@@ -10,7 +10,7 @@ public class ExtendedConstants {
     public static final int countCorrectionItemBits = 9 - GeneralConfig.extraItemIDBits;
     public static final int countCorrectionBlockBits = 12 - GeneralConfig.extraBlockIDBits;
 
-    public static final int watchableBits = 7;
+    public static final int watchableBits = 16;
     public static final int bitsPerBiome = 16;
 
     public static final int maximumPotionIDs = 65536;
@@ -49,7 +49,6 @@ public class ExtendedConstants {
     //DataWatcher
     public static final int watchableCount = 1 << watchableBits;
     public static final int maxWatchableID = watchableCount - 1;
-    public static final int watchableMask = (0x7 << watchableBits) | maxWatchableID;
 
     //EntityIDs
     public static final int entityIDCount = 1 << bitsPerEntity;

@@ -21,6 +21,7 @@ Comparison of the known limits:
 | Entity IDs      | 256                                                | 256          | 32,768 since 1.5     |
 | Potion IDs      | 32                                                 | 32           | 65,536 since 1.5     |
 | Enchantment IDs | 256                                                | 256          | 32,768 since 1.5     |
+| DataWatcher IDs | 32                                                 | Broken       | 65,536 since 1.5     |
 | Dimension IDs   | Theoretically unlimited, 4,294,967,295 in practice | Same         | Same                 |
 
 This mod also contains patches for the following mods:

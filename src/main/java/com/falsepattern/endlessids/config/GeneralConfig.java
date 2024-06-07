@@ -28,9 +28,8 @@ public class GeneralConfig {
                     "See also: countCorrectionBits")
     @Config.DefaultBoolean(true)
     public static boolean extendBlockItem;
-    @Config.Comment("Extend DataWatcher IDs. Vanilla limit is 31, new limit is 127.\n" +
-                    "Disabled by default because of uncertain/weak implementation (taken from NotEnoughIDs)")
-    @Config.DefaultBoolean(false)
+    @Config.Comment("Extend DataWatcher IDs. Vanilla limit is 32, new limit is 65536.\n")
+    @Config.DefaultBoolean(true)
     public static boolean extendDataWatcher;
     @Config.Comment("Extend Enchantment IDs. Vanilla limit is 256, new limit is 32768.")
     @Config.DefaultBoolean(true)
