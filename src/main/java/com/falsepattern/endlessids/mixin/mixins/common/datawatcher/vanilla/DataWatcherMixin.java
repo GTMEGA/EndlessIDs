@@ -25,11 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Mixin(DataWatcher.class)
+@Mixin(value = DataWatcher.class,
+       priority = 1001)
 public abstract class DataWatcherMixin {
-
-    @Shadow @Final private Map watchedObjects;
-
     @ModifyConstant(method = {"addObject", "func_151509_a"},
                     constant = @Constant(intValue = VanillaConstants.maxWatchableID),
                     require = 2)
@@ -71,16 +69,21 @@ public abstract class DataWatcherMixin {
                     watchable = new DataWatcher.WatchableObject(type, id, packet.readFloat());
                     break;
                 case 4:
-                    watchable = new DataWatcher.WatchableObject(type, id, packet.readStringFromBuffer(32767));
+                    boolean present = packet.readBoolean();
+                    watchable = new DataWatcher.WatchableObject(type, id, present ? packet.readStringFromBuffer(32767) : null);
                     break;
                 case 5:
                     watchable = new DataWatcher.WatchableObject(type, id, packet.readItemStackFromBuffer());
                     break;
                 case 6:
-                    int x = packet.readInt();
-                    int y = packet.readInt();
-                    int z = packet.readInt();
-                    watchable = new DataWatcher.WatchableObject(type, id, new ChunkCoordinates(x, y, z));
+                    ChunkCoordinates coords = null;
+                    if (packet.readBoolean()) {
+                        int x = packet.readInt();
+                        int y = packet.readInt();
+                        int z = packet.readInt();
+                        coords = new ChunkCoordinates(x, y, z);
+                    }
+                    watchable = new DataWatcher.WatchableObject(type, id, coords);
             }
 
             watchables.add(watchable);
@@ -126,7 +129,13 @@ public abstract class DataWatcherMixin {
                 buf.writeFloat((float) watcher.getObject());
                 break;
             case 4:
-                buf.writeStringToBuffer((String) watcher.getObject());
+                val obj = (String) watcher.getObject();
+                if (obj == null) {
+                    buf.writeBoolean(false);
+                } else {
+                    buf.writeBoolean(true);
+                    buf.writeStringToBuffer(obj);
+                }
                 break;
             case 5:
                 ItemStack itemstack = (ItemStack) watcher.getObject();
@@ -134,9 +143,14 @@ public abstract class DataWatcherMixin {
                 break;
             case 6:
                 ChunkCoordinates chunkcoordinates = (ChunkCoordinates) watcher.getObject();
-                buf.writeInt(chunkcoordinates.posX);
-                buf.writeInt(chunkcoordinates.posY);
-                buf.writeInt(chunkcoordinates.posZ);
+                if (chunkcoordinates == null) {
+                    buf.writeBoolean(false);
+                } else {
+                    buf.writeBoolean(true);
+                    buf.writeInt(chunkcoordinates.posX);
+                    buf.writeInt(chunkcoordinates.posY);
+                    buf.writeInt(chunkcoordinates.posZ);
+                }
         }
     }
 }
