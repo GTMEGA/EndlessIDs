@@ -10,7 +10,7 @@ new limits.
 - [UniMixins](https://github.com/LegacyModdingMC/UniMixins)
 - [ChunkAPI](https://github.com/FalsePattern/ChunkAPI)
 
-## NotEnoughIDs
+## NotEnoughIDs world compatibility
 EndlessIDs can open and upgrade worlds created with NotEnoughIDs without any problems (both the original and the Unofficial version).
 If you notice any problems when opening NEID worlds with EndlessIDs, please open an issue!
 
