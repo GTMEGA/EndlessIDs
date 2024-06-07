@@ -10,19 +10,25 @@ new limits.
 - [UniMixins](https://github.com/LegacyModdingMC/UniMixins)
 - [ChunkAPI](https://github.com/FalsePattern/ChunkAPI)
 
-Comparison of the known limits:
+## NotEnoughIDs
+EndlessIDs can open and upgrade worlds created with NotEnoughIDs without any problems (both the original and the Unofficial version).
+If you notice any problems when opening NEID worlds with EndlessIDs, please open an issue!
 
-|                 | Vanilla                                            | NotEnoughIDs | EndlessIDs |
-|-----------------|----------------------------------------------------|--------------|------------|
-| Block IDs       | 4,096                                              | 32,000       | 16,777,216 |
-| Block Metadata  | 16                                                 | 16           | 65,536     |
-| Item  IDs       | 32,000                                             | 32,000       | 16,777,216 |
-| Biome IDs       | 256                                                | 256          | 65,536     |
-| Entity IDs      | 256                                                | 256          | 32,768     |
-| Potion IDs      | 32                                                 | 32           | 65,536     |
-| Enchantment IDs | 256                                                | 256          | 32,768     |
-| DataWatcher IDs | 32                                                 | Broken       | 65,536     |
-| Dimension IDs   | Theoretically unlimited, 4,294,967,295 in practice | Same         | Same       |
+## Comparison of the known limits
+
+|                 | Vanilla                                            | NotEnoughIDs | NEID Unofficial | EndlessIDs |
+|-----------------|----------------------------------------------------|--------------|-----------------|------------|
+| Block IDs       | 4,096                                              | 32,000       | 65,536          | 16,777,216 |
+| Block Metadata  | 16                                                 | 16           | 65,536          | 65,536     |
+| Item  IDs       | 32,000                                             | 32,000       | 65,536          | 16,777,216 |
+| Biome IDs       | 256                                                | 256          | 256             | 65,536     |
+| Entity IDs      | 256                                                | 256          | 256             | 32,768     |
+| Potion IDs      | 32                                                 | 32           | 32              | 65,536     |
+| Enchantment IDs | 256                                                | 256          | 256             | 32,768     |
+| DataWatcher IDs | 32                                                 | 127 (Broken) | 127 (Broken)    | 65,536     |
+| Dimension IDs   | Theoretically unlimited, 4,294,967,295 in practice | Same         | Same            | Same       |
+
+## Mod compat
 
 This mod also contains patches for the following mods:
 
