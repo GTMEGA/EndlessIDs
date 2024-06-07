@@ -73,7 +73,7 @@ public abstract class BiomeWandItemMixin {
      * @reason Biome ID extension
      */
     @Overwrite
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+    public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean par4) {
         NBTTagCompound tag = stack.getTagCompound();
         String str = TranslateUtils.translate("biomewand.tooltip.biome") + ": ";
         if (tag == null || !tag.hasKey("sampledBiomeS")) {
@@ -95,7 +95,7 @@ public abstract class BiomeWandItemMixin {
      * @reason Biome ID extension
      */
     @Overwrite
-    public void getSubItems(Item item, CreativeTabs tabs, List list) {
+    public void getSubItems(Item item, CreativeTabs tabs, List<ItemStack> list) {
         list.add(new ItemStack((BiomeWandItem) (Object) this, 1));
         for (BiomeGenBase biome : BiomeGenBase.getBiomeGenArray()) {
             if (biome != null && !(biome instanceof PlaceholderBiome)) {

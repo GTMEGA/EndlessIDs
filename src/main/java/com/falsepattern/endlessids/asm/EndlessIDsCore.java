@@ -34,6 +34,7 @@ public class EndlessIDsCore implements IFMLLoadingPlugin {
         val cl = Launch.classLoader;
         val field = LaunchClassLoader.class.getDeclaredField("transformerExceptions");
         field.setAccessible(true);
+        @SuppressWarnings("unchecked")
         val exceptions = (Set<String>) field.get(cl);
         if (exceptions.contains("code.elix_x.coremods")) {
             EndlessIDsTransformer.logger.info("AntiIDConflict detected!");
