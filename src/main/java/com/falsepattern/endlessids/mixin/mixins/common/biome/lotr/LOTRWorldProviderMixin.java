@@ -17,7 +17,7 @@ import static com.falsepattern.endlessids.constants.ExtendedConstants.biomeIDMas
 
 @Mixin(LOTRWorldProvider.class)
 public abstract class LOTRWorldProviderMixin extends WorldProvider {
-    @Shadow public abstract LOTRDimension getLOTRDimension();
+    @Shadow(remap = false) public abstract LOTRDimension getLOTRDimension();
 
     /**
      * @author FalsePattern

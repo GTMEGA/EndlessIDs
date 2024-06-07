@@ -8,23 +8,23 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
 import net.minecraft.world.World;
+import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.chunk.Chunk;
 import cpw.mods.fml.common.FMLLog;
 
-@Mixin(value = LOTRWorldChunkManager.class,
-       remap = false)
-public abstract class LOTRWorldChunkManagerMixin {
-    @Shadow
+@Mixin(value = LOTRWorldChunkManager.class)
+public abstract class LOTRWorldChunkManagerMixin extends WorldChunkManager {
+    @Shadow(remap = false)
     private World worldObj;
 
-    @Shadow
+    @Shadow(remap = false)
     public abstract LOTRBiomeVariant[] getBiomeVariants(LOTRBiomeVariant[] variants, int i, int k, int xSize, int zSize);
 
     /**
      * @author FalsePattern
      * @reason fix stuff
      */
-    @Overwrite
+    @Overwrite(remap = false)
     public LOTRBiomeVariant getBiomeVariantAt(int i, int k) {
         short[] variants;
         Chunk chunk = this.worldObj.getChunkFromBlockCoords(i, k);

@@ -12,11 +12,12 @@ import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
 @Mixin(value = LOTRPacketBiomeVariantsWatch.Handler.class,
        remap = false)
-public abstract class LOTRPacketBiomeVariantsWatchHandlerMixin {
+public abstract class LOTRPacketBiomeVariantsWatchHandlerMixin implements IMessageHandler<LOTRPacketBiomeVariantsWatch, IMessage> {
 
     /**
      * @author FalsePattern

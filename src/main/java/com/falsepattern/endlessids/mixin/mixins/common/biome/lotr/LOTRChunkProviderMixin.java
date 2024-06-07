@@ -10,17 +10,17 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.IChunkProvider;
 
-@Mixin(value = LOTRChunkProvider.class,
-       remap = false)
-public abstract class LOTRChunkProviderMixin {
-    @Shadow
+@Mixin(value = LOTRChunkProvider.class)
+public abstract class LOTRChunkProviderMixin implements IChunkProvider {
+    @Shadow(remap = false)
     private LOTRBiomeVariant[] variantsForGeneration;
 
     @Redirect(method = "provideChunk",
               at = @At(value = "INVOKE",
-                       target = "Llotr/common/world/biome/variant/LOTRBiomeVariantStorage;setChunkBiomeVariants(Lnet/minecraft/world/World;Lnet/minecraft/world/chunk/Chunk;[B)V"),
-              remap = true,
+                       target = "Llotr/common/world/biome/variant/LOTRBiomeVariantStorage;setChunkBiomeVariants(Lnet/minecraft/world/World;Lnet/minecraft/world/chunk/Chunk;[B)V",
+                       remap = false),
               require = 1)
     private void storeShorts(World world, Chunk chunk, byte[] variantsB) {
         short[] variants = new short[256];
