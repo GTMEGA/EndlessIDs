@@ -1,5 +1,6 @@
 package com.falsepattern.endlessids.asm.transformer;
 
+import com.falsepattern.endlessids.asm.AsmTransformException;
 import com.falsepattern.endlessids.asm.IClassNodeTransformer;
 import com.falsepattern.endlessids.asm.IETransformer;
 import lombok.val;
@@ -71,19 +72,30 @@ public class GameDataAccelerator implements IClassNodeTransformer {
         var iter = method.instructions.iterator();
         while (iter.hasNext()) {
             var insn = iter.next();
-            if (!(insn instanceof FieldInsnNode))
+            if ((insn.getOpcode() != Opcodes.GETFIELD) && !(insn instanceof FieldInsnNode))
                 continue;
             var fieldInsn = (FieldInsnNode) insn;
             if (!(fieldInsn.owner.equals("cpw/mods/fml/common/registry/GameData") &&
                   fieldInsn.name.equals("iItemRegistry") &&
                   fieldInsn.desc.equals("Lcpw/mods/fml/common/registry/FMLControlledNamespacedRegistry;")))
                 continue;
-            iter.previous();
-            iter.previous();
             iter.remove();
-            iter.next();
+            {
+                val testInsn = iter.previous();
+                if (testInsn.getOpcode() != Opcodes.ALOAD || ((VarInsnNode)testInsn).var != 0)
+                    throw new AsmTransformException("Opcode assertion 1 failed!");
+            }
             iter.remove();
-            iter.next();
+            {
+                val testInsn = iter.next();
+                if (testInsn.getOpcode() != Opcodes.INVOKEVIRTUAL)
+                    throw new AsmTransformException("Opcodes assertion 2 failed!");
+
+                val testInvoke = (MethodInsnNode)testInsn;
+                if (!testInvoke.owner.equals("cpw/mods/fml/common/registry/FMLControlledNamespacedRegistry") ||
+                    !testInvoke.name.equals("typeSafeIterable"))
+                    throw new AsmTransformException("Opcodes assertion 3 failed!");
+            }
             iter.remove();
             iter.add(new VarInsnNode(Opcodes.ALOAD, 1));
             iter.add(new VarInsnNode(Opcodes.ALOAD, 0));

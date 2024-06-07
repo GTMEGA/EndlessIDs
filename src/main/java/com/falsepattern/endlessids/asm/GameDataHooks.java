@@ -20,10 +20,14 @@ public class GameDataHooks {
         return gameData.endlessIDsItemBlockCache;
     }
 
+    //Called by ASM
+    @SuppressWarnings("unused")
     public static void cacheItemBlock(ItemBlock itemBlock, GameData gameData) {
         forGameData(gameData).put(itemBlock.field_150939_a, new WeakReference<>(itemBlock));
     }
 
+    //Called by ASM
+    @SuppressWarnings("unused")
     public static ItemBlock fetchCachedItemBlock(Block block, GameData gameData) {
         var weakItem = forGameData(gameData).get(block);
         if (weakItem != null) {
@@ -32,6 +36,8 @@ public class GameDataHooks {
         return null;
     }
 
+    //Called by ASM
+    @SuppressWarnings("unused")
     public static Iterable<Item> fakeIterable() {
         return Collections.emptyList();
     }
