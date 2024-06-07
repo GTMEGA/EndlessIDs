@@ -1,27 +1,25 @@
 package com.falsepattern.endlessids.asm.transformer;
 
-import com.falsepattern.endlessids.asm.IETransformer;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import lombok.SneakyThrows;
+import com.falsepattern.endlessids.Tags;
+import com.falsepattern.endlessids.asm.EndlessIDsCore;
+import com.falsepattern.lib.turboasm.ClassNodeHandle;
+import com.falsepattern.lib.turboasm.TurboClassTransformer;
 import lombok.val;
+import org.jetbrains.annotations.NotNull;
 import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldInsnNode;
-import org.objectweb.asm.util.CheckClassAdapter;
 
 import net.minecraft.launchwrapper.Launch;
 
 import java.io.IOException;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class DevFixer {
+public class DevFixer implements TurboClassTransformer {
     private static final ClassNode blocks;
 
     static {
-        if (IETransformer.isObfuscated) {
+        if (!EndlessIDsCore.deobfuscated) {
             blocks = null;
         } else {
             try {
@@ -35,41 +33,20 @@ public final class DevFixer {
         }
     }
 
-    public static byte[] fixDev(byte[] classBytes) {
-        if (IETransformer.isObfuscated) {
-            return classBytes;
-        }
-        val cn = new ClassNode(Opcodes.ASM5);
-        val reader = new ClassReader(classBytes);
-        reader.accept(cn, 0);
-        transform(cn);
-        val writer = new ClassWriter(0);
-        val check = new CheckClassAdapter(writer);
-        cn.accept(check);
-        return writer.toByteArray();
-    }
-
-    @SneakyThrows
-    public static void transform(final ClassNode cn) {
-        if (IETransformer.isObfuscated) {
-            return;
-        }
-        remapBlocks(cn);
-        if (cn.name.equals("net/minecraft/world/biome/BiomeGenBase")) {
-            biomeTweakerCompat(cn);
-        }
-    }
-
-    private static void biomeTweakerCompat(final ClassNode cn) {
+    private static boolean biomeTweakerCompat(final ClassNode cn) {
+        boolean modified = false;
         for (val field : cn.fields) {
             if (field.name.startsWith("spawnable")) {
                 field.access &= ~Opcodes.ACC_PROTECTED;
                 field.access |= Opcodes.ACC_PUBLIC;
+                modified = true;
             }
         }
+        return modified;
     }
 
-    private static void remapBlocks(final ClassNode cn) {
+    private static boolean remapBlocks(final ClassNode cn) {
+        boolean modified = false;
         for (val method : cn.methods) {
             val instructions = method.instructions;
             int insnCount = instructions.size();
@@ -81,11 +58,41 @@ public final class DevFixer {
                         for (val blockField : blocks.fields) {
                             if (blockField.name.equals(field.name) && !blockField.desc.equals(field.desc)) {
                                 field.desc = blockField.desc;
+                                modified = true;
                             }
                         }
                     }
                 }
             }
         }
+        return modified;
+    }
+
+    @Override
+    public String owner() {
+        return Tags.MODNAME;
+    }
+
+    @Override
+    public String name() {
+        return "DevFixer";
+    }
+
+    @Override
+    public boolean shouldTransformClass(@NotNull String className, @NotNull ClassNodeHandle classNode) {
+        return EndlessIDsCore.deobfuscated && !"net.minecraft.world.chunk.storage.AnvilChunkLoader".equals(className);
+    }
+
+    @Override
+    public boolean transformClass(@NotNull String className, @NotNull ClassNodeHandle classNode) {
+        val cn = classNode.getNode();
+        if (cn == null)
+            return false;
+        boolean modified = false;
+        modified |= remapBlocks(cn);
+        if (className.equals("net.minecraft.world.biome.BiomeGenBase")) {
+            modified |= biomeTweakerCompat(cn);
+        }
+        return modified;
     }
 }

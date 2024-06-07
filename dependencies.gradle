@@ -21,7 +21,8 @@ dependencies {
     }
     annotationProcessor("org.projectlombok:lombok:1.18.32")
 
-    implementation("com.falsepattern:falsepatternlib-mc1.7.10:1.2.4:dev")
+    compileOnly("com.falsepattern:falsepatternlib-mc1.7.10:1.2.4:api")
+    runtimeOnly("com.falsepattern:falsepatternlib-mc1.7.10:1.2.4:dev")
     implementation("it.unimi.dsi:fastutil:8.5.13")
 
     compileOnly("com.falsepattern:chunkapi-mc1.7.10:0.5.1:api")
@@ -118,7 +119,7 @@ dependencies {
     compileOnly(deobfCurse("industrialrevolutionbyredstonerebooted-241812:2538035"))
 
     //LOTR Mod 36.15
-    compileOnly(deobfCurse("lotrmod-423748:4091561"))
+    implementation(deobfCurse("lotrmod-423748:4091561"))
 
     //More Fun Quicksands Mod 1.0.8.8-fixed
     compileOnly(deobfCurse("more-fun-quicksand-mod-321960:2717318"))

@@ -1,12 +1,15 @@
 package com.falsepattern.endlessids.asm.transformer;
 
+import com.falsepattern.endlessids.Tags;
 import com.falsepattern.endlessids.asm.AsmTransformException;
-import com.falsepattern.endlessids.asm.IClassNodeTransformer;
-import com.falsepattern.endlessids.asm.IETransformer;
+import com.falsepattern.endlessids.asm.EndlessIDsTransformer;
+import com.falsepattern.endlessids.config.GeneralConfig;
+import com.falsepattern.lib.turboasm.ClassNodeHandle;
+import com.falsepattern.lib.turboasm.TurboClassTransformer;
 import lombok.val;
 import lombok.var;
+import org.jetbrains.annotations.NotNull;
 import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldInsnNode;
 import org.objectweb.asm.tree.FieldNode;
 import org.objectweb.asm.tree.InsnNode;
@@ -14,35 +17,9 @@ import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
-public class GameDataAccelerator implements IClassNodeTransformer {
+public class GameDataAccelerator implements TurboClassTransformer {
     private static final int MASK_REGISTER_BLOCK = 0b1;
     private static final int MASK_REGISTER_ITEM = 0b10;
-    @Override
-    public void transform(ClassNode classNode, boolean obfuscated) {
-        var cacheField = new FieldNode(Opcodes.ACC_PUBLIC | Opcodes.ACC_SYNTHETIC, "endlessIDsItemBlockCache", "Lcom/falsepattern/endlessids/util/WeakIdentityHashMap;", null, null);
-        classNode.fields.add(cacheField);
-        int tweaksLeft = MASK_REGISTER_BLOCK | MASK_REGISTER_ITEM;
-        for (val method: classNode.methods) {
-            if ((tweaksLeft & MASK_REGISTER_BLOCK) != 0 &&
-                method.name.equals("registerBlock") &&
-                method.desc.equals("(Lnet/minecraft/block/Block;Ljava/lang/String;I)I")) {
-                transformRegisterBlock(method);
-                tweaksLeft &= ~MASK_REGISTER_BLOCK;
-            }
-            if ((tweaksLeft & MASK_REGISTER_ITEM) != 0 &&
-                method.name.equals("registerItem") &&
-                method.desc.equals("(Lnet/minecraft/item/Item;Ljava/lang/String;I)I")) {
-                transformRegisterItem(method);
-                tweaksLeft &= ~MASK_REGISTER_ITEM;
-            }
-            if (tweaksLeft == 0) {
-                break;
-            }
-        }
-        if (tweaksLeft != 0) {
-            IETransformer.logger.error("Could not accelerate block registration!");
-        }
-    }
 
     private void transformRegisterItem(MethodNode method) {
         var iter = method.instructions.iterator();
@@ -65,7 +42,7 @@ public class GameDataAccelerator implements IClassNodeTransformer {
     }
 
     private static void transformError(MethodNode method) {
-        IETransformer.logger.error("Could not add caching code to GameData." + method.name + method.desc);
+        EndlessIDsTransformer.logger.error("Could not add caching code to GameData." + method.name + method.desc);
     }
 
     private void transformRegisterBlock(MethodNode method) {
@@ -105,5 +82,47 @@ public class GameDataAccelerator implements IClassNodeTransformer {
             return;
         }
         transformError(method);
+    }
+
+    @Override
+    public String owner() {
+        return Tags.MODNAME;
+    }
+
+    @Override
+    public String name() {
+        return "GameDataAccelerator";
+    }
+
+    @Override
+    public boolean shouldTransformClass(@NotNull String className, @NotNull ClassNodeHandle classNode) {
+        return GeneralConfig.enableRegistryPerformanceTweak && "cpw.mods.fml.common.registry.GameData".equals(className);
+    }
+
+    @Override
+    public boolean transformClass(@NotNull String className, @NotNull ClassNodeHandle classNode) {
+        val cn = classNode.getNode();
+        if (cn == null)
+            return false;
+        var cacheField = new FieldNode(Opcodes.ACC_PUBLIC | Opcodes.ACC_SYNTHETIC, "endlessIDsItemBlockCache", "Lcom/falsepattern/endlessids/util/WeakIdentityHashMap;", null, null);
+        cn.fields.add(cacheField);
+        int tweaksLeft = MASK_REGISTER_BLOCK | MASK_REGISTER_ITEM;
+        for (val method: cn.methods) {
+            if ((tweaksLeft & MASK_REGISTER_BLOCK) != 0 &&
+                method.name.equals("registerBlock") &&
+                method.desc.equals("(Lnet/minecraft/block/Block;Ljava/lang/String;I)I")) {
+                transformRegisterBlock(method);
+                tweaksLeft &= ~MASK_REGISTER_BLOCK;
+            } else if ((tweaksLeft & MASK_REGISTER_ITEM) != 0 &&
+                method.name.equals("registerItem") &&
+                method.desc.equals("(Lnet/minecraft/item/Item;Ljava/lang/String;I)I")) {
+                transformRegisterItem(method);
+                tweaksLeft &= ~MASK_REGISTER_ITEM;
+            }
+            if (tweaksLeft == 0) {
+                return true;
+            }
+        }
+        throw new AsmTransformException("Failed to accelerate block registration! Disable enableRegistryPerformanceTweak in the EndlessIDs config!");
     }
 }

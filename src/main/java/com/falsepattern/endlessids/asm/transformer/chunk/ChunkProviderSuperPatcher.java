@@ -1,11 +1,14 @@
-package com.falsepattern.endlessids.asm.transformer;
+package com.falsepattern.endlessids.asm.transformer.chunk;
 
-import com.falsepattern.endlessids.asm.IClassNodeTransformer;
-import com.falsepattern.endlessids.asm.IETransformer;
-import com.falsepattern.endlessids.config.GeneralConfig;
+import com.falsepattern.endlessids.Tags;
+import com.falsepattern.endlessids.asm.EndlessIDsCore;
+import com.falsepattern.endlessids.asm.EndlessIDsTransformer;
+import com.falsepattern.lib.turboasm.ClassNodeHandle;
+import com.falsepattern.lib.turboasm.TurboClassTransformer;
 import lombok.Data;
 import lombok.val;
 import lombok.var;
+import org.jetbrains.annotations.NotNull;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
@@ -21,6 +24,7 @@ import org.objectweb.asm.tree.VarInsnNode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -116,7 +120,7 @@ import java.util.function.Supplier;
  *        L6
  * </pre>
  */
-public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
+public class ChunkProviderSuperPatcher implements TurboClassTransformer {
     public static final String[] CLASS_BiomeGenBase;
     public static final String[] CLASS_IChunkProvider;
     public static final String[] CLASS_ChunkProviderGenerate;
@@ -149,20 +153,20 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
     private static State<AbstractInsnNode> STATE_FINAL = null;
 
     static {
-        if (IETransformer.isObfuscated) {
-            CLASS_BiomeGenBase = new String[]{"ahu", "net/minecraft/world/biome/BiomeGenBase"};
-            CLASS_IChunkProvider = new String[]{"apu", "net/minecraft/world/chunk/IChunkProvider"};
-            CLASS_ChunkProviderGenerate = new String[]{"aqz", "net/minecraft/world/gen/ChunkProviderGenerate"};
-            CLASS_Chunk = new String[]{"apx", "net/minecraft/world/chunk/Chunk"};
-            FIELD_biomeID = new String[]{"ay", "field_76756_M"};
-            METHOD_getBiomeArray = new String[]{"m", "func_76605_m"};
-        } else {
+        if (EndlessIDsCore.deobfuscated) {
             CLASS_BiomeGenBase = new String[]{"net/minecraft/world/biome/BiomeGenBase"};
             CLASS_IChunkProvider = new String[]{"net/minecraft/world/chunk/IChunkProvider"};
             CLASS_ChunkProviderGenerate = new String[]{"net/minecraft/world/gen/ChunkProviderGenerate"};
             CLASS_Chunk = new String[]{"net/minecraft/world/chunk/Chunk"};
             FIELD_biomeID = new String[]{"biomeID"};
             METHOD_getBiomeArray = new String[]{"getBiomeArray"};
+        } else {
+            CLASS_BiomeGenBase = new String[]{"ahu", "net/minecraft/world/biome/BiomeGenBase"};
+            CLASS_IChunkProvider = new String[]{"apu", "net/minecraft/world/chunk/IChunkProvider"};
+            CLASS_ChunkProviderGenerate = new String[]{"aqz", "net/minecraft/world/gen/ChunkProviderGenerate"};
+            CLASS_Chunk = new String[]{"apx", "net/minecraft/world/chunk/Chunk"};
+            FIELD_biomeID = new String[]{"ay", "field_76756_M"};
+            METHOD_getBiomeArray = new String[]{"m", "func_76605_m"};
         }
     }
 
@@ -170,9 +174,10 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
         STATE_FINAL = (insn, memory) -> STATE_FINAL;
 
         STATE0 = casting(VarInsnNode.class, (insn, memory) -> {
+            memory.reset();
             if (insn.getOpcode() == Opcodes.ALOAD) {
                 memory.chunkIndex = insn.var;
-                memory.startingInsn = memory.currentInsn;
+                memory.startingInsn = insn;
                 return STATE1;
             }
             return STATE0;
@@ -183,7 +188,7 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
                 anyMatch(insn.owner, CLASS_Chunk) &&
                 anyMatch(insn.name, METHOD_getBiomeArray) &&
                 insn.desc.equals("()[B")) {
-                memory.getBiomeArrayInsn = memory.currentInsn;
+                memory.getBiomeArrayInsn = insn;
                 return STATE2;
             }
             return STATE0;
@@ -192,6 +197,7 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
         STATE2 = casting(VarInsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.ASTORE) {
                 memory.biomeArrayIndex = insn.var;
+                memory.startPatchingFrames();
                 return STATE3;
             }
             return STATE0;
@@ -294,7 +300,7 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
 
         STATE16 = casting(InsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.I2B) {
-                memory.castInsn = memory.currentInsn;
+                memory.castInsn = insn;
                 return STATE17;
             }
             return STATE0;
@@ -302,23 +308,11 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
 
         STATE17 = casting(InsnNode.class, (insn, memory) -> {
             if (insn.getOpcode() == Opcodes.BASTORE) {
-                memory.arrayStoreInsn = memory.currentInsn;
+                memory.arrayStoreInsn = insn;
                 return STATE_FINAL;
             }
             return STATE0;
         });
-    }
-
-    public static boolean shouldPatch(final ClassNode cn) {
-        if (!GeneralConfig.extendBiome) {
-            return false;
-        }
-        for (MethodNode method : cn.methods) {
-            if (scanForBrokenCall(method)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private static boolean scanForBrokenCall(MethodNode method) {
@@ -388,23 +382,28 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
         };
     }
 
-    private static Memory findTheTarget(MethodNode method) {
+    private static Memory findTheTarget(MethodNode method, ClassNode cn) {
         val insnList = method.instructions;
         var currentState = STATE0;
         val memory = new Memory();
-        for (int insnIndex = 0; insnIndex < insnList.size(); insnIndex++) {
-            memory.currentInsn = insnIndex;
-            val insn = insnList.get(insnIndex);
+        memory.initLocals(method, cn);
+        val iter = insnList.iterator();
+        while (iter.hasNext()) {
+            val insn = iter.next();
             if (insn instanceof FrameNode) {
                 val frame = (FrameNode) insn;
-                if (frame.type == Opcodes.F_NEW) {
-                    memory.locals.clear();
-                    memory.locals.addAll(frame.local);
-                }
+                memory.recordFrame(frame);
+                memory.updateLocalsState(frame);
             }
             val newState = currentState.apply(insn, memory);
             if (newState != null) {
                 if (newState == STATE_FINAL) {
+                    while (iter.hasNext()) {
+                        val insn2 = iter.next();
+                        if (insn2 instanceof FrameNode) {
+                            memory.recordFrame((FrameNode) insn2);
+                        }
+                    }
                     return memory;
                 }
                 currentState = newState;
@@ -414,30 +413,93 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
     }
 
     @Override
-    public void transform(final ClassNode cn, final boolean obfuscated) {
+    public String owner() {
+        return Tags.MODNAME;
+    }
+
+    @Override
+    public String name() {
+        return "ChunkProviderSuperPatcher";
+    }
+
+    @Override
+    public boolean shouldTransformClass(@NotNull String className, @NotNull ClassNodeHandle classNode) {
+        if ("net.minecraft.world.chunk.storage.AnvilChunkLoader".equals(className))
+            return false;
+        val cn = classNode.getNode();
+        if (cn == null)
+            return false;
+        for (MethodNode method : cn.methods) {
+            if (scanForBrokenCall(method)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean transformClass(@NotNull String className, @NotNull ClassNodeHandle classNode) {
+        val cn = classNode.getNode();
+        if (cn == null)
+            return false;
         boolean patched = false;
         for (val method : cn.methods) {
-            val memory = findTheTarget(method);
+            val memory = findTheTarget(method, cn);
             if (memory != null) {
                 patched = true;
-                IETransformer.logger.debug("[ChunkProvider patcher]: Match found in method " + method.name);
+                EndlessIDsTransformer.logger.debug("[ChunkProvider patcher]: Match found in method " + method.name);
                 val insnList = method.instructions;
                 for (val node : method.localVariables) {
                     if (node.desc.equals("[B") && node.index == memory.biomeArrayIndex) {
                         node.desc = "[S";
                     }
                 }
-                val getBiomeArray = (MethodInsnNode) insnList.get(memory.getBiomeArrayInsn);
+                val getBiomeArray = memory.getBiomeArrayInsn;
                 insnList.set(getBiomeArray,
                              new MethodInsnNode(Opcodes.INVOKEVIRTUAL, getBiomeArray.owner, "getBiomeShortArray",
                                                 "()[S", false));
-                insnList.set(insnList.get(memory.castInsn), new InsnNode(Opcodes.I2S));
-                insnList.set(insnList.get(memory.arrayStoreInsn), new InsnNode(Opcodes.SASTORE));
+                insnList.set(memory.castInsn, new InsnNode(Opcodes.I2S));
+                insnList.set(memory.arrayStoreInsn, new InsnNode(Opcodes.SASTORE));
+                patchStackFrames(memory, method, cn);
             }
         }
         if (!patched) {
-            IETransformer.logger.debug("[ChunkProvider patcher]: No matches found in class! This is not explicitly " +
-                                       "an error, because the patch might be applied by a mixin instead!");
+            EndlessIDsTransformer.logger.debug("[ChunkProvider patcher]: No matches found in class! This is not explicitly " +
+                                               "an error, because the patch might be applied by a mixin instead!");
+        }
+        return patched;
+    }
+
+
+    private static void patchStackFrames(Memory memory, MethodNode method, ClassNode owner) {
+        memory.locals.clear();
+        memory.initLocals(method, owner);
+        for (val frame: memory.framesLeaveUnpatched)
+            memory.updateLocalsState(frame);
+
+        int localToPatch = memory.biomeArrayIndex;
+        for (val frame: memory.framesToPatch) {
+            int currentLocalIndex = memory.locals.size() - 1;
+            if (frame.local != null) {
+                switch (frame.type) {
+                    case Opcodes.F_NEW:
+                    case Opcodes.F_FULL:
+                        if (frame.local.size() > localToPatch &&
+                            "[B".equals(frame.local.get(localToPatch))) {
+                            frame.local.set(localToPatch, "[S");
+                        }
+                        break;
+                    case Opcodes.F_APPEND:
+                        if (currentLocalIndex < localToPatch &&
+                            (currentLocalIndex + frame.local.size()) >= localToPatch) {
+                            int indexInFrame = localToPatch - currentLocalIndex - 1;
+                            if ("[B".equals(frame.local.get(indexInFrame))) {
+                                frame.local.set(indexInFrame, "[S");
+                            }
+                        }
+                }
+            }
+            memory.updateLocalsState(frame);
         }
     }
 
@@ -449,13 +511,125 @@ public class ChunkProviderSuperPatcher implements IClassNodeTransformer {
     private static class Memory {
 
         final List<Object> locals = new ArrayList<>();
-        int currentInsn;
-        int startingInsn;
-        int getBiomeArrayInsn;
-        int castInsn;
-        int arrayStoreInsn;
+        List<Object> localsAtPatchStart;
+        List<FrameNode> framesLeaveUnpatched = new ArrayList<>();
+        List<FrameNode> framesToPatch = new ArrayList<>();
+        boolean patchingFrames;
+        VarInsnNode startingInsn;
+        MethodInsnNode getBiomeArrayInsn;
+        InsnNode castInsn;
+        InsnNode arrayStoreInsn;
         int chunkIndex;
         int biomeArrayIndex;
         int iteratorIndex;
+
+        public void startPatchingFrames() {
+            localsAtPatchStart = new ArrayList<>(locals);
+            patchingFrames = true;
+        }
+
+        public void recordFrame(FrameNode frame) {
+            if (patchingFrames)
+                framesToPatch.add(frame);
+            else
+                framesLeaveUnpatched.add(frame);
+        }
+
+        public void reset() {
+            localsAtPatchStart = null;
+            framesLeaveUnpatched.addAll(framesToPatch);
+            framesToPatch.clear();
+            patchingFrames = false;
+            startingInsn = null;
+            getBiomeArrayInsn = null;
+            castInsn = null;
+            arrayStoreInsn = null;
+            chunkIndex = 0;
+            biomeArrayIndex = 0;
+            iteratorIndex = 0;
+        }
+
+        private static int getDescriptorNameEnd(String desc, int index) {
+            val c = desc.charAt(index);
+            switch (c) {
+                case '[':
+                    return getDescriptorNameEnd(desc, index + 1);
+                case 'L':
+                    do {
+                        index++;
+                    } while (desc.charAt(index) != ';');
+                default:
+                    return index + 1;
+            }
+        }
+
+        private static List<Object> parseDesc(String desc) {
+            val result = new ArrayList<Object>();
+            desc = desc.substring(1, desc.indexOf(')'));
+            for (int i = 0; i < desc.length(); i++) {
+                val end = getDescriptorNameEnd(desc, i);
+                val name = desc.substring(i, end);
+                switch (name) {
+                    case "I":
+                    case "S":
+                    case "B":
+                    case "Z":
+                        result.add(Opcodes.INTEGER);
+                        break;
+                    case "F":
+                        result.add(Opcodes.FLOAT);
+                        break;
+                    case "D":
+                        result.add(Opcodes.DOUBLE);
+                        result.add(Opcodes.DOUBLE);
+                        break;
+                    case "J":
+                        result.add(Opcodes.LONG);
+                        result.add(Opcodes.LONG);
+                        break;
+                    default:
+                        result.add(name);
+                }
+                i = end - 1;
+            }
+            return result;
+        }
+
+        public void initLocals(MethodNode method, ClassNode owner) {
+            locals.clear();
+            if ((method.access & Opcodes.ACC_STATIC) == 0) {
+                locals.add("L" + owner.name + ";");
+            }
+            locals.addAll(parseDesc(method.desc));
+        }
+
+        public void updateLocalsState(FrameNode frame) {
+            switch (frame.type) {
+                case Opcodes.F_NEW:
+                case Opcodes.F_FULL:
+                    locals.clear();
+                case Opcodes.F_APPEND:
+                    if (frame.local != null) {
+                        for (val local : frame.local) {
+                            if (Objects.equals(local, Opcodes.DOUBLE) || Objects.equals(local, Opcodes.LONG))
+                                locals.add(local);
+                            locals.add(local);
+                        }
+                    }
+                    break;
+                case Opcodes.F_CHOP: {
+                    int removeCount = frame.local.size();
+                    for (int i = removeCount - 1; i >= 0 && !locals.isEmpty(); i--) {
+                        val removed = locals.remove(locals.size() - 1);
+                        if (Objects.equals(removed, Opcodes.DOUBLE) || Objects.equals(removed, Opcodes.LONG))
+                            locals.remove(locals.size() - 1);
+                    }
+                    break;
+                }
+                case Opcodes.F_SAME:
+                case Opcodes.F_SAME1:
+                    break;
+            }
+        }
     }
 }

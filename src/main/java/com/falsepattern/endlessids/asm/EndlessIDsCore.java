@@ -1,6 +1,6 @@
-package com.falsepattern.endlessids;
+package com.falsepattern.endlessids.asm;
 
-import com.falsepattern.endlessids.asm.IETransformer;
+import com.falsepattern.endlessids.Tags;
 import com.falsepattern.endlessids.config.GeneralConfig;
 import lombok.SneakyThrows;
 import lombok.val;
@@ -19,29 +19,30 @@ import static cpw.mods.fml.relauncher.IFMLLoadingPlugin.Name;
 import static cpw.mods.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
 
 @MCVersion("1.7.10")
-@Name(Tags.MODID)
+@Name(Tags.MODID + "_core")
 @TransformerExclusions({"com.falsepattern.endlessids.asm", "com.falsepattern.endlessids.config.GeneralConfig"})
 @DependsOn("falsepatternlib")
-public class IEPlugin implements IFMLLoadingPlugin {
-
-    public IEPlugin() {
+public class EndlessIDsCore implements IFMLLoadingPlugin {
+    public static boolean deobfuscated;
+    public EndlessIDsCore() {
         super();
     }
 
     @SneakyThrows
     public String[] getASMTransformerClass() {
+        deobfuscated = (boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
         val cl = Launch.classLoader;
         val field = LaunchClassLoader.class.getDeclaredField("transformerExceptions");
         field.setAccessible(true);
         val exceptions = (Set<String>) field.get(cl);
         if (exceptions.contains("code.elix_x.coremods")) {
-            IETransformer.logger.info("AntiIDConflict detected!");
-            IETransformer.logger.info("Removing ASM protections so that we can fix its code.");
+            EndlessIDsTransformer.logger.info("AntiIDConflict detected!");
+            EndlessIDsTransformer.logger.info("Removing ASM protections so that we can fix its code.");
             exceptions.remove("code.elix_x.coremods");
             exceptions.add("code.elix_x.coremods.antiidconflict.core");
             exceptions.add("code.elix_x.coremods.antiidconflict.ByteCodeTester");
         }
-        return new String[]{IETransformer.class.getName()};
+        return new String[]{EndlessIDsTransformer.class.getName()};
     }
 
     public String getModContainerClass() {
@@ -68,7 +69,6 @@ public class IEPlugin implements IFMLLoadingPlugin {
     }
 
     public void injectData(final Map<String, Object> data) {
-        IETransformer.isObfuscated = (Boolean) data.get("runtimeDeobfuscationEnabled");
     }
 
     public String getAccessTransformerClass() {
