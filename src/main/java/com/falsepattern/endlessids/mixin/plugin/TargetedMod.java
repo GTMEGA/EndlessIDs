@@ -48,6 +48,7 @@ public enum TargetedMod implements ITargetedMod {
     RTG("Realistic Terrain Generation", false, startsWith("rtg-")),
     RWG("Realistic World Gen", false, startsWith("rwg-")),
     THAUMCRAFT("Thaumcraft", false, startsWith("thaumcraft")),
+    THUTCORE("ThutCore", false, startsWith("thutcore-").or(startsWith("thutmods-"))),
     TROPICRAFT("Tropicraft", false, startsWith("tropicraft-")),
     TWILIGHTFOREST("Twilight Forest", false, startsWith("twilightforest")),
     UBC("Underground Biomes Constructs", false, startsWith("undergroundbiomesconstructs-")),

@@ -159,6 +159,9 @@ public enum Mixin implements IMixin {
     //region Thaumcraft
     ThaumcraftUtilsMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.THAUMCRAFT)), "biome.thaumcraft.UtilsMixin"),
     //endregion Thaumcraft
+    //region ThutCore
+    ThutVector3Mixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.THUTCORE)), "biome.thut.Vector3Mixin"),
+    //endregion ThutCore
     //region Tropicraft
     GenLayerTropiVoronoiZoomMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.TROPICRAFT)), "biome.tropicraft.GenLayerTropiVoronoiZoomMixin"),
     //endregion Tropicraft

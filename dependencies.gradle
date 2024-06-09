@@ -151,6 +151,10 @@ dependencies {
     //Thaumcraft 4.2.3.5
     compileOnly(deobfCurse("thaumcraft-223628:2227552"))
 
+    //ThutCore 2.0
+    //Only available on dropbox
+    compileOnly(deobf("https://mvn.falsepattern.com/releases/mirror/mirror/thutcore-2.0.jar"))
+
     //Tropicraft 6.0.5
     //This is from a mirror file, because the file on curseforge is a zip containing other files too.
     //Source: https://www.curseforge.com/minecraft/mc-mods/tropicraft/files/2353906
