@@ -42,6 +42,7 @@ public enum TargetedMod implements ITargetedMod {
     NATURESCOMPASS("Nature's Compass", false, startsWith("naturescompass")),
     NETHERLICIOUS("Netherlicious", false, startsWith("netherlicious-")),
     NOMADICTENTS("Nomadic Tents", false, startsWith("nomadictents")),
+    OWG("Nostalgic world generation", false, startsWith("owg-").or(startsWith("nostalgiagenerator-"))),
     RANDOMTHINGS("Random Things", false, startsWith("randomthings-")),
     RESTRUCTURED("Restructured", false, startsWith("restructured-")),
     RTG("Realistic Terrain Generation", false, startsWith("rtg-")),

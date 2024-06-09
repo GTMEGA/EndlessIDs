@@ -67,6 +67,8 @@ This mod also contains patches for the following mods:
 - Nature's Compass
 - Netherlicious
 - Nomadic Tents
+- Nostalgic World Generation
+- Old World Gen
 - Random Things
 - Restructured
 - Realistic Terrain Generation

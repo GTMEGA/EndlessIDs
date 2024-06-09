@@ -137,6 +137,9 @@ public enum Mixin implements IMixin {
     //region NomadicTents
     NomadicTentsTentChunkProviderMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.NOMADICTENTS)), "biome.nomadictents.TentChunkProviderMixin"),
     //endregion NomadicTents
+    //region OWG
+    OWGChunkGeneratorBetaMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.OWG)), "biome.owg.ChunkGeneratorBetaMixin"),
+    //endregion OWG
     //region RandomThings
     ItemBiomePainterMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.RANDOMTHINGS)), "biome.randomthings.ItemBiomePainterMixin"),
     MessagePaintBiomeMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.RANDOMTHINGS)), "biome.randomthings.MessagePaintBiomeMixin"),

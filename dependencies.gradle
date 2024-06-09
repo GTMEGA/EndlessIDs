@@ -136,6 +136,9 @@ dependencies {
     //Nomadic Tents 1.12.1
     compileOnly(deobfCurse("nomadictents-238794:2679476"))
 
+    //Nostalgic World Generation 1.0.0
+    compileOnly(deobfCurse("nostalgiagenerator-927053:4816167"))
+
     //RandomThings 2.2.4
     compileOnly(deobfCurse("randomthings-59816:2225310"))
 
