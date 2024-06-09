@@ -1,5 +1,7 @@
 package com.falsepattern.endlessids.mixin.mixins.common.blockitem.vanilla;
 
+import com.falsepattern.endlessids.constants.VanillaConstants;
+import com.falsepattern.endlessids.util.DataUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
@@ -29,7 +31,7 @@ public abstract class ItemStackMixin {
      */
     @Overwrite
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
-        nbt.setInteger("id", Item.getIdFromItem(this.field_151002_e));
+        DataUtil.writeIDToNBT(nbt, Item.getIdFromItem(this.field_151002_e));
         nbt.setByte("Count", (byte) this.stackSize);
         nbt.setShort("Damage", (short) this.itemDamage);
 
@@ -46,7 +48,7 @@ public abstract class ItemStackMixin {
      */
     @Overwrite
     public void readFromNBT(NBTTagCompound nbt) {
-        func_150996_a(Item.getItemById(nbt.getInteger("id")));
+        func_150996_a(Item.getItemById(DataUtil.readIDFromNBT(nbt)));
         this.stackSize = nbt.getByte("Count");
         this.itemDamage = nbt.getShort("Damage");
 
