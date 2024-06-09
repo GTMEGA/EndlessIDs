@@ -19,6 +19,7 @@ import java.nio.ByteBuffer;
 
 import static com.falsepattern.endlessids.constants.ExtendedConstants.blocksPerSubChunk;
 
+//NOTE: Also change the save logic in MapWriter mod if changing this
 public class BlockMetaManager implements DataManager.PacketDataManager, DataManager.SubChunkDataManager {
 
     @Override

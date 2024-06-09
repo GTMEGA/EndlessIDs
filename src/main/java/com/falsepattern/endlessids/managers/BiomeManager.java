@@ -15,6 +15,7 @@ import net.minecraft.world.chunk.Chunk;
 
 import java.nio.ByteBuffer;
 
+//NOTE: Also change the save logic in MapWriter mod if changing this
 public class BiomeManager implements DataManager.PacketDataManager, DataManager.ChunkDataManager {
 
     @Override
