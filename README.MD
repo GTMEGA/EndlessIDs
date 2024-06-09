@@ -32,6 +32,9 @@ If you notice any problems when opening NEID worlds with EndlessIDs, please open
 
 This mod also contains patches for the following mods:
 
+<details>
+<summary>Mod list</summary>
+
 - AbyssalCraft
 - Advanced Rocketry
 - Alternate Terrain Generation
@@ -59,6 +62,7 @@ This mod also contains patches for the following mods:
 - Highlands
 - Immersive Cavegen
 - Industrial Revolution by Redstone Rebooted
+- Matter Overdrive
 - More Fun Quicksand Mod
 - Nature's Compass
 - Netherlicious
@@ -74,6 +78,9 @@ This mod also contains patches for the following mods:
 - Underground Biomes Constructs
 - Witchery
 - WorldEdit
+
+</details>
+
 
 Mods not listed here may or may not work.
 

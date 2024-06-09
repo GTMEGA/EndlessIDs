@@ -121,6 +121,9 @@ dependencies {
     //LOTR Mod 36.15
     compileOnly(deobfCurse("lotrmod-423748:4091561"))
 
+    //Matter Overdrive 0.4.2-hotfix1
+    compileOnly(deobfCurse("matteroverdrive-229694:2331162"))
+
     //More Fun Quicksands Mod 1.0.8.8-fixed
     compileOnly(deobfCurse("more-fun-quicksand-mod-321960:2717318"))
 

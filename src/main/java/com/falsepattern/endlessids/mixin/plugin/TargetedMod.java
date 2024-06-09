@@ -37,6 +37,7 @@ public enum TargetedMod implements ITargetedMod {
     ICG("Immersive Cavegen", false, startsWith("immersivecavegen")),
     IR3("Industrial Revolution by Redstone Rebooted", false, startsWith("industrialrevolutionbyredstonerebooted-")),
     LOTR("LOTR Mod", false, startsWith("lotrmod")),
+    MATTEROVERDRIVE("Matter Overdrive", false, startsWith("matteroverdrive-")),
     MFQM("More Fun Quicksand Mod", false, startsWith("morefunquicksandmod-")),
     NATURESCOMPASS("Nature's Compass", false, startsWith("naturescompass")),
     NETHERLICIOUS("Netherlicious", false, startsWith("netherlicious-")),
