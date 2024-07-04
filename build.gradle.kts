@@ -1,34 +1,124 @@
-//file:noinspection DependencyNotationArgument
-static def curse(curseDep) {
-    return "curse.maven:" + curseDep
+import com.falsepattern.fpgradle.dsl.*
+
+plugins {
+    id("fpgradle-minecraft") version ("0.3.3")
 }
 
-def deobfCurse(curseDep) {
-    try {
-        return deobfMaven("https://cursemaven.com/", curse(curseDep))
-    } catch (Exception ignored) {
-        println("Failed to get dep " + curseDep + " from cursemaven. Grabbing from mirror.")
-        return deobfMaven("https://mvn.falsepattern.com/cursemaven/", curse(curseDep))
+group = "com.falsepattern"
+
+minecraft_fp {
+    mod {
+        modid = "endlessids"
+        name = "EndlessIDs"
+        rootPkg = "$group.endlessids"
+    }
+
+    mixin {
+        pkg = "mixin.mixins"
+        pluginClass = "mixin.plugin.MixinPlugin"
+    }
+
+    core {
+        coreModClass = "asm.EndlessIDsCore"
+    }
+
+    tokens {
+        tokenClass = "Tags"
+        modid = "MODID"
+        name = "MODNAME"
+        version = "VERSION"
+        rootPkg = "GROUPNAME"
+    }
+
+    publish {
+        changelog = "https://github.com/GTMEGA/EndlessIDs/releases/tag/{version}"
+        maven {
+            repoUrl  = "https://mvn.falsepattern.com/releases/"
+            repoName = "mavenpattern"
+        }
+        curseforge {
+            projectId = "665730"
+            dependencies {
+                required("fplib")
+                required("chunkapi")
+                incompatible("notenoughids-unofficial-1-7-10")
+                incompatible("notenoughids")
+            }
+        }
+        modrinth {
+            projectId = "qGHY4QGo"
+            dependencies {
+                required("fplib")
+                required("chunkapi")
+                incompatible("notenoughids-unofficial")
+            }
+        }
     }
 }
 
+repositories {
+    exclusiveContent {
+        forRepository {
+            maven {
+                url = uri("https://mvn.falsepattern.com/cursemaven/")
+                name = "cursemaven"
+            }
+        }
+        filter {
+            includeGroup("curse.maven")
+        }
+    }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "mavenpattern"
+                url = uri("https://mvn.falsepattern.com/releases/")
+            }
+        }
+        filter {
+            includeGroup("com.falsepattern")
+        }
+    }
+    exclusiveContent {
+        forRepository {
+            ivy {
+                url = uri("https://mvn.falsepattern.com/releases/mirror/")
+                patternLayout {
+                    artifact("[orgPath]/[artifact]-[revision].[ext]")
+                }
+                metadataSources {
+                    artifact()
+                }
+            }
+        }
+        filter {
+            includeGroup("mirror")
+            includeGroup("mirror.micdoodle")
+        }
+    }
+    exclusiveContent {
+        forRepository {
+            ivy {
+                url = uri("https://github.com/")
+                patternLayout {
+                    artifact("[orgPath]/releases/download/[revision]/[artifact]-[revision].[ext]")
+                }
+                metadataSources {
+                    artifact()
+                }
+            }
+        }
+        filter {
+            includeGroup("CannibalVox.DimDoors")
+        }
+    }
+}
 
 dependencies {
     ////////////////Our dependencies////////////////
-
-    compileOnly("org.projectlombok:lombok:1.18.32") {
-        transitive = false
-    }
-    annotationProcessor("org.projectlombok:lombok:1.18.32")
-
-    compileOnly("com.falsepattern:falsepatternlib-mc1.7.10:1.2.4:api")
-    runtimeOnly("com.falsepattern:falsepatternlib-mc1.7.10:1.2.4:dev")
+    implementationSplit("com.falsepattern:falsepatternlib-mc1.7.10:1.2.5")
     implementation("it.unimi.dsi:fastutil:8.5.13")
-
-    compileOnly("com.falsepattern:chunkapi-mc1.7.10:0.5.1:api")
-    runtimeOnly("com.falsepattern:chunkapi-mc1.7.10:0.5.1:dev")
-
-    compileOnly("org.jetbrains:annotations:24.1.0")
+    implementationSplit("com.falsepattern:chunkapi-mc1.7.10:0.5.1")
 
     ////////////////Patched mods////////////////
 
@@ -60,8 +150,8 @@ dependencies {
     compileOnly(deobfCurse("biometweaker-228895:2279911"))
 
     //Biome Wand 1.1.9
-    //Mirrored at: https://maven.falsepattern.com/releases/mirror/mirror/1.7.10-Biome-Wand-1.1.9.jar
-    compileOnly(deobf("https://spacechase0.com/wp-content/uploads/2014/10/1.7.10-Biome-Wand-1.1.9.jar"))
+    //Source: https://spacechase0.com/wp-content/uploads/2014/10/1.7.10-Biome-Wand-1.1.9.jar
+    compileOnly(rfg.deobf("mirror:1.7.10-Biome-Wand:1.1.9"))
 
     //Buildcraft 7.1.24
     compileOnly(deobfCurse("buildcraft-61811:3538651"))
@@ -76,7 +166,8 @@ dependencies {
     compileOnly(deobfCurse("darkworld-225075:2225172"))
 
     //DimDoors 2.2.5-test9
-    compileOnly(deobf("https://github.com/CannibalVox/DimDoors/releases/download/2.2.5-test9/DimensionalDoors-2.2.5-test9.jar"))
+    //Source: https://github.com/CannibalVox/DimDoors/releases/download/2.2.5-test9/DimensionalDoors-2.2.5-test9.jar
+    compileOnly(rfg.deobf("CannibalVox.DimDoors:DimensionalDoors:2.2.5-test9"))
 
     //DragonAPI V32a
     compileOnly(deobfCurse("dragonapi-235591:4611379"))
@@ -88,7 +179,7 @@ dependencies {
     compileOnly(deobfCurse("enderlicious-508777:3504111"))
 
     //Enhanced Biomes 2.5
-    compileOnly(deobf("https://mvn.falsepattern.com/releases/mirror/mirror/enhancedbiomes-2.5.jar"))
+    compileOnly(rfg.deobf("mirror:enhancedbiomes:2.5"))
 
     //Erebus 0.4.7
     compileOnly(deobfCurse("theerebus-220698:2305035"))
@@ -104,10 +195,10 @@ dependencies {
 
     //Galacticraft Core 3.0.12.504
     //micdoodle8.com went down
-    compileOnly(deobf("https://mvn.falsepattern.com/releases/mirror/mirror/micdoodle/GalacticraftCore-1.7-3.0.12.504.jar"))
+    compileOnly(rfg.deobf("mirror.micdoodle:GalacticraftCore:1.7-3.0.12.504"))
 
     //Galacticraft Planets 3.0.12.504
-    compileOnly(deobf("https://mvn.falsepattern.com/releases/mirror/mirror/micdoodle/Galacticraft-Planets-1.7-3.0.12.504.jar"))
+    compileOnly(rfg.deobf("mirror.micdoodle:Galacticraft-Planets:1.7-3.0.12.504"))
 
     //Highlands 2.2.3
     compileOnly(deobfCurse("highlands-221226:2227924"))
@@ -153,12 +244,12 @@ dependencies {
 
     //ThutCore 2.0
     //Only available on dropbox
-    compileOnly(deobf("https://mvn.falsepattern.com/releases/mirror/mirror/thutcore-2.0.jar"))
+    compileOnly(rfg.deobf("mirror:thutcore:2.0"))
 
     //Tropicraft 6.0.5
     //This is from a mirror file, because the file on curseforge is a zip containing other files too.
     //Source: https://www.curseforge.com/minecraft/mc-mods/tropicraft/files/2353906
-    compileOnly(deobf("https://mvn.falsepattern.com/releases/mirror/mirror/tropicraft-6.0.5.jar"))
+    compileOnly(rfg.deobf("mirror:tropicraft:6.0.5"))
 
     //Twilight Forest 2.3.8
     compileOnly(deobfCurse("twilightforest-227639:3039937"))
@@ -176,6 +267,6 @@ dependencies {
 
     //SpaceCore 0.7.14
     //needed by: Biome Wand
-    //Mirrored at: https://maven.falsepattern.com/releases/mirror/mirror/1.7.10-SpaceCore-0.7.14.jar
-    compileOnly(deobf("http://spacechase0.com/files/mcmod/1.7.10-SpaceCore-0.7.14.jar"))
+    //Source: http://spacechase0.com/files/mcmod/1.7.10-SpaceCore-0.7.14.jar
+    compileOnly(rfg.deobf("mirror:1.7.10-SpaceCore:0.7.14"))
 }

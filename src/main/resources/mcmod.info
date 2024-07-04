@@ -5,14 +5,12 @@
     "description": "Extend ALL the IDs!",
     "version": "${modVersion}",
     "mcversion": "${minecraftVersion}",
-    "url": "https://github.com/FalsePattern/EndlessIDs",
+    "url": "https://github.com/GTMEGA/EndlessIDs",
     "updateUrl": "",
     "authorList": [
-      "fewizz",
-      "Player",
       "FalsePattern"
     ],
-    "credits": "This mod is a modern rewrite of NotEnoughIDs, made by fewizz and Player, which was released under the MIT license.",
+    "credits": "This mod is a modern replacement for NotEnoughIDs, which was released under the MIT license, and made by fewizz and Player.",
     "logoFile": "",
     "screenshots": [],
     "dependencies": []
