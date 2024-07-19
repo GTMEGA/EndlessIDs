@@ -193,8 +193,8 @@ public enum Mixin implements IMixin {
     DragonAPIBlockItemIDTypeMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem).and(require(TargetedMod.DRAGONAPI)), "blockitem.dragonapi.IDTypeMixin"),
     //endregion DragonAPI
     //region Matter Overdrive
-    MOInventoryMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem).and(require(TargetedMod.MATTEROVERDRIVE)), "blockitem.matteroverdrive.InventoryMixin"),
-    MOItemPatternMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem).and(require(TargetedMod.MATTEROVERDRIVE)), "blockitem.matteroverdrive.ItemPatternMixin"),
+    MOInventoryMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem).and(require(TargetedMod.MATTEROVERDRIVE).or(require(TargetedMod.MATTEROVERDRIVE))), "blockitem.matteroverdrive.InventoryMixin"),
+    MOItemPatternMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem).and(require(TargetedMod.MATTEROVERDRIVE).or(require(TargetedMod.MATTEROVERDRIVE))), "blockitem.matteroverdrive.ItemPatternMixin"),
     //endregion Matter Overdrive
     //region MFQM
     MFQMMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem).and(require(TargetedMod.MFQM)), "blockitem.mfqm.MFQMMixin"),

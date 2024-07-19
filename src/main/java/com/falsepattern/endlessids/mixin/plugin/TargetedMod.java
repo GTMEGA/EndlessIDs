@@ -38,6 +38,7 @@ public enum TargetedMod implements ITargetedMod {
     IR3("Industrial Revolution by Redstone Rebooted", false, startsWith("industrialrevolutionbyredstonerebooted-")),
     LOTR("LOTR Mod", false, startsWith("lotrmod")),
     MATTEROVERDRIVE("Matter Overdrive", false, startsWith("matteroverdrive-")),
+    MATTERMEGADRIVE("Matter Megadrive", false, startsWith("mattermegadrive-")),
     MFQM("More Fun Quicksand Mod", false, startsWith("morefunquicksandmod-")),
     NATURESCOMPASS("Nature's Compass", false, startsWith("naturescompass")),
     NETHERLICIOUS("Netherlicious", false, startsWith("netherlicious-")),
