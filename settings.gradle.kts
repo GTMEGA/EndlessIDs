@@ -28,4 +28,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "examplemod"
+rootProject.name = "EndlessIDs"

@@ -1,7 +1,5 @@
-import com.falsepattern.fpgradle.dsl.*
-
 plugins {
-    id("fpgradle-minecraft") version ("0.3.3")
+    id("fpgradle-minecraft") version ("0.6.1")
 }
 
 group = "com.falsepattern"
@@ -57,61 +55,10 @@ minecraft_fp {
 }
 
 repositories {
-    exclusiveContent {
-        forRepository {
-            maven {
-                url = uri("https://mvn.falsepattern.com/cursemaven/")
-                name = "cursemaven"
-            }
-        }
-        filter {
-            includeGroup("curse.maven")
-        }
-    }
-    exclusiveContent {
-        forRepository {
-            maven {
-                name = "mavenpattern"
-                url = uri("https://mvn.falsepattern.com/releases/")
-            }
-        }
-        filter {
-            includeGroup("com.falsepattern")
-        }
-    }
-    exclusiveContent {
-        forRepository {
-            ivy {
-                url = uri("https://mvn.falsepattern.com/releases/mirror/")
-                patternLayout {
-                    artifact("[orgPath]/[artifact]-[revision].[ext]")
-                }
-                metadataSources {
-                    artifact()
-                }
-            }
-        }
-        filter {
-            includeGroup("mirror")
-            includeGroup("mirror.micdoodle")
-        }
-    }
-    exclusiveContent {
-        forRepository {
-            ivy {
-                url = uri("https://github.com/")
-                patternLayout {
-                    artifact("[orgPath]/releases/download/[revision]/[artifact]-[revision].[ext]")
-                }
-                metadataSources {
-                    artifact()
-                }
-            }
-        }
-        filter {
-            includeGroup("CannibalVox.DimDoors")
-        }
-    }
+    cursemavenEX()
+    exclusive(mavenpattern(), "com.falsepattern")
+    exclusive(ivy("https://mvn.falsepattern.com/releases/mirror/", "[orgPath]/[artifact]-[revision].[ext]"), "mirror", "mirror.micdoodle")
+    exclusive(ivy("https://github.com/", "[orgPath]/releases/download/[revision]/[artifact]-[revision].[ext]"), "CannibalVox.DimDoors")
 }
 
 dependencies {
