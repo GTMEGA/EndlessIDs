@@ -45,4 +45,9 @@ public class MixinPlugin implements IMixinPlugin {
     public ITargetedMod[] getTargetedModEnumValues() {
         return TargetedMod.values();
     }
+
+    @Override
+    public boolean useNewFindJar() {
+        return true;
+    }
 }
