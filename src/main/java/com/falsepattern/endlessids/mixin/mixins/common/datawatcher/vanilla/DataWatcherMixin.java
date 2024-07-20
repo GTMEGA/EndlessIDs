@@ -23,20 +23,14 @@
 
 package com.falsepattern.endlessids.mixin.mixins.common.datawatcher.vanilla;
 
-import com.falsepattern.endlessids.config.GeneralConfig;
 import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.constants.VanillaConstants;
-import io.netty.buffer.ByteBuf;
 import lombok.val;
 import lombok.var;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 import net.minecraft.entity.DataWatcher;
 import net.minecraft.item.ItemStack;
@@ -46,10 +40,9 @@ import net.minecraft.util.ChunkCoordinates;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Mixin(value = DataWatcher.class,
-       priority = 1001)
+       priority = 999)
 public abstract class DataWatcherMixin {
     @ModifyConstant(method = {"addObject", "func_151509_a"},
                     constant = @Constant(intValue = VanillaConstants.maxWatchableID),
