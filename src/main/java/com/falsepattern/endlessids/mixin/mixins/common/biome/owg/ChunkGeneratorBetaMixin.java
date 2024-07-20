@@ -42,7 +42,8 @@ import net.minecraft.world.gen.structure.MapGenStronghold;
 
 import java.util.Random;
 
-@Mixin(ChunkGeneratorBeta.class)
+@Mixin(value = ChunkGeneratorBeta.class,
+       remap = false)
 public abstract class ChunkGeneratorBetaMixin implements IChunkProvider {
     @Shadow private Random rand;
 
@@ -64,6 +65,11 @@ public abstract class ChunkGeneratorBetaMixin implements IChunkProvider {
 
     @Shadow private int biomeSettings;
 
+    /**
+     * @author _
+     * @reason _
+     */
+    @Overwrite
     public Chunk provideChunk(int i, int j) {
         this.rand.setSeed((long)i * 341873128712L + (long)j * 132897987541L);
         Block[] blocks = new Block[128 * 16 * 16];
