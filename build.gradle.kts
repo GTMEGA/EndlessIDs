@@ -177,6 +177,9 @@ dependencies {
     //Nostalgic World Generation 1.0.0
     compileOnly(deobfCurse("nostalgiagenerator-927053:4816167"))
 
+    //Hbm's Nuclear Tech Mod 1.0.27X5027
+    compileOnly(deobfCurse("hbm-ntm-235439:5534354"))
+
     //RandomThings 2.2.4
     compileOnly(deobfCurse("randomthings-59816:2225310"))
 

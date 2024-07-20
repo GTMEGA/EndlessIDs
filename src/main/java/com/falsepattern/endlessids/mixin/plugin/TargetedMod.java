@@ -55,6 +55,7 @@ public enum TargetedMod implements ITargetedMod {
     FUTUREPACK("Futurepack", false, contains("futurepack")),
     GALACTICRAFTCORE("GalactiCraftCore", false, contains("galacticraftcore")),
     GALAXYSPACE("GalaxySpace", false, contains("galaxyspace-")),
+    HBM_NTM("Hbm's Nuclear Tech Mod", false, contains("hbm-ntm")),
     HIGHLANDS("Highlands", false, contains("highlands")),
     ICG("Immersive Cavegen", false, contains("immersivecavegen")),
     IR3("Industrial Revolution by Redstone Rebooted", false, contains("industrialrevolutionbyredstonerebooted-")),
