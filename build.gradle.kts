@@ -168,8 +168,8 @@ dependencies {
     //Nature's Compass 1.3.1
     compileOnly(deobfCurse("naturescompass-252848:2451823"))
 
-    //Netherlicious 3.2.3
-    compileOnly(deobfCurse("netherlicious-385860:3858031"))
+    //Netherlicious 3.2.8
+    compileOnly(deobfCurse("netherlicious-385860:4363437"))
 
     //Nomadic Tents 1.12.1
     compileOnly(deobfCurse("nomadictents-238794:2679476"))
