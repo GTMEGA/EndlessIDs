@@ -11,6 +11,11 @@ minecraft_fp {
         rootPkg = "$group.endlessids"
     }
 
+    api {
+        packages = listOf("idextender")
+        ignoreRootPkg = true
+    }
+
     mixin {
         pkg = "mixin.mixins"
         pluginClass = "mixin.plugin.MixinPlugin"
