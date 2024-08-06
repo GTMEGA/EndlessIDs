@@ -98,3 +98,49 @@ Mods not listed here may or may not work.
 user to this GitHub repo.
 
 If you find any crashes or incompatibilities, don't hesitate to open an issue.
+
+## Depending On Metadata Increase In Another Mod
+
+**NOTE:** This API is available as of version <!--TODO--> of EndlessIDs.
+
+EndlessIDs implements the common ID Extender API added in NotEnoughIDs Unofficial. See:
+https://github.com/GTNewHorizons/NotEnoughIds/pull/17
+
+The description below is an excerpt of NEID-U's readme concerning this API:
+
+In order to use the metadata, you should not create a hard dependency on the `endlessids` Mod ID, but rather on the `idextender` Mod ID.
+EndlessIDs bundles this "dummy" mod alongside itself.
+
+Here is an example of how to use it, you could put this code in your Mod's pre-init for example:
+
+```java
+import idextender;
+
+int maxMeta = 15;
+
+if (Loader.isModLoaded("idextender")) {
+    maxMeta = (Integer) Class.forName("idextender.Metadata").getDeclaredMethod("maximumMetadata").invoke(null);
+}
+```
+
+You can also query for the number of bits the metadata value is extended to, rather than the maximum value:
+
+```java
+import idextender;
+
+int metadataBits = 4;
+
+if (Loader.isModLoaded("idextender")){
+    metadataBits = (Integer) Class.forName("idextender.Metadata").getDeclaredMethod("metadataBits").invoke(null);
+}
+```
+
+If for some reason, you need to know what parent mod is providing the `idextender` mod, you can do the following, which will give you
+back the Mod ID of the actual mod that has provided `idextender`. For example, `endlessids`:
+
+```java
+// This will give back the value "endlessids" which is EndlessIDs' Mod ID
+String parentIDExtender = (String) Class.forName("idextender.IDExtender").getDeclaredMethod("parentModId").invoke(null);
+```
+
+For more information, see the NotEnoughIDs readme.
