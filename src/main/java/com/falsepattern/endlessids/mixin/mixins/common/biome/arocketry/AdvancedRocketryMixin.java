@@ -43,14 +43,14 @@ public abstract class AdvancedRocketryMixin {
                                 @Constant(intValue = 118, ordinal = 0),
                                 @Constant(intValue = 119, ordinal = 0)},
                     require = 10)
-    private static int shiftBiomeIDsUp(int constant) {
+    private int shiftBiomeIDsUp(int constant) {
         return constant + 9000;
     }
 
     @ModifyConstant(method = "preInit",
                     constant = @Constant(intValue = -2),
                     require = 1)
-    private static int changeDefaultDimID(int constant) {
+    private int changeDefaultDimID(int constant) {
         return -5613;
     }
 }

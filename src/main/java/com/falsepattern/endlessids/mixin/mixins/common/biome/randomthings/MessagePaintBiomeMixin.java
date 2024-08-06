@@ -48,19 +48,19 @@ import java.util.Random;
 public abstract class MessagePaintBiomeMixin {
 
     @Shadow
-    private int posZ;
+    int posZ;
 
     @Shadow
-    private int posX;
+    int posX;
 
     @Shadow
-    private int biomeID;
+    int biomeID;
 
     @Shadow
-    private int dimensionID;
+    int dimensionID;
 
     @Shadow
-    private int posY;
+    int posY;
 
     /**
      * @author FalsePattern

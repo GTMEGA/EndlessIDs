@@ -31,6 +31,8 @@ import org.spongepowered.asm.mixin.Overwrite;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.biome.BiomeGenBase;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @Mixin(value = BiomeWandItem.class,
        remap = false)
@@ -39,6 +41,7 @@ public abstract class BiomeWandItemMixin {
      * @author FalsePattern
      * @reason Biome ID extension
      */
+    @SideOnly(Side.CLIENT)
     @Overwrite
     public int getColorFromItemStack(ItemStack stack, int pass) {
         NBTTagCompound tag = stack.getTagCompound();
