@@ -103,6 +103,9 @@ dependencies {
     //Buildcraft 7.1.24
     compileOnly(deobfCurse("buildcraft-61811:3538651"))
 
+    //Climate Control 0.8.2
+    compileOnly(deobfCurse("climatecontrol-76544:2359685"))
+
     //CoFH Lib 1.2.1-185
     compileOnly(deobfCurse("cofh-lib-220333:2388748"))
 

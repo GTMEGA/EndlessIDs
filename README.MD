@@ -46,6 +46,7 @@ This mod also contains patches for the following mods:
 - Biome Wand
 - BuildCraft
 - ChromatiCraft
+- Climate Control
 - Compact Machines
 - CoFH Lib
 - Dark World

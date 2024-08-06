@@ -42,6 +42,7 @@ public enum TargetedMod implements ITargetedMod {
     BIOMETWEAKER("Biome Tweaker", false, contains("biometweaker-")),
     BIOMEWAND("Biome Wand", false, contains("biome-wand")),
     BUILDCRAFT("BuildCraft", false, contains("buildcraft-").and(contains("compat").negate())),
+    CLIMATECONTROL("Climate Control", false, contains("climatecontrol-")),
     COFHLIB("CoFH Lib", false, contains("cofhlib-")),
     COMPACTMACHINES("Compact Machines", false, contains("compactmachines-")),
     DARKWORLD("Dark World", false, contains("darkworld-")),

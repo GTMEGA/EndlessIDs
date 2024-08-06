@@ -85,6 +85,25 @@ public enum Mixin implements IMixin {
     //region Buildcraft
     BuildcraftEnergyMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.BUILDCRAFT)), "biome.buildcraft.BuildcraftEnergyMixin"),
     //endregion Buildcraft
+    //region ClimateControl
+    ClimateControl_api_BiomeSettingsMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.CLIMATECONTROL)), "biome.climatecontrol.api.BiomeSettingsMixin"),
+    ClimateControl_api_ClimateControlRulesMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.CLIMATECONTROL)), "biome.climatecontrol.api.ClimateControlRulesMixin"),
+    ClimateControl_customGenLayer_ConfirmBiomeMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.CLIMATECONTROL)), "biome.climatecontrol.customGenLayer.ConfirmBiomeMixin"),
+    ClimateControl_customGenLayer_GenLayerBiomeByClimateMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.CLIMATECONTROL)), "biome.climatecontrol.customGenLayer.GenLayerBiomeByClimateMixin"),
+    ClimateControl_customGenLayer_GenLayerBiomeByTaggedClimateMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.CLIMATECONTROL)), "biome.climatecontrol.customGenLayer.GenLayerBiomeByTaggedClimateMixin"),
+    ClimateControl_customGenLayer_GenLayerDefineClimateMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.CLIMATECONTROL)), "biome.climatecontrol.customGenLayer.GenLayerDefineClimateMixin"),
+    ClimateControl_customGenLayer_GenLayerLowlandRiverMixMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.CLIMATECONTROL)), "biome.climatecontrol.customGenLayer.GenLayerLowlandRiverMixMixin"),
+    ClimateControl_customGenLayer_GenLayerSmoothCoastMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.CLIMATECONTROL)), "biome.climatecontrol.customGenLayer.GenLayerSmoothCoastMixin"),
+    ClimateControl_customGenLayer_GenLayerSubBiomeMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.CLIMATECONTROL)), "biome.climatecontrol.customGenLayer.GenLayerSubBiomeMixin"),
+    ClimateControl_generator_AbstractWorldGeneratorMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.CLIMATECONTROL)), "biome.climatecontrol.generator.AbstractWorldGeneratorMixin"),
+    ClimateControl_generator_BiomeSwapperMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.CLIMATECONTROL)), "biome.climatecontrol.generator.BiomeSwapperMixin"),
+    ClimateControl_generator_SubBiomeChooserMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.CLIMATECONTROL)), "biome.climatecontrol.generator.SubBiomeChooserMixin"),
+    ClimateControl_genLayerPack_GenLayerHillsMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.CLIMATECONTROL)), "biome.climatecontrol.genLayerPack.GenLayerHillsMixin"),
+    ClimateControl_genLayerPack_GenLayerPackMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.CLIMATECONTROL)), "biome.climatecontrol.genLayerPack.GenLayerPackMixin"),
+    ClimateControl_genLayerPack_GenLayerSmoothMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.CLIMATECONTROL)), "biome.climatecontrol.genLayerPack.GenLayerSmoothMixin"),
+    ClimateControl_genLayerPack_GenLayerVoronoiZoomMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.CLIMATECONTROL)), "biome.climatecontrol.genLayerPack.GenLayerVoronoiZoomMixin"),
+    ClimateControl_genLayerPack_GenLayerZoomMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.CLIMATECONTROL)), "biome.climatecontrol.genLayerPack.GenLayerZoomMixin"),
+    //endregion ClimateControl
     //region CompactMachines
     CMCubeToolsMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.COMPACTMACHINES)), "biome.compactmachines.CubeToolsMixin"),
     //endregion CompactMachines
