@@ -192,6 +192,7 @@ public enum Mixin implements IMixin {
     //region RTG
     RTGChunkProviderRTGMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.RTG)), "biome.rtg.ChunkProviderRTGMixin"),
     RTGLandscapeGeneratorMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.RTG)), "biome.rtg.LandscapeGeneratorMixin"),
+    RTGWorldChunkManagerRTGMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.RTG)), "biome.rtg.WorldChunkManagerRTGMixin"),
     //endregion RTG
     //region RWG
     RWGChunkGeneratorRealisticMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.RWG)), "biome.rwg.ChunkGeneratorRealisticMixin"),
