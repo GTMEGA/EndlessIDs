@@ -1,5 +1,5 @@
 plugins {
-    id("fpgradle-minecraft") version ("0.7.0")
+    id("fpgradle-minecraft") version ("0.7.5")
 }
 
 group = "com.falsepattern"
@@ -29,7 +29,7 @@ minecraft_fp {
     }
 
     publish {
-        changelog = "https://github.com/GTMEGA/EndlessIDs/releases/tag/{version}"
+        changelog = "https://github.com/GTMEGA/EndlessIDs/releases/tag/$version"
         maven {
             repoUrl  = "https://mvn.falsepattern.com/releases/"
             repoName = "mavenpattern"
