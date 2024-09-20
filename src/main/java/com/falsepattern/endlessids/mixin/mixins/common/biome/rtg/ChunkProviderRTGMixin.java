@@ -23,14 +23,18 @@
 
 package com.falsepattern.endlessids.mixin.mixins.common.biome.rtg;
 
+import com.falsepattern.endlessids.constants.ExtendedConstants;
+import com.falsepattern.endlessids.constants.VanillaConstants;
 import com.falsepattern.endlessids.mixin.helpers.BiomePatchHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.Slice;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import rtg.util.CellNoise;
 import rtg.util.OpenSimplexNoise;
 import rtg.world.biome.RTGBiomeProvider;
@@ -64,6 +68,8 @@ public abstract class ChunkProviderRTGMixin {
     @Shadow private OpenSimplexNoise simplex;
 
     @Shadow private CellNoise cell;
+
+    @Shadow private float[] borderNoise;
 
     @Redirect(method = "provideChunk",
               at = @At(value = "INVOKE",
@@ -113,5 +119,22 @@ public abstract class ChunkProviderRTGMixin {
             int biomeID = biomes[ci].baseBiome.biomeID;
             RealisticBiomeBase.getBiome(biomeID).generateMapGen(blocks, metadata, worldSeed, worldObj, cmr, mapRand, cx, cy, simplex, cell, noise);
         }
+    }
+
+    @Inject(method = "<init>",
+            at = @At(value = "RETURN"),
+            require = 1)
+    private void extendBorderNoise(World world, long l, CallbackInfo ci) {
+        this.borderNoise = new float[ExtendedConstants.biomeIDCount];
+    }
+
+    @ModifyConstant(method = "doPopulate",
+                    constant = @Constant(intValue = VanillaConstants.biomeIDCount,
+                                         ordinal = 0),
+                    slice = @Slice(from = @At(value = "INVOKE",
+                                              target = "Lrtg/world/biome/realistic/RealisticBiomeBase;rDecorateClay(Lnet/minecraft/world/World;Ljava/util/Random;IIFII)V")),
+                    require = 1)
+    private int allBorderNoise(int constant) {
+        return ExtendedConstants.biomeIDCount;
     }
 }
