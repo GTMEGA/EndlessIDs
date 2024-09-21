@@ -14,5 +14,11 @@
     "logoFile": "",
     "screenshots": [],
     "dependencies": []
+  },
+  {
+    "modid": "idextender",
+    "name": "ID Extender",
+    "version": "1.0.0",
+    "parent": "${modId}"
   }
 ]
