@@ -25,7 +25,7 @@ If you notice any problems when opening NEID worlds with EndlessIDs, please open
 | Entity IDs      | 256                                                | 256          | 256             | 32,768     |
 | Potion IDs      | 32                                                 | 32           | 32              | 65,536     |
 | Enchantment IDs | 256                                                | 256          | 256             | 32,768     |
-| DataWatcher IDs | 32                                                 | 127 (Broken) | 127 (Broken)    | 65,536     |
+| DataWatcher IDs | 32                                                 | 127 (Broken) | 127             | 65,536     |
 | Dimension IDs   | Theoretically unlimited, 4,294,967,295 in practice | Same         | Same            | Same       |
 
 ## Mod compat
@@ -134,6 +134,9 @@ if (Loader.isModLoaded("idextender")){
     metadataBits = (Integer) Class.forName("idextender.Metadata").getDeclaredMethod("metadataBits").invoke(null);
 }
 ```
+
+The `idextender.DataWatcher` class also exposes the extended DataWatcher count (used for entity data syncing over network)
+in a similar fashion.
 
 Note that these values CAN be identical to the vanilla values if the ID Extension mod implementing it has a config to
 toggle itself, existence of the IDExtender class does not guarantee a fixed increase, and you should check that the
