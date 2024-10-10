@@ -1,5 +1,5 @@
 plugins {
-    id("fpgradle-minecraft") version ("0.7.5")
+    id("fpgradle-minecraft") version ("0.8.0")
 }
 
 group = "com.falsepattern"
@@ -98,7 +98,7 @@ dependencies {
 
     //Biome Wand 1.1.9
     //Source: https://spacechase0.com/wp-content/uploads/2014/10/1.7.10-Biome-Wand-1.1.9.jar
-    compileOnly(rfg.deobf("mirror:1.7.10-Biome-Wand:1.1.9"))
+    compileOnly(deobf("mirror:1.7.10-Biome-Wand:1.1.9"))
 
     //Buildcraft 7.1.24
     compileOnly(deobfCurse("buildcraft-61811:3538651"))
@@ -117,7 +117,7 @@ dependencies {
 
     //DimDoors 2.2.5-test9
     //Source: https://github.com/CannibalVox/DimDoors/releases/download/2.2.5-test9/DimensionalDoors-2.2.5-test9.jar
-    compileOnly(rfg.deobf("CannibalVox.DimDoors:DimensionalDoors:2.2.5-test9"))
+    compileOnly(deobf("CannibalVox.DimDoors:DimensionalDoors:2.2.5-test9"))
 
     //DragonAPI V32a
     compileOnly(deobfCurse("dragonapi-235591:4611379"))
@@ -129,7 +129,7 @@ dependencies {
     compileOnly(deobfCurse("enderlicious-508777:3504111"))
 
     //Enhanced Biomes 2.5
-    compileOnly(rfg.deobf("mirror:enhancedbiomes:2.5"))
+    compileOnly(deobf("mirror:enhancedbiomes:2.5"))
 
     //Erebus 0.4.7
     compileOnly(deobfCurse("theerebus-220698:2305035"))
@@ -145,10 +145,10 @@ dependencies {
 
     //Galacticraft Core 3.0.12.504
     //micdoodle8.com went down
-    compileOnly(rfg.deobf("mirror.micdoodle:GalacticraftCore:1.7-3.0.12.504"))
+    compileOnly(deobf("mirror.micdoodle:GalacticraftCore:1.7-3.0.12.504"))
 
     //Galacticraft Planets 3.0.12.504
-    compileOnly(rfg.deobf("mirror.micdoodle:Galacticraft-Planets:1.7-3.0.12.504"))
+    compileOnly(deobf("mirror.micdoodle:Galacticraft-Planets:1.7-3.0.12.504"))
 
     //Highlands 2.2.3
     compileOnly(deobfCurse("highlands-221226:2227924"))
@@ -197,12 +197,12 @@ dependencies {
 
     //ThutCore 2.0
     //Only available on dropbox
-    compileOnly(rfg.deobf("mirror:thutcore:2.0"))
+    compileOnly(deobf("mirror:thutcore:2.0"))
 
     //Tropicraft 6.0.5
     //This is from a mirror file, because the file on curseforge is a zip containing other files too.
     //Source: https://www.curseforge.com/minecraft/mc-mods/tropicraft/files/2353906
-    compileOnly(rfg.deobf("mirror:tropicraft:6.0.5"))
+    compileOnly(deobf("mirror:tropicraft:6.0.5"))
 
     //Twilight Forest 2.3.8
     compileOnly(deobfCurse("twilightforest-227639:3039937"))
@@ -221,5 +221,5 @@ dependencies {
     //SpaceCore 0.7.14
     //needed by: Biome Wand
     //Source: http://spacechase0.com/files/mcmod/1.7.10-SpaceCore-0.7.14.jar
-    compileOnly(rfg.deobf("mirror:1.7.10-SpaceCore:0.7.14"))
+    compileOnly(deobf("mirror:1.7.10-SpaceCore:0.7.14"))
 }
