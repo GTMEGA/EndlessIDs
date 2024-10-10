@@ -274,6 +274,9 @@ public enum Mixin implements IMixin {
     S1DPacketEntityEffectMixin(Side.COMMON, condition(() -> GeneralConfig.extendPotion), "potion.vanilla.network.S1DPacketEntityEffectMixin"),
     S1EPacketRemoveEntityEffectMixin(Side.COMMON, condition(() -> GeneralConfig.extendPotion), "potion.vanilla.network.S1EPacketRemoveEntityEffectMixin"),
     //endregion vanilla
+    //region Thaumcraft
+    common_potion_Thaumcraft_ConfigMixin(Side.COMMON, condition(() -> GeneralConfig.extendPotion).and(require(TargetedMod.THAUMCRAFT)), "potion.thaumcraft.ConfigMixin"),
+    //endregion Thaumcraft
     //endregion potion
     //region entity
     //region vanilla
