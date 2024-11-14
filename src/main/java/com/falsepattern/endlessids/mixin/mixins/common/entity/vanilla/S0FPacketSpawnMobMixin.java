@@ -57,6 +57,15 @@ public abstract class S0FPacketSpawnMobMixin {
         return 0;
     }
 
+    @Redirect(method = "readPacketData",
+              at = @At(value = "FIELD",
+                       target = "Lnet/minecraft/network/play/server/S0FPacketSpawnMob;field_149040_b:I",
+                       ordinal = 0),
+              require = 1)
+    private void noReadByte2(S0FPacketSpawnMob instance, int value) {
+
+    }
+
     @Inject(method = "readPacketData",
             at = @At(value = "INVOKE",
                      target = "Lnet/minecraft/network/PacketBuffer;readByte()B",
