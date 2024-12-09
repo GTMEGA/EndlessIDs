@@ -32,7 +32,10 @@ import lombok.var;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.play.server.S23PacketBlockChange;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.NibbleArray;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
@@ -43,7 +46,7 @@ import static com.falsepattern.endlessids.constants.ExtendedConstants.blocksPerS
 import static com.falsepattern.endlessids.util.DataUtil.*;
 
 //NOTE: Also change the save logic in MapWriter mod if changing this
-public class BlockIDManager implements DataManager.PacketDataManager, DataManager.SubChunkDataManager {
+public class BlockIDManager implements DataManager.PacketDataManager, DataManager.SubChunkDataManager, DataManager.BlockPacketDataManager {
 
     @Override
     public String domain() {
@@ -236,5 +239,25 @@ public class BlockIDManager implements DataManager.PacketDataManager, DataManage
     @Override
     public @Nullable String versionChangeMessage(String priorVersion) {
         return null;
+    }
+
+    @Override
+    public void writeBlockToPacket(Chunk chunk, int x, int y, int z, S23PacketBlockChange packet) {
+
+    }
+
+    @Override
+    public void readBlockFromPacket(Chunk chunk, int x, int y, int z, S23PacketBlockChange packet) {
+
+    }
+
+    @Override
+    public void writeBlockPacketToBuffer(S23PacketBlockChange packet, PacketBuffer buffer) {
+        buffer.writeInt(Block.getIdFromBlock(packet.field_148883_d));
+    }
+
+    @Override
+    public void readBlockPacketFromBuffer(S23PacketBlockChange packet, PacketBuffer buffer) {
+        packet.field_148883_d = Block.getBlockById(buffer.readInt());
     }
 }

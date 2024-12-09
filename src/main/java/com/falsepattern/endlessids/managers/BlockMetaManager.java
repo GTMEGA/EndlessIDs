@@ -34,6 +34,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.play.server.S23PacketBlockChange;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.NibbleArray;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
@@ -43,7 +45,7 @@ import java.nio.ByteBuffer;
 import static com.falsepattern.endlessids.constants.ExtendedConstants.blocksPerSubChunk;
 
 //NOTE: Also change the save logic in MapWriter mod if changing this
-public class BlockMetaManager implements DataManager.PacketDataManager, DataManager.SubChunkDataManager {
+public class BlockMetaManager implements DataManager.PacketDataManager, DataManager.SubChunkDataManager, DataManager.BlockPacketDataManager {
 
     @Override
     public String domain() {
@@ -211,5 +213,25 @@ public class BlockMetaManager implements DataManager.PacketDataManager, DataMana
     @Override
     public @Nullable String versionChangeMessage(String priorVersion) {
         return null;
+    }
+
+    @Override
+    public void writeBlockToPacket(Chunk chunk, int x, int y, int z, S23PacketBlockChange packet) {
+
+    }
+
+    @Override
+    public void readBlockFromPacket(Chunk chunk, int x, int y, int z, S23PacketBlockChange packet) {
+
+    }
+
+    @Override
+    public void writeBlockPacketToBuffer(S23PacketBlockChange packet, PacketBuffer buffer) {
+        buffer.writeShort(packet.field_148884_e & 0xFFFF);
+    }
+
+    @Override
+    public void readBlockPacketFromBuffer(S23PacketBlockChange packet, PacketBuffer buffer) {
+        packet.field_148884_e = buffer.readUnsignedShort();
     }
 }
