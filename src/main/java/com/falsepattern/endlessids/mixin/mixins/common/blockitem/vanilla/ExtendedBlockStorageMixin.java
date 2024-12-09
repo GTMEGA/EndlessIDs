@@ -65,7 +65,7 @@ public abstract class ExtendedBlockStorageMixin implements SubChunkBlockHook {
     private NibbleArray m1High;
     private byte[] m2;
 
-    public int getID(int x, int y, int z) {
+    public int eid$getID(int x, int y, int z) {
         int index = y << 8 | z << 4 | x;
         int id = blockLSBArray[index] & 0xFF;
         if (blockMSBArray != null) {
@@ -80,19 +80,19 @@ public abstract class ExtendedBlockStorageMixin implements SubChunkBlockHook {
         return id;
     }
 
-    private void setID(int x, int y, int z, int id) {
+    public void eid$setID(int x, int y, int z, int id) {
         int index = y << 8 | z << 4 | x;
         blockLSBArray[index] = (byte) (id & 0xFF);
         if (id > 0xFF) {
             if (blockMSBArray == null) {
-                createB2Low();
+                eid$createB2Low();
             }
             if (id > 0xFFF) {
                 if (b2High == null) {
-                    createB2High();
+                    eid$createB2High();
                 }
                 if (id > 0xFFFF && b3 == null) {
-                    createB3();
+                    eid$createB3();
                 }
             }
         }
@@ -113,7 +113,7 @@ public abstract class ExtendedBlockStorageMixin implements SubChunkBlockHook {
      */
     @Overwrite
     public Block getBlockByExtId(int x, int y, int z) {
-        return Block.getBlockById(getID(x, y, z));
+        return Block.getBlockById(eid$getID(x, y, z));
     }
 
     /**
@@ -138,7 +138,7 @@ public abstract class ExtendedBlockStorageMixin implements SubChunkBlockHook {
         }
 
         int blockID = Hooks.getIdFromBlockWithCheck(newBlock, oldBlock);
-        setID(x, y, z, blockID);
+        eid$setID(x, y, z, blockID);
     }
 
     /**
@@ -166,10 +166,10 @@ public abstract class ExtendedBlockStorageMixin implements SubChunkBlockHook {
         blockMetadataArray.set(x, y, z, meta & 0xF);
         if (meta > 0xF) {
             if (m1High == null) {
-                createM1High();
+                eid$createM1High();
             }
             if (meta > 0xFF && m2 == null) {
-                createM2();
+                eid$createM2();
             }
         }
         if (m1High != null) {
@@ -178,6 +178,16 @@ public abstract class ExtendedBlockStorageMixin implements SubChunkBlockHook {
                 m2[(y << 8) | (z << 4) | x] = (byte) ((meta >>> 8) & 0xFF);
             }
         }
+    }
+
+    @Override
+    public int eid$getMetadata(int x, int y, int z) {
+        return getExtBlockMetadata(x, y, z);
+    }
+
+    @Override
+    public void eid$setMetadata(int x, int y, int z, int id) {
+        setExtBlockMetadata(x, y, z, id);
     }
 
     @Redirect(method = "removeInvalidBlocks",
@@ -202,102 +212,102 @@ public abstract class ExtendedBlockStorageMixin implements SubChunkBlockHook {
     }
 
     @Override
-    public byte[] getB1() {
+    public byte[] eid$getB1() {
         return blockLSBArray;
     }
 
     @Override
-    public void setB1(byte[] data) {
+    public void eid$setB1(byte[] data) {
         blockLSBArray = data;
     }
 
     @Override
-    public NibbleArray getB2Low() {
+    public NibbleArray eid$getB2Low() {
         return blockMSBArray;
     }
 
     @Override
-    public void setB2Low(NibbleArray data) {
+    public void eid$setB2Low(NibbleArray data) {
         blockMSBArray = data;
     }
 
     @Override
-    public NibbleArray createB2Low() {
+    public NibbleArray eid$createB2Low() {
         return (blockMSBArray = new NibbleArray(blocksPerSubChunk, 4));
     }
 
     @Override
-    public NibbleArray getB2High() {
+    public NibbleArray eid$getB2High() {
         return b2High;
     }
 
     @Override
-    public void setB2High(NibbleArray data) {
+    public void eid$setB2High(NibbleArray data) {
         b2High = data;
     }
 
     @Override
-    public NibbleArray createB2High() {
+    public NibbleArray eid$createB2High() {
         return (b2High = new NibbleArray(blocksPerSubChunk, 4));
     }
 
     @Override
-    public byte[] getB3() {
+    public byte[] eid$getB3() {
         return b3;
     }
 
     @Override
-    public void setB3(byte[] data) {
+    public void eid$setB3(byte[] data) {
         b3 = data;
     }
 
     @Override
-    public byte[] createB3() {
+    public byte[] eid$createB3() {
         return b3 = new byte[blocksPerSubChunk];
     }
 
     @Override
-    public NibbleArray getM1Low() {
+    public NibbleArray eid$getM1Low() {
         return blockMetadataArray;
     }
 
     @Override
-    public void setM1Low(NibbleArray m1Low) {
+    public void eid$setM1Low(NibbleArray m1Low) {
         blockMetadataArray = m1Low;
     }
 
     @Override
-    public NibbleArray getM1High() {
+    public NibbleArray eid$getM1High() {
         return m1High;
     }
 
     @Override
-    public void setM1High(NibbleArray m1High) {
+    public void eid$setM1High(NibbleArray m1High) {
         this.m1High = m1High;
     }
 
     @Override
-    public NibbleArray createM1High() {
+    public NibbleArray eid$createM1High() {
         return (m1High = new NibbleArray(blocksPerSubChunk, 4));
     }
 
     @Override
-    public byte[] getM2() {
+    public byte[] eid$getM2() {
         return m2;
     }
 
     @Override
-    public void setM2(byte[] m2) {
+    public void eid$setM2(byte[] m2) {
         this.m2 = m2;
     }
 
     @Override
-    public byte[] createM2() {
+    public byte[] eid$createM2() {
         return (m2 = new byte[blocksPerSubChunk]);
     }
 
     @Override
-    public int getBlockMask() {
+    public int eid$getBlockMask() {
         if (blockMSBArray == null) {
             return 0b00;
         }
@@ -311,7 +321,7 @@ public abstract class ExtendedBlockStorageMixin implements SubChunkBlockHook {
     }
 
     @Override
-    public int getMetadataMask() {
+    public int eid$getMetadataMask() {
         if (m1High == null) {
             return 0b01;
         }

@@ -50,7 +50,7 @@ public abstract class BiomeUndergroundDecoratorMixin {
     private byte[] returnLSB(ExtendedBlockStorage subChunkVanilla) {
         SubChunkBlockHook subChunk = (SubChunkBlockHook) subChunkVanilla;
         this.subChunk = subChunk;
-        return subChunk.getB1();
+        return subChunk.eid$getB1();
     }
 
     @Redirect(method = {"replaceChunkOres(IILnet/minecraft/world/World;)V",
@@ -70,7 +70,7 @@ public abstract class BiomeUndergroundDecoratorMixin {
                        remap = true),
               require = 2)
     private int returnRestOfID(NibbleArray instance, int x, int y, int z) {
-        val id = subChunk.getID(x, y, z) >>> 8;
+        val id = subChunk.eid$getID(x, y, z) >>> 8;
         subChunk = null;
         return id;
     }

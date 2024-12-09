@@ -38,6 +38,6 @@ public abstract class ChunkRadiationHandlerPRISMMixin {
                        target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;getBlockLSBArray()[B"),
               require = 1)
     private byte[] extendLSBArray(ExtendedBlockStorage instance) {
-        return ((SubChunkBlockHook)instance).getB1();
+        return ((SubChunkBlockHook)instance).eid$getB1();
     }
 }

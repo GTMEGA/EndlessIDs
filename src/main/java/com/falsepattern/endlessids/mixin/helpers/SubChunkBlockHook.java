@@ -26,47 +26,53 @@ package com.falsepattern.endlessids.mixin.helpers;
 import net.minecraft.world.chunk.NibbleArray;
 
 public interface SubChunkBlockHook {
-    byte[] getB1();
+    byte[] eid$getB1();
 
-    void setB1(byte[] data);
+    void eid$setB1(byte[] data);
 
-    NibbleArray getB2Low();
+    NibbleArray eid$getB2Low();
 
-    void setB2Low(NibbleArray data);
+    void eid$setB2Low(NibbleArray data);
 
-    NibbleArray createB2Low();
+    NibbleArray eid$createB2Low();
 
-    NibbleArray getB2High();
+    NibbleArray eid$getB2High();
 
-    void setB2High(NibbleArray data);
+    void eid$setB2High(NibbleArray data);
 
-    NibbleArray createB2High();
+    NibbleArray eid$createB2High();
 
-    byte[] getB3();
+    byte[] eid$getB3();
 
-    void setB3(byte[] data);
+    void eid$setB3(byte[] data);
 
-    byte[] createB3();
+    byte[] eid$createB3();
 
-    int getMetadataMask();
+    int eid$getBlockMask();
 
-    int getBlockMask();
+    int eid$getID(int x, int y, int z);
 
-    int getID(int x, int y, int z);
+    void eid$setID(int x, int y, int z, int id);
 
-    NibbleArray getM1Low();
+    NibbleArray eid$getM1Low();
 
-    void setM1Low(NibbleArray m1Low);
+    void eid$setM1Low(NibbleArray m1Low);
 
-    NibbleArray getM1High();
+    NibbleArray eid$getM1High();
 
-    void setM1High(NibbleArray m1High);
+    void eid$setM1High(NibbleArray m1High);
 
-    NibbleArray createM1High();
+    NibbleArray eid$createM1High();
 
-    byte[] getM2();
+    byte[] eid$getM2();
 
-    void setM2(byte[] m2);
+    void eid$setM2(byte[] m2);
 
-    byte[] createM2();
+    byte[] eid$createM2();
+
+    int eid$getMetadataMask();
+
+    int eid$getMetadata(int x, int y, int z);
+
+    void eid$setMetadata(int x, int y, int z, int id);
 }

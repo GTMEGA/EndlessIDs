@@ -72,18 +72,18 @@ public class BlockMetaManager implements DataManager.PacketDataManager, DataMana
             }
             val subChunk = (SubChunkBlockHook) subChunkList[i];
 
-            storageFlags |= subChunk.getMetadataMask() << (i * 2);
+            storageFlags |= subChunk.eid$getMetadataMask() << (i * 2);
 
-            val m1Low = subChunk.getM1Low();
+            val m1Low = subChunk.eid$getM1Low();
             data.put(m1Low.data);
 
-            val m1High = subChunk.getM1High();
+            val m1High = subChunk.eid$getM1High();
             if (m1High == null) {
                 continue;
             }
             data.put(m1High.data);
 
-            val m2 = subChunk.getM2();
+            val m2 = subChunk.eid$getM2();
             if (m2 != null) {
                 data.put(m2);
             }
@@ -101,25 +101,25 @@ public class BlockMetaManager implements DataManager.PacketDataManager, DataMana
             }
             val subChunk = (SubChunkBlockHook) subChunkList[i];
             val storageFlag = (storageFlags >>> (i * 2)) & 3;
-            val m1Low = subChunk.getM1Low();
+            val m1Low = subChunk.eid$getM1Low();
             buffer.get(m1Low.data);
             if (storageFlag == 0b01) {
-                subChunk.setM1High(null);
-                subChunk.setM2(null);
+                subChunk.eid$setM1High(null);
+                subChunk.eid$setM2(null);
                 continue;
             }
-            var m1High = subChunk.getM1High();
+            var m1High = subChunk.eid$getM1High();
             if (m1High == null) {
-                m1High = subChunk.createM1High();
+                m1High = subChunk.eid$createM1High();
             }
             buffer.get(m1High.data);
             if (storageFlag == 0b10) {
-                subChunk.setM2(null);
+                subChunk.eid$setM2(null);
                 continue;
             }
-            var m2 = subChunk.getM2();
+            var m2 = subChunk.eid$getM2();
             if (m2 == null) {
-                m2 = subChunk.createM2();
+                m2 = subChunk.eid$createM2();
             }
             buffer.get(m2);
         }
@@ -133,9 +133,9 @@ public class BlockMetaManager implements DataManager.PacketDataManager, DataMana
     @Override
     public void writeSubChunkToNBT(Chunk chunk, ExtendedBlockStorage subChunkVanilla, NBTTagCompound nbt) {
         val subChunk = (SubChunkBlockHook) subChunkVanilla;
-        val m1Low = subChunk.getM1Low();
-        val m1High = subChunk.getM1High();
-        val m2 = subChunk.getM2();
+        val m1Low = subChunk.eid$getM1Low();
+        val m1High = subChunk.eid$getM1High();
+        val m2 = subChunk.eid$getM2();
         nbt.setByteArray("Data", m1Low.data);
         if (m1High != null) {
             nbt.setByteArray("Data1High", m1High.data);
@@ -161,9 +161,9 @@ public class BlockMetaManager implements DataManager.PacketDataManager, DataMana
             m1High[nI] |= (byte) (((s & 0x00F0) >>> 4) << mI);
             m2[i] = (byte) ((s & 0xFF00) >>> 8);
         }
-        subChunk.setM1Low(new NibbleArray(m1Low, 4));
-        subChunk.setM1High(new NibbleArray(m1High, 4));
-        subChunk.setM2(m2);
+        subChunk.eid$setM1Low(new NibbleArray(m1Low, 4));
+        subChunk.eid$setM1High(new NibbleArray(m1High, 4));
+        subChunk.eid$setM2(m2);
     }
 
     @Override
@@ -178,9 +178,9 @@ public class BlockMetaManager implements DataManager.PacketDataManager, DataMana
         final byte[] m1High = nbt.hasKey("Data1High") ? nbt.getByteArray("Data1High") : null;
         final byte[] m2 = nbt.hasKey("Data2") ? nbt.getByteArray("Data2") : null;
 
-        subChunk.setM1Low(DataUtil.ensureSubChunkNibbleArray(m1Low));
-        subChunk.setM1High(DataUtil.ensureSubChunkNibbleArray(m1High));
-        subChunk.setM2(DataUtil.ensureSubChunkByteArray(m2));
+        subChunk.eid$setM1Low(DataUtil.ensureSubChunkNibbleArray(m1Low));
+        subChunk.eid$setM1High(DataUtil.ensureSubChunkNibbleArray(m1High));
+        subChunk.eid$setM2(DataUtil.ensureSubChunkByteArray(m2));
     }
 
     @Override
@@ -188,9 +188,9 @@ public class BlockMetaManager implements DataManager.PacketDataManager, DataMana
         val from = (SubChunkBlockHook) fromVanilla;
         val to = (SubChunkBlockHook) toVanilla;
 
-        to.setM1Low(ArrayUtil.copyArray(from.getM1Low(), to.getM1Low()));
-        to.setM1High(ArrayUtil.copyArray(from.getM1High(), to.getM1High()));
-        to.setM2(ArrayUtil.copyArray(from.getM2(), to.getM2()));
+        to.eid$setM1Low(ArrayUtil.copyArray(from.eid$getM1Low(), to.eid$getM1Low()));
+        to.eid$setM1High(ArrayUtil.copyArray(from.eid$getM1High(), to.eid$getM1High()));
+        to.eid$setM2(ArrayUtil.copyArray(from.eid$getM2(), to.eid$getM2()));
     }
 
     @Override
