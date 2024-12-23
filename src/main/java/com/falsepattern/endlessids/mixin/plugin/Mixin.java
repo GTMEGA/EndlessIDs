@@ -152,6 +152,11 @@ public enum Mixin implements IMixin {
     GSChunkProviderSpaceLakesMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.GALAXYSPACE)), "biome.galaxyspace.ChunkProviderSpaceLakesMixin"),
     GSChunkProviderVenusSSMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.GALAXYSPACE)), "biome.galaxyspace.ChunkProviderVenusSSMixin"),
     //endregion GalaxySpace
+    //region HBM's Nuclear Tech Nod
+    NTMBiomeSyncPacket_HandlerMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.HBM_NTM)), "biome.ntm.BiomeSyncPacket_HandlerMixin"),
+    NTMBiomeSyncPacketMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.HBM_NTM)), "biome.ntm.BiomeSyncPacketMixin"),
+    NTMWorldUtilMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.HBM_NTM)), "biome.ntm.WorldUtilMixin"),
+    //endregion HBM's Nuclear Tech Nod
     //region Highlands
     HighlandsConfigMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.HIGHLANDS)), "biome.highlands.ConfigMixin"),
     //endregion Highlands

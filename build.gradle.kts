@@ -63,7 +63,7 @@ repositories {
 
 dependencies {
     ////////////////Our dependencies////////////////
-    implementationSplit("com.falsepattern:falsepatternlib-mc1.7.10:1.5.4")
+    implementationSplit("com.falsepattern:falsepatternlib-mc1.7.10:1.5.5")
     implementation("it.unimi.dsi:fastutil:8.5.13")
     implementationSplit("com.falsepattern:chunkapi-mc1.7.10:0.6.0")
 
