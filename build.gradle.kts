@@ -62,17 +62,31 @@ repositories {
 }
 
 dependencies {
-    ////////////////Our dependencies////////////////
+    // region Our deps
     implementationSplit("com.falsepattern:falsepatternlib-mc1.7.10:1.5.5")
-    implementation("it.unimi.dsi:fastutil:8.5.13")
+    implementation("it.unimi.dsi:fastutil:8.5.15")
     implementationSplit("com.falsepattern:chunkapi-mc1.7.10:0.6.0")
+    // endregion
 
-    ////////////////Patched mods////////////////
+    // region maintained mods
+
+    //DragonAPI V33b
+    compileOnly(deobfCurse("dragonapi-235591:4722480"))
+
+    //Immersive Cavegen 1.2g hotfix5
+    compileOnly(deobfCurse("immersivecavegen-521557:4723376"))
+
+    //Hbm's Nuclear Tech Mod 1.0.27X5188
+    compileOnly(deobfCurse("hbm-ntm-235439:6017897"))
+
+    // endregion
+
+    // region unmaintained mods
 
     //AbyssalCraft 1.9.1.3-FINAL
     compileOnly(deobfCurse("abyssalcraft-53686:2311135"))
 
-    //Advanced Rocketry
+    //Advanced Rocketry 1.4.0-32
     compileOnly(deobfCurse("advancedrocketry-236542:2985057"))
 
     //Alternate Terrain Generation 0.12.0
@@ -83,9 +97,6 @@ dependencies {
 
     //Anti ID Conflict 1.3.5
     compileOnly(deobfCurse("antiidconflict-246288:2308279"))
-
-//    //ArchaicFix 0.2.0
-//    compileOnly("com.github.embeddedt:ArchaicFix:0.2.0:dev")
 
     //Atum 0.6.77
     compileOnly(deobfCurse("atum-59621:2256356"))
@@ -119,9 +130,6 @@ dependencies {
     //Source: https://github.com/CannibalVox/DimDoors/releases/download/2.2.5-test9/DimensionalDoors-2.2.5-test9.jar
     compileOnly(deobf("CannibalVox.DimDoors:DimensionalDoors:2.2.5-test9"))
 
-    //DragonAPI V32a
-    compileOnly(deobfCurse("dragonapi-235591:4611379"))
-
     //Dynamic Surroundings 1.0.6.4
     compileOnly(deobfCurse("dynamicsurrounding-238891:2642381"))
 
@@ -153,9 +161,6 @@ dependencies {
     //Highlands 2.2.3
     compileOnly(deobfCurse("highlands-221226:2227924"))
 
-    //Immersive Cavegen 1.2g
-    compileOnly(deobfCurse("immersivecavegen-521557:3649411"))
-
     //Industrial Revolution by Redstone Rebooted 1.1.1
     compileOnly(deobfCurse("industrialrevolutionbyredstonerebooted-241812:2538035"))
 
@@ -179,9 +184,6 @@ dependencies {
 
     //Nostalgic World Generation 1.0.0
     compileOnly(deobfCurse("nostalgiagenerator-927053:4816167"))
-
-    //Hbm's Nuclear Tech Mod 1.0.27X5027
-    compileOnly(deobfCurse("hbm-ntm-235439:5534354"))
 
     //RandomThings 2.2.4
     compileOnly(deobfCurse("randomthings-59816:2225310"))
@@ -215,6 +217,8 @@ dependencies {
 
     //WorldEdit 6.1.1
     compileOnly(deobfCurse("worldedit-225608:2309699"))
+
+    // endregion
 
     ////////////////Dependencies for patched mods////////////////
 

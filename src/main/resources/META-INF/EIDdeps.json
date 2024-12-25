@@ -6,7 +6,7 @@
   "dependencies": {
     "always": {
       "common": [
-        "it.unimi.dsi:fastutil:8.5.13"
+        "it.unimi.dsi:fastutil:8.5.15"
       ],
       "client": [],
       "server": []
