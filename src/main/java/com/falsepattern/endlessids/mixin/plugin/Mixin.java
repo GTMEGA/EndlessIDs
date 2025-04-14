@@ -32,6 +32,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 import java.util.function.Predicate;
 
+import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.AM2;
 import static com.falsepattern.lib.mixin.IMixin.PredicateHelpers.avoid;
 import static com.falsepattern.lib.mixin.IMixin.PredicateHelpers.condition;
 import static com.falsepattern.lib.mixin.IMixin.PredicateHelpers.require;
@@ -271,8 +272,8 @@ public enum Mixin implements IMixin {
     //region vanilla
     PotionEffectMixin(Side.COMMON, condition(() -> GeneralConfig.extendPotion), "potion.vanilla.PotionEffectMixin"),
     PotionMixin(Side.COMMON, condition(() -> GeneralConfig.extendPotion), "potion.vanilla.PotionMixin"),
-    S1DPacketEntityEffectMixin(Side.COMMON, condition(() -> GeneralConfig.extendPotion), "potion.vanilla.network.S1DPacketEntityEffectMixin"),
-    S1EPacketRemoveEntityEffectMixin(Side.COMMON, condition(() -> GeneralConfig.extendPotion), "potion.vanilla.network.S1EPacketRemoveEntityEffectMixin"),
+    S1DPacketEntityEffectMixin(Side.COMMON, condition(() -> GeneralConfig.extendPotion).and(avoid(AM2)), "potion.vanilla.network.S1DPacketEntityEffectMixin"),
+    S1EPacketRemoveEntityEffectMixin(Side.COMMON, condition(() -> GeneralConfig.extendPotion).and(avoid(AM2)), "potion.vanilla.network.S1EPacketRemoveEntityEffectMixin"),
     //endregion vanilla
     //region Thaumcraft
     common_potion_Thaumcraft_ConfigMixin(Side.COMMON, condition(() -> GeneralConfig.extendPotion).and(require(TargetedMod.THAUMCRAFT)), "potion.thaumcraft.ConfigMixin"),

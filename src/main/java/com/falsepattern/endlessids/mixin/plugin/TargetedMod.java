@@ -36,6 +36,7 @@ public enum TargetedMod implements ITargetedMod {
     ABYSSALCRAFT("AbyssalCraft", false, contains("abyssalcraft-")),
     AROCKETRY("Advanced Rocketry", false, contains("advancedrocketry-")),
     ATG("Alternate Terrain Generation", false, contains("atg")),
+    AM2("Ars Magica 2", false, contains("am2").or(contains("arsmagica2"))),
     ANTIQUEATLAS("Antique Atlas", false, contains("antiqueatlas")),
     ANTIIDCONFLICT("Anti ID Conflict", false, contains("antiidconflict")),
     BOP("Biomes O' Plenty", false, contains("biomesoplenty-")),
