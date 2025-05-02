@@ -303,7 +303,7 @@ public enum Mixin implements IMixin {
     //endregion blockitem
     //region potion
     //region vanilla
-    NetHandlerPlayClientMixinPotion(Side.CLIENT, condition(() -> GeneralConfig.extendPotion), "potion.vanilla.NetHandlerPlayClientMixin"),
+    NetHandlerPlayClientMixinPotion(Side.CLIENT, condition(() -> GeneralConfig.extendPotion).and(avoid(AM2)), "potion.vanilla.NetHandlerPlayClientMixin"),
     //endregion vanilla
     //endregion potion
     //endregion client
