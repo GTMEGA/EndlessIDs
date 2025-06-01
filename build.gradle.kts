@@ -1,5 +1,5 @@
 plugins {
-    id("fpgradle-minecraft") version ("0.10.0")
+    id("com.falsepattern.fpgradle-mc") version ("0.17.1")
 }
 
 group = "com.falsepattern"
@@ -57,8 +57,8 @@ minecraft_fp {
 repositories {
     cursemavenEX()
     exclusive(mavenpattern(), "com.falsepattern")
-    exclusive(ivy("https://mvn.falsepattern.com/releases/mirror/", "[orgPath]/[artifact]-[revision].[ext]"), "mirror", "mirror.micdoodle")
-    exclusive(ivy("https://github.com/", "[orgPath]/releases/download/[revision]/[artifact]-[revision].[ext]"), "CannibalVox.DimDoors")
+    exclusive(ivy("mavenpattern_mirror", "https://mvn.falsepattern.com/releases/mirror/", "[orgPath]/[artifact]-[revision].[ext]"), "mirror", "mirror.micdoodle")
+    exclusive(ivy("github", "https://github.com/", "[orgPath]/releases/download/[revision]/[artifact]-[revision].[ext]"), "CannibalVox.DimDoors")
 }
 
 dependencies {
