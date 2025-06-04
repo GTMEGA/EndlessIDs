@@ -238,7 +238,7 @@ public enum Mixin implements IMixin {
     //endregion DragonAPI
     //region HBM's Nuclear Tech Nod
     NTMChunkRadiationHandlerPRISMMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem).and(require(TargetedMod.HBM_NTM)), "blockitem.ntm.ChunkRadiationHandlerPRISMMixin"),
-    NTMChunkRadiationHandlerPRISM_SubChunkMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem).and(require(TargetedMod.HBM_NTM)), "blockitem.ntm.ChunkRadiationHandlerPRISMMixin"),
+    NTMChunkRadiationHandlerPRISM_SubChunkMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem).and(require(TargetedMod.HBM_NTM)), "blockitem.ntm.ChunkRadiationHandlerPRISM_SubChunkMixin"),
     //endregion HBM's Nuclear Tech Nod
     //region Matter Overdrive
     MOInventoryMixin(Side.COMMON, condition(() -> GeneralConfig.extendBlockItem).and(require(TargetedMod.MATTEROVERDRIVE).or(require(TargetedMod.MATTERMEGADRIVE))), "blockitem.matteroverdrive.InventoryMixin"),
