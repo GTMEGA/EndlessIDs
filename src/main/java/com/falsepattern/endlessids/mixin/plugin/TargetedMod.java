@@ -77,7 +77,7 @@ public enum TargetedMod implements ITargetedMod {
     THUTCORE("ThutCore", false, contains("thutcore-").or(contains("thutmods-"))),
     TROPICRAFT("Tropicraft", false, contains("tropicraft-")),
     TWILIGHTFOREST("Twilight Forest", false, contains("twilightforest")),
-    UBC("Underground Biomes Constructs", false, contains("undergroundbiomesconstructs-")),
+    UBC("Underground Biomes Constructs", false, contains("undergroundbiomesconstructs-").or(contains("undergroundbiomes-"))),
     WITCHERY("Witchery", false, contains("witchery-")),
     WORLDEDIT("WorldEdit", false, contains("worldedit-")),
     ;
