@@ -75,6 +75,7 @@ public enum TargetedMod implements ITargetedMod {
     RWG("Realistic World Gen", false, contains("rwg-")),
     THAUMCRAFT("Thaumcraft", false, contains("thaumcraft")),
     THUTCORE("ThutCore", false, contains("thutcore-").or(contains("thutmods-"))),
+    TMOR("The Mists Of RioV", false, contains("the mists of riov-").or(contains("the-mists-of-riov-"))),
     TROPICRAFT("Tropicraft", false, contains("tropicraft-")),
     TWILIGHTFOREST("Twilight Forest", false, contains("twilightforest")),
     UBC("Underground Biomes Constructs", false, contains("undergroundbiomesconstructs-").or(contains("undergroundbiomes-"))),

@@ -197,6 +197,9 @@ dependencies {
     //Thaumcraft 4.2.3.5
     compileOnly(deobfCurse("thaumcraft-223628:2227552"))
 
+    //The Mists of RioV 2.5.2
+    compileOnly(deobfCurse("the-mists-of-riov-222477:2389797"))
+
     //ThutCore 2.0
     //Only available on dropbox
     compileOnly(deobf("mirror:thutcore:2.0"))

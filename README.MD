@@ -76,6 +76,7 @@ This mod also contains patches for the following mods:
 - Realistic World Generation
 - Thaumcraft
 - The Lord of the Rings Mod: Legacy
+- The Mists of RioV
 - ThutCore/ThutMods
 - Tropicraft
 - Twilight Forest
