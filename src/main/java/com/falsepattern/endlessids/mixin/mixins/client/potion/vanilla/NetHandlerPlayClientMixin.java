@@ -47,7 +47,7 @@ public abstract class NetHandlerPlayClientMixin {
             at = @At("HEAD"),
             require = 1)
     private void grabID(S1DPacketEntityEffect packetIn, CallbackInfo ci) {
-        theID = ((IS1DPacketEntityEffectMixin) packetIn).getIDExtended();
+        theID = ((IS1DPacketEntityEffectMixin) packetIn).endlessids$getIDExtended();
     }
 
     @Redirect(method = "handleEntityEffect",
