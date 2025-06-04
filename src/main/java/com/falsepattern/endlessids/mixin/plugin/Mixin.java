@@ -141,6 +141,9 @@ public enum Mixin implements IMixin {
     //region ExtraUtilities
     ChunkProviderEndOfTimeMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.EXTRAUTILITIES)), "biome.extrautilities.ChunkProviderEndOfTimeMixin"),
     //endregion ExtraUtilities
+    //region Factorization
+    HammerChunkProviderMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.FACTORIZATION)), "biome.factorization.HammerChunkProviderMixin"),
+    //endregion
     //region Futurepack
     FuturepackBiomeGenSpaceMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.FUTUREPACK)), "biome.futurepack.BiomeGenSpaceMixin"),
     //endregion Futurepack

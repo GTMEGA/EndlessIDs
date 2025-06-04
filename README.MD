@@ -58,6 +58,7 @@ This mod also contains patches for the following mods:
 - Erebus
 - Extra Planets
 - Extra Utilities
+- Factorization
 - Futurepack
 - GalactiCraft
 - Highlands

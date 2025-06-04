@@ -56,6 +56,7 @@ minecraft_fp {
 
 repositories {
     cursemavenEX()
+    modrinthEX()
     exclusive(mavenpattern(), "com.falsepattern")
     exclusive(ivy("mavenpattern_mirror", "https://mvn.falsepattern.com/releases/mirror/", "[orgPath]/[artifact]-[revision].[ext]"), "mirror", "mirror.micdoodle")
     exclusive(ivy("github", "https://github.com/", "[orgPath]/releases/download/[revision]/[artifact]-[revision].[ext]"), "CannibalVox.DimDoors")
@@ -147,6 +148,9 @@ dependencies {
 
     //Extra Utilities 1.2.12
     compileOnly(deobfCurse("extrautilities-225561:2264384"))
+
+    //Factorization 0.8.109
+    compileOnly(deobfModrinth("factorization:0.8.109"))
 
     //Futurepack v18.7
     compileOnly(deobfCurse("futurepack-237333:2263966"))

@@ -54,6 +54,7 @@ public enum TargetedMod implements ITargetedMod {
     EREBUS("The Erebus", false, contains("theerebus")),
     EXTRAPLANETS("Extra Planets", false, contains("extraplanets-")),
     EXTRAUTILITIES("Extra Utilities", false, contains("extrautilities-")),
+    FACTORIZATION("Factorization", false, contains("factorization-")),
     FUTUREPACK("Futurepack", false, contains("futurepack")),
     GALACTICRAFTCORE("GalactiCraftCore", false, contains("galacticraftcore")),
     GALAXYSPACE("GalaxySpace", false, contains("galaxyspace-")),
