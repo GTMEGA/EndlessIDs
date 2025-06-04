@@ -97,7 +97,13 @@ import java.util.function.Supplier;
  *         //state 8
  *         ILOAD k
  *         //state 9
+ *         //Branch X | Y
+ *         //X:
  *         ALOAD abyte
+ *         //Y:
+ *         ALOAD <something else>
+ *         GETFIELD classname.fieldname : [Lnet/minecraft/world/biome/BiomeGenBase;
+ *          //Join X | Y
  *         //state 10
  *         ARRAYLENGTH
  *         //state 11
@@ -160,6 +166,7 @@ public class ChunkProviderSuperPatcher implements TurboClassTransformer {
     private static State<AbstractInsnNode> STATE7 = null;
     private static State<AbstractInsnNode> STATE8 = null;
     private static State<AbstractInsnNode> STATE9 = null;
+    private static State<AbstractInsnNode> STATE9_Y = null;
     private static State<AbstractInsnNode> STATE10 = null;
     private static State<AbstractInsnNode> STATE11 = null;
     private static State<AbstractInsnNode> STATE12 = null;
@@ -256,7 +263,10 @@ public class ChunkProviderSuperPatcher implements TurboClassTransformer {
         STATE9 = casting(VarInsnNode.class, (insn, memory) ->
                 insn.getOpcode() == Opcodes.ALOAD
                 && insn.var == memory.biomeArrayIndex
-                ? STATE10 : STATE0);
+                ? STATE10 : STATE9_Y);
+
+        STATE9_Y = casting(FieldInsnNode.class, insn ->
+                insn.getOpcode() == Opcodes.GETFIELD && anyMatch(insn.desc, CLASS_BiomeGenBase, "[L", ";") ? STATE10: STATE0);
 
         STATE10 = casting(InsnNode.class, (insn) -> insn.getOpcode() == Opcodes.ARRAYLENGTH ? STATE11 : STATE0);
 
