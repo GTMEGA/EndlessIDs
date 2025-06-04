@@ -56,6 +56,7 @@ This mod also contains patches for the following mods:
 - Enderlicious
 - Enhanced Biomes
 - Erebus
+- Extended Planets
 - Extra Planets
 - Extra Utilities
 - Factorization

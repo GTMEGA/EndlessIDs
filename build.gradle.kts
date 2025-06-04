@@ -143,6 +143,10 @@ dependencies {
     //Erebus 0.4.7
     compileOnly(deobfCurse("theerebus-220698:2305035"))
 
+    //Extended Planets 0.4.2
+    //Source: https://www.mcmod.cn/class/1301.html
+    compileOnly(deobf("mirror:ExtendedPlanets:0.4.2"))
+
     //Extra Planets 2.1.4
     compileOnly(deobfCurse("extraplanets-241291:3214413"))
 

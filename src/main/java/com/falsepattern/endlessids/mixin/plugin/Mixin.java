@@ -135,6 +135,9 @@ public enum Mixin implements IMixin {
     //region Erebus
     ErebusModBiomesMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.EREBUS)), "biome.erebus.ModBiomesMixin"),
     //endregion Erebus
+    //region Extended Planets
+    ChunkProviderOceanMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.EXTENDEDPLANETS)), "biome.extendedplanets.ChunkProviderOceanMixin"),
+    //endregion
     //region ExtraPlanets
     ExtraPlanetsConfigMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.EXTRAPLANETS)), "biome.extraplanets.ConfigMixin"),
     //endregion ExtraPlanets

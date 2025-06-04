@@ -52,6 +52,7 @@ public enum TargetedMod implements ITargetedMod {
     EB("Enhanced Biomes", false, contains("Enhanced Biomes").or(contains("enhancedbiomes"))),
     ENDERLICIOUS("Enderlicious", false, contains("enderlicious-")),
     EREBUS("The Erebus", false, contains("theerebus")),
+    EXTENDEDPLANETS("Extended Planets", false, contains("extendedplanets-")),
     EXTRAPLANETS("Extra Planets", false, contains("extraplanets-")),
     EXTRAUTILITIES("Extra Utilities", false, contains("extrautilities-")),
     FACTORIZATION("Factorization", false, contains("factorization-")),
