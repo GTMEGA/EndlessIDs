@@ -205,7 +205,7 @@ public abstract class ExtendedBlockStorageMixin implements SubChunkBlockHook {
     private UnsupportedOperationException emergencyCrash() {
         val crashMSG = "A mod that is incompatible with " + Tags.MODNAME + " has tried to access the block array of a" +
                        " chunk like in vanilla! Crashing in fear of potential world corruption!\n" +
-                       "Please report this issue on https://github.com/FalsePattern/EndlessIDs ASAP!";
+                       "Please report this issue on https://github.com/GTMEGA/EndlessIDs ASAP!";
         EndlessIDs.LOG.fatal(crashMSG);
         return new UnsupportedOperationException(crashMSG);
     }

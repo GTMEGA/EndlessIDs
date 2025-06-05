@@ -73,7 +73,7 @@ public abstract class ChunkMixin implements ChunkBiomeHook {
     private void eid$emergencyCrash() {
         val crashMSG = "A mod that is incompatible with " + Tags.MODNAME + " has tried to access the biome array of a" +
                        " chunk like in vanilla! Crashing in fear of potential world corruption!\n" +
-                       "Please report this issue on https://github.com/FalsePattern/EndlessIDs ASAP!";
+                       "Please report this issue on https://github.com/GTMEGA/EndlessIDs ASAP!";
         EndlessIDs.LOG.fatal(crashMSG);
         throw new UnsupportedOperationException(crashMSG);
     }
