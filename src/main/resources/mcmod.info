@@ -10,8 +10,8 @@
     "authorList": [
       "FalsePattern"
     ],
-    "credits": "This mod is a modern replacement for NotEnoughIDs, which was released under the MIT license, and made by fewizz and Player.",
-    "logoFile": "",
+    "credits": "Originally based on NotEnoughIDs by fewizz and Player. Logo by Houstonruss.",
+    "logoFile": "endlessids.png",
     "screenshots": [],
     "dependencies": []
   }

@@ -1,4 +1,4 @@
-# EndlessIDs <img src="EIDSico.png" align="right" width=150>
+# EndlessIDs <img src="src/main/resources/endlessids.png" align="right" width=150>
 
 <sup>**[CurseForge](https://www.curseforge.com/minecraft/mc-mods/endlessids) | [Modrinth](https://modrinth.com/mod/endlessids)**</sup>
 
