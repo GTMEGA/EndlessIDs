@@ -105,13 +105,12 @@ public class GeneralConfig {
     @Config.DefaultInt(0)
     public static int extraItemIDBits;
 
-
-    @Config.Comment("DEPRECATED, will be removed in the next version of EndlessIDs!\n" +
-                    "This property does nothing.\n" +
-                    "Use extraBlockIDBits and extraItemIDBits instead.")
-    @Config.DefaultInt(0)
-    @Deprecated
-    public static int countCorrectionBits;
+    @Config.Comment({"Older versions of EndlessIDs used to have a \"biome conflict avoidance\" system for automatic biome",
+                     "registration logic in some mods conflicting with biome mutations due to the way those get registered.",
+                     "It has been disabled in newer releases because it caused more issues than it solved.",
+                     "You should use AntiIDConflict to fix those, however, the option is still available here in case you need it."})
+    @Config.DefaultBoolean(false)
+    public static boolean biomeConflictAvoidancePlaceholders;
 
     static {
         ConfigurationManager.selfInit();

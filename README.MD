@@ -28,6 +28,15 @@ If you notice any problems when opening NEID worlds with EndlessIDs, please open
 | DataWatcher IDs | 32                                                 | 127 (Broken) | 127 (Broken)    | 65,536     |
 | Dimension IDs   | Theoretically unlimited, 4,294,967,295 in practice | Same         | Same            | Same       |
 
+## A note about biomes
+
+Minecraft has a system known as "Biome Mutations", where a biome can have modified versions of itself at (id + 128).
+Older versions of EndlessIDs used to have a system for this called the "conflict avoidance system", where it would temporarily
+register placeholder biomes at these offsets to avoid conflicts.
+
+This system has been disabled by default as it was causing weird biome registration problems, so if you want to use this
+mod, we HIGHLY recommend also installing `AntiIDConflict`.
+
 ## Mod compat
 
 This mod also contains patches for the following mods:

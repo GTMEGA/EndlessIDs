@@ -52,6 +52,7 @@ public enum Mixin implements IMixin {
     //region vanilla
     BiomeDictionaryMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome), "biome.vanilla.BiomeDictionaryMixin"),
     BiomeGenBaseMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome), "biome.vanilla.BiomeGenBaseMixin"),
+    BiomeGenBasePlaceholderMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome && GeneralConfig.biomeConflictAvoidancePlaceholders), "biome.vanilla.BiomeGenBasePlaceholderMixin"),
     ChunkMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome), "biome.vanilla.ChunkMixin"),
     GenLayerRiverMixMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(avoid(TargetedMod.DRAGONAPI)), "biome.vanilla.GenLayerRiverMixMixin"),
     GenLayerVoronoiZoomMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome), "biome.vanilla.GenLayerVoronoiZoomMixin"),
