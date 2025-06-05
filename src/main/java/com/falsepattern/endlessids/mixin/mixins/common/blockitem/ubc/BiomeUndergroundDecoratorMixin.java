@@ -77,7 +77,8 @@ public abstract class BiomeUndergroundDecoratorMixin {
     @Redirect(method = "correctBiomeDecorators",
               at = @At(value = "INVOKE",
                        target = "Ljava/util/logging/Logger;info(Ljava/lang/String;)V"),
-              require = 2)
+              expect = 0,
+              require = 0) // https://github.com/LITW-Refined/UndergroundBiomesConstructs1.7 fork removes these
     private void noLog(Logger instance, String s) {
 
     }
