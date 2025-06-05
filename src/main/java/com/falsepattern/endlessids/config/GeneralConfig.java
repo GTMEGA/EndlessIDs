@@ -38,66 +38,79 @@ public class GeneralConfig {
     @Config.Comment("Throw an exception when an invalid block is registered. FOR DEBUGGING PURPOSES")
     @Config.DefaultBoolean(false)
     public static boolean catchUnregisteredBlocks;
+
     @Config.Comment("Remove invalid (corrupted) blocks from the game. FOR DEBUGGING PURPOSES")
     @Config.DefaultBoolean(false)
     public static boolean removeInvalidBlocks;
+
     @Config.Comment("Extend Biome IDs. Vanilla limit is 256, new limit is 65536.")
     @Config.DefaultBoolean(true)
     public static boolean extendBiome;
-    @Config.Comment("Extend Block and Item IDs. Vanilla limit is 4096/32000, new limit is 16777216 for both.\n" +
-                    "See also: countCorrectionBits")
+
+    @Config.Comment({"Extend Block and Item IDs. Vanilla limit is 4096/32000, new limit is 16777216 for both.",
+                     "See also: extraBlockIDBits/extraItemIDBits"})
     @Config.DefaultBoolean(true)
     public static boolean extendBlockItem;
-    @Config.Comment("Extend DataWatcher IDs. Vanilla limit is 32, new limit is 65536.\n")
+
+    @Config.Comment("Extend DataWatcher IDs. Vanilla limit is 32, new limit is 65536.")
     @Config.DefaultBoolean(true)
     public static boolean extendDataWatcher;
+
     @Config.Comment("Extend Enchantment IDs. Vanilla limit is 256, new limit is 32768.")
     @Config.DefaultBoolean(true)
     public static boolean extendEnchantment;
+
     @Config.Comment("Extend Potion IDs. Vanilla limit is 32, new limit is 65536.")
     @Config.DefaultBoolean(true)
     public static boolean extendPotion;
+
     @Config.Comment("Extend Entity IDs. Vanilla limit is 256, new limit is 32768.")
     @Config.DefaultBoolean(true)
     public static boolean extendEntity;
 
-    @Config.Comment("Improves the speed of the block registry by multiple orders of magnitudes. (not thoroughly tested yet)\n" +
-                    "It's highly recommended to leave this enabled, especially when using a lot of IDs.\n" +
-                    "With this disabled, registering 1 million blocks on a test system took 80 minutes\n" +
-                    "With this enabled, registering the same million blocks took 7 seconds")
+    @Config.Comment({"Improves the speed of the block registry by multiple orders of magnitudes.",
+                     "It's highly recommended to leave this enabled, especially when using a lot of IDs.",
+                     "With this disabled, registering 1 million blocks on a test system took 80 minutes",
+                     "With this enabled, registering 1 million blocks on the same system took 7 seconds"})
     @Config.DefaultBoolean(true)
     public static boolean enableRegistryPerformanceTweak;
-    @Config.Comment(
-            "Extends the maximum redstone signal strength.\n" + "Only has effect with extendBlockItem enabled.\n" +
-            "WARNING: THIS IS HERE ONLY FOR FUN, IT WILL DEFINITELY CORRUPT YOUR WORLD!")
+
+    @Config.Comment({"Extends the maximum redstone signal strength.",
+                     "Only has effect with extendBlockItem enabled.",
+                     "WARNING: THIS IS HERE ONLY FOR FUN, IT **WILL** CORRUPT YOUR SAVE IF ENABLED! YOU HAVE BEEN WARNED."})
     @Config.DefaultBoolean(false)
     public static boolean extendRedstone;
-    @Config.Comment("Increases the max signal strength of redstone.\n" +
-                    "Only has effect with both extendBlockItem and extendRedstone enabled.\n" + "Vanilla value is 15.")
+
+    @Config.Comment({"Increases the max signal strength of redstone.",
+                     "Only has effect with both extendBlockItem and extendRedstone enabled.",
+                     "Vanilla value is 15."})
     @Config.RangeInt(min = 15,
                      max = 127)
     @Config.DefaultInt(15)
     public static int maxRedstone;
-    @Config.Comment("Use this to tune the amount of available block IDs.\n" +
-                    "Minecraft contains some internal code that uses a HUGE amount of RAM with too many block IDs available.\n" +
-                    "Notice: This does not affect ITEM IDs.\n" +
-                    "The vanilla default is 4k block IDs, while the maximum is 16 million.\n" +
-                    "The default setting sets it to 4k (vanilla).\n" +
-                    "increase if necessary (when running out of BLOCK IDs in your modpack)\n" +
-                    "Only effective if extendBlockItem is enabled.\n" +
-                    "Effective values: (0: 4k, 1: 8k, 2: 16k, 3: 32k, 4: 64k, 5: 128k, 6: 256k, 7: 512k, 8: 1M, 9: 2M, 10: 4M, 11: 8M, 12: 16M)\n" +
-                    "The effective value of this variable must always be smaller or equal to the effective value of extraItemIDBits")
+
+    @Config.Comment({"Use this to tune the amount of available block IDs.",
+                     "Minecraft contains some internal code that uses a HUGE amount of RAM with too many block IDs available.",
+                     "Notice: This does not affect ITEM IDs.",
+                     "The vanilla default is 4k block IDs, while the maximum is 16 million.",
+                     "The default setting sets it to 4k (vanilla).",
+                     "increase if necessary (when running out of BLOCK IDs in your modpack)",
+                     "Only effective if extendBlockItem is enabled.",
+                     "Effective values: (0: 4k, 1: 8k, 2: 16k, 3: 32k, 4: 64k, 5: 128k, 6: 256k, 7: 512k, 8: 1M, 9: 2M, 10: 4M, 11: 8M, 12: 16M)",
+                     "The effective value of this variable must always be smaller or equal to the effective value of extraItemIDBits"})
     @Config.RangeInt(min = 0,
                      max = 12)
     @Config.DefaultInt(0)
     public static int extraBlockIDBits;
-    @Config.Comment("Use this to tune the amount of available item IDs.\n" +
-                    "The vanilla default is 32k item IDs, while the maximum is 16 million.\n" +
-                    "The default setting sets it to 32k (vanilla).\n" +
-                    "increase if necessary (when running out of ITEM IDs in your modpack)\n" +
-                    "Only effective if extendBlockItem is enabled.\n" +
-                    "Effective values: (0: 32k, 1: 64k, 2: 128k, 3: 256k, 4: 512k, 5: 1M, 6: 2M, 7: 4M, 8: 8M, 9: 16M)\n" +
-                    "The effective value of this variable must always be equal or larger than the effective value of extraBlockIDBits")
+
+    @Config.Comment({"Use this to tune the amount of available item IDs.",
+                     "Minecraft contains some internal code that uses a HUGE amount of RAM with too many block IDs available.",
+                     "The vanilla default is 32k item IDs, while the maximum is 16 million.",
+                     "The default setting sets it to 32k (vanilla).",
+                     "increase if necessary (when running out of ITEM IDs in your modpack)",
+                     "Only effective if extendBlockItem is enabled.",
+                     "Effective values: (0: 32k, 1: 64k, 2: 128k, 3: 256k, 4: 512k, 5: 1M, 6: 2M, 7: 4M, 8: 8M, 9: 16M)",
+                     "The effective value of this variable must always be equal or larger than the effective value of extraBlockIDBits"})
     @Config.RangeInt(min = 0,
                      max = 9)
     @Config.DefaultInt(0)
