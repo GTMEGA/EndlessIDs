@@ -37,6 +37,14 @@ register placeholder biomes at these offsets to avoid conflicts.
 This system has been disabled by default as it was causing weird biome registration problems, so if you want to use this
 mod, we HIGHLY recommend also installing `AntiIDConflict`.
 
+## Implementing extended metadatas
+
+The block/item ID extension module also extends block metadatas. This allows you to use 16-bit metadata, however, you MUST
+avoid the value of `32767`/`0x7FFF`/`0b0111_1111_1111_1111` for blocks that can be picked up as items, because forge treats
+metadata `32767` as the OreDictionary wildcard value.
+
+Using this specific metadata value in the world is fine if you convert it into item NBT or similar when the block is broken for pick-up.
+
 ## Mod compat
 
 This mod also contains patches for the following mods:
