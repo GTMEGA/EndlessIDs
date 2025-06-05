@@ -70,6 +70,7 @@ This mod also contains patches for the following mods:
 - Extra Utilities
 - Factorization
 - Futurepack
+- Gadomancy
 - GalactiCraft
 - Highlands
 - Immersive Cavegen

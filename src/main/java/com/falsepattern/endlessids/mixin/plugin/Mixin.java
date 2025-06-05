@@ -150,6 +150,9 @@ public enum Mixin implements IMixin {
     //region Futurepack
     FuturepackBiomeGenSpaceMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.FUTUREPACK)), "biome.futurepack.BiomeGenSpaceMixin"),
     //endregion Futurepack
+    //region Gadomancy
+    ChunkProviderTCOuterMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.GADOMANCY)), "biome.gadomancy.ChunkProviderTCOuterMixin"),
+    //endregion
     //region GalactiCraftCore
     GalactiCraftConfigManagerCoreMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.GALACTICRAFTCORE)), "biome.galacticraft.ConfigManagerCoreMixin"),
     //endregion GalactiCraftCore

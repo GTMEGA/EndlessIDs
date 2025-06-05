@@ -159,6 +159,9 @@ dependencies {
     //Futurepack v18.7
     compileOnly(deobfCurse("futurepack-237333:2263966"))
 
+    //Gadomancy 1.0.7.3
+    compileOnly(deobfCurse("gadomancy-237271:2338768"))
+
     //Galacticraft Core 3.0.12.504
     //micdoodle8.com went down
     compileOnly(deobf("mirror.micdoodle:GalacticraftCore:1.7-3.0.12.504"))

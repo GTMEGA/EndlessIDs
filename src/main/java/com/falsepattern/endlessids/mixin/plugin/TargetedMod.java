@@ -56,6 +56,7 @@ public enum TargetedMod implements ITargetedMod {
     EXTRAUTILITIES("Extra Utilities", false, contains("extrautilities-")),
     FACTORIZATION("Factorization", false, contains("factorization-")),
     FUTUREPACK("Futurepack", false, contains("futurepack")),
+    GADOMANCY("Gadomancy", false, contains("gadomancy-")),
     GALACTICRAFTCORE("GalactiCraftCore", false, contains("galacticraftcore")),
     GALAXYSPACE("GalaxySpace", false, contains("galaxyspace-")),
     HBM_NTM("Hbm's Nuclear Tech Mod", false, contains("hbm-ntm")),
