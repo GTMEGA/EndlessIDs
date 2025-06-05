@@ -27,16 +27,14 @@ import com.falsepattern.lib.config.Config;
 import com.falsepattern.lib.config.ConfigurationManager;
 
 @Config(modid = Tags.MODID)
+@Config.Comment({"WARNING: THIS CONFIG IS EXTREMELY SENSITIVE TO CHANGES, DISABLING STUFF ONCE THEY HAVE BEEN ENABLED",
+                "CAN CORRUPT YOUR WORLD! ONLY TOUCH THIS FILE IF YOU KNOW WHAT YOU'RE DOING!",
+                "This file should only be edited by modpack developers to fine-tune it for the modpack. Once an option",
+                "has been enabled, it modifies the chunk save data format, which is (partially) compatible with",
+                "vanilla, but removing the mod might cause block/item corruption for higher IDs.",
+                "Additional note: Every client and server must have the exact same config, this also affects netcode."})
 public class GeneralConfig {
-    @Config.Comment(
-            "WARNING: THIS CONFIG IS EXTREMELY SENSITIVE TO CHANGES, DISABLING STUFF ONCE THEY HAVE BEEN ENABLED\n" +
-            "CAN CORRUPT YOUR WORLD! ONLY TOUCH THIS FILE IF YOU KNOW WHAT YOU'RE DOING!\n" +
-            "This file should only be edited by modpack developers to finetune it for the modpack. Once an option\n" +
-            "has been enabled, it modifies the chunk save data format, which is (partially) compatible with\n" +
-            "vanilla, but removing the mod might cause block/item corruption for higher IDs.\n" +
-            "Additional note: Every client and server must have the exact same config, this also affects netcode.")
-    @Config.DefaultString("")
-    public static String __NOTICE__;
+
     @Config.Comment("Throw an exception when an invalid block is registered. FOR DEBUGGING PURPOSES")
     @Config.DefaultBoolean(false)
     public static boolean catchUnregisteredBlocks;
