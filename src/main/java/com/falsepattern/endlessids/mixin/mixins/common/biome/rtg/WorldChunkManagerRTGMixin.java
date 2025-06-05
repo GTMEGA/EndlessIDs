@@ -25,12 +25,28 @@ package com.falsepattern.endlessids.mixin.mixins.common.biome.rtg;
 import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.constants.VanillaConstants;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import rtg.world.biome.WorldChunkManagerRTG;
 
 @Mixin(WorldChunkManagerRTG.class)
 public abstract class WorldChunkManagerRTGMixin {
+    
+    @Shadow(remap = false)
+    private float[] borderNoise;
+
+    @Inject(method = "<init>()V",
+            at = @At(value = "RETURN"),
+            require = 1,
+            remap = false)
+    private void extendBorderNoise(CallbackInfo ci) {
+        this.borderNoise = new float[ExtendedConstants.biomeIDCount];
+    }
+    
     @ModifyConstant(method = "getRainfall",
                     constant = @Constant(intValue = VanillaConstants.biomeIDMask),
                     require = 2)
