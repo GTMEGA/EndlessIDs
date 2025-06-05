@@ -13,10 +13,10 @@ body:
     validations:
       required: true
   - type: input
-    id: modurl
+    id: dist
     attributes:
-      label: Other mod's homepage
-      description: A link to the main site where the other mod is hosted. Preferrably the original website of a mod, but a modrinth/curseforge/whatever page is also acceptable. Do not post a raw download link, those requests will be ignored.
+      label: Other mod's CurseForge/Modrinth/Homepage
+      description: Mods on curseforge/modrinth are the easiest to write compat for. A link to the main site where the other mod is hosted is also fine if it's not on these sites. Do not put just a direct download link here.
     validations:
       required: true
   - type: dropdown
@@ -24,24 +24,6 @@ body:
     attributes:
       label: Other mod's license
       description: What license does the other mod have? (Open source mods are easier to write compatibility patches for)
-      options:
-        - AGPLv3
-        - AGPLv2
-        - GPLv3
-        - GPLv2
-        - LGPLv3
-        - LGPLv2
-        - Apache 2.0
-        - Beerware
-        - BSD 3-Clause
-        - BSD 2-Clause
-        - EPL 2.0
-        - MIT
-        - MPL 2.0
-        - Unlicense
-        - WTFPL
-        - Other open source license (please specify in the description)
-        - All Rights Reserved
     validations:
       required: true
   - type: textarea
@@ -55,6 +37,6 @@ body:
     id: description
     attributes:
       label: Description
-      description: Describe any visual errors that appear, and attach screenshots of them. You can leave this empty if it's a crash without any visible stuff.
+      description: Describe how and when you experience this problem.
     validations:
-      required: false
+      required: true

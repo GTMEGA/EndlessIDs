@@ -8,10 +8,10 @@ body:
   - type: input
     id: modpack
     attributes:
-      label: Modpack (Optional)
-      description: If you used the mod in a modpack, you should include the pack's exact name and version here to make debugging easier.
+      label: Modpack
+      description: You should include the pack's exact name and version here to make debugging easier.
     validations:
-      required: false
+      required: true
   - type: textarea
     id: logs
     attributes:
@@ -25,4 +25,4 @@ body:
       label: Description
       description: Describe how and when you experience this bug.
     validations:
-      required: false
+      required: true
