@@ -48,6 +48,12 @@ public class EndlessIDsCore implements IFMLLoadingPlugin {
     public static boolean deobfuscated;
     public EndlessIDsCore() {
         super();
+        try {
+            if (Launch.classLoader.getClassBytes("ru.fewizz.neid.asm.Plugin") != null ||
+                Launch.classLoader.getClassBytes("com.gtnewhorizons.neid.asm.NEIDTransformer") != null) {
+                loudCrash("EndlessIDs replaces NotEnoughIDs! Please uninstall NotEnoughIDs!");
+            }
+        } catch (Exception ignored) {}
     }
 
     @SneakyThrows
@@ -66,6 +72,15 @@ public class EndlessIDsCore implements IFMLLoadingPlugin {
             exceptions.add("code.elix_x.coremods.antiidconflict.ByteCodeTester");
         }
         return new String[]{EndlessIDsTransformer.class.getName()};
+    }
+
+    private static void loudCrash(String message) {
+        for (int i = 0; i < 100; i++) {
+            EndlessIDsTransformer.logger.fatal(message);
+        }
+        val err = new Error(message);
+        err.setStackTrace(new StackTraceElement[0]);
+        throw err;
     }
 
     public String getModContainerClass() {
