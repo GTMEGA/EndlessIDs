@@ -226,6 +226,7 @@ public enum Mixin implements IMixin {
     //endregion TwilightForest
     //region Witchery
     WitcheryWorldChunkManagerMirrorMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.WITCHERY)), "biome.witchery.WorldChunkManagerMirrorMixin"),
+    WitcheryBrewActionBiomeChangeMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.WITCHERY)), "biome.witchery.BrewActionBiomeChangeMixin"),
     //endregion Witchery
     //endregion biome
     //region blockitem
