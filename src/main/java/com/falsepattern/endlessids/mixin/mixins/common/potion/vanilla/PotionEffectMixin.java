@@ -22,19 +22,48 @@
 
 package com.falsepattern.endlessids.mixin.mixins.common.potion.vanilla;
 
+import com.falsepattern.endlessids.EndlessIDs;
+import com.falsepattern.endlessids.constants.ExtendedConstants;
 import lombok.val;
+import lombok.var;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
-@Mixin(value = PotionEffect.class)
+@Mixin(value = PotionEffect.class,
+       priority = 2000 ) //Hodgepodge fixPotionLimit compat (inject-head into overwrite in readCustomPotionEffectFromNBT)
 public abstract class PotionEffectMixin {
+    @Inject(method = "<init>(IIIZ)V",
+            at = @At("RETURN"),
+            require = 1)
+    private void fixOutOfBoundsID(int p_i1576_1_, int p_i1576_2_, int p_i1576_3_, boolean p_i1576_4_, CallbackInfo ci) {
+        var id = p_i1576_1_ & ExtendedConstants.potionIDMask;
+        recovery:
+        if (id != p_i1576_1_ && Potion.potionTypes[id] == null) {
+            //Maybe vanilla code?
+            id = id & 0xFF;
+        }
+        if (Potion.potionTypes[id] == null) {
+            EndlessIDs.LOG.error("Encountered invalid potion ID: {}. See the following stacktrace for more info.", p_i1576_1_);
+            EndlessIDs.LOG.error("Stacktrace:", new Throwable());
+            EndlessIDs.LOG.error("Recovering to a valid potion ID (usually movement speed)");
+            for (int i = 0; i < Potion.potionTypes.length; i++) {
+                if (Potion.potionTypes[i] != null) {
+                    id = i;
+                    break;
+                }
+            }
+        }
+        this.potionID = id;
+    }
+
     @Inject(method = "readCustomPotionEffectFromNBT",
             at = @At(value = "HEAD"),
             cancellable = true,
@@ -44,7 +73,7 @@ public abstract class PotionEffectMixin {
         if (nbt.hasKey("IdExtended")) {
             id = nbt.getInteger("IdExtended");
         } else {
-            id = nbt.getByte("Id");
+            id = nbt.getByte("Id") & 0xFF;
         }
 
         if (id >= 0 && id < Potion.potionTypes.length && Potion.potionTypes[id] != null) {
@@ -68,6 +97,8 @@ public abstract class PotionEffectMixin {
 
     @Shadow
     public abstract boolean getIsAmbient();
+
+    @Shadow private int potionID;
 
     @Inject(method = "writeCustomPotionEffectToNBT",
             at = @At(value = "HEAD"),
