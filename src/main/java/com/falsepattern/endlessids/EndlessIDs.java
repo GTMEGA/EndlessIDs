@@ -42,8 +42,8 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
      version = Tags.VERSION,
      name = Tags.MODNAME,
      acceptedMinecraftVersions = "[1.7.10]",
-     dependencies = "required-after:chunkapi@[0.6.0,);" +
-                    "required-after:falsepatternlib@[1.5.5,);" +
+     dependencies = "required-after:chunkapi@[0.6.3,);" +
+                    "required-after:falsepatternlib@[1.7.0,);" +
                     "after:antiidconflict")
 public class EndlessIDs {
     public static final byte[] ZERO_LENGTH_BIOME_ARRAY_PLACEHOLDER = new byte[0];
