@@ -75,6 +75,7 @@ public enum TargetedMod implements ITargetedMod {
     RESTRUCTURED("Restructured", false, contains("restructured-")),
     RTG("Realistic Terrain Generation", false, contains("rtg-")),
     RWG("Realistic World Gen", false, contains("rwg-")),
+    TARDIS("TARDIS Mod", false, contains("tardismod-")),
     THAUMCRAFT("Thaumcraft", false, contains("thaumcraft")),
     THUTCORE("ThutCore", false, contains("thutcore-").or(contains("thutmods-"))),
     TMOR("The Mists Of RioV", false, contains("the mists of riov-").or(contains("the-mists-of-riov-"))),

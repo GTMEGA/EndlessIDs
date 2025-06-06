@@ -205,6 +205,9 @@ dependencies {
     //Restructured 1.0.4.2
     compileOnly(deobfCurse("restructured-230570:2276784"))
 
+    //TARDIS Mod 0.995
+    compileOnly(deobfCurse("tardismod-230170:2305503"))
+
     //Thaumcraft 4.2.3.5
     compileOnly(deobfCurse("thaumcraft-223628:2227552"))
 

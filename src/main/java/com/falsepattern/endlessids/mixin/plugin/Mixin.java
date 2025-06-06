@@ -209,6 +209,9 @@ public enum Mixin implements IMixin {
     RWGRealisticBiomeBaseMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.RWG)), "biome.rwg.RealisticBiomeBaseMixin"),
     RWGVillageMaterialsMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.RWG)), "biome.rwg.VillageMaterialsMixin"),
     //endregion RWG
+    //region TARDIS Mod
+    TardisChunkProviderMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.TARDIS)), "biome.tardismod.TardisChunkProviderMixin"),
+    //endregion
     //region Thaumcraft
     ThaumcraftUtilsMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.THAUMCRAFT)), "biome.thaumcraft.UtilsMixin"),
     //endregion Thaumcraft
