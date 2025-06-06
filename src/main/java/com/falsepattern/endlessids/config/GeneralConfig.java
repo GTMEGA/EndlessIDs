@@ -93,14 +93,14 @@ public class GeneralConfig {
                      "Minecraft contains some internal code that uses a HUGE amount of RAM with too many block IDs available.",
                      "Notice: This does not affect ITEM IDs.",
                      "The vanilla default is 4k block IDs, while the maximum is 16 million.",
-                     "The default setting sets it to 8k (2x vanilla).",
+                     "The default setting sets it to 32k (8x vanilla).",
                      "increase if necessary (when running out of BLOCK IDs in your modpack)",
                      "Only effective if extendBlockItem is enabled.",
                      "Effective values: (0: 4k, 1: 8k, 2: 16k, 3: 32k, 4: 64k, 5: 128k, 6: 256k, 7: 512k, 8: 1M, 9: 2M, 10: 4M, 11: 8M, 12: 16M)",
                      "The effective value of this variable must always be smaller or equal to the effective value of extraItemIDBits"})
     @Config.RangeInt(min = 0,
                      max = 12)
-    @Config.DefaultInt(1)
+    @Config.DefaultInt(3)
     public static int extraBlockIDBits;
 
     @Config.Comment({"Use this to tune the amount of available item IDs.",
