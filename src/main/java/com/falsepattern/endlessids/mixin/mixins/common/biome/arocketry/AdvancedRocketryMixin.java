@@ -22,28 +22,28 @@
 
 package com.falsepattern.endlessids.mixin.mixins.common.biome.arocketry;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import zmaster587.advancedRocketry.AdvancedRocketry;
 
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
+
 @Mixin(value = AdvancedRocketry.class,
        remap = false)
 public abstract class AdvancedRocketryMixin {
-    @ModifyConstant(method = "load",
-                    constant = {@Constant(intValue = 110, ordinal = 0),
-                                @Constant(intValue = 111, ordinal = 0),
-                                @Constant(intValue = 112, ordinal = 0),
-                                @Constant(intValue = 113, ordinal = 0),
-                                @Constant(intValue = 114, ordinal = 0),
-                                @Constant(intValue = 115, ordinal = 0),
-                                @Constant(intValue = 116, ordinal = 0),
-                                @Constant(intValue = 117, ordinal = 0),
-                                @Constant(intValue = 118, ordinal = 0),
-                                @Constant(intValue = 119, ordinal = 0)},
-                    require = 10)
-    private int shiftBiomeIDsUp(int constant) {
-        return constant + 9000;
+    @WrapOperation(method = "load",
+                   at = @At(value = "INVOKE",
+                            target = "Lnet/minecraftforge/common/config/Configuration;get(Ljava/lang/String;Ljava/lang/String;I)Lnet/minecraftforge/common/config/Property;"))
+    private Property shiftBiomeIDsUp(Configuration instance, String category, String key, int defaultValue, Operation<Property> original) {
+        if ("Biomes".equals(category)) {
+            defaultValue += 9000;
+        }
+        return original.call(instance, category, key, defaultValue);
     }
 
     @ModifyConstant(method = "preInit",
