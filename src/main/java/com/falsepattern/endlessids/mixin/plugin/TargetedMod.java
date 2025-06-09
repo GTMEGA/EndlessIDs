@@ -38,6 +38,7 @@ public enum TargetedMod implements ITargetedMod {
     AM2("Ars Magica 2", false, contains("am2").or(contains("arsmagica2"))),
     ANTIQUEATLAS("Antique Atlas", false, contains("antiqueatlas")),
     ANTIIDCONFLICT("Anti ID Conflict", false, contains("antiidconflict")),
+    BLOCKPHYSICS("Block Physics", false, contains("blockphysics-")),
     BOP("Biomes O' Plenty", false, contains("biomesoplenty-")),
     BIOMETWEAKER("Biome Tweaker", false, contains("biometweaker-")),
     BIOMEWAND("Biome Wand", false, contains("biome-wand")),

@@ -112,6 +112,9 @@ dependencies {
     //Source: https://spacechase0.com/wp-content/uploads/2014/10/1.7.10-Biome-Wand-1.1.9.jar
     compileOnly(deobf("mirror:1.7.10-Biome-Wand:1.1.9"))
 
+    //Block Physics 0.9.5
+    compileOnly(deobfCurse("blockphysics-229921:2259034"))
+
     //Buildcraft 7.1.24
     compileOnly(deobfCurse("buildcraft-61811:3538651"))
 

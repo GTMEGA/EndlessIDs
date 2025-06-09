@@ -61,6 +61,7 @@ This mod also contains patches for the following mods:
 - Atum
 - Biomes O' Plenty
 - Biome Wand
+- BlockPhysics
 - BuildCraft
 - ChromatiCraft
 - Climate Control

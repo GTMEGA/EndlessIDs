@@ -39,6 +39,7 @@ import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.ANTIQUEATLAS;
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.ATG;
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.BIOMETWEAKER;
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.BIOMEWAND;
+import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.BLOCKPHYSICS;
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.BOP;
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.BUILDCRAFT;
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.CLIMATECONTROL;
@@ -263,6 +264,8 @@ public class Mixin {
         blockitem_vanilla_S24PacketBlockActionMixin(EXT_BLOCK_ITEM),
         blockitem_vanilla_StatListMixin(EXT_BLOCK_ITEM),
         blockitem_vanilla_WorldMixin(EXT_BLOCK_ITEM),
+
+        blockitem_blockphysics_DefinitionMapsMixin(EXT_BLOCK_ITEM, require(BLOCKPHYSICS)),
 
         blockitem_cofhlib_BlockHelperMixin(EXT_BLOCK_ITEM, require(COFHLIB)),
 
