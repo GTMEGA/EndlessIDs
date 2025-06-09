@@ -55,6 +55,7 @@ public enum TargetedMod implements ITargetedMod {
     EXTRAPLANETS("Extra Planets", false, contains("extraplanets-")),
     EXTRAUTILITIES("Extra Utilities", false, contains("extrautilities-")),
     FACTORIZATION("Factorization", false, contains("factorization-")),
+    FASTCRAFT("Fastcraft", false, contains("fastcraft-")),
     FUTUREPACK("Futurepack", false, contains("futurepack")),
     GADOMANCY("Gadomancy", false, contains("gadomancy-")),
     GALACTICRAFTCORE("GalactiCraftCore", false, contains("galacticraftcore")),

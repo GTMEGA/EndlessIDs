@@ -77,6 +77,7 @@ This mod also contains patches for the following mods:
 - Extra Planets
 - Extra Utilities
 - Factorization
+- FastCraft
 - Futurepack
 - Gadomancy
 - GalactiCraft

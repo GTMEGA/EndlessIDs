@@ -24,6 +24,7 @@ package com.falsepattern.endlessids.asm;
 
 import com.falsepattern.endlessids.Tags;
 import com.falsepattern.endlessids.config.GeneralConfig;
+import com.falsepattern.endlessids.util.ConfigFixUtil;
 import lombok.SneakyThrows;
 import lombok.val;
 
@@ -32,6 +33,7 @@ import net.minecraft.launchwrapper.LaunchClassLoader;
 import cpw.mods.fml.relauncher.FMLInjectionData;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 
@@ -46,6 +48,17 @@ import static cpw.mods.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
 @DependsOn("falsepatternlib")
 public class EndlessIDsCore implements IFMLLoadingPlugin {
     public static boolean deobfuscated;
+    static {
+        if (GeneralConfig.extendBlockItem) {
+            try {
+                if (Launch.classLoader.getClassBytes("fastcraft.Tweaker") != null) {
+                    FCCompat.patchConfig();
+                }
+            } catch (Exception ignored) {
+            }
+        }
+    }
+
     public EndlessIDsCore() {
         super();
         try {

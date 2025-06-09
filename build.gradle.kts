@@ -156,6 +156,9 @@ dependencies {
     //Factorization 0.8.109
     compileOnly(deobfModrinth("factorization:0.8.109"))
 
+    //Fastcraft 1.23
+    compileOnly("curse.maven:fastcraft-242677:2292386")
+
     //Futurepack v18.7
     compileOnly(deobfCurse("futurepack-237333:2263966"))
 

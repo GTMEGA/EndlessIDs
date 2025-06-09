@@ -54,6 +54,7 @@ import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.EXTENDEDPLANE
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.EXTRAPLANETS;
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.EXTRAUTILITIES;
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.FACTORIZATION;
+import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.FASTCRAFT;
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.FUTUREPACK;
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.GADOMANCY;
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.GALACTICRAFTCORE;
@@ -353,6 +354,8 @@ public class Mixin {
         blockitem_vanilla_NetHandlerPlayClientMixin(EXT_BLOCK_ITEM),
         blockitem_vanilla_PlayerControllerMPMixin(EXT_BLOCK_ITEM),
         blockitem_vanilla_RenderGlobalMixin(EXT_BLOCK_ITEM),
+
+        blockitem_fastcraft_EntityRendererMixin(EXT_BLOCK_ITEM, require(FASTCRAFT)),
         //endregion
 
         //region potion
