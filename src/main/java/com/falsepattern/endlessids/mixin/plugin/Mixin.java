@@ -171,6 +171,10 @@ public enum Mixin implements IMixin {
     //region Industrial Revolution by Redstone Rebooted
     IR3IR2Mixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.IR3)), "biome.ir3.IR2Mixin"),
     //endregion Industrial Revolution by Redstone Rebooted
+    //region Just Another Spawner
+    LegacyCreatureTypeMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.JAS)), "biome.jas.LegacyCreatureTypeMixin"),
+    ModernCreatureTypeMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.JAS)), "biome.jas.ModernCreatureTypeMixin"),
+    //endregion
     //region LOTR
     LOTRBiomeVariantStorageMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.LOTR)), "biome.lotr.LOTRBiomeVariantStorageMixin"),
     LOTRChunkProviderMixin(Side.COMMON, condition(() -> GeneralConfig.extendBiome).and(require(TargetedMod.LOTR)), "biome.lotr.LOTRChunkProviderMixin"),

@@ -175,6 +175,9 @@ dependencies {
     //Industrial Revolution by Redstone Rebooted 1.1.1
     compileOnly(deobfCurse("industrialrevolutionbyredstonerebooted-241812:2538035"))
 
+    //Just Another Spawner 0.17.9
+    compileOnly(deobfCurse("justanotherspawner-228952:2380961"))
+
     //LOTR Mod 36.15
     compileOnly(deobfCurse("lotrmod-423748:4091561"))
 

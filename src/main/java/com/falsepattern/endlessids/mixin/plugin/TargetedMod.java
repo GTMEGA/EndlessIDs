@@ -63,6 +63,7 @@ public enum TargetedMod implements ITargetedMod {
     HIGHLANDS("Highlands", false, contains("highlands")),
     ICG("Immersive Cavegen", false, contains("immersivecavegen")),
     IR3("Industrial Revolution by Redstone Rebooted", false, contains("industrialrevolutionbyredstonerebooted-")),
+    JAS("Just Another Spawner", false, contains("justanotherspawner-")),
     LOTR("LOTR Mod", false, contains("lotrmod")),
     MATTEROVERDRIVE("Matter Overdrive", false, contains("matteroverdrive-")),
     MATTERMEGADRIVE("Matter Megadrive", false, contains("mattermegadrive-")),

@@ -83,6 +83,7 @@ This mod also contains patches for the following mods:
 - Highlands
 - Immersive Cavegen
 - Industrial Revolution by Redstone Rebooted
+- Just Another Spawner
 - Matter Overdrive
 - More Fun Quicksand Mod
 - Nature's Compass
