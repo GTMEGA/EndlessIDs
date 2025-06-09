@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 
 @Mixin(ChunkRadiationHandlerPRISM.SubChunk.class)
-public abstract class ChunkRadiationHandlerPRISM_SubChunkMixin {
+public abstract class ChunkRadiationHandlerPRISMSubChunkMixin {
     @Redirect(method = "rebuild",
               at = @At(value = "INVOKE",
                        target = "Lnet/minecraft/world/chunk/storage/ExtendedBlockStorage;getBlockLSBArray()[B"),

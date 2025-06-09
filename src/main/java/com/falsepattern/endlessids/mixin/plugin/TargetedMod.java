@@ -93,4 +93,10 @@ public enum TargetedMod implements ITargetedMod {
     private final boolean loadInDevelopment;
     @Getter
     private final Predicate<String> condition;
+
+
+    @Override
+    public String toString() {
+        return modName;
+    }
 }
