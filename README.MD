@@ -96,6 +96,7 @@ This mod also contains patches for the following mods:
 - Restructured
 - Realistic Terrain Generation
 - Realistic World Generation
+- Ruins
 - Thaumcraft
 - The Lord of the Rings Mod: Legacy
 - The Mists of RioV

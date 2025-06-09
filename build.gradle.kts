@@ -211,6 +211,9 @@ dependencies {
     //Restructured 1.0.4.2
     compileOnly(deobfCurse("restructured-230570:2276784"))
 
+    //Ruins (AtomicStryker) 15.4 nbtfix
+    compileOnly(deobf("mirror:Ruins:1.7.10"))
+
     //TARDIS Mod 0.995
     compileOnly(deobfCurse("tardismod-230170:2305503"))
 

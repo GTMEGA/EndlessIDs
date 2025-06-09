@@ -75,6 +75,7 @@ import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.OWG;
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.RANDOMTHINGS;
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.RESTRUCTURED;
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.RTG;
+import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.RUINS;
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.RWG;
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.TARDIS;
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.THAUMCRAFT;
@@ -225,6 +226,10 @@ public class Mixin {
         biome_rtg_ChunkProviderRTGMixin(EXT_BIOME, require(RTG)),
         biome_rtg_LandscapeGeneratorMixin(EXT_BIOME, require(RTG)),
         biome_rtg_WorldChunkManagerRTGMixin(EXT_BIOME, require(RTG)),
+
+        biome_ruins_FileHandlerMixin(EXT_BIOME, require(RUINS)),
+        biome_ruins_LoaderThreadMixin(EXT_BIOME, require(RUINS)),
+        biome_ruins_RuinGeneratorMixin(EXT_BIOME, require(RUINS)),
 
         biome_rwg_ChunkGeneratorRealisticMixin(EXT_BIOME, require(RWG)),
         biome_rwg_RealisticBiomeBaseMixin(EXT_BIOME, require(RWG)),

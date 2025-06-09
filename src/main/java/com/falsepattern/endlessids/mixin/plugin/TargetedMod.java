@@ -74,6 +74,7 @@ public enum TargetedMod implements ITargetedMod {
     NOMADICTENTS("Nomadic Tents", false, contains("nomadictents")),
     OWG("Nostalgic world generation", false, contains("owg-").or(contains("nostalgiagenerator-"))),
     RANDOMTHINGS("Random Things", false, contains("randomthings-")),
+    RUINS("Ruins", false, contains("ruins-")),
     RESTRUCTURED("Restructured", false, contains("restructured-")),
     RTG("Realistic Terrain Generation", false, contains("rtg-")),
     RWG("Realistic World Gen", false, contains("rwg-")),
