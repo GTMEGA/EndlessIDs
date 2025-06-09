@@ -59,7 +59,8 @@ public abstract class BrewActionBiomeChangeMixin {
 
     @Redirect(method = "changeBiome",
               at = @At(value = "INVOKE",
-                       target = "Lnet/minecraft/world/chunk/Chunk;setBiomeArray([B)V"),
+                       target = "Lnet/minecraft/world/chunk/Chunk;setBiomeArray([B)V",
+                       remap = true),
               remap = false,
               require = 1)
     private void extendedSetBiomeArray(Chunk instance, byte[] ignored, @Share("biomeArray") LocalRef<short[]> biome) {
