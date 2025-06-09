@@ -67,6 +67,7 @@ public enum TargetedMod implements ITargetedMod {
     LOTR("LOTR Mod", false, contains("lotrmod")),
     MATTEROVERDRIVE("Matter Overdrive", false, contains("matteroverdrive-")),
     MATTERMEGADRIVE("Matter Megadrive", false, contains("mattermegadrive-")),
+    MYSTCRAFT("Mystcraft", false, contains("mystcraft-")),
     MFQM("More Fun Quicksand Mod", false, contains("morefunquicksandmod-")),
     NATURESCOMPASS("Nature's Compass", false, contains("naturescompass")),
     NETHERLICIOUS("Netherlicious", false, contains("netherlicious-")),

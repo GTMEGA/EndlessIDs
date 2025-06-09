@@ -67,6 +67,7 @@ import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.LOTR;
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.MATTERMEGADRIVE;
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.MATTEROVERDRIVE;
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.MFQM;
+import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.MYSTCRAFT;
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.NATURESCOMPASS;
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.NETHERLICIOUS;
 import static com.falsepattern.endlessids.mixin.plugin.TargetedMod.NOMADICTENTS;
@@ -206,6 +207,8 @@ public class Mixin {
         biome_lotr_LOTRPacketBiomeVariantsWatchHandlerMixin(EXT_BIOME, require(LOTR)),
         biome_lotr_LOTRWorldChunkManagerMixin(EXT_BIOME, require(LOTR)),
         biome_lotr_LOTRWorldProviderMixin(EXT_BIOME, require(LOTR)),
+
+        biome_mystcraft_BiomeReplacerMixin(EXT_BIOME, require(MYSTCRAFT)),
 
         biome_naturescompass_BiomeUtilsMixin(EXT_BIOME, require(NATURESCOMPASS)),
 

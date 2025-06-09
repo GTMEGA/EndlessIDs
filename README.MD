@@ -86,6 +86,7 @@ This mod also contains patches for the following mods:
 - Just Another Spawner
 - Matter Overdrive
 - More Fun Quicksand Mod
+- Mystcraft
 - Nature's Compass
 - Netherlicious
 - Nomadic Tents

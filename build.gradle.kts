@@ -187,6 +187,9 @@ dependencies {
     //More Fun Quicksands Mod 1.0.8.8-fixed
     compileOnly(deobfCurse("more-fun-quicksand-mod-321960:2717318"))
 
+    //Mystcraft 0.12.3.04
+    compileOnly(deobfCurse("mystcraft-224599:2417042"))
+
     //Nature's Compass 1.3.1
     compileOnly(deobfCurse("naturescompass-252848:2451823"))
 
