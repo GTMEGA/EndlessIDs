@@ -251,6 +251,8 @@ public class Mixin {
 
         biome_witchery_WorldChunkManagerMirrorMixin(EXT_BIOME, require(WITCHERY)),
         biome_witchery_BrewActionBiomeChangeMixin(EXT_BIOME, require(WITCHERY)),
+
+        biome_worldedit_ForgeWorldMixin(EXT_BIOME, require(WORLDEDIT)),
         //endregion
 
         //region blockitem
