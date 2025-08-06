@@ -37,13 +37,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 @Mixin(ForgeWorld.class)
 public abstract class ForgeWorldMixin {
-    @Shadow public abstract World getWorld();
+    @Shadow(remap = false) public abstract World getWorld();
 
     /**
      * @author FalsePattern
      * @reason ID Extension
      */
-    @Overwrite
+    @Overwrite(remap = false)
     public boolean setBiome(Vector2D position, BaseBiome biome) {
         checkNotNull(position);
         checkNotNull(biome);
