@@ -24,23 +24,66 @@ package com.falsepattern.endlessids.mixin.mixins.common.entity.vanilla;
 
 import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.constants.VanillaConstants;
+import com.falsepattern.endlessids.mixin.helpers.EntityRegistryAccessor;
+import lombok.val;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
+import cpw.mods.fml.common.registry.EntityRegistry;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Mixin(EntityList.class)
 public abstract class EntityListMixin {
+    @Shadow
+    public static Map<Integer, Class<? extends Entity>> IDtoClassMapping;
+
+    @Inject(method = "<clinit>",
+            at = @At(value = "RETURN"),
+            require = 1)
+    private static void hijackMap(CallbackInfo ci) {
+        IDtoClassMapping = new HashMap<Integer, Class<? extends Entity>>(IDtoClassMapping) {
+            @Override
+            public Class<? extends Entity> put(Integer key, Class<? extends Entity> value) {
+                val availableIndicies = ((EntityRegistryAccessor) EntityRegistry.instance()).eids$availableIndicies();
+                availableIndicies.clear(key);
+                return super.put(key, value);
+            }
+
+            @Override
+            public void putAll(Map<? extends Integer, ? extends Class<? extends Entity>> m) {
+                val availableIndicies = ((EntityRegistryAccessor) EntityRegistry.instance()).eids$availableIndicies();
+                for (val entry : m.entrySet()) {
+                    availableIndicies.clear(entry.getKey());
+                }
+                super.putAll(m);
+            }
+        };
+    }
 
     @ModifyConstant(method = "addMapping(Ljava/lang/Class;Ljava/lang/String;I)V",
                     constant = @Constant(intValue = VanillaConstants.maxEntityID),
                     require = 1)
     private static int extendRange(int constant) {
         return ExtendedConstants.maxEntityID;
+    }
+
+    @Inject(method = "addMapping(Ljava/lang/Class;Ljava/lang/String;I)V",
+            at = @At(value = "INVOKE",
+                     target = "Ljava/util/Map;put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
+                     ordinal = 0),
+            require = 1)
+    private static void updateForgeIDMap(Class<? extends Entity> entityClass, String entityName, int id, CallbackInfo ci) {
+        val availableIndicies = ((EntityRegistryAccessor) EntityRegistry.instance()).eids$availableIndicies();
+        availableIndicies.clear(id);
     }
 }

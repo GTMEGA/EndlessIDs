@@ -24,6 +24,8 @@ package com.falsepattern.endlessids.mixin.mixins.common.entity.vanilla;
 
 import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.constants.VanillaConstants;
+import com.falsepattern.endlessids.mixin.helpers.EntityRegistryAccessor;
+import lombok.val;
 import org.apache.logging.log4j.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -31,6 +33,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
+import net.minecraft.entity.EntityList;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.EntityRegistry;
@@ -39,8 +42,13 @@ import java.util.BitSet;
 
 @Mixin(value = EntityRegistry.class,
        remap = false)
-public abstract class EntityRegistryMixin {
+public abstract class EntityRegistryMixin implements EntityRegistryAccessor {
     @Shadow private BitSet availableIndicies;
+
+    @Override
+    public BitSet eids$availableIndicies() {
+        return availableIndicies;
+    }
 
     @ModifyConstant(method = "<init>",
                     constant = @Constant(intValue = VanillaConstants.entityIDCount),
@@ -62,6 +70,10 @@ public abstract class EntityRegistryMixin {
      */
     @Overwrite
     private int validateAndClaimId(int id) {
+        //Refresh available indices
+        for (val key: EntityList.IDtoClassMapping.keySet()) {
+            availableIndicies.clear(key);
+        }
         //Keeping the legacy sub-0 id workaround here...
 
         // workaround for broken ML
