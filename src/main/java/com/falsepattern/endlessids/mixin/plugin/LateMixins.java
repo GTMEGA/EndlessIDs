@@ -4,7 +4,7 @@
  * Copyright (C) 2022-2025 FalsePattern, The MEGA Team
  * All Rights Reserved
  *
- * The above copyright notice, this permission notice and the words "MEGA"
+ * The above copyright notice, this permission notice and the word "MEGA"
  * shall be included in all copies or substantial portions of the Software.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -22,31 +22,24 @@
 
 package com.falsepattern.endlessids.mixin.plugin;
 
-import com.falsepattern.endlessids.Tags;
-import com.falsepattern.lib.mixin.IMixin;
-import com.falsepattern.lib.mixin.IMixinPlugin;
-import com.falsepattern.lib.mixin.ITargetedMod;
-import lombok.Getter;
-import org.apache.logging.log4j.Logger;
+import com.gtnewhorizon.gtnhmixins.ILateMixinLoader;
+import com.gtnewhorizon.gtnhmixins.LateMixin;
+import com.gtnewhorizon.gtnhmixins.builders.IMixins;
+import org.jetbrains.annotations.NotNull;
 
-public class MixinPlugin implements IMixinPlugin {
-    public static final Logger LOG = IMixinPlugin.createLogger(Tags.MODNAME);
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
-    @Getter
-    private final Logger logger = LOG;
-
+@LateMixin
+public class LateMixins implements ILateMixinLoader {
     @Override
-    public IMixin[] getMixinEnumValues() {
-        return Mixin.values();
+    public String getMixinConfig() {
+        return "mixins.endlessids.late.json";
     }
 
     @Override
-    public ITargetedMod[] getTargetedModEnumValues() {
-        return TargetedMod.values();
-    }
-
-    @Override
-    public boolean useNewFindJar() {
-        return true;
+    public @NotNull List<String> getMixins(Set<String> loadedMods) {
+        return IMixins.getLateMixins(Mixin.class, loadedMods);
     }
 }

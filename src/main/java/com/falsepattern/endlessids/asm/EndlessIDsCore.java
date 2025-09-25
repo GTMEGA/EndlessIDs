@@ -24,7 +24,9 @@ package com.falsepattern.endlessids.asm;
 
 import com.falsepattern.endlessids.Tags;
 import com.falsepattern.endlessids.config.GeneralConfig;
-import com.falsepattern.endlessids.util.ConfigFixUtil;
+import com.falsepattern.endlessids.mixin.plugin.Mixin;
+import com.gtnewhorizon.gtnhmixins.IEarlyMixinLoader;
+import com.gtnewhorizon.gtnhmixins.builders.IMixins;
 import lombok.SneakyThrows;
 import lombok.val;
 
@@ -33,7 +35,7 @@ import net.minecraft.launchwrapper.LaunchClassLoader;
 import cpw.mods.fml.relauncher.FMLInjectionData;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 
-import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -46,7 +48,7 @@ import static cpw.mods.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
 @Name(Tags.MODID + "_core")
 @TransformerExclusions({"com.falsepattern.endlessids.asm", "com.falsepattern.endlessids.config.GeneralConfig"})
 @DependsOn("falsepatternlib")
-public class EndlessIDsCore implements IFMLLoadingPlugin {
+public class EndlessIDsCore implements IFMLLoadingPlugin, IEarlyMixinLoader {
     public static boolean deobfuscated;
     static {
         if (GeneralConfig.extendBlockItem) {
@@ -124,5 +126,15 @@ public class EndlessIDsCore implements IFMLLoadingPlugin {
 
     public String getAccessTransformerClass() {
         return null;
+    }
+
+    @Override
+    public String getMixinConfig() {
+        return "mixins.endlessids.early.json";
+    }
+
+    @Override
+    public List<String> getMixins(Set<String> loadedCoreMods) {
+        return IMixins.getEarlyMixins(Mixin.class, loadedCoreMods);
     }
 }
