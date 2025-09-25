@@ -79,6 +79,9 @@ dependencies {
     //Hbm's Nuclear Tech Mod 1.0.27X5188
     compileOnly(deobfCurse("hbm-ntm-235439:6017897"))
 
+    //Salis Arcana 2.3.0
+    compileOnly(deobfCurse("salis-arcana-1162488:7016994"))
+
     // endregion
 
     // region unmaintained mods

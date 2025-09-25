@@ -47,6 +47,7 @@ public enum TargetMod implements ITargetMod {
     GalaxySpace("galaxyspace.GalaxySpace"),
     LordOfTheRings("lotr.common.LOTRMod"),
     RandomThings("lumien.randomthings.RandomThings"),
+    SalisArcana("dev.rndmorris.salisarcana.SalisArcana"),
     //regular mods
     AbyssalCraft("com.shinoow.abyssalcraft.AbyssalCraft"),
     AlternateTerrainGeneration("ttftcuts.atg.ATG"),

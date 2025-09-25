@@ -48,7 +48,12 @@ public abstract class PotionEffectMixin {
         recovery:
         if (id != p_i1576_1_ && Potion.potionTypes[id] == null) {
             //Maybe vanilla code?
+            val realId = id;
             id = id & 0xFF;
+            if (Potion.potionTypes[id] == null) {
+                //Nope
+                id = realId;
+            }
         }
         if (Potion.potionTypes[id] == null) {
             EndlessIDs.LOG.error("Encountered invalid potion ID: {}. See the following stacktrace for more info.", p_i1576_1_);

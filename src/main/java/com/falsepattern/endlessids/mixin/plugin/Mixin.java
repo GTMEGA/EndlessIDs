@@ -83,6 +83,7 @@ import static com.falsepattern.endlessids.mixin.plugin.TargetMod.RealisticTerrai
 import static com.falsepattern.endlessids.mixin.plugin.TargetMod.RealisticWorldGen;
 import static com.falsepattern.endlessids.mixin.plugin.TargetMod.Restructured;
 import static com.falsepattern.endlessids.mixin.plugin.TargetMod.Ruins;
+import static com.falsepattern.endlessids.mixin.plugin.TargetMod.SalisArcana;
 import static com.falsepattern.endlessids.mixin.plugin.TargetMod.Tardis;
 import static com.falsepattern.endlessids.mixin.plugin.TargetMod.Thaumcraft;
 import static com.falsepattern.endlessids.mixin.plugin.TargetMod.TheMistsOfRioV;
@@ -94,6 +95,7 @@ import static com.falsepattern.endlessids.mixin.plugin.TargetMod.Witchery;
 import static com.falsepattern.endlessids.mixin.plugin.TargetMod.WorldEdit;
 import static com.falsepattern.lib.mixin.v2.MixinHelper.avoid;
 import static com.falsepattern.lib.mixin.v2.MixinHelper.builder;
+import static com.falsepattern.lib.mixin.v2.MixinHelper.mods;
 import static com.falsepattern.lib.mixin.v2.MixinHelper.require;
 
 @SuppressWarnings("UnstableApiUsage")
@@ -525,7 +527,7 @@ public enum Mixin implements IMixins {
 
     Potion_Thaumcraft(Phase.LATE,
                       Ext.Potion,
-                      require(Thaumcraft),
+                      mods(require(Thaumcraft), avoid(SalisArcana)),
                       common("potion.thaumcraft.ConfigMixin")),
 
     // endregion Potion
