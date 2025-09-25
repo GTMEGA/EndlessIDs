@@ -25,6 +25,7 @@ package com.falsepattern.endlessids.mixin.mixins.common.entity.vanilla;
 import com.falsepattern.endlessids.constants.ExtendedConstants;
 import com.falsepattern.endlessids.constants.VanillaConstants;
 import com.falsepattern.endlessids.mixin.helpers.EntityRegistryAccessor;
+import com.falsepattern.endlessids.util.RemappingEntityIDMap;
 import lombok.val;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -38,7 +39,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import cpw.mods.fml.common.registry.EntityRegistry;
 
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -51,23 +51,7 @@ public abstract class EntityListMixin {
             at = @At(value = "RETURN"),
             require = 1)
     private static void hijackMap(CallbackInfo ci) {
-        IDtoClassMapping = new HashMap<Integer, Class<? extends Entity>>(IDtoClassMapping) {
-            @Override
-            public Class<? extends Entity> put(Integer key, Class<? extends Entity> value) {
-                val availableIndicies = ((EntityRegistryAccessor) EntityRegistry.instance()).eids$availableIndicies();
-                availableIndicies.clear(key);
-                return super.put(key, value);
-            }
-
-            @Override
-            public void putAll(Map<? extends Integer, ? extends Class<? extends Entity>> m) {
-                val availableIndicies = ((EntityRegistryAccessor) EntityRegistry.instance()).eids$availableIndicies();
-                for (val entry : m.entrySet()) {
-                    availableIndicies.clear(entry.getKey());
-                }
-                super.putAll(m);
-            }
-        };
+        IDtoClassMapping = new RemappingEntityIDMap(IDtoClassMapping);
     }
 
     @ModifyConstant(method = "addMapping(Ljava/lang/Class;Ljava/lang/String;I)V",
