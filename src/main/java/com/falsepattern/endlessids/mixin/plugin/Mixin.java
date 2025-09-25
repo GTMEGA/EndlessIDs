@@ -425,8 +425,7 @@ public enum Mixin implements IMixins {
                              "blockitem.vanilla.S24PacketBlockActionMixin",
                              "blockitem.vanilla.StatListMixin",
                              "blockitem.vanilla.WorldMixin"),
-                      client("blockitem.vanilla.NetHandlerPlayClientMixin",
-                             "blockitem.vanilla.PlayerControllerMPMixin",
+                      client("blockitem.vanilla.PlayerControllerMPMixin",
                              "blockitem.vanilla.RenderGlobalMixin")),
 
     BlockItem_BlockPhysics(Phase.EARLY,
