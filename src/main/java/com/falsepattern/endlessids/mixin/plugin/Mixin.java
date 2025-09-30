@@ -119,8 +119,12 @@ public enum Mixin implements IMixins {
                   common("biome.vanilla.BiomeDictionaryMixin",
                          "biome.vanilla.BiomeGenBaseMixin",
                          "biome.vanilla.ChunkMixin",
-                         "biome.vanilla.GenLayerRiverMixMixin",
                          "biome.vanilla.GenLayerVoronoiZoomMixin")),
+
+    Biome_Vanilla_NoDragonAPI(Phase.EARLY,
+                              Ext.Biome,
+                              avoid(DragonAPI),
+                              common("biome.vanilla.GenLayerRiverMixMixin")),
 
     Biome_Vanilla_Placeholders(Phase.EARLY,
                                () -> GeneralConfig.extendBiome && GeneralConfig.biomeConflictAvoidancePlaceholders,
