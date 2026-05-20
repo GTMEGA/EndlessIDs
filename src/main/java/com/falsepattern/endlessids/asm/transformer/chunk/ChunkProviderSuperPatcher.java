@@ -25,6 +25,7 @@ package com.falsepattern.endlessids.asm.transformer.chunk;
 import com.falsepattern.endlessids.Tags;
 import com.falsepattern.endlessids.asm.EndlessIDsCore;
 import com.falsepattern.endlessids.asm.EndlessIDsTransformer;
+import com.falsepattern.lib.turboasm.BytePatternMatcher;
 import com.falsepattern.lib.turboasm.ClassNodeHandle;
 import com.falsepattern.lib.turboasm.TurboClassTransformer;
 import lombok.Data;
@@ -181,6 +182,9 @@ public class ChunkProviderSuperPatcher implements TurboClassTransformer {
     private static State<AbstractInsnNode> STATE17 = null;
     private static State<AbstractInsnNode> STATE_FINAL = null;
 
+    private static final BytePatternMatcher chunkClassMatcher;
+    private static final BytePatternMatcher getBiomeArrayMethodMatcher;
+
     static {
         if (EndlessIDsCore.deobfuscated) {
             CLASS_BiomeGenBase = new String[]{"net/minecraft/world/biome/BiomeGenBase"};
@@ -197,6 +201,9 @@ public class ChunkProviderSuperPatcher implements TurboClassTransformer {
             FIELD_biomeID = new String[]{"ay", "field_76756_M"};
             METHOD_getBiomeArray = new String[]{"m", "func_76605_m"};
         }
+
+        chunkClassMatcher = new BytePatternMatcher(CLASS_Chunk, BytePatternMatcher.Mode.Equals);
+        getBiomeArrayMethodMatcher = new BytePatternMatcher(METHOD_getBiomeArray, BytePatternMatcher.Mode.Equals);
     }
 
     static {
@@ -347,35 +354,6 @@ public class ChunkProviderSuperPatcher implements TurboClassTransformer {
         });
     }
 
-    private static boolean scanForBrokenCall(MethodNode method) {
-        val instructions = method.instructions;
-        val insnCount = instructions.size();
-        for (int i = 0; i < insnCount; i++) {
-            val insn = instructions.get(i);
-            if (insn.getOpcode() != Opcodes.INVOKEVIRTUAL) {
-                continue;
-            }
-            val invoke = (MethodInsnNode) insn;
-
-            if (anyMatch(invoke.owner, CLASS_Chunk) && anyMatch(invoke.name, METHOD_getBiomeArray) &&
-                invoke.desc.equals("()[B")) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static boolean anyMatch(List<String> str, String[] candidates) {
-        for (val s : str) {
-            for (val candidate : candidates) {
-                if (s.equals(candidate)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     private static boolean anyMatch(String str, String[] candidates) {
         for (val candidate : candidates) {
             if (str.equals(candidate)) {
@@ -456,17 +434,16 @@ public class ChunkProviderSuperPatcher implements TurboClassTransformer {
 
     @Override
     public boolean shouldTransformClass(@NotNull String className, @NotNull ClassNodeHandle classNode) {
-        if ("net.minecraft.world.chunk.storage.AnvilChunkLoader".equals(className))
+        if ("net.minecraft.world.chunk.storage.AnvilChunkLoader".equals(className)) {
             return false;
-        val cn = classNode.getNode();
-        if (cn == null)
-            return false;
-        for (MethodNode method : cn.methods) {
-            if (scanForBrokenCall(method)) {
-                return true;
-            }
         }
-        return false;
+
+        val metadata = classNode.getOriginalMetadata();
+        if (metadata == null) {
+            return false;
+        }
+
+        return metadata.matchesBytes(chunkClassMatcher) && metadata.matchesBytes(getBiomeArrayMethodMatcher);
     }
 
     @Override
