@@ -1,5 +1,5 @@
 plugins {
-    id("com.falsepattern.fpgradle-mc") version ("2.1.0")
+    id("com.falsepattern.fpgradle-mc") version ("4.0.2")
 }
 
 group = "com.falsepattern"
@@ -64,7 +64,7 @@ repositories {
 
 dependencies {
     // region Our deps
-    implementationSplit("com.falsepattern:falsepatternlib-mc1.7.10:1.9.0")
+    implementationSplit("com.falsepattern:falsepatternlib-mc1.7.10:1.12.0")
     compileOnly("it.unimi.dsi:fastutil:8.5.16")
     implementationSplit("com.falsepattern:chunkapi-mc1.7.10:0.8.0")
     // endregion
