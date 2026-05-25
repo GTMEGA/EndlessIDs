@@ -22,9 +22,9 @@
 
 package com.falsepattern.endlessids.asm.transformer.chunk;
 
+import com.falsepattern.endlessids.asm.Share;
 import com.falsepattern.endlessids.Tags;
 import com.falsepattern.endlessids.asm.EndlessIDsCore;
-import com.falsepattern.endlessids.asm.EndlessIDsTransformer;
 import com.falsepattern.lib.turboasm.BytePatternMatcher;
 import com.falsepattern.lib.turboasm.ClassNodeHandle;
 import com.falsepattern.lib.turboasm.TurboClassTransformer;
@@ -456,7 +456,7 @@ public class ChunkProviderSuperPatcher implements TurboClassTransformer {
             val memory = findTheTarget(method, cn);
             if (memory != null) {
                 patched = true;
-                EndlessIDsTransformer.logger.debug("[ChunkProvider patcher]: Match found in method " + method.name);
+                Share.logger.debug("[ChunkProvider patcher]: Match found in method {}", method.name);
                 val insnList = method.instructions;
                 for (val node : method.localVariables) {
                     if (node.desc.equals("[B") && node.index == memory.biomeArrayIndex) {
@@ -473,7 +473,7 @@ public class ChunkProviderSuperPatcher implements TurboClassTransformer {
             }
         }
         if (!patched) {
-            EndlessIDsTransformer.logger.debug("[ChunkProvider patcher]: No matches found in class! This is not explicitly " +
+            Share.logger.debug("[ChunkProvider patcher]: No matches found in class! This is not explicitly " +
                                                "an error, because the patch might be applied by a mixin instead!");
         }
         return patched;

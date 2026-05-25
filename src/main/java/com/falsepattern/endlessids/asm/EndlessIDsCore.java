@@ -80,18 +80,18 @@ public class EndlessIDsCore implements IFMLLoadingPlugin, IEarlyMixinLoader {
         @SuppressWarnings("unchecked")
         val exceptions = (Set<String>) field.get(cl);
         if (exceptions.contains("code.elix_x.coremods")) {
-            EndlessIDsTransformer.logger.info("AntiIDConflict detected!");
-            EndlessIDsTransformer.logger.info("Removing ASM protections so that we can fix its code.");
+            Share.logger.info("AntiIDConflict detected!");
+            Share.logger.info("Removing ASM protections so that we can fix its code.");
             exceptions.remove("code.elix_x.coremods");
             exceptions.add("code.elix_x.coremods.antiidconflict.core");
             exceptions.add("code.elix_x.coremods.antiidconflict.ByteCodeTester");
         }
-        return new String[]{EndlessIDsTransformer.class.getName()};
+        return new String[]{Tags.GROUPNAME + ".asm.EndlessIDsTransformer" };
     }
 
     private static void loudCrash(String message) {
         for (int i = 0; i < 100; i++) {
-            EndlessIDsTransformer.logger.fatal(message);
+            Share.logger.fatal(message);
         }
         val err = new Error(message);
         err.setStackTrace(new StackTraceElement[0]);

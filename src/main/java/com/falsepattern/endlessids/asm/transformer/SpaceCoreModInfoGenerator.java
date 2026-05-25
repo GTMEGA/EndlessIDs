@@ -24,7 +24,6 @@ package com.falsepattern.endlessids.asm.transformer;
 
 import com.falsepattern.endlessids.Tags;
 import com.falsepattern.endlessids.asm.EndlessIDsCore;
-import com.falsepattern.endlessids.asm.EndlessIDsTransformer;
 import com.falsepattern.lib.turboasm.ClassNodeHandle;
 import com.falsepattern.lib.turboasm.TurboClassTransformer;
 import lombok.val;

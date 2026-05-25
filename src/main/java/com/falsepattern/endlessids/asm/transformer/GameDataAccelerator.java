@@ -22,9 +22,9 @@
 
 package com.falsepattern.endlessids.asm.transformer;
 
+import com.falsepattern.endlessids.asm.Share;
 import com.falsepattern.endlessids.Tags;
 import com.falsepattern.endlessids.asm.AsmTransformException;
-import com.falsepattern.endlessids.asm.EndlessIDsTransformer;
 import com.falsepattern.endlessids.config.GeneralConfig;
 import com.falsepattern.lib.turboasm.ClassNodeHandle;
 import com.falsepattern.lib.turboasm.TurboClassTransformer;
@@ -64,7 +64,7 @@ public class GameDataAccelerator implements TurboClassTransformer {
     }
 
     private static void transformError(MethodNode method) {
-        EndlessIDsTransformer.logger.error("Could not add caching code to GameData." + method.name + method.desc);
+        Share.logger.error("Could not add caching code to GameData.{}{}", method.name, method.desc);
     }
 
     private void transformRegisterBlock(MethodNode method) {
