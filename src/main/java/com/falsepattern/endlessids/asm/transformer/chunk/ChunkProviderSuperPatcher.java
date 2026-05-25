@@ -45,7 +45,10 @@ import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
+import net.minecraft.launchwrapper.Launch;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.BiFunction;
@@ -186,22 +189,28 @@ public class ChunkProviderSuperPatcher implements TurboClassTransformer {
     private static final BytePatternMatcher getBiomeArrayMethodMatcher;
 
     static {
+        var chunk = new ArrayList<String>(4);
         if (EndlessIDsCore.deobfuscated) {
             CLASS_BiomeGenBase = new String[]{"net/minecraft/world/biome/BiomeGenBase"};
             CLASS_IChunkProvider = new String[]{"net/minecraft/world/chunk/IChunkProvider"};
             CLASS_ChunkProviderGenerate = new String[]{"net/minecraft/world/gen/ChunkProviderGenerate"};
-            CLASS_Chunk = new String[]{"net/minecraft/world/chunk/Chunk"};
+            chunk.add("net/minecraft/world/chunk/Chunk");
             FIELD_biomeID = new String[]{"biomeID"};
             METHOD_getBiomeArray = new String[]{"getBiomeArray"};
         } else {
             CLASS_BiomeGenBase = new String[]{"ahu", "net/minecraft/world/biome/BiomeGenBase"};
             CLASS_IChunkProvider = new String[]{"apu", "net/minecraft/world/chunk/IChunkProvider"};
             CLASS_ChunkProviderGenerate = new String[]{"aqz", "net/minecraft/world/gen/ChunkProviderGenerate"};
-            CLASS_Chunk = new String[]{"apx", "net/minecraft/world/chunk/Chunk"};
+            chunk.add("apx");
+            chunk.add("net/minecraft/world/chunk/Chunk");
             FIELD_biomeID = new String[]{"ay", "field_76756_M"};
             METHOD_getBiomeArray = new String[]{"m", "func_76605_m"};
         }
-
+        val chunkExtraSpool = Launch.blackboard.get("endlessids_spool_CLASS_Chunk_interop");
+        if (chunkExtraSpool instanceof String[]) {
+            chunk.addAll(Arrays.asList((String[]) chunkExtraSpool));
+        }
+        CLASS_Chunk = chunk.toArray(new String[0]);
         chunkClassMatcher = new BytePatternMatcher(CLASS_Chunk, BytePatternMatcher.Mode.Equals);
         getBiomeArrayMethodMatcher = new BytePatternMatcher(METHOD_getBiomeArray, BytePatternMatcher.Mode.Equals);
     }
